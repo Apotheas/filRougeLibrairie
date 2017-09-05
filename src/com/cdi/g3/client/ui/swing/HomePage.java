@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.cdi.g3.swing;
+package com.cdi.g3.ui.swing;
 
 /**
  *
@@ -34,7 +34,7 @@ public class HomePage extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         jTextField28 = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<String>();
         jButton22 = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -137,7 +137,7 @@ public class HomePage extends javax.swing.JFrame {
         jScrollPaneManageEvents = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabelSelectedEvent = new javax.swing.JLabel();
-        jComboBoxSelectedEvent = new javax.swing.JComboBox<>();
+        jComboBoxSelectedEvent = new javax.swing.JComboBox<String>();
         jLabel4 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
@@ -154,7 +154,7 @@ public class HomePage extends javax.swing.JFrame {
         jScrollPaneManageEvents1 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         jLabelSelectedEvent1 = new javax.swing.JLabel();
-        jComboBoxSelectedEvent1 = new javax.swing.JComboBox<>();
+        jComboBoxSelectedEvent1 = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
@@ -175,7 +175,7 @@ public class HomePage extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jTextField19 = new javax.swing.JTextField();
         jTextField20 = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
@@ -198,7 +198,7 @@ public class HomePage extends javax.swing.JFrame {
 
         jLabel32.setText("Order Status  :");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Shipped", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Shipped", "Item 2", "Item 3", "Item 4" }));
 
         jButton22.setText("Search");
 
@@ -756,63 +756,63 @@ public class HomePage extends javax.swing.JFrame {
 
         jLabel7.setText("Title  :");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(20, 80, 33, 16);
+        jLabel7.setBounds(20, 80, 30, 14);
 
         jLabel8.setText("Isbn  :");
         jPanel1.add(jLabel8);
-        jLabel8.setBounds(21, 40, 33, 16);
+        jLabel8.setBounds(21, 40, 31, 14);
 
         jLabel9.setText("Author  :");
         jPanel1.add(jLabel9);
-        jLabel9.setBounds(21, 120, 47, 16);
+        jLabel9.setBounds(21, 120, 43, 14);
 
         jLabel10.setText("Publisher  :");
         jPanel1.add(jLabel10);
-        jLabel10.setBounds(21, 162, 63, 16);
+        jLabel10.setBounds(21, 162, 53, 14);
 
         jLabel11.setText("Price  :");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(510, 220, 39, 30);
+        jLabel11.setBounds(510, 220, 33, 30);
 
         jLabel12.setText("Weight  :");
         jPanel1.add(jLabel12);
-        jLabel12.setBounds(20, 200, 50, 30);
+        jLabel12.setBounds(20, 200, 44, 30);
 
         jLabel13.setText("Size  :");
         jPanel1.add(jLabel13);
         jLabel13.setBounds(23, 240, 50, 30);
         jPanel1.add(jTextField10);
-        jTextField10.setBounds(100, 40, 166, 24);
+        jTextField10.setBounds(100, 40, 166, 20);
         jPanel1.add(jTextField13);
-        jTextField13.setBounds(570, 270, 60, 24);
+        jTextField13.setBounds(570, 270, 60, 20);
         jPanel1.add(jTextField14);
-        jTextField14.setBounds(100, 200, 60, 24);
+        jTextField14.setBounds(100, 200, 60, 20);
 
         jLabel14.setText("    Front Cover Picture ");
         jPanel1.add(jLabel14);
         jLabel14.setBounds(480, 20, 140, 180);
         jPanel1.add(jTextField12);
-        jTextField12.setBounds(100, 280, 166, 24);
+        jTextField12.setBounds(100, 280, 166, 20);
         jPanel1.add(jTextField11);
-        jTextField11.setBounds(100, 120, 166, 24);
+        jTextField11.setBounds(100, 120, 166, 20);
         jPanel1.add(jTextField15);
-        jTextField15.setBounds(100, 80, 166, 24);
+        jTextField15.setBounds(100, 80, 166, 20);
         jPanel1.add(jTextField16);
-        jTextField16.setBounds(100, 240, 60, 24);
+        jTextField16.setBounds(100, 240, 60, 20);
 
         jLabel15.setText("Stock  :");
         jPanel1.add(jLabel15);
-        jLabel15.setBounds(510, 260, 42, 40);
+        jLabel15.setBounds(510, 260, 36, 40);
         jPanel1.add(jTextField17);
-        jTextField17.setBounds(570, 220, 60, 24);
+        jTextField17.setBounds(570, 220, 60, 20);
 
         jToggleButton2.setText("Create");
         jPanel1.add(jToggleButton2);
-        jToggleButton2.setBounds(500, 420, 130, 32);
+        jToggleButton2.setBounds(500, 420, 130, 23);
 
         jLabel16.setText("Synopsis  :");
         jPanel1.add(jLabel16);
-        jLabel16.setBounds(20, 330, 61, 20);
+        jLabel16.setBounds(20, 330, 52, 20);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -825,7 +825,7 @@ public class HomePage extends javax.swing.JFrame {
         jPanel1.add(jLabel17);
         jLabel17.setBounds(20, 276, 70, 30);
         jPanel1.add(jTextField18);
-        jTextField18.setBounds(100, 160, 166, 24);
+        jTextField18.setBounds(100, 160, 166, 20);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Update"));
 
@@ -947,7 +947,7 @@ public class HomePage extends javax.swing.JFrame {
 
         jLabelSelectedEvent.setText("Selected Event  :");
 
-        jComboBoxSelectedEvent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Best Sellers", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSelectedEvent.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Best Sellers", "Item 2", "Item 3", "Item 4" }));
 
         jLabel4.setText(" Isbn/Title/Author/Cat  :");
 
@@ -1095,7 +1095,7 @@ public class HomePage extends javax.swing.JFrame {
 
         jLabelSelectedEvent1.setText("Selected Category :");
 
-        jComboBoxSelectedEvent1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Porn", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSelectedEvent1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Porn", "Item 2", "Item 3", "Item 4" }));
 
         jLabel6.setText(" Isbn/Title  :");
 
@@ -1273,7 +1273,7 @@ public class HomePage extends javax.swing.JFrame {
 
         jLabel21.setText("Profil type  :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Admin", "Item 2", "Item 3", "Item 4" }));
 
         jLabel22.setText("Password  :");
 
