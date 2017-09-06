@@ -9,12 +9,12 @@ package com.cdi.g3.client.ui.swing;
  *
  * @author Apotheas
  */
-public class Books extends javax.swing.JPanel {
+public class JPanelFromBooks extends javax.swing.JPanel {
 
     /**
      * Creates new form JPanelFromBooks
      */
-    public Books() {
+    public JPanelFromBooks() {
         initComponents();
     }
 
@@ -67,6 +67,8 @@ public class Books extends javax.swing.JPanel {
         jButton11 = new javax.swing.JButton();
         jToggleButton1 = new javax.swing.JToggleButton();
         jButton12 = new javax.swing.JButton();
+
+        setLayout(new java.awt.BorderLayout());
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Stock Finder", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
@@ -180,7 +182,7 @@ public class Books extends javax.swing.JPanel {
 
         jLabel11.setText("Price  :");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(510, 220, 39, 30);
+        jLabel11.setBounds(480, 220, 39, 30);
 
         jLabel12.setText("Weight  :");
         jPanel1.add(jLabel12);
@@ -192,7 +194,7 @@ public class Books extends javax.swing.JPanel {
         jPanel1.add(jTextField10);
         jTextField10.setBounds(100, 40, 166, 24);
         jPanel1.add(jTextField13);
-        jTextField13.setBounds(570, 270, 60, 24);
+        jTextField13.setBounds(540, 270, 60, 24);
         jPanel1.add(jTextField14);
         jTextField14.setBounds(100, 200, 60, 24);
 
@@ -210,13 +212,13 @@ public class Books extends javax.swing.JPanel {
 
         jLabel15.setText("Stock  :");
         jPanel1.add(jLabel15);
-        jLabel15.setBounds(510, 260, 42, 40);
+        jLabel15.setBounds(480, 260, 42, 40);
         jPanel1.add(jTextField17);
-        jTextField17.setBounds(570, 220, 60, 24);
+        jTextField17.setBounds(540, 220, 60, 24);
 
         jToggleButton2.setText("Create");
         jPanel1.add(jToggleButton2);
-        jToggleButton2.setBounds(500, 420, 130, 32);
+        jToggleButton2.setBounds(470, 420, 130, 32);
 
         jLabel16.setText("Synopsis  :");
         jPanel1.add(jLabel16);
@@ -300,26 +302,7 @@ public class Books extends javax.swing.JPanel {
 
         jTabbedPaneStock.addTab("Manage", jPanel3);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 820, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jTabbedPaneStock, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jTabbedPaneStock, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        add(jTabbedPaneStock, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

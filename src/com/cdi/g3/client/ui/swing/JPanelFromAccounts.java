@@ -9,12 +9,12 @@ package com.cdi.g3.client.ui.swing;
  *
  * @author Apotheas
  */
-public class Accounts extends javax.swing.JPanel {
+public class JPanelFromAccounts extends javax.swing.JPanel {
 
     /**
      * Creates new form Accounts
      */
-    public Accounts() {
+    public JPanelFromAccounts() {
         initComponents();
     }
 
@@ -105,7 +105,7 @@ public class Accounts extends javax.swing.JPanel {
                 .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jButton13)
                 .addGap(18, 18, 18)
                 .addComponent(jButton14)
@@ -210,7 +210,7 @@ public class Accounts extends javax.swing.JPanel {
             .addGroup(jPanelAccountsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
                     .addGroup(jPanelAccountsLayout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)

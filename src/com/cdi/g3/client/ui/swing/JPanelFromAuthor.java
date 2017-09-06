@@ -9,12 +9,12 @@ package com.cdi.g3.client.ui.swing;
  *
  * @author Apotheas
  */
-public class Author extends javax.swing.JPanel {
+public class JPanelFromAuthor extends javax.swing.JPanel {
 
     /**
      * Creates new form Author
      */
-    public Author() {
+    public JPanelFromAuthor() {
         initComponents();
     }
 

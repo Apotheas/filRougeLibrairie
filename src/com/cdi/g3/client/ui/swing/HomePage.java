@@ -16,12 +16,12 @@ public class HomePage extends javax.swing.JFrame {
      */
     public HomePage() {
         initComponents();
-        Orders panelOrders = new Orders();
-        Books panelBooks = new Books();
-        Accounts panelAccounts = new Accounts();
-        Events panelEvents = new Events();
-        Themes panelThemes = new Themes();
-        Author panelAuthors = new Author();
+        JPanelFromOrders panelOrders = new JPanelFromOrders();
+        JPanelFromBooks panelBooks = new JPanelFromBooks();
+        JPanelFromAccounts panelAccounts = new JPanelFromAccounts();
+        JPanelFromEvents panelEvents = new JPanelFromEvents();
+        JPanelFromThemes panelThemes = new JPanelFromThemes();
+        JPanelFromAuthor panelAuthors = new JPanelFromAuthor();
         
         jInternalFrameOrders.setContentPane(panelOrders);
         jInternalFrameBooks.setContentPane(panelBooks);
@@ -53,6 +53,18 @@ public class HomePage extends javax.swing.JFrame {
         jTabbedPaneHomePage.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Management System", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
 
         jInternalFrameOrders.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrameOrdersLayout = new javax.swing.GroupLayout(jInternalFrameOrders.getContentPane());
+        jInternalFrameOrders.getContentPane().setLayout(jInternalFrameOrdersLayout);
+        jInternalFrameOrdersLayout.setHorizontalGroup(
+            jInternalFrameOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 818, Short.MAX_VALUE)
+        );
+        jInternalFrameOrdersLayout.setVerticalGroup(
+            jInternalFrameOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 685, Short.MAX_VALUE)
+        );
+
         jTabbedPaneHomePage.addTab("Orders", jInternalFrameOrders);
 
         jInternalFrameBooks.setVisible(true);
@@ -65,7 +77,7 @@ public class HomePage extends javax.swing.JFrame {
         );
         jInternalFrameBooksLayout.setVerticalGroup(
             jInternalFrameBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 685, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("Books", jInternalFrameBooks);
@@ -80,7 +92,7 @@ public class HomePage extends javax.swing.JFrame {
         );
         jInternalFrameAccountsLayout.setVerticalGroup(
             jInternalFrameAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 685, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("Accounts", jInternalFrameAccounts);
@@ -95,7 +107,7 @@ public class HomePage extends javax.swing.JFrame {
         );
         jInternalFrameEventsLayout.setVerticalGroup(
             jInternalFrameEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 685, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("Events", jInternalFrameEvents);
@@ -110,7 +122,7 @@ public class HomePage extends javax.swing.JFrame {
         );
         jInternalFrameThemesLayout.setVerticalGroup(
             jInternalFrameThemesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 685, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("Themes", jInternalFrameThemes);
@@ -125,21 +137,12 @@ public class HomePage extends javax.swing.JFrame {
         );
         jInternalFrameAuthorsLayout.setVerticalGroup(
             jInternalFrameAuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 685, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("Authors", jInternalFrameAuthors);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPaneHomePage, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPaneHomePage, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        getContentPane().add(jTabbedPaneHomePage, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -169,6 +172,9 @@ public class HomePage extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(HomePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
