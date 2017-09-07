@@ -4,7 +4,7 @@
 /*==============================================================*/
 create table EDITOR 
 (
-   IDEDITOR             integer                        not null default (S_EDITOR.nextval),
+   IDEDITOR             integer                        not null ,
    NAMEEDITOR           char(50)                       not null,
    STATUSEDITOR         integer                        null,
    constraint PK_EDITOR primary key (IDEDITOR)
@@ -91,7 +91,7 @@ create table SUBTHEMEBOOK
    constraint PK_SUBTHEMEBOOK primary key clustered (IDSUBTHEMEBOOK)
 );
 /*==============================================================*/
-/* Table: EVENT                                                 */
+/* Table: OCCASION                                                 */
 /*==============================================================*/
 create table OCCASION 
 (
@@ -118,7 +118,7 @@ create table OCCASIONBOOK
 /*==============================================================*/
 create table EMPLOYERIGHT 
 (
-   IDEMPLOYERIGHT       integer                        not null default (S_EMPLOYERIGHT.nextval),
+   IDEMPLOYERIGHT       integer                        not null ,
    TYPEEMPLOYERIGHT     integer                        not null,
    constraint PK_EMPLOYERIGHT primary key (IDEMPLOYERIGHT)
 );
@@ -159,10 +159,10 @@ create table CUSTOMER
 /*==============================================================*/
 create table AUTHOR 
 (
-   IDAUTHOR             integer                        not null default (S_AUTHOR.nextval),
+   IDAUTHOR             integer                        not null,
    FIRSTNAMEAUTHOR      char(50)                       null,
    LASTNAMEAUTHOR       char(50)                       not null,
-   _BIOGRAPHY           char(250)                      null,
+   BIOGRAPHYAUTHOR           char(250)                      null,
    BIRTHDATEAUTHOR      date                           not null,
    DIEDATEAUTHOR        date                           null,
    COMMENTAUTHOR        varchar(250)                   null,
@@ -191,13 +191,13 @@ create table SHIPPER
 );
 
 /*==============================================================*/
-/* Table: STATUS                                                */
+/* Table: INFOSTATUS                                                */
 /*==============================================================*/
-create table INFSTATUS 
+create table INFOSTATUS 
 (
-   NAMESTATUS           varchar(50)                    not null,
-   VALUESTATUS          integer                        not null,
-   constraint PK_STATUS primary key (NAMESTATUS)
+   NAMEINFOSTATUS           varchar(50)                    not null,
+   VALUEINFOSTATUS         integer                        not null,
+   constraint PK_INFOSTATUS primary key (NAMEINFOSTATUS)
 );
 
 /*==============================================================*/
@@ -205,13 +205,13 @@ create table INFSTATUS
 /*==============================================================*/
 create table COMPANY 
 (
-   SIRET                varchar(14)                    not null,
+   SIRETCOMPANY                varchar(14)                    not null,
    NAMECOMPANY          varchar(50)                    not null,
    LOGOCOMPANY          varchar(100)                   not null,
    TELEPHONECOMPANY     varchar(12)                    null,
    FAXCOMPANY           varchar(12)                    null,
    MAILCOMPANY          varchar(30)                    null,
-   constraint PK_COMPANY primary key (SIRET)
+   constraint PK_COMPANY primary key (SIRETCOMPANY)
 );
 
 /*==============================================================*/
@@ -219,8 +219,8 @@ create table COMPANY
 /*==============================================================*/
 create table INFOCOMPANY 
 (
-   IDINFOCOMPANY        integer                        not null default (S_INFOCOMPANY.nextval),
-   SIRETINFOCOMPANY     varchar(14)                    not null,
+   IDINFOCOMPANY        integer                        not null ,
+   SIRETCOMPANY     varchar(14)                    not null,
    TYPEINFOCOMPANY      varchar(50)                    not null,
    DESCRIPTIONINFOCOMPANY varchar(250)                   not null,
    constraint PK_INFOCOMPANY primary key (IDINFOCOMPANY)
@@ -231,7 +231,7 @@ create table INFOCOMPANY
 /*==============================================================*/
 create table PACKAGESHIPPER 
 (
-   IDPACKAGESHIPPER     integer                        not null default (S_PACKAGESHIPPER.nextval),
+   IDPACKAGESHIPPER     integer                        not null ,
    NAMESHIPPER          varchar(50)                    not null,
    COSTPACKAGESHIPPER   float                          null,
    constraint PK_PACKAGESHIPPER primary key (IDPACKAGESHIPPER)
@@ -242,14 +242,14 @@ create table PACKAGESHIPPER
 /*==============================================================*/
 create table ADRESS 
 (
-   IDADRESS             integer                        not null default (S_ADRESS.nextval),
-   SIRETADRESS          varchar(14)                    not null,
+   IDADRESS             integer                        not null ,
+   SIRETCOMPANYADRESS          varchar(14)                    not null,
    LOGINCUSTOMERSHIPADRESS varchar(50)                 not null,
    LOGINCUSTOMERBILLADRESS varchar(50)                 not null,
    TYPESTREETADRESS     varchar(30)                    null,
    NUMADRESS            varchar(10)                    not null,
    NAMESTREETADRESS     varchar(50)                    not null,
-   NAMESTEET2ADRESS     long varchar                   null,
+   NAMESTEET2ADRESS     varchar                   null,
    ZIPCODEADRESS        varchar(5)                     not null,
    CITYADRESS           varchar(40)                    not null,
    COUNTRYADRESS        varchar(50)                    not null,
@@ -259,12 +259,12 @@ create table ADRESS
 );
 
 /*==============================================================*/
-/* Table: "ORDER"                                               */
+/* Table: "ORDERS"                                               */
 /*==============================================================*/
-create table "ORDER" 
+create table "ORDERS" 
 (
-   IDORDER              integer                        not null default (S_ORDER.nextval),
-   NAMESTATUSORDER      varchar(50)                    not null,
+   IDORDER              integer                        not null,
+   NAMEINFOSTATUSORDER      varchar(50)                    not null,
    IDADRESSSHIPPINGORDER integer                        not null,
    LOGINCUSTOMERORDER   varchar(50)                    not null,
    IDADRESSBILLINGORDER integer                        not null,
@@ -281,7 +281,7 @@ create table "ORDER"
 /*==============================================================*/
 create table ORDERLINE 
 (
-   IDORDERLINE          integer                        not null default (S_ORDERLINE.nextval),
+   IDORDERLINE          integer                        not null,
    IDAPPRECIATE         integer                        not null,
    NUMISBNBOOK          varchar(13)                    not null,
    IDORDER              integer                        not null,
@@ -297,7 +297,7 @@ create table ORDERLINE
 /*==============================================================*/
 create table APPRECIATION 
 (
-   IDAPPRECIATE         integer                        not null default (S_APPRECIATION.nextval),
+   IDAPPRECIATE         integer                        not null ,
    LOGINEMPLOYEAPPRECIATE varchar(50)                    not null,
    LOGINCUSTOMERAPPRECIATE varchar(50)                    not null,
    IDORDERLINEAPPRECIATE integer                        not null,
@@ -308,38 +308,3 @@ create table APPRECIATION
    IPAPPRECIATE         varchar(45)                    not null,
    constraint PK_APPRECIATION primary key (IDAPPRECIATE)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

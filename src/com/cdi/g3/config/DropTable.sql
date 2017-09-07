@@ -1,3 +1,21 @@
+ 
+/*==============================================================*/
+/* Table: ORDERLINE                                             */
+/*==============================================================*/
+
+ALTER TABLE ORDERLINE 
+DROP CONSTRAINT FK_ORDERLIN_PUT_ORDER 
+
+ALTER TABLE ORDERLINE 
+DROP CONSTRAINT FK_ORDERLIN_RECUPERAT_APPRECIA 
+
+ALTER TABLE ORDERLINE 
+DROP CONSTRAINT FK_ORDERLIN_REPRESENT_BOOK 
+
+
+
+
+
 /*==============================================================*/
 /* Table: APPRECIATION                                          */
 /*==============================================================*/
@@ -15,313 +33,270 @@ DROP CONSTRAINT FK_APPRECIA_MODERATE_EMPLOYE
 ALTER TABLE APPRECIATION 
 DROP CONSTRAINT FK_APPRECIA_RECUPERAT_ORDERLIN 
 
-drop index if exists APPRECIATION.MODERATE_FK;
 
-drop index if exists APPRECIATION.BEAPPRECIATE_FK;
-
-drop index if exists APPRECIATION.APPRECIATE_FK;
-
-drop index if exists APPRECIATION.RECUPERATE_FK;
-
-drop index if exists APPRECIATION.APPRECIATION_PK;
-
-drop table if exists APPRECIATION;
 
 
 /*==============================================================*/
-/* Table: ORDERLINE                                             */
+/* Table:    ORDERLINE   &&    APPRECIATION                     */
 /*==============================================================*/
-drop index if exists ORDERLINE.RECUPERATE2_FK;
 
-drop index if exists ORDERLINE.REPRESENT_FK;
+ALTER TABLE ORDERLINE
+DROP CONSTRAINT PK_ORDERLINE
 
-drop index if exists ORDERLINE.PUT_FK;
+drop table ORDERLINE;
 
-drop index if exists ORDERLINE.ORDERLINE_PK;
 
-drop table if exists ORDERLINE;
+
+ALTER TABLE APPRECIATION
+DROP CONSTRAINT PK_APPRECIATION
+
+drop table  APPRECIATION;
+
+
 
 
 /*==============================================================*/
 /* Table: "ORDER"                                               */
 /*==============================================================*/
-drop index if exists "ORDER".STATUATE_FK;
 
-drop index if exists "ORDER".PREPARED_FK;
+ALTER TABLE ORDERS 
+DROP CONSTRAINT FK_ORDER_STATUATE_INFOSTATUS 
 
-drop index if exists "ORDER".SHIP_FK;
+ALTER TABLE ORDERS 
+DROP CONSTRAINT FK_ORDER_SHIPPED_PACKAGES 
 
-drop index if exists "ORDER".BILL_FK;
+ALTER TABLE ORDERS 
+DROP CONSTRAINT FK_ORDER_SHIP_ADRESS 
 
-drop index if exists "ORDER".BUY_FK;
+ALTER TABLE ORDERS 
+DROP CONSTRAINT FK_ORDER_BUY_CUSTOMER 
 
-drop index if exists "ORDER".ORDER_PK;
+ALTER TABLE ORDERS 
+DROP CONSTRAINT FK_ORDER_BILL_ADRESS 
 
-drop table if exists "ORDER";
+ALTER TABLE ORDERS 
+DROP CONSTRAINT PK_ORDER 
+
+drop table "ORDERS";
 
 /*==============================================================*/
 /* Table: ADRESS                                                */
 /*==============================================================*/
-drop index if exists ADRESS.HAVE_FK;
+ALTER TABLE ADRESS  
+DROP CONSTRAINT FK_ADRESS_DEFAULTBI_CUSTOMER 
 
-drop index if exists ADRESS.DEFAULTBILL_FK;
+ALTER TABLE ADRESS  
+DROP CONSTRAINT FK_ADRESS_DEFAULTSH_CUSTOMER 
 
-drop index if exists ADRESS.DEFAULTSHIP_FK;
+ALTER TABLE ADRESS  
+DROP CONSTRAINT FK_ADRESS_HAVE_COMPANY 
 
-drop index if exists ADRESS.ADRESS_PK;
+ALTER TABLE ADRESS  
+DROP CONSTRAINT  PK_ADRESS
 
-drop table if exists ADRESS;
+drop table  ADRESS;
 
 /*==============================================================*/
 /* Table: PACKAGESHIPPER                                        */
 /*==============================================================*/
-drop index if exists PACKAGESHIPPER.SHIPPED_FK;
+ALTER TABLE PACKAGESHIPPER  
+DROP CONSTRAINT FK_PACKAGES_APPLICATE_SHIPPER 
 
-drop index if exists PACKAGESHIPPER.PACKAGESHIPPER_PK;
+ALTER TABLE PACKAGESHIPPER  
+DROP CONSTRAINT PK_PACKAGESHIPPER 
 
-drop table if exists PACKAGESHIPPER;
+drop table  PACKAGESHIPPER;
 
 /*==============================================================*/
 /* Table: INFOCOMPANY                                           */
 /*==============================================================*/
-drop index if exists INFOCOMPANY.PRECISE_FK;
+ALTER TABLE INFOCOMPANY  
+DROP CONSTRAINT FK_INFOCOMP_PRECISE_COMPANY 
 
-drop index if exists INFOCOMPANY.INFOCOMPANY_PK;
+ALTER TABLE INFOCOMPANY  
+DROP CONSTRAINT PK_INFOCOMPANY 
 
-drop table if exists INFOCOMPANY;
+drop table  INFOCOMPANY;
 
 /*==============================================================*/
 /* Table: COMPANY                                               */
 /*==============================================================*/
-drop index if exists COMPANY.COMPANY_PK;
+ALTER TABLE COMPANY  
+DROP CONSTRAINT PK_COMPANY 
 
-drop table if exists COMPANY;
+drop table  COMPANY;
 
 /*==============================================================*/
 /* Table: INFOSTATUS                                                */
 /*==============================================================*/
-drop index if exists INFOSTATUS.STATUS_PK;
+ALTER TABLE INFOSTATUS  
+DROP CONSTRAINT PK_INFOSTATUS 
 
-drop table if exists INFOSTATUS;
+drop table INFOSTATUS;
 
 /*==============================================================*/
 /* Table: SHIPPER                                               */
 /*==============================================================*/
-drop index if exists SHIPPER.SHIPPER_PK;
+ALTER TABLE SHIPPER  
+DROP CONSTRAINT PK_SHIPPER 
 
-drop table if exists SHIPPER;
+drop table  SHIPPER;
 
 /*==============================================================*/
 /* Table: AUTHORBOOK                                            */
 /*==============================================================*/
-drop index if exists AUTHORBOOK.WRITE2_FK;
+ALTER TABLE AUTHORBOOK  
+DROP CONSTRAINT FK_AUTHORBO_WRITE2_AUTHOR 
 
-drop index if exists AUTHORBOOK.WRITE_FK;
+ALTER TABLE AUTHORBOOK  
+DROP CONSTRAINT FK_AUTHORBO_WRITE_BOOK 
 
-drop index if exists AUTHORBOOK.WRITE_PK;
+ALTER TABLE AUTHORBOOK  
+DROP CONSTRAINT PK_AUTHORBOOK 
 
-drop table if exists AUTHORBOOK;
+drop table AUTHORBOOK;
 
 /*==============================================================*/
 /* Table: AUTHOR                                                */
 /*==============================================================*/
-drop index if exists AUTHOR.AUTHOR_PK;
+ALTER TABLE AUTHOR  
+DROP CONSTRAINT PK_AUTHOR 
 
-drop table if exists AUTHOR;
+drop table  AUTHOR;
 
 /*==============================================================*/
 /* Table: CUSTOMER                                              */
 /*==============================================================*/
-drop index if exists CUSTOMER.CUSTOMER_PK;
+ALTER TABLE CUSTOMER  
+DROP CONSTRAINT PK_CUSTOMER 
 
-drop table if exists CUSTOMER;
+drop table CUSTOMER;
 
 /*==============================================================*/
 /* Table: EMPLOYE                                               */
 /*==============================================================*/
-drop index if exists EMPLOYE.OWN_FK;
+ALTER TABLE EMPLOYE  
+DROP CONSTRAINT FK_EMPLOYE_OWN_RIGHTEMP 
 
-drop index if exists EMPLOYE.EMPLOYE_PK;
+ALTER TABLE EMPLOYE  
+DROP CONSTRAINT PK_EMPLOYE 
 
-drop table if exists EMPLOYE;
+drop table  EMPLOYE;
 
 /*==============================================================*/
 /* Table: EMPLOYERIGHT                                          */
 /*==============================================================*/
-drop index if exists EMPLOYERIGHT.EMPLOYERIGHT_PK;
+ALTER TABLE EMPLOYERIGHT  
+DROP CONSTRAINT PK_EMPLOYERIGHT 
 
 
-drop table if exists EMPLOYERIGHT;
-
-/*==============================================================*/
-/* Table: EVENTBOOK                                             */
-/*==============================================================*/
-drop index if exists OCCATIONBOOK.PARTICIPATE2_FK;
-
-drop index if exists OCCATIONBOOK.PARTICIPATE_FK;
-
-drop index if exists OCCATIONBOOK.PARTICIPATE_PK;
-
-drop table if exists OCCATIONBOOK;
+drop table  EMPLOYERIGHT;
 
 /*==============================================================*/
-/* Table: EVENT                                                 */
+/* Table: OCCASIONBOOK                                             */
 /*==============================================================*/
-drop index if exists OCCATION.OCCATION_PK;
+ALTER TABLE OCCASIONBOOK  
+DROP CONSTRAINT FK_OCCASIONBOOK_PARTICIPA_OCCASION 
 
-drop table if exists OCCATION;
+ALTER TABLE OCCASIONBOOK  
+DROP CONSTRAINT FK_OCCASIONBOOK_PARTICIPA_BOOK 
+
+ALTER TABLE OCCASIONBOOK  
+DROP CONSTRAINT PK_OCCASIONBOOK 
+
+drop table OCCASIONBOOK;
+
+/*==============================================================*/
+/* Table: OCCASION                                                 */
+/*==============================================================*/
+ALTER TABLE OCCASION  
+DROP CONSTRAINT PK_OCCASION 
+
+drop table OCCASION;
 
 /*==============================================================*/
 /* Table: SUBTHEMEBOOK                                          */
 /*==============================================================*/
-drop index if exists SUBTHEMEBOOK.BELONG2_FK;
+ALTER TABLE SUBTHEMEBOOK  
+DROP CONSTRAINT FK_SUBTHEME_BELONG2_SUBTHEME
 
-drop index if exists SUBTHEMEBOOK.BELONG_FK;
+ALTER TABLE SUBTHEMEBOOK  
+DROP CONSTRAINT FK_SUBTHEME_BELONG_BOOK
 
-drop index if exists SUBTHEMEBOOK.BELONG_PK;
+ALTER TABLE SUBTHEMEBOOK  
+DROP CONSTRAINT PK_SUBTHEMEBOOK
 
-drop table if exists SUBTHEMEBOOK;
+drop table  SUBTHEMEBOOK;
 
 /*==============================================================*/
 /* Table: SUBTHEME                                              */
 /*==============================================================*/
-drop index if exists SUBTHEME.BEGETS_FK;
+ALTER TABLE SUBTHEME  
+DROP CONSTRAINT FK_SUBTHEME_BEGETS_THEME
 
-drop index if exists SUBTHEME.SUBTHEME_PK;
+ALTER TABLE SUBTHEME  
+DROP CONSTRAINT PK_SUBTHEME
 
-drop table if exists SUBTHEME;
+drop table  SUBTHEME;
 
 /*==============================================================*/
 /* Table: THEME                                                 */
 /*==============================================================*/
-drop index if exists THEME.THEME_PK;
+ALTER TABLE THEME  
+DROP CONSTRAINT PK_THEME
 
-drop table if exists THEME;
+drop table  THEME;
 
 /*==============================================================*/
 /* Table: KEYWORDBOOK                                           */
 /*==============================================================*/
-drop index if exists KEYWORDBOOK.FOUND2_FK;
+ALTER TABLE KEYWORDBOOK  
+DROP CONSTRAINT FK_KEYWORDB_FOUND2_KEYWORD
 
-drop index if exists KEYWORDBOOK.FOUND_FK;
+ALTER TABLE KEYWORDBOOK  
+DROP CONSTRAINT FK_KEYWORDB_FOUND_BOOK
 
-drop index if exists KEYWORDBOOK.FOUND_PK;
+ALTER TABLE KEYWORDBOOK  
+DROP CONSTRAINT PK_KEYWORDBOOK
 
-drop table if exists KEYWORDBOOK;
+drop table  KEYWORDBOOK;
 
 /*==============================================================*/
 /* Table: BOOK                                                  */
 /*==============================================================*/
-drop index if exists BOOK.ASSOCIATE_FK;
+ALTER TABLE BOOK  
+DROP CONSTRAINT FK_BOOK_ASSOCIATE_CODETVA
 
-drop index if exists BOOK.APPEAR_FK;
+ALTER TABLE BOOK  
+DROP CONSTRAINT FK_BOOK_APPEAR_EDITOR
 
-drop index if exists BOOK.BOOK_PK;
+ALTER TABLE BOOK  
+DROP CONSTRAINT PK_BOOK
 
-drop table if exists BOOK;
+drop table  BOOK;
 
 /*==============================================================*/
 /* Table: KEYWORD                                               */
 /*==============================================================*/
-drop index if exists KEYWORD.KEYWORD_PK;
+ALTER TABLE KEYWORD  
+DROP CONSTRAINT PK_KEYWORD
 
-drop table if exists KEYWORD;
+drop table  KEYWORD;
 
 /*==============================================================*/
 /* Table: CODETVA                                             */
 /*==============================================================*/
-drop index if exists CODETVA.CODETVA_PK;
+ALTER TABLE CODETVA  
+DROP CONSTRAINT PK_CODETVA
 
-drop table if exists CODETVA;
+drop table CODETVA;
 
 
 /*==============================================================*/
 /* Table: EDITOR                                                */
 /*==============================================================*/
-drop index if exists EDITOR.EDITOR_PK;
+ALTER TABLE EDITOR  
+DROP CONSTRAINT PK_EDITOR
 
-drop table if exists EDITOR;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+drop table  EDITOR;
 
