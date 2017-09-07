@@ -6,9 +6,6 @@
 ----------------------------------------------------------------------------------------
 ----------------Creation table 
 ------------------------------------------------------------------------------------------
-
-
-
 create table CUSTOMER (
    LOGINCUSTOMER        varchar(50)          not null,
    LASTNAMECUSTOMER     char(50)             null,
@@ -36,7 +33,8 @@ create table AuthorBook (
 
 create table ADRESS (
    IDADRESS             numeric(10)          identity,
-   LOGINCUSTOMER        varchar(50)          not null,
+   LOGINCUSTOMERSHIP        varchar(50)          not null,
+   LOGINCUSTOMERBILL        varchar(50)          not null,
    TYPESTREETADRESS     varchar(30)          null,
    NUMADRESS            varchar(10)          not null,
    NAMESTREETADRESS     varchar(50)          not null,
@@ -89,24 +87,26 @@ REFERENCES Author(idAuthor)
 
 --FOREIGN KEY Adress
 ALTER TABLE Adress
-ADD CONSTRAINT BillingAdress_fk
-FOREIGN KEY(loginCustomer)
+ADD CONSTRAINT AdressLOGINCUSTOMERSHIP_fk
+FOREIGN KEY(LOGINCUSTOMERSHIP)
 REFERENCES Customer(loginCustomer)
 
 ALTER TABLE Adress
-ADD CONSTRAINT ShipphingAdress_fk
-FOREIGN KEY(loginCustomer)
+ADD CONSTRAINT AdressLOGINCUSTOMERBILL_fk
+FOREIGN KEY(LOGINCUSTOMERBILL)
 REFERENCES Customer(loginCustomer)
 
 
 ----------------------------------------------------------------------------------------
 ----------------Drop table 
 ------------------------------------------------------------------------------------------
-
-Drop table Customer
-Drop table Author
-drop table AuthorBook
 Drop table Adress
+drop table AuthorBook
+Drop table Author
+Drop table Customer
+
+
+
 
 ----------------------------------------------------------------------------------------
 ----------------Drop PK
@@ -126,6 +126,14 @@ DROP CONSTRAINT idAdress_pk
 ----------------------------------------------------------------------------------------
 ----------------Drop FK
 ------------------------------------------------------------------------------------------
+-- Customer - Author - AuthorBook - Adress
+
+ALTER TABLE Adress
+DROP CONSTRAINT AdressLOGINCUSTOMERSHIP_fk
+
+ALTER TABLE Adress
+DROP CONSTRAINT AdressLOGINCUSTOMERBILL_fk
+
 
 ALTER TABLE AuthorBook
 DROP CONSTRAINT AuthorBooknumISBNbook_fk
@@ -133,8 +141,3 @@ DROP CONSTRAINT AuthorBooknumISBNbook_fk
 ALTER TABLE AuthorBook
 DROP CONSTRAINT AuthorBookidAuthor_fk
 
-ALTER TABLE Adress
-DROP CONSTRAINT BillingAdress_fk
-
-ALTER TABLE Adress
-DROP CONSTRAINT ShipphingAdress_fk

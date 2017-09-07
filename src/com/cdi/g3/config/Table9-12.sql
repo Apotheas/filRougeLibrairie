@@ -75,7 +75,6 @@ PRIMARY KEY (loginEmploye)
 ------------------------------------------------------------------------------------------
 
 
-
 ALTER TABLE EventBook 
 ADD CONSTRAINT EventBooknumISBNbook_fk 
 FOREIGN KEY(numISBNbook) 
@@ -134,11 +133,14 @@ DROP CONSTRAINT loginEmploye_pk
 ----------------------------------------------------------------------------------------
 ----------------Drop FK
 ------------------------------------------------------------------------------------------
+ALTER TABLE Employe
+DROP CONSTRAINT EmployeIdDroitEmploye_fk 
+
+
 ALTER TABLE EventBook 
 DROP CONSTRAINT EventBooknumISBNbook_fk 
  
 ALTER TABLE EventBook 
 DROP CONSTRAINT EventBookidEvent_fk 
  
-ALTER TABLE Employe
-DROP CONSTRAINT EmployeIdDroitEmploye_fk 
+

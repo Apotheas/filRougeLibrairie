@@ -4,33 +4,29 @@
 
 --------------------------------------------------------------------------------
 --01-- Editor : ---------------------------------------------------------------- 
- create table Editor
-(
+ create table Editor(
    IDEDITOR             integer                        not null , 
    NAMEEDITOR           char(50)                       null,
    STATUSEDITOR         integer                        null,
    
-);
+   );
 
 --02-- CODETVA : ---------------------------------------------------------------
- create table CodeTVA 
-(
+ create table CodeTVA (
    TYPETVA              varchar(50)                    not null,
    RATECODETVA          float(3)                       not null,
 
-);
+   );
  
 --03-- KeyWord :---------------------------------------------------------------- 
- create table Keyword 
-(
+ create table Keyword (
    IDKEYWORD            integer                        not null ,
    NAMEKEYWORD          varchar(50)                    null,
    
-);
+  );
 
 --04-- Book :------------------------------------------------------------------- 
- create table Book 
-(
+ create table Book (
    NUMISBNBOOK          varchar(13)                    not null,
    IDEDITOR             integer                        not null,
    TYPETVA              varchar(50)                    not null,
@@ -46,19 +42,17 @@
    COMMENTBOOK          varchar(250)                   null,
    STATUSBOOK           integer                        null,
 
-);
+  );
 
 --05--Theme  :------------------------------------------------------------------
- create table Theme 
-(
+ create table Theme (
    IDTHEME              integer                        not null,
    NAMETHEME            varchar(50)                    null,
 
-);
+   );
 
 --06--SubTheme :----------------------------------------------------------------
- create table SubTheme 
-(
+ create table SubTheme (
    IDSUBTHEME           integer                        not null,
    IDTHEME              integer                        not null,
    NAMESUNTHEM          varchar(50)                    null,
@@ -67,20 +61,18 @@
 -- TABLE ASSOCIATION -----------------------------------------------------------
 
 --07--SubThemeBook  :----------------------------------------------------------- 
-  create table SubThemeBook 
-(
+  create table SubThemeBook (
    NUMISBNBOOK          varchar(13)                    not null,
    IDSUBTHEME           integer                        not null,
 
-);
+   );
 
 --08--KeywordBook :-- (BOOK - KEYWORD)------------------------------------------
-create table KeywordBook 
-(
+create table KeywordBook (
    NUMISBNBOOK          varchar(13)                    not null,
    IDKEYWORD            integer                        not null,
    
-);
+    );
 --------------------------------------------------------------------------------
 ----------------Creation PK 
 --------------------------------------------------------------------------------
@@ -147,12 +139,35 @@ create table KeywordBook
   FOREIGN KEY (idTheme)
   REFERENCES theme(idTheme) 
 
+--04-- SubThemeBook_FK : -----------------------------------------------------
+  ALTER TABLE SubThemeBook 
+  ADD CONSTRAINT BookSubThemeBook_FK
+  FOREIGN KEY (NUMISBNBOOK)
+  REFERENCES Book(NUMISBNBOOK) 
+
+ALTER TABLE SubThemeBook 
+  ADD CONSTRAINT SubThemeBookSUBTHEME_FK
+  FOREIGN KEY (IDSUBTHEME)
+  REFERENCES SUBTHEME(IDSUBTHEME) 
+
+
+--05-- KeywordBook_FK : -----------------------------------------------------
+  ALTER TABLE KeywordBook 
+  ADD CONSTRAINT BookKeywordBook_FK
+  FOREIGN KEY (NUMISBNBOOK)
+  REFERENCES Book(NUMISBNBOOK) 
+
+ALTER TABLE KeywordBook 
+  ADD CONSTRAINT KEYWORDBookKeyword_FK
+  FOREIGN KEY (IDKEYWORD)
+  REFERENCES KEYWORD(IDKEYWORD) 
+
+
 --------------------------------------------------------------------------------
 ----------------Drop table  
 --------------------------------------------------------------------------------
 --01-- Editor_PK : ------------------------------------------------------------- 
- Drop Table Editor 
-
+ Drop Table Editor
  Drop Table CodeTVA
  Drop Table KeyWord
  Drop Table Book
@@ -202,18 +217,39 @@ create table KeywordBook
 -------------------------------------------------------------------------------- 
 ----------------Drop FK 
 --------------------------------------------------------------------------------
+---Editor - TVA - KeyWord - Book - KeyWord - Theme - SubTheme- 
+-- SubThemeBook - keywordBook (association)
 
---01-- EditorBook_FK : ---------------------------------------------------------
-  ALTER TABLE Book 
-  DROP EditorBook_FK
+--01-- keywordBook_FK : ---------------------------------------------------------
+ ALTER TABLE keywordBook
+DROP KEYWORDBookKeyword_FK
 
---02-- BookCodeTva_FK : --------------------------------------------------------
-  ALTER TABLE Book 
-  DROP BooktypeTva_FK
+ALTER TABLE keywordBook
+DROP BookKeywordBook_FK
 
- --03-- ThemeSubtheme_FK : -----------------------------------------------------
-  ALTER TABLE Subtheme 
-  DROP ThemeSubtheme_FK
+--02-- SubThemeBook_FK : ---------------------------------------------------------
+ALTER TABLE SubThemeBook
+DROP SubThemeBookSUBTHEME_FK
+
+ALTER TABLE SubThemeBook
+DROP BookSubThemeBook_FK
+
+--03-- Subtheme_FK : -----------------------------------------------------
+ALTER TABLE Subtheme 
+DROP ThemeSubtheme_FK
+
+--04-- Book_FK : -----------------------------------------------------
+ALTER TABLE Book 
+DROP EditorBook_FK
+
+ALTER TABLE Book 
+DROP BooktypeTva_FK
+
+ 
+
+
+
+
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
