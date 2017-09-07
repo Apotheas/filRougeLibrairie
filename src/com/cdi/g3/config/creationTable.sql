@@ -244,8 +244,8 @@ create table ADRESS
 (
    IDADRESS             integer                        not null default (S_ADRESS.nextval),
    SIRETADRESS          varchar(14)                    not null,
-   LOGINCUSTOMERSHIPADRESS varchar(50)                    not null,
-   LOGINCUSTOMERBILLADRESS varchar(50)                    not null,
+   LOGINCUSTOMERSHIPADRESS varchar(50)                 not null,
+   LOGINCUSTOMERBILLADRESS varchar(50)                 not null,
    TYPESTREETADRESS     varchar(30)                    null,
    NUMADRESS            varchar(10)                    not null,
    NAMESTREETADRESS     varchar(50)                    not null,
