@@ -1,4 +1,9 @@
 
+USE librairieDB
+Go
+
+
+
 /*==============================================================*/
 /* Table: EDITOR                                                */
 /*==============================================================*/
@@ -40,12 +45,12 @@ create table BOOK
    SUBTITREBOOK         varchar(50)                    null,
    UNITCOSTBOOK         float                          not null,
    SYNOPSISBOOK         varchar(Max)                   null,
-   PATHICONBOOK         varchar(50)                    null,
+   PATHICONBOOK         varchar(100)                    null,
    WEIGHTBOOK           float                          null,
    SIZELARGEBOOK        float                          null,
    SIZELONGBOOK         float                          null,
    STOCKBOOK            integer                        not null,
-   COMMENTBOOK          varchar(250)                   null,
+   COMMENTBOOK          varchar(Max)                   null,
    STATUSBOOK           integer                        not null,
    constraint PK_BOOK primary key (NUMISBNBOOK)
 );
@@ -74,10 +79,10 @@ create table THEME
 /* Table: SUBTHEME                                              */
 /*==============================================================*/
 create table SUBTHEME 
-(
+(  IDSUBTHEME			varchar(10)                    not null,
    NAMESUBTHEME         varchar(50)                    not null,
    NAMETHEME            varchar(50)                    not null,
-   constraint PK_SUBTHEME primary key (NAMESUBTHEME)
+   constraint PK_SUBTHEME primary key (IDSUBTHEME)
 );
 
 /*==============================================================*/
@@ -87,7 +92,7 @@ create table SUBTHEMEBOOK
 (
    IDSUBTHEMEBOOK       varchar(10)                    not null,
    NUMISBNBOOK          varchar(13)                    not null,
-   NAMESUBTHEME         varchar(50)                    not null,
+   IDSUBTHEME			varchar(10)                     not null,
    constraint PK_SUBTHEMEBOOK primary key clustered (IDSUBTHEMEBOOK)
 );
 /*==============================================================*/
@@ -218,10 +223,10 @@ create table COMPANY
 /*==============================================================*/
 create table INFOCOMPANY 
 (  
-   TYPEINFOCOMPANY          varchar(50)                    not null,
+   nameINFOCOMPANY          varchar(50)                    not null,
    DESCRIPTIONINFOCOMPANY   varchar(250)                   not null,
-   constraint PK_INFOCOMPANY primary key (IDINFOCOMPANY)
-);
+   constraint PK_INFOCOMPANY primary key (nameINFOCOMPANY)
+); 
 
 /*==============================================================*/
 /* Table: PACKAGESHIPPER                                        */

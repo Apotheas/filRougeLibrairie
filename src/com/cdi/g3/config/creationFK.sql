@@ -1,4 +1,7 @@
 
+USE librairieDB
+Go
+
 
 /*==============================================================*/
 /* Table: EDITOR                                                */
@@ -71,8 +74,8 @@ alter table SUBTHEMEBOOK
       on delete Cascade;
 
 alter table SUBTHEMEBOOK
-   add constraint FK_SUBTHEME_BELONG2_SUBTHEME foreign key (NAMESUBTHEME)
-      references SUBTHEME (NAMESUBTHEME)
+   add constraint FK_SUBTHEME_BELONG2_SUBTHEME foreign key (IDSUBTHEME)
+      references SUBTHEME (IDSUBTHEME)
       on update Cascade
       on delete Cascade;
 /*==============================================================*/
@@ -152,11 +155,11 @@ alter table AUTHORBOOK
 /*==============================================================*/
 /* Table: INFOCOMPANY                                           */
 /*==============================================================*/
-alter table INFOCOMPANY
-   add constraint FK_INFOCOMP_PRECISE_COMPANY foreign key (SIRETCOMPANY)
-      references COMPANY (SIRETCOMPANY)
-      on update Cascade
-      on delete Cascade;
+--alter table INFOCOMPANY
+--   add constraint FK_INFOCOMP_PRECISE_COMPANY foreign key (SIRETCOMPANY)
+--      references COMPANY (SIRETCOMPANY)
+--      on update Cascade
+--      on delete Cascade;
 
 /*==============================================================*/
 /* Table: PACKAGESHIPPER                                        */
@@ -182,11 +185,11 @@ alter table ADRESS
       on update no action
       on delete no action;
 
-alter table ADRESS
-   add constraint FK_ADRESS_HAVE_COMPANY foreign key (SIRETCOMPANYADRESS)
-      references COMPANY (SIRETCOMPANY)
-      on update Cascade
-      on delete Cascade;
+--alter table ADRESS
+--   add constraint FK_ADRESS_HAVE_COMPANY foreign key (SIRETCOMPANYADRESS)
+--      references COMPANY (SIRETCOMPANY)
+--      on update Cascade
+--      on delete Cascade;
 
 /*==============================================================*/
 /* Table: "ORDERS"                                               */
@@ -269,3 +272,7 @@ alter table APPRECIATION
       references ORDERLINE (IDORDERLINE)
       on update no action 
       on delete no action;
+
+
+
+	  

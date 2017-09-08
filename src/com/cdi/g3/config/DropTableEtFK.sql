@@ -1,4 +1,7 @@
- 
+USE librairieDB
+Go
+
+
 /*==============================================================*/
 /* Table: ORDERLINE                                             */
 /*==============================================================*/
@@ -88,8 +91,8 @@ DROP CONSTRAINT FK_ADRESS_DEFAULTBI_CUSTOMER
 ALTER TABLE ADRESS  
 DROP CONSTRAINT FK_ADRESS_DEFAULTSH_CUSTOMER 
 
-ALTER TABLE ADRESS  
-DROP CONSTRAINT FK_ADRESS_HAVE_COMPANY 
+--ALTER TABLE ADRESS  
+--DROP CONSTRAINT FK_ADRESS_HAVE_COMPANY 
 
 ALTER TABLE ADRESS  
 DROP CONSTRAINT  PK_ADRESS
@@ -110,8 +113,8 @@ drop table  PACKAGESHIPPER;
 /*==============================================================*/
 /* Table: INFOCOMPANY                                           */
 /*==============================================================*/
-ALTER TABLE INFOCOMPANY  
-DROP CONSTRAINT FK_INFOCOMP_PRECISE_COMPANY 
+--ALTER TABLE INFOCOMPANY  
+--DROP CONSTRAINT FK_INFOCOMP_PRECISE_COMPANY 
 
 ALTER TABLE INFOCOMPANY  
 DROP CONSTRAINT PK_INFOCOMPANY 
