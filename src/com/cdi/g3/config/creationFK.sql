@@ -91,8 +91,8 @@ alter table OCCASIONBOOK
       on delete Cascade;
 
 alter table OCCASIONBOOK
-   add constraint FK_OCCASIONBOOK_PARTICIPA_OCCASION foreign key (IDOCCASION)
-      references OCCASION (IDOCCASION)
+   add constraint FK_OCCASIONBOOK_PARTICIPA_OCCASION foreign key (NAMEOCCASION)
+      references OCCASION (NAMEOCCASION)
       on update Cascade
       on delete Cascade;
 

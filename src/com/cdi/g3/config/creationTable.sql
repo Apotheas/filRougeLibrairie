@@ -4,8 +4,8 @@
 /*==============================================================*/
 create table EDITOR 
 (
-   IDEDITOR             integer                        not null ,
-   NAMEEDITOR           char(50)                       not null,
+   IDEDITOR             varchar(10)                    not null ,
+   NAMEEDITOR           varchar(50)                    not null,
    STATUSEDITOR         integer                        null,
    constraint PK_EDITOR primary key (IDEDITOR)
 );
@@ -34,12 +34,12 @@ create table KEYWORD
 create table BOOK 
 (
    NUMISBNBOOK          varchar(13)                    not null,
-   IDEDITORBOOK         integer                        not null,
+   IDEDITORBOOK         varchar(10)                    not null,
    TYPETVABOOK          varchar(50)                    not null,
    TITREBOOK            varchar(50)                    not null,
    SUBTITREBOOK         varchar(50)                    null,
    UNITCOSTBOOK         float                          not null,
-   SYNOPSISBOOK         varchar(1000)                  null,
+   SYNOPSISBOOK         varchar(Max)                   null,
    PATHICONBOOK         varchar(50)                    null,
    WEIGHTBOOK           float                          null,
    SIZELARGEBOOK        float                          null,
@@ -55,7 +55,7 @@ create table BOOK
 /*==============================================================*/
 create table KEYWORDBOOK 
 (
-   IDKEYWORDBOOK        integer                        not null,
+   IDKEYWORDBOOK        varchar(10)                    not null,
    NUMISBNBOOK          varchar(13)                    not null,
    NAMEKEYWORD          varchar(50)                    not null,
    constraint PK_KEYWORDBOOK primary key clustered (IDKEYWORDBOOK)
@@ -85,31 +85,30 @@ create table SUBTHEME
 /*==============================================================*/
 create table SUBTHEMEBOOK 
 (
-   IDSUBTHEMEBOOK       integer                        not null,
+   IDSUBTHEMEBOOK       varchar(10)                    not null,
    NUMISBNBOOK          varchar(13)                    not null,
    NAMESUBTHEME         varchar(50)                    not null,
    constraint PK_SUBTHEMEBOOK primary key clustered (IDSUBTHEMEBOOK)
 );
 /*==============================================================*/
-/* Table: OCCASION                                                 */
+/* Table: OCCASION                                               */
 /*==============================================================*/
 create table OCCASION 
 (
-   IDOCCASION              char(10)                       not null,
-   DATEDEBUTOCCASION       date                           not null,
-   DATEFINOCCASION        date                           not null,
    NAMEOCCASION           varchar(50)                    not null,
-   DISCOUNTOCCASION        float                          null,
-   constraint PK_OCCASION primary key (IDOCCASION)
+   DATEDEBUTOCCASION      date                           not null,
+   DATEFINOCCASION        date                           not null,  
+   DISCOUNTOCCASION       float                          null,
+   constraint PK_OCCASION primary key (NAMEOCCASION)
 );
 /*==============================================================*/
 /* Table: EVENTBOOK                                             */
 /*==============================================================*/
 create table OCCASIONBOOK 
 (
-   IDOCCASIONBOOK          integer                        not null,
-   NUMISBNBOOK          varchar(13)                    not null,
-   IDOCCASION              char(10)                       not null,
+   IDOCCASIONBOOK           varchar(10)                    not null,
+   NUMISBNBOOK              varchar(13)                    not null,
+   NAMEOCCASION            varchar(50)                     not null,
    constraint PK_OCCASIONBOOK primary key clustered (IDOCCASIONBOOK)
 );
 
@@ -118,7 +117,7 @@ create table OCCASIONBOOK
 /*==============================================================*/
 create table EMPLOYERIGHT 
 (
-   IDEMPLOYERIGHT       integer                        not null ,
+   IDEMPLOYERIGHT       varchar(10)                    not null ,
    TYPEEMPLOYERIGHT     integer                        not null,
    constraint PK_EMPLOYERIGHT primary key (IDEMPLOYERIGHT)
 );
@@ -128,11 +127,11 @@ create table EMPLOYERIGHT
 create table EMPLOYE 
 (
    LOGINEMPLOYE         varchar(50)                    not null,
-   IDEMPLOYERIGHT       integer                        not null,
+   IDEMPLOYERIGHT       varchar(10)                    not null,
    FIRSTNAMEEMPLOYE     varchar(50)                    null,
-   LASTNAMEEMPLOYE      varchar(50)                    null,
-   EMAILEMPLOYE         varchar(50)                    null,
-   PASSWORDEMPLOYE      varchar(50)                    null,
+   LASTNAMEEMPLOYE      varchar(50)                    not null,
+   EMAILEMPLOYE         varchar(50)                    not null,
+   PASSWORDEMPLOYE      varchar(50)                    not null,
    STATUSEMPLOYE        integer                        null,
    constraint PK_EMPLOYE primary key (LOGINEMPLOYE)
 );
@@ -144,8 +143,8 @@ create table EMPLOYE
 create table CUSTOMER 
 (
    LOGINCUSTOMER        varchar(50)                    not null,
-   LASTNAMECUSTOMER     char(50)                       not null,
-   FIRSTNAMECUSTOMER    char(50)                       not null,
+   LASTNAMECUSTOMER     varchar(50)                    not null,
+   FIRSTNAMECUSTOMER    varchar(50)                    not null,
    EMAILCUSTOMER        varchar(50)                    not null,
    PASSWORDCUSTOMER     varchar(50)                    not null,
    NAMECOMPANYCUSTOMER  varchar(50)                    null,
@@ -159,11 +158,11 @@ create table CUSTOMER
 /*==============================================================*/
 create table AUTHOR 
 (
-   IDAUTHOR             integer                        not null,
-   FIRSTNAMEAUTHOR      char(50)                       null,
-   LASTNAMEAUTHOR       char(50)                       not null,
-   BIOGRAPHYAUTHOR           char(250)                      null,
-   BIRTHDATEAUTHOR      date                           not null,
+   IDAUTHOR             varchar(10)                    not null,
+   FIRSTNAMEAUTHOR      varchar(50)                    null,
+   LASTNAMEAUTHOR       varchar(50)                    not null,
+   BIOGRAPHYAUTHOR      varchar(250)                   null,
+   BIRTHDATEAUTHOR      date                           null,
    DIEDATEAUTHOR        date                           null,
    COMMENTAUTHOR        varchar(250)                   null,
    constraint PK_AUTHOR primary key (IDAUTHOR)
@@ -174,9 +173,9 @@ create table AUTHOR
 /*==============================================================*/
 create table AUTHORBOOK 
 (
-   IDAUTHORBOOK         integer                        not null,
-   NUMISBNBOOK          varchar(13)                    not null,
-   IDAUTHOR             integer                        not null,
+   IDAUTHORBOOK         varchar(10)                       not null,
+   NUMISBNBOOK          varchar(13)                       not null,
+   IDAUTHOR             varchar(10)                       not null,
    constraint PK_AUTHORBOOK primary key clustered (IDAUTHORBOOK)
 );
 
@@ -196,7 +195,7 @@ create table SHIPPER
 create table INFOSTATUS 
 (
    NAMEINFOSTATUS           varchar(50)                    not null,
-   VALUEINFOSTATUS         integer                        not null,
+   VALUEINFOSTATUS          integer                        not null,
    constraint PK_INFOSTATUS primary key (NAMEINFOSTATUS)
 );
 
@@ -205,7 +204,7 @@ create table INFOSTATUS
 /*==============================================================*/
 create table COMPANY 
 (
-   SIRETCOMPANY                varchar(14)                    not null,
+   SIRETCOMPANY         varchar(14)                    not null,
    NAMECOMPANY          varchar(50)                    not null,
    LOGOCOMPANY          varchar(100)                   not null,
    TELEPHONECOMPANY     varchar(12)                    null,
@@ -218,11 +217,9 @@ create table COMPANY
 /* Table: INFOCOMPANY                                           */
 /*==============================================================*/
 create table INFOCOMPANY 
-(
-   IDINFOCOMPANY        integer                        not null ,
-   SIRETCOMPANY     varchar(14)                    not null,
-   TYPEINFOCOMPANY      varchar(50)                    not null,
-   DESCRIPTIONINFOCOMPANY varchar(250)                   not null,
+(  
+   TYPEINFOCOMPANY          varchar(50)                    not null,
+   DESCRIPTIONINFOCOMPANY   varchar(250)                   not null,
    constraint PK_INFOCOMPANY primary key (IDINFOCOMPANY)
 );
 
@@ -231,7 +228,7 @@ create table INFOCOMPANY
 /*==============================================================*/
 create table PACKAGESHIPPER 
 (
-   IDPACKAGESHIPPER     integer                        not null ,
+   IDPACKAGESHIPPER     varchar(10)                    not null ,
    NAMESHIPPER          varchar(50)                    not null,
    COSTPACKAGESHIPPER   float                          null,
    constraint PK_PACKAGESHIPPER primary key (IDPACKAGESHIPPER)
@@ -242,19 +239,18 @@ create table PACKAGESHIPPER
 /*==============================================================*/
 create table ADRESS 
 (
-   IDADRESS             integer                        not null ,
-   SIRETCOMPANYADRESS          varchar(14)                    not null,
-   LOGINCUSTOMERSHIPADRESS varchar(50)                 not null,
-   LOGINCUSTOMERBILLADRESS varchar(50)                 not null,
-   TYPESTREETADRESS     varchar(30)                    null,
-   NUMADRESS            varchar(10)                    not null,
-   NAMESTREETADRESS     varchar(50)                    not null,
-   NAMESTEET2ADRESS     varchar                   null,
-   ZIPCODEADRESS        varchar(5)                     not null,
-   CITYADRESS           varchar(40)                    not null,
-   COUNTRYADRESS        varchar(50)                    not null,
-   NAMERECEIVERADRESS   varchar(50)                    not null,
-   NAMECOMPANYRECEIVERADRESS varchar(50)                    null,
+   IDADRESS                 varchar(10)                    not null ,   
+   LOGINCUSTOMERSHIPADRESS  varchar(50)                    null,
+   LOGINCUSTOMERBILLADRESS  varchar(50)                    null,
+   TYPESTREETADRESS         varchar(30)                    null,
+   NUMADRESS                varchar(10)                    not null,
+   NAMESTREETADRESS         varchar(50)                    not null,
+   NAMESTEET2ADRESS         varchar (50)                   null,
+   ZIPCODEADRESS            varchar(5)                     not null,
+   CITYADRESS               varchar(40)                    not null,
+   COUNTRYADRESS            varchar(50)                    not null,
+   NAMERECEIVERADRESS       varchar(50)                    not null,
+   NAMECOMPANYRECEIVERADRESS varchar(50)                   null,
    constraint PK_ADRESS primary key (IDADRESS)
 );
 
@@ -263,17 +259,17 @@ create table ADRESS
 /*==============================================================*/
 create table "ORDERS" 
 (
-   IDORDER              integer                        not null,
+   IDORDER                  varchar(10)                    not null,
    NAMEINFOSTATUSORDER      varchar(50)                    not null,
-   IDADRESSSHIPPINGORDER integer                        not null,
-   LOGINCUSTOMERORDER   varchar(50)                    not null,
-   IDADRESSBILLINGORDER integer                        not null,
-   IDPACKAGESHIPPERORDER integer                        not null,
-   INTERNALNUMORDER     integer                        null,
-   DATEORDER            date                           not null,
-   PAYMENTSYSTEMORDER   varchar(50)                    not null,
-   IPORDER              varchar(45)                    not null,
-   DATEPACKAGESHIPPERORDER date                           null,
+   IDADRESSSHIPPINGORDER    varchar(10)                    not null,
+   LOGINCUSTOMERORDER       varchar(50)                    not null,
+   IDADRESSBILLINGORDER     varchar(10)                    null,
+   IDPACKAGESHIPPERORDER    varchar(10)                    null,
+   INTERNALNUMORDER         varchar(10)                    not null,
+   DATEORDER                date                           not null,
+   PAYMENTSYSTEMORDER       varchar(50)                    not null,
+   IPORDER                  varchar(45)                    not null,
+   DATEPACKAGESHIPPERORDER  date                           null,
    constraint PK_ORDER primary key (IDORDER)
 );
 /*==============================================================*/
@@ -281,12 +277,12 @@ create table "ORDERS"
 /*==============================================================*/
 create table ORDERLINE 
 (
-   IDORDERLINE          integer                        not null,
-   IDAPPRECIATE         integer                        not null,
+   IDORDERLINE          varchar(10)                    not null,
+   IDAPPRECIATE         varchar(10)                    null,
    NUMISBNBOOK          varchar(13)                    not null,
-   IDORDER              integer                        not null,
+   IDORDER              varchar(10)                    null,
    QUANTITYORDERLINE    smallint                       not null,
-   DISCOUNTORDERLINE    numeric(8)                     null,
+   DISCOUNTORDERLINE    float                          null,
    UNITCOSTORDERLINE    float                          not null,
    RATETVAORDERLINE     float                          not null,
    constraint PK_ORDERLINE primary key (IDORDERLINE)
@@ -297,14 +293,14 @@ create table ORDERLINE
 /*==============================================================*/
 create table APPRECIATION 
 (
-   IDAPPRECIATE         integer                        not null ,
-   LOGINEMPLOYEAPPRECIATE varchar(50)                    not null,
-   LOGINCUSTOMERAPPRECIATE varchar(50)                    not null,
-   IDORDERLINEAPPRECIATE integer                        not null,
+   IDAPPRECIATE         varchar(10)                     not null ,
+   LOGINEMPLOYEAPPRECIATE varchar(50)                   null,
+   LOGINCUSTOMERAPPRECIATE varchar(50)                  not null,
+   IDORDERLINEAPPRECIATE varchar(10)                    not null,
    NUMISBNBOOKAPPRECIATE varchar(13)                    not null,
-   COMMENTAPPRECIATE    varchar(500)                   null,
-   RATINGAPPRECIATE     smallint                       null,
-   DATEAPPRECIATE       date                           not null,
-   IPAPPRECIATE         varchar(45)                    not null,
+   COMMENTAPPRECIATE    varchar(500)                    null,
+   RATINGAPPRECIATE     smallint                        null,
+   DATEAPPRECIATE       date                            not null,
+   IPAPPRECIATE         varchar(45)                     not null,
    constraint PK_APPRECIATION primary key (IDAPPRECIATE)
 );
