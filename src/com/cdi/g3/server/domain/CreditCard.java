@@ -7,6 +7,8 @@ public final class CreditCard extends DomainObject {
     // ======================================
     // =             Attributes             =
     // ======================================
+    
+    private String idCreditCard;
     private String _creditCardNumber;
     private String _creditCardType;
     private String _creditCardExpiryDate;
@@ -14,6 +16,17 @@ public final class CreditCard extends DomainObject {
     // ======================================
     // =         Getters and Setters        =
     // ======================================
+    
+    @Override
+    public String getId() {
+        return idCreditCard;
+    }
+    @Override
+    public void setId(String idCreditCard) {
+        this.idCreditCard = idCreditCard;
+    }
+    
+    
     public String getCreditCardNumber() {
         return _creditCardNumber;
     }

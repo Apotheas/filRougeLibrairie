@@ -107,7 +107,7 @@ create table OCCASION
    constraint PK_OCCASION primary key (NAMEOCCASION)
 );
 /*==============================================================*/
-/* Table: EVENTBOOK                                             */
+/* Table: OCCASIONBOOK                                             */
 /*==============================================================*/
 create table OCCASIONBOOK 
 (

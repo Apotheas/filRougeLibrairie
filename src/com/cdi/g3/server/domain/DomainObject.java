@@ -12,14 +12,7 @@ public abstract class DomainObject {
     // ======================================
 
     // Every domain object has a unique identifier.
-    protected String _id;
-
-	public String getId() {
-		return _id;
-	}
-
-	public void setId(String id) {
-		_id = id;
-	}
+	public abstract String getId();
+	public abstract void setId(String id); 
 
 }
