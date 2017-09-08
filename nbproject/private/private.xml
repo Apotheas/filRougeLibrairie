@@ -6,7 +6,12 @@
 <<<<<<< Updated upstream
             <file>file:/C:/Users/FOUAD/Documents/fIlRougeLibrairie/filRougeLibrairie/src/com/cdi/g3/config/Table1-8.sql</file>
 =======
+<<<<<<< Updated upstream
             <file>file:/D:/Afpa_2017/Projet_NetBeans/filRougeLibrairie/src/com/cdi/g3/config/Table17-19.sql</file>
+=======
+            <file>file:/D:/Git/filRougeLibrairie/src/com/cdi/g3/server/service/order/OrderService.java</file>
+            <file>file:/D:/Git/filRougeLibrairie/src/com/cdi/g3/config/Table9-12.sql</file>
+>>>>>>> Stashed changes
 >>>>>>> Stashed changes
         </group>
     </open-files>
