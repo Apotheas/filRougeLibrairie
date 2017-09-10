@@ -307,7 +307,7 @@ create table APPRECIATION
    RATINGAPPRECIATE     smallint                        null,
    DATEAPPRECIATE       date                            not null,
    IPAPPRECIATE         varchar(45)                     not null,
-   moderateAPPRECIATE  boolean                          null,
+   moderateAPPRECIATE  bit                          null,
    DATEmoderateAPPRECIATE date                          null,
    constraint PK_APPRECIATION primary key (IDAPPRECIATE)
 );
