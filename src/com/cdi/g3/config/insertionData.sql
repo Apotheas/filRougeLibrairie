@@ -449,19 +449,21 @@ INSERT INTO Appreciation
 		commentAppreciate,
 		ratingAppreciate,
 		dateAppreciate,
-		IPAPPRECIATE
+		IPAPPRECIATE,
+                moderateAPPRECIATE  ,
+                DATEmoderateAPPRECIATE    
 		) 
 
-VALUES ('1','employe01','Bob01','1' ,'2253092533','VERY GOOD (APPRECIATION 1)',5,'2017-01-11','5.135.158.101' ),
+VALUES ('1','employe01','Bob01','1' ,'2253092533','VERY GOOD (APPRECIATION 1)',5,'2017-01-11','5.135.158.101',null,null ),
 		 
 	------------------------------------------	
-	 ('2','employe02','zidane02','2' ,'2253092770','VERY GOOD  (APPRECIATION2)',4,'2017-02-12' ,'5.135.158.101' ), 
+	 ('2','employe02','zidane02','2' ,'2253092770','VERY GOOD  (APPRECIATION2)',4,'2017-02-12' ,'5.135.158.101',null,null ), 
 	-----------------------------------------	
-	 ('3','employe03','marc03','3' ,'2265116491','GOOD  (APPRECIATION 3)',3,'2017-03-13','5.135.158.101'  ), 
+	 ('3','employe03','marc03','3' ,'2265116491','GOOD  (APPRECIATION 3)',3,'2017-03-13','5.135.158.101' ,null,null ), 
 	------------------------------------------
-     ('4','employe01','Nicole04','3' ,'2743640707','BUFFFFF   (APPRECIATION 4)', 2,'2017-04-14','5.135.158.101'  ), 
+     ('4','employe01','Nicole04','3' ,'2743640707','BUFFFFF   (APPRECIATION 4)', 2,'2017-04-14','5.135.158.101' ,null,null ), 
 ------------------------------------------
-	 ('5','employe02','Angelina05','4' ,'2330081545','NULLLL !!! (APPRECIATION 5)', 1,'2017-05-15','5.135.158.101'   )
+	 ('5','employe02','Angelina05','4' ,'2330081545','NULLLL !!! (APPRECIATION 5)', 1,'2017-05-15','5.135.158.101' ,null,null  )
 
 
 

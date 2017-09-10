@@ -1,7 +1,7 @@
 Use librairieDB
 go
 
----- Ce trigger se declenche lors d'une insertion ou d'une mise à jour
+---- Ce trigger se declenche lors d'une insertion ou d'une mise ï¿½ jour
 ---- dans la table Appreciation
 
 CREATE TRIGGER insertionAppreciation
@@ -21,31 +21,34 @@ DECLARE
 
 
 set  @appreciation= (	select COUNT(*) 	
-				From  BOOK bok, CUSTOMER cus,APPRECIATION app, inserted ins
-				Where	bok.NUMISBNBOOK=  app.NUMISBNBOOKAPPRECIATE		
-						and app.LOGINCUSTOMERAPPRECIATE  = cus.logincustomer
-						and app.NUMISBNBOOKAPPRECIATE =ins.NUMISBNBOOKAPPRECIATE
-						and	app.LOGINCUSTOMERAPPRECIATE = ins.LOGINCUSTOMERAPPRECIATE )
+				From  APPRECIATION app
+                                join book bok 
+                                on app.NUMISBNBOOKAPPRECIATE =   bok.NUMISBNBOOK
+                                join book CUSTOMER cus
+                                on app.LOGINCUSTOMERAPPRECIATE  = cus.logincustomer
+				Where	app.NUMISBNBOOKAPPRECIATE =inserted.NUMISBNBOOKAPPRECIATE
+				and	app.LOGINCUSTOMERAPPRECIATE = inserted.LOGINCUSTOMERAPPRECIATE )
  
  
  set  @orderLine= (	select COUNT(*) 		
-				From ORDERLINE ordl, CUSTOMER cus, BOOK bok,ORDERS ord, inserted ins
-				Where	bok.NUMISBNBOOK=  ordl.NUMISBNBOOK  		
-						and ordl.IDORDER  = ord.IDORDER	
-						and ord.LOGINCUSTOMERORDER = cus.logincustomer		
-						and ordl.NUMISBNBOOK =ins.NUMISBNBOOKAPPRECIATE
-						and	ord.LOGINCUSTOMERORDER = ins.LOGINCUSTOMERAPPRECIATE )
+				From ORDERLINE ordl
+                                join ORDERS ord
+                                on ordl.IDORDER  = ord.IDORDER
+                                join CUSTOMER cus
+                                on ord.LOGINCUSTOMERORDER = cus.logincustomer
+				Where  ordl.NUMISBNBOOK =inserted.NUMISBNBOOKAPPRECIATE
+				and    ord.LOGINCUSTOMERORDER = inserted.LOGINCUSTOMERAPPRECIATE )
 
 IF @appreciation <> 0
 	BEGIN
-	SET @ErrComment = 'ERROR, le livre est déjà commenté.' 
+	SET @ErrComment = 'ERROR, le livre est dï¿½jï¿½ commentï¿½.' 
     RAISERROR (@ErrComment, 16, 1)
 	rollback		
 	END
 
 ELSE IF @orderLine = 0
 		BEGIN
-		SET @ErrBuy = 'ERROR, le livre devrait étre acheter pour étre commenté.'
+		SET @ErrBuy = 'ERROR, le livre devrait ï¿½tre acheter pour ï¿½tre commentï¿½.'
         RAISERROR (@ErrBuy, 16, 1)	
 		rollback		
 		END
