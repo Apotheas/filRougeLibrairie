@@ -7,6 +7,7 @@ package com.cdi.g3.server.domain.orders;
 
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -22,7 +23,7 @@ public class InfoStatusDAO extends AbstractDataAccessObject{
     }
 
     @Override
-    protected String getInsertSqlStatement(DomainObject object) {
+    protected String getInsertSqlPreparedStatement() {
         throw new UnsupportedOperationException("Not supported yet."); 
     }
 
@@ -32,7 +33,7 @@ public class InfoStatusDAO extends AbstractDataAccessObject{
     }
 
     @Override
-    protected String getUpdateSqlStatement(DomainObject object) {
+    protected String getUpdateSqlPreparedStatement() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -49,6 +50,11 @@ public class InfoStatusDAO extends AbstractDataAccessObject{
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

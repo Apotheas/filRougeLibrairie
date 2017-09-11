@@ -5,6 +5,8 @@ import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.CreditCard;
 import com.cdi.g3.server.domain.DomainObject;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 /**
  * This class represents a users for the librairie company.
  */
@@ -13,13 +15,20 @@ public final class Customer extends DomainObject implements Serializable {
     // ======================================
     // =             Attributes             =
     // ======================================
+   
+    
     private String loginCustomer;
-    private String firstname;
-    private String lastname;
-    private String telephone;
-    private String email;
-    private final Adress address = new Adress();
-    private final CreditCard creditCard = new CreditCard();
+    private String lastNameCustomer;
+    private String firstNameCustomer;
+    private String emailCustomer;
+    private String passwordCustomer;
+    private String nameCompanyCustomer;
+    private String commentCustomer;
+    private String statusCustomer;
+    private final Collection  listAddressShipping = new ArrayList();
+    private final Collection  listAddressBilling = new ArrayList();
+    private final Collection  listAppreciation = new ArrayList();
+    private final Collection  listOrders = new ArrayList();
 
     // ======================================
     // =            Constructors            =
@@ -31,10 +40,13 @@ public final class Customer extends DomainObject implements Serializable {
         setId(id);
     }
 
-    public Customer(final String id, final String firstname, final String lastname) {
+    public Customer(final String id, final String lastNameCustomer, final String firstNameCustomer, 
+            final String emailCustomer, final String passwordCustomer) {
         setId(id);
-        setFirstname(firstname);
-        setLastname(lastname);
+        setFirstNameCustomer(firstNameCustomer);
+        setLastNameCustomer(lastNameCustomer);
+        setEmailCustomer(emailCustomer);
+        setPasswordCustomer(passwordCustomer);
     }
 
     // ======================================
@@ -46,10 +58,14 @@ public final class Customer extends DomainObject implements Serializable {
      * @throws CheckException if data is invalid
      */
     public void checkData() throws CheckException {
-        if (getFirstname() == null || "".equals(getFirstname()))
-            throw new CheckException("Invalid customer first name");
-        if (getLastname() == null || "".equals(getLastname()))
+        if (getLoginCustomer() == null || "".equals(getLoginCustomer()))
+            throw new CheckException("Invalid customer login");
+        if (getEmailCustomer() == null || "".equals(getEmailCustomer()))
+            throw new CheckException("Invalid customer email");
+        if (getLastNameCustomer() == null || "".equals(getLastNameCustomer()))
             throw new CheckException("Invalid customer last name");
+        if (getFirstNameCustomer() == null || "".equals(getFirstNameCustomer()))
+            throw new CheckException("Invalid customer first name");
     }
 
     // ======================================
@@ -64,137 +80,99 @@ public final class Customer extends DomainObject implements Serializable {
     public void setId(String loginCustomer) {
         this.loginCustomer = loginCustomer;
     }
-    
-    
-    
-    
-    public String getFirstname() {
-        return firstname;
+
+    public String getLoginCustomer() {
+        return loginCustomer;
     }
 
-    public void setFirstname(final String firstname) {
-        this.firstname = firstname;
+    public void setLoginCustomer(String loginCustomer) {
+        this.loginCustomer = loginCustomer;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastNameCustomer() {
+        return lastNameCustomer;
     }
 
-    public void setLastname(final String lastname) {
-       this.lastname = lastname;
+    public void setLastNameCustomer(String lastNameCustomer) {
+        this.lastNameCustomer = lastNameCustomer;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getFirstNameCustomer() {
+        return firstNameCustomer;
     }
 
-    public void setTelephone(final String telephone) {
-       this.telephone = telephone;
+    public void setFirstNameCustomer(String firstNameCustomer) {
+        this.firstNameCustomer = firstNameCustomer;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmailCustomer() {
+        return emailCustomer;
     }
 
-    public void setEmail(final String email) {
-        this.email = email;
+    public void setEmailCustomer(String emailCustomer) {
+        this.emailCustomer = emailCustomer;
     }
 
-    public String getStreet1() {
-        return address.getStreet1();
+    public String getPasswordCustomer() {
+        return passwordCustomer;
     }
 
-    public void setStreet1(final String street1) {
-       this.address.setStreet1(street1);
+    public void setPasswordCustomer(String passwordCustomer) {
+        this.passwordCustomer = passwordCustomer;
     }
 
-    public String getStreet2() {
-        return address.getStreet2();
+    public String getNameCompanyCustomer() {
+        return nameCompanyCustomer;
     }
 
-    public void setStreet2(final String street2) {
-       this.address.setStreet2(street2);
+    public void setNameCompanyCustomer(String nameCompanyCustomer) {
+        this.nameCompanyCustomer = nameCompanyCustomer;
     }
 
-    public String getCity() {
-        return address.getCity();
+    public String getCommentCustomer() {
+        return commentCustomer;
     }
 
-    public void setCity(final String city) {
-       this.address.setCity(city);
+    public void setCommentCustomer(String commentCustomer) {
+        this.commentCustomer = commentCustomer;
     }
 
-    public String getState() {
-        return address.getState();
+    public String getStatusCustomer() {
+        return statusCustomer;
     }
 
-    public void setState(final String state) {
-       this.address.setState(state);
+    public void setStatusCustomer(String statusCustomer) {
+        this.statusCustomer = statusCustomer;    
     }
 
-    public String getZipcode() {
-        return address.getZipcode();
+    public Collection getListAddressShipping() {
+        return listAddressShipping;
     }
 
-    public void setZipcode(final String zipcode) {
-       this.address.setZipcode(zipcode);
+    public Collection getListAddressBilling() {
+        return listAddressBilling;
     }
 
-    public String getCountry() {
-        return address.getCountry();
+    public Collection getListAppreciation() {
+        return listAppreciation;
     }
 
-    public void setCountry(final String country) {
-        this.address.setCountry(country);
+    public Collection getListOrders() {
+        return listOrders;
     }
 
-    public CreditCard getCreditCard() {
-        return creditCard;
-    }
-
-    public String getCreditCardNumber() {
-        return this.creditCard.getCreditCardNumber();
-    }
-
-    public void setCreditCardNumber(final String creditCardNumber) {
-        creditCard.setCreditCardNumber(creditCardNumber);
-    }
-
-    public String getCreditCardType() {
-        return this.creditCard.getCreditCardType();
-    }
-
-    public void setCreditCardType(final String creditCardType) {
-        creditCard.setCreditCardType(creditCardType);
-    }
-
-    public String getCreditCardExpiryDate() {
-        return this.creditCard.getCreditCardExpiryDate();
-    }
-
-    public void setCreditCardExpiryDate(final String creditCardExpiryDate) {
-        creditCard.setCreditCardExpiryDate(creditCardExpiryDate);
-    }
-
+    @Override
     public String toString() {
-        final StringBuffer buf = new StringBuffer();
-        buf.append("Customer{");
-        buf.append("id=").append(getId());
-        buf.append(",firstname=").append(getFirstname());
-        buf.append(",lastname=").append(getLastname());
-        buf.append(",telephone=").append(getTelephone());
-        buf.append(",email=").append(getEmail());
-        buf.append(",street1=").append(getStreet1());
-        buf.append(",street2=").append(getStreet2());
-        buf.append(",city=").append(getCity());
-        buf.append(",state=").append(getState());
-        buf.append(",zipcode=").append(getZipcode());
-        buf.append(",country=").append(getCountry());
-        buf.append(",creditCardNumber=").append(getCreditCardNumber());
-        buf.append(",creditCardType=").append(getCreditCardType());
-        buf.append(",creditCardExpiryDate=").append(getCreditCardExpiryDate());
-        buf.append('}');
-        return buf.toString();
+        return  loginCustomer +"  "+  lastNameCustomer  ;
     }
 }
+    
+    
+    
+    
+
+   
+ 
+    
+
 

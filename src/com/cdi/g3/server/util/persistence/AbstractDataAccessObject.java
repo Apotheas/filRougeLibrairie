@@ -1,7 +1,5 @@
 package com.cdi.g3.server.util.persistence;
 
-
-
 import com.cdi.g3.common.exception.DataAccessException;
 import com.cdi.g3.common.exception.DuplicateKeyException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
@@ -13,16 +11,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * This class follows the Data Acces Object (DAO) Design Pattern.
- * It uses JDBC to store object values in a database.
- * Every concrete DAO class should extends this class.
+ * This class follows the Data Acces Object (DAO) Design Pattern. It uses JDBC
+ * to store object values in a database. Every concrete DAO class should extends
+ * this class.
  */
 public abstract class AbstractDataAccessObject implements DataAccessConstants {
 
     // ======================================
     // =             Attributes             =
     // ======================================
-
     // Used for logging
     private final transient String _cname = this.getClass().getName();
     private static final String sname = AbstractDataAccessObject.class.getName();
@@ -47,19 +44,22 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
      *
      * @param id Object identifier to be found in the persistent layer
      * @return DomainObject the object with all its attributs set
-     * @throws ObjectNotFoundException is thrown if the object id not found in the persistent layer
-     * @throws DataAccessException     is thrown if there's a persistent problem
+     * @throws ObjectNotFoundException is thrown if the object id not found in
+     * the persistent layer
+     * @throws DataAccessException is thrown if there's a persistent problem
      */
     public final DomainObject findByPrimaryKey(final String id) throws ObjectNotFoundException {
-    	return this.select(id);
+        return this.select(id);
     }
+
     /**
      * This method gets all the attributes for the object from the database.
      *
      * @param id Object identifier to be found in the persistent layer
      * @return DomainObject the object with all its attributs set
-     * @throws ObjectNotFoundException is thrown if the object id not found in the persistent layer
-     * @throws DataAccessException     is thrown if there's a persistent problem
+     * @throws ObjectNotFoundException is thrown if the object id not found in
+     * the persistent layer
+     * @throws DataAccessException is thrown if there's a persistent problem
      */
     public final DomainObject select(final String id) throws ObjectNotFoundException {
         final String mname = "select";
@@ -77,8 +77,9 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
 
             // Select a Row
             resultSet = statement.executeQuery(getSelectSqlStatement(id));
-            if (!resultSet.next())
+            if (!resultSet.next()) {
                 throw new ObjectNotFoundException();
+            }
 
             // Set data to current object
             object = transformResultset2DomainObject(resultSet);
@@ -90,9 +91,15 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
         } finally {
             // Close
             try {
-                if (resultSet != null) resultSet.close();
-                if (statement != null) statement.close();
-                if (connection != null) connection.close();
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException e) {
                 displaySqlException("Cannot close connection", e);
                 throw new DataAccessException("Cannot close the database connection", e);
@@ -108,17 +115,18 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
      *
      * @return collection of DomainObject
      * @throws ObjectNotFoundException is thrown if the collection is empty
-     * @throws DataAccessException     is thrown if there's a persistent problem
+     * @throws DataAccessException is thrown if there's a persistent problem
      */
     public final Collection findAll() throws ObjectNotFoundException {
-    	return selectAll();
+        return selectAll();
     }
+
     /**
      * This method return all the objects from the database.
      *
      * @return collection of DomainObject
      * @throws ObjectNotFoundException is thrown if the collection is empty
-     * @throws DataAccessException     is thrown if there's a persistent problem
+     * @throws DataAccessException is thrown if there's a persistent problem
      */
     public final Collection selectAll() throws ObjectNotFoundException {
         final String mname = "selectAll";
@@ -142,8 +150,9 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
                 objects.add(transformResultset2DomainObject(resultSet));
             }
 
-            if (objects.isEmpty())
+            if (objects.isEmpty()) {
                 throw new ObjectNotFoundException();
+            }
 
         } catch (SQLException e) {
             // A Severe SQL Exception is caught
@@ -152,9 +161,15 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
         } finally {
             // Close
             try {
-                if (resultSet != null) resultSet.close();
-                if (statement != null) statement.close();
-                if (connection != null) connection.close();
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException e) {
                 displaySqlException("Cannot close connection", e);
                 throw new DataAccessException("Cannot close the database connection", e);
@@ -169,28 +184,25 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
      * This method inserts an object into the database.
      *
      * @param object Domain object to be inserted
-     * @throws DuplicateKeyException is thrown when an identical object is already in the persistent layer
-     * @throws DataAccessException   is thrown if there's a persistent problem
+     * @throws DuplicateKeyException is thrown when an identical object is
+     * already in the persistent layer
+     * @throws DataAccessException is thrown if there's a persistent problem
      */
     public final void insert(final DomainObject object) throws DuplicateKeyException {
         final String mname = "insert";
         Trace.entering(getCname(), mname, object);
 
-        Connection connection = null;
-        Statement statement = null;
-
-        try {
+        try (Connection connection = getConnection(); PreparedStatement prstatement = connection.prepareStatement(getInsertSqlPreparedStatement())) {
             // Gets a database connection
-            connection = getConnection();
-            statement = connection.createStatement();
+
+            executePreparedSt(prstatement, object);
 
             // Sets the object Id if necessary
-            if ( object.getId() == null )
-            	object.setId("" + getUniqueId());
+            if (object.getId() == null) {
+                object.setId("" + getUniqueId());
+            }
 
             // Inserts a Row
-            statement.executeUpdate(getInsertSqlStatement(object));
-
         } catch (SQLException e) {
             // The data already exists in the database
             if (e.getErrorCode() == DATA_ALREADY_EXIST) {
@@ -201,16 +213,7 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
                 throw new DataAccessException("Cannot insert data into the database", e);
             }
         } catch (Exception e) {
-        	e.printStackTrace();
-        } finally {
-            // Close
-            try {
-                if (statement != null) statement.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                displaySqlException("Cannot close connection", e);
-                throw new DataAccessException("Cannot close the database connection", e);
-            }
+            e.printStackTrace();
         }
     }
 
@@ -218,38 +221,26 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
      * This method updates an object in the database.
      *
      * @param object Object to be updated in the database
-     * @throws ObjectNotFoundException is thrown if the object id not found in the database
-     * @throws DataAccessException     is thrown if there's a persistent problem
+     * @throws ObjectNotFoundException is thrown if the object id not found in
+     * the database
+     * @throws DataAccessException is thrown if there's a persistent problem
      */
     public final void update(final DomainObject object) throws ObjectNotFoundException {
         final String mname = "update";
         Trace.entering(getCname(), mname, object);
 
-        Connection connection = null;
-        Statement statement = null;
-
-        try {
+        try (Connection connection = getConnection(); PreparedStatement prstatement = connection.prepareStatement(getUpdateSqlPreparedStatement())) {
             // Gets a database connection
-            connection = getConnection();
-            statement = connection.createStatement();
-
+            int retour = executePreparedSt(prstatement, object);
             // Update a Row
-            if (statement.executeUpdate(getUpdateSqlStatement(object)) == 0)
+            if (retour == 0) {
                 throw new ObjectNotFoundException();
+            }
 
         } catch (SQLException e) {
             // A Severe SQL Exception is caught
             displaySqlException(e);
             throw new DataAccessException("Cannot update data into the database", e);
-        } finally {
-            // Close
-            try {
-                if (statement != null) statement.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                displaySqlException("Cannot close connection", e);
-                throw new DataAccessException("Cannot close the database connection", e);
-            }
         }
     }
 
@@ -257,8 +248,9 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
      * This method deletes an object from the database.
      *
      * @param id identifier of the object to be deleted
-     * @throws ObjectNotFoundException is thrown if the object id not found in the persistent layer
-     * @throws DataAccessException     is thrown if there's a persistent problem
+     * @throws ObjectNotFoundException is thrown if the object id not found in
+     * the persistent layer
+     * @throws DataAccessException is thrown if there's a persistent problem
      */
     public final void remove(final String id) throws ObjectNotFoundException {
         final String mname = "remove";
@@ -273,8 +265,9 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
             statement = connection.createStatement();
 
             // Delete a Row
-            if (statement.executeUpdate(getDeleteSqlStatement(id)) == 0)
+            if (statement.executeUpdate(getDeleteSqlStatement(id)) == 0) {
                 throw new ObjectNotFoundException();
+            }
 
         } catch (SQLException e) {
             // A Severe SQL Exception is caught
@@ -284,8 +277,12 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
         } finally {
             // Close
             try {
-                if (statement != null) statement.close();
-                if (connection != null) connection.close();
+                if (statement != null) {
+                    statement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
             } catch (SQLException e) {
                 displaySqlException("Cannot close connection", e);
                 throw new DataAccessException("Cannot close the database connection", e);
@@ -294,7 +291,7 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
     }
 
     /**
-     * This method returns a unique identifer generated by the system. 
+     * This method returns a unique identifer generated by the system.
      *
      * @return a unique identifer
      */
@@ -303,9 +300,10 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
     }
 
     /**
-     * This method returns a unique identifer generated by the system. 
+     * This method returns a unique identifer generated by the system.
      *
-     * @param domainClassName name of a domain class (e.g. Customer, Product, Order, ...
+     * @param domainClassName name of a domain class (e.g. Customer, Product,
+     * Order, ...
      * @return a unique identifer
      */
     public final String getUniqueId(final String domainClassName) {
@@ -313,7 +311,7 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
     }
 
     protected abstract String getCounterName();
-    
+
     /**
      * This method returns a database connection.
      *
@@ -327,8 +325,8 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
     }
 
     /**
-     * This method displays all information of an SQL exception. Its error code, state,
-     * sql message and ultimately the stacktrace of the Exception
+     * This method displays all information of an SQL exception. Its error code,
+     * state, sql message and ultimately the stacktrace of the Exception
      *
      * @param e SQLException that you want to display
      */
@@ -342,11 +340,12 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
     }
 
     /**
-     * This method displays all information of an SQL exception and a custom message.
-     * Display the sql error code, state, sql message and ultimately the stacktrace of the Exception
+     * This method displays all information of an SQL exception and a custom
+     * message. Display the sql error code, state, sql message and ultimately
+     * the stacktrace of the Exception
      *
      * @param message custom message to display
-     * @param e       SQLException that you want to display
+     * @param e SQLException that you want to display
      */
     public static void displaySqlException(final String message, final SQLException e) {
         final String mname = "displaySqlException";
@@ -359,19 +358,21 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
     }
 
     /**
-     * This method returns an insert sql statement
-     * This method follows the "Template Method" Design Pattern. It is used by
-     * the {@link #insert(DomainObject) insert} method. Every concrete class must redefine this method.
+     * This method returns an insert sql statement This method follows the
+     * "Template Method" Design Pattern. It is used by the
+     * {@link #insert(DomainObject) insert} method. Every concrete class must
+     * redefine this method.
      *
      * @param object DomainObject to insert in the database
      * @return an insert sql statement
      */
-    protected abstract String getInsertSqlStatement(DomainObject object);
+    protected abstract String getInsertSqlPreparedStatement();
 
     /**
-     * This method returns a remove sql statement
-     * This method follows the "Template Method" Design Pattern. It is used by
-     * the {@link #remove(String) remove} method. Every concrete class must redefine this method.
+     * This method returns a remove sql statement This method follows the
+     * "Template Method" Design Pattern. It is used by the
+     * {@link #remove(String) remove} method. Every concrete class must redefine
+     * this method.
      *
      * @param id of the domain object to remove
      * @return a remove sql statement
@@ -379,19 +380,21 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
     protected abstract String getDeleteSqlStatement(String id);
 
     /**
-     * This method returns an update sql statement
-     * This method follows the "Template Method" Design Pattern. It is used by
-     * the {@link #update(DomainObject) update} method. Every concrete class must redefine this method.
+     * This method returns an update sql statement This method follows the
+     * "Template Method" Design Pattern. It is used by the
+     * {@link #update(DomainObject) update} method. Every concrete class must
+     * redefine this method.
      *
      * @param object DomainObject to update in the database
      * @return an update sql statement
      */
-    protected abstract String getUpdateSqlStatement(DomainObject object);
+    protected abstract String getUpdateSqlPreparedStatement();
 
     /**
-     * This method returns a select sql statement
-     * This method follows the "Template Method" Design Pattern. It is used by
-     * the {@link #select(String) select} method. Every concrete class must redefine this method.
+     * This method returns a select sql statement This method follows the
+     * "Template Method" Design Pattern. It is used by the
+     * {@link #select(String) select} method. Every concrete class must redefine
+     * this method.
      *
      * @param id of the domain object to select
      * @return a select sql statement
@@ -399,25 +402,31 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
     protected abstract String getSelectSqlStatement(String id);
 
     /**
-     * This method returns a select * sql statement
-     * This method follows the "Template Method" Design Pattern. It is used by
-     * the {@link #selectAll() selectAll} method. Every concrete class must redefine this method.
+     * This method returns a select * sql statement This method follows the
+     * "Template Method" Design Pattern. It is used by the
+     * {@link #selectAll() selectAll} method. Every concrete class must redefine
+     * this method.
      *
      * @return a select * sql statement
      */
     protected abstract String getSelectAllSqlStatement();
 
+    protected abstract int executePreparedSt(PreparedStatement prestmt, DomainObject object);
+
     /**
      * This method takes a resultset and transforms it into a Domain Object.
      * This method follows the "Template Method" Design Pattern. It is used by
-     * the {@link #select(String) select} and {@link #selectAll() selectAll} method. Every concrete class must redefine this method.
+     * the {@link #select(String) select} and {@link #selectAll() selectAll}
+     * method. Every concrete class must redefine this method.
      *
-     * @param resultSet JDBC resultset containing all the information for one row
+     * @param resultSet JDBC resultset containing all the information for one
+     * row
      * @return a DomainObject with its values set
      * @throws SQLException
      */
     protected abstract DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException;
-	protected String getCname() {
-		return _cname;
-	}
+
+    protected String getCname() {
+        return _cname;
+    }
 }

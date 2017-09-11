@@ -35,109 +35,94 @@ public final class CustomerService extends AbstractService{
     // ======================================
     // = Business methods =
     // ======================================
-    public Customer createUser( final Customer user ) throws CreateException, CheckException {
-        final String mname = "createUser";
-        Trace.entering( _cname, mname, user );
+    public Customer createCustomer( final Customer customer ) throws CreateException, CheckException {
+        final String mname = "createCustomer";
+        Trace.entering( _cname, mname, customer );
 
-        if ( user == null )
-            throw new CreateException( "User object is null" );
+        if ( customer == null )
+            throw new CreateException( "Customer object is null" );
 
-        user.checkData();
-        checkId( user.getId() );
+        customer.checkData();
+        checkId( customer.getId() );
 
         // Creates the object
-        _dao.insert( user );
+        _dao.insert( customer );
 
         
 
-        Trace.exiting( _cname, mname, user );
-        return user;
+        Trace.exiting( _cname, mname, customer );
+        return customer;
     }
 
-    public Customer findUser( final String userId ) throws FinderException, CheckException {
-        final String mname = "findUser";
-        Trace.entering( _cname, mname, userId );
+    public Customer findCustomer( final String customerId ) throws FinderException, CheckException {
+        final String mname = "findCustomer";
+        Trace.entering( _cname, mname, customerId );
 
-        checkId( userId );
+        checkId( customerId );
         // Finds the object
-        final Customer user = (Customer) _dao.findByPrimaryKey( userId );
-        Trace.exiting( _cname, mname, user );
-        return user;
+        final Customer customer = (Customer) _dao.findByPrimaryKey( customerId );
+        Trace.exiting( _cname, mname, customer );
+        return customer;
     }
 
-    public void deleteUser( final String userId ) throws RemoveException, CheckException {
-        final String mname = "deleteUser";
-        Trace.entering( _cname, mname, userId );
+    public void deleteCustomer( final String customerId ) throws RemoveException, CheckException {
+        final String mname = "deleteCustomer";
+        Trace.entering( _cname, mname, customerId );
 
-        checkId( userId );
+        checkId( customerId );
 
         // Checks if the object exists
         try {
-            _dao.findByPrimaryKey( userId );
+            _dao.findByPrimaryKey( customerId );
         } catch ( FinderException e ) {
-            throw new RemoveException( "User must exist to be deleted" );
+            throw new RemoveException( "Customer must exist to be deleted" );
         }
 
         // Deletes the object
         try {
-            _dao.remove(userId);
+            _dao.remove(customerId);
         } catch ( ObjectNotFoundException e ) {
-            throw new RemoveException( "User must exist to be deleted" );
+            throw new RemoveException( "Customer must exist to be deleted" );
         }
     }
 
-    public void updateUser( final Customer userDTO  ) throws UpdateException, CheckException {
-        final String mname = "updateUser";
-        Trace.entering( _cname, mname, userDTO );
+    public void updateCustomer( final Customer customerDTO  ) throws UpdateException, CheckException {
+        final String mname = "updateCustomer";
+        Trace.entering( _cname, mname, customerDTO );
 
-        if ( userDTO == null )
-            throw new UpdateException( "User object is null" );
+        if ( customerDTO == null )
+            throw new UpdateException( "Customer object is null" );
 
-        checkId( userDTO.getId() );
+        checkId( customerDTO.getId() );
 
-       final Customer user;
+       final Customer customer;
 
         // Checks if the object exists
         try {
-            user = (Customer) _dao.findByPrimaryKey( userDTO.getId() );
+            customer = (Customer) _dao.findByPrimaryKey( customerDTO.getId() );
         } catch ( FinderException e ) {
-            throw new UpdateException( "User must exist to be updated" );
+            throw new UpdateException( "Customer must exist to be updated" );
         }
-
-        // Transforms DTO into domain object
-        user.setCity( userDTO.getCity() );
-        user.setCountry( userDTO.getCountry() );
-        user.setFirstname( userDTO.getFirstname() );
-        user.setLastname( userDTO.getLastname() );
-        user.setState( userDTO.getState() );
-        user.setStreet1( userDTO.getStreet1() );
-        user.setStreet2( userDTO.getStreet2() );
-        user.setTelephone( userDTO.getTelephone() );
-        user.setZipcode( userDTO.getZipcode() );
-        user.setEmail( userDTO.getEmail() );
-        user.setCreditCardExpiryDate( userDTO.getCreditCardExpiryDate() );
-        user.setCreditCardNumber( userDTO.getCreditCardNumber() );
-        user.setCreditCardType( userDTO.getCreditCardType() );
-
-        user.checkData();
+        
+        customer.checkData();
 
         // Updates the object
         try {
-            _dao.update( user );
+            _dao.update( customer );
         } catch ( ObjectNotFoundException e ) {
-            throw new UpdateException( "User must exist to be updated" );
+            throw new UpdateException( "Customer must exist to be updated" );
         }
     }
 
-    public Collection findUsers() throws FinderException {
-        final String mname = "findUsers";
+    public Collection findCustomers() throws FinderException {
+        final String mname = "findCustomers";
         Trace.entering( _cname, mname );
 
         // Finds all the objects
-        final Collection users = _dao.selectAll();
+        final Collection customers = _dao.selectAll();
         
-        Trace.exiting( _cname, mname, new Integer( users.size() ) );
-        return users;
+        Trace.exiting( _cname, mname, new Integer( customers.size() ) );
+        return customers;
     }
 
     // ======================================

@@ -5,6 +5,13 @@
  */
 package com.cdi.g3.client.ui.swing;
 
+import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.exception.FinderException;
+import com.cdi.g3.server.domain.customers.Customer;
+import com.cdi.g3.server.service.customers.CustomerService;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Apotheas
@@ -40,7 +47,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<String>();
         jTextField19 = new javax.swing.JTextField();
         jTextField20 = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
@@ -108,10 +115,20 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jLabel18.setText("id/pseudo/email  :");
 
         jButton13.setText("Update");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jButton14.setText("Delete");
 
         jButton15.setText("search");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -151,7 +168,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
         jLabel21.setText("Status  :");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "BlackList", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Active", "BlackList", "Item 3", "Item 4" }));
 
         jTextField20.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,11 +178,23 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
         jLabel22.setText("Password  :");
 
+        jTextField21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField21ActionPerformed(evt);
+            }
+        });
+
         jButton17.setText("Create");
 
         jLabel23.setText("First name :");
 
         jLabel24.setText("Last  name :");
+
+        jTextField23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField23ActionPerformed(evt);
+            }
+        });
 
         jLabel25.setText("Company  : ");
 
@@ -484,6 +513,32 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     private void jTextField34ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField34ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField34ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        try {
+            CustomerService serviceCustomer = new CustomerService();
+            Customer customer = serviceCustomer.findCustomer(jTextField9.getText());
+            jTextField21.setText(customer.getLoginCustomer());
+            jTextField23.setText(customer.getLastNameCustomer());
+        } catch (FinderException ex) {
+            Logger.getLogger(JPanelFormCustomers.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CheckException ex) {
+            Logger.getLogger(JPanelFormCustomers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jTextField21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField21ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField21ActionPerformed
+
+    private void jTextField23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField23ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField23ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
