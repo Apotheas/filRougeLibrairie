@@ -6,8 +6,8 @@ go
 
 CREATE TRIGGER insertionAppreciation
 ON APPRECIATION 
---INSTEAD  OF INSERT
-FOR INSERT,UPDATE 
+INSTEAD  OF INSERT
+--FOR INSERT,UPDATE 
 AS
 
 
@@ -24,9 +24,10 @@ set  @appreciation= (	select COUNT(*)
 				From  APPRECIATION app
                                 join book bok 
                                 on app.NUMISBNBOOKAPPRECIATE =   bok.NUMISBNBOOK
-                                join book CUSTOMER cus
+                                join CUSTOMER cus
                                 on app.LOGINCUSTOMERAPPRECIATE  = cus.logincustomer
-				Where	app.NUMISBNBOOKAPPRECIATE =inserted.NUMISBNBOOKAPPRECIATE
+								join inserted
+				on	app.NUMISBNBOOKAPPRECIATE =inserted.NUMISBNBOOKAPPRECIATE
 				and	app.LOGINCUSTOMERAPPRECIATE = inserted.LOGINCUSTOMERAPPRECIATE )
  
  
@@ -36,7 +37,8 @@ set  @appreciation= (	select COUNT(*)
                                 on ordl.IDORDER  = ord.IDORDER
                                 join CUSTOMER cus
                                 on ord.LOGINCUSTOMERORDER = cus.logincustomer
-				Where  ordl.NUMISBNBOOK =inserted.NUMISBNBOOKAPPRECIATE
+								join inserted
+				on  ordl.NUMISBNBOOK =inserted.NUMISBNBOOKAPPRECIATE
 				and    ord.LOGINCUSTOMERORDER = inserted.LOGINCUSTOMERAPPRECIATE )
 
 IF @appreciation <> 0

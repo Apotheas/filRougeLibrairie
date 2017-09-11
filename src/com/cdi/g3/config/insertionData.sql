@@ -450,21 +450,23 @@ INSERT INTO Appreciation
 		ratingAppreciate,
 		dateAppreciate,
 		IPAPPRECIATE,
-                moderateAPPRECIATE  ,
-                DATEmoderateAPPRECIATE    
+		moderateAPPRECIATE,
+		DATEmoderateAPPRECIATE
 		) 
 
-VALUES ('1','employe01','Bob01','1' ,'2253092533','VERY GOOD (APPRECIATION 1)',5,'2017-01-11','5.135.158.101',null,null ),
-		 
+VALUES ('1','employe01','Bob01','1' ,'2330081545','VERY GOOD (APPRECIATION 1)',5,'2017-01-11','5.135.158.101', 1, '2017-01-15' ),		 
 	------------------------------------------	
-	 ('2','employe02','zidane02','2' ,'2253092770','VERY GOOD  (APPRECIATION2)',4,'2017-02-12' ,'5.135.158.101',null,null ), 
+	 ('2','employe02','zidane02','3' ,'2290140961','VERY GOOD  (APPRECIATION2)',4,'2017-02-12' ,'5.135.158.101' , 1, '2017-02-15'), 
 	-----------------------------------------	
-	 ('3','employe03','marc03','3' ,'2265116491','GOOD  (APPRECIATION 3)',3,'2017-03-13','5.135.158.101' ,null,null ), 
+	 ('3','employe03','marc03','11' ,'2290140961','GOOD  (APPRECIATION 3)',3,'2017-03-13','5.135.158.101' , 1, '2017-03-15' ), 
+	 ('4',NULL,'marc03','10' ,'2290147001','GOOD  (APPRECIATION 3)',3,'2017-03-13','5.135.158.101' , null, null ), 
 	------------------------------------------
-     ('4','employe01','Nicole04','3' ,'2743640707','BUFFFFF   (APPRECIATION 4)', 2,'2017-04-14','5.135.158.101' ,null,null ), 
+        ('5','employe01','Nicole04','12' ,'2290139998','BUFFFFF   (APPRECIATION 4)', 2,'2017-04-14','5.135.158.101', 1, '2017-04-15'  ), 
+	 ('6',NULL,'Nicole04','6' ,'2253092770','BUFFFFF   (APPRECIATION 4)', 2,'2017-04-14','5.135.158.101', NULL, NULL  ),
 ------------------------------------------
-	 ('5','employe02','Angelina05','4' ,'2330081545','NULLLL !!! (APPRECIATION 5)', 1,'2017-05-15','5.135.158.101' ,null,null  )
+	 ('7',NULL,'Angelina05','4' ,'2811222510','NULLLL !!! (APPRECIATION 5)', 1,'2017-05-15','5.135.158.101' , null, null  ),
+	 ('8',NULL,'Angelina05','4' ,'2811222510','NULLLL !!! (APPRECIATION 5)', 1,'2017-05-15','5.135.158.101' , null, null  )
 
 
 
-
+	 

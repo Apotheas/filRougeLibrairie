@@ -107,7 +107,7 @@ create table OCCASION
    constraint PK_OCCASION primary key (NAMEOCCASION)
 );
 /*==============================================================*/
-/* Table: OCCASIONBOOK                                             */
+/* Table: EVENTBOOK                                             */
 /*==============================================================*/
 create table OCCASIONBOOK 
 (
@@ -307,7 +307,7 @@ create table APPRECIATION
    RATINGAPPRECIATE     smallint                        null,
    DATEAPPRECIATE       date                            not null,
    IPAPPRECIATE         varchar(45)                     not null,
-   moderateAPPRECIATE  bit                          null,
-   DATEmoderateAPPRECIATE date                          null,
+   moderateAPPRECIATE	bit				null,
+   DATEmoderateAPPRECIATE		date		null
    constraint PK_APPRECIATION primary key (IDAPPRECIATE)
 );
