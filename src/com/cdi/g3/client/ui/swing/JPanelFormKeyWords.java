@@ -29,34 +29,34 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
 
         jPanelKeyWords = new javax.swing.JPanel();
         jPanelNewEvent = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jLabelKeyWord = new javax.swing.JLabel();
+        jTextKeyWord = new javax.swing.JTextField();
+        jButtonCreate = new javax.swing.JButton();
         jPanelManageEvents = new javax.swing.JPanel();
         jScrollPaneManageEvents = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jLabelSelectedEvent = new javax.swing.JLabel();
-        jComboBoxSelectedEvent = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jLabelSelectedKeyWord = new javax.swing.JLabel();
+        jComboBoxSelectedKeyWord = new javax.swing.JComboBox<>();
+        jLabelInsert = new javax.swing.JLabel();
+        jTextInsert = new javax.swing.JTextField();
+        jButtonAdd = new javax.swing.JButton();
+        jButtonDeleteInsert = new javax.swing.JButton();
+        jButtonDelete = new javax.swing.JButton();
 
         jPanelNewEvent.setBorder(javax.swing.BorderFactory.createTitledBorder("New"));
 
-        jLabel2.setText("Key word   :");
+        jLabelKeyWord.setText("Key word   :");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jTextKeyWord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                jTextKeyWordActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Create");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCreate.setText("Create");
+        jButtonCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonCreateActionPerformed(evt);
             }
         });
 
@@ -66,20 +66,20 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
             jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelNewEventLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jLabel2)
+                .addComponent(jLabelKeyWord)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(jButtonCreate)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanelNewEventLayout.setVerticalGroup(
             jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelNewEventLayout.createSequentialGroup()
                 .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(jLabelKeyWord)
+                    .addComponent(jTextKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCreate))
                 .addGap(0, 14, Short.MAX_VALUE))
         );
 
@@ -99,22 +99,22 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
         ));
         jScrollPaneManageEvents.setViewportView(jTable2);
 
-        jLabelSelectedEvent.setText("Selected KeyWord  :");
+        jLabelSelectedKeyWord.setText("Selected KeyWord  :");
 
-        jComboBoxSelectedEvent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Collector", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSelectedKeyWord.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Collector", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel4.setText(" Isbn/Title/Author/Cat  :");
+        jLabelInsert.setText(" Isbn/Title/Author/Cat  :");
 
-        jButton2.setText("Add");
+        jButtonAdd.setText("Add");
 
-        jButton4.setText("Delete");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDeleteInsert.setText("Delete");
+        jButtonDeleteInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonDeleteInsertActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Delete ");
+        jButtonDelete.setText("Delete ");
 
         javax.swing.GroupLayout jPanelManageEventsLayout = new javax.swing.GroupLayout(jPanelManageEvents);
         jPanelManageEvents.setLayout(jPanelManageEventsLayout);
@@ -122,21 +122,21 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
             jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelSelectedEvent)
+                .addComponent(jLabelSelectedKeyWord)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelManageEventsLayout.createSequentialGroup()
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(jButtonAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4))
+                        .addComponent(jButtonDeleteInsert))
                     .addGroup(jPanelManageEventsLayout.createSequentialGroup()
-                        .addComponent(jComboBoxSelectedEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxSelectedKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
+                        .addComponent(jLabelInsert)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
                 .addComponent(jScrollPaneManageEvents)
@@ -147,15 +147,15 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelSelectedEvent)
-                    .addComponent(jComboBoxSelectedEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelSelectedKeyWord)
+                    .addComponent(jComboBoxSelectedKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelInsert)
+                    .addComponent(jTextInsert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton4)
-                    .addComponent(jButton6))
+                    .addComponent(jButtonAdd)
+                    .addComponent(jButtonDeleteInsert)
+                    .addComponent(jButtonDelete))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneManageEvents, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
                 .addContainerGap())
@@ -199,34 +199,34 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void jTextKeyWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextKeyWordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_jTextKeyWordActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButtonDeleteInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteInsertActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButtonDeleteInsertActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonCreateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBoxSelectedEvent;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabelSelectedEvent;
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonCreate;
+    private javax.swing.JButton jButtonDelete;
+    private javax.swing.JButton jButtonDeleteInsert;
+    private javax.swing.JComboBox<String> jComboBoxSelectedKeyWord;
+    private javax.swing.JLabel jLabelInsert;
+    private javax.swing.JLabel jLabelKeyWord;
+    private javax.swing.JLabel jLabelSelectedKeyWord;
     private javax.swing.JPanel jPanelKeyWords;
     private javax.swing.JPanel jPanelManageEvents;
     private javax.swing.JPanel jPanelNewEvent;
     private javax.swing.JScrollPane jScrollPaneManageEvents;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextInsert;
+    private javax.swing.JTextField jTextKeyWord;
     // End of variables declaration//GEN-END:variables
 }

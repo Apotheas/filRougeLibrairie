@@ -16,7 +16,7 @@
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="jPanel12">
+    <Container class="javax.swing.JPanel" name="jPanelBackgroundAppreciation">
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="Center"/>
@@ -25,7 +25,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanel13">
+        <Container class="javax.swing.JPanel" name="jPanelSearchBook">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -44,16 +44,16 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                      <Component id="jLabel31" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelTitleISBN" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jTextField28" min="-2" pref="133" max="-2" attributes="0"/>
+                      <Component id="jTextTitleISBN" min="-2" pref="133" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="jButton22" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonSearchBook" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="32" pref="584" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel15" max="32767" attributes="0"/>
+                      <Component id="jPanelSearchAppreciation" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -63,34 +63,34 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel31" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField28" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton22" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelTitleISBN" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextTitleISBN" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonSearchBook" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jPanel15" max="32767" attributes="0"/>
+                      <Component id="jPanelSearchAppreciation" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel31">
+            <Component class="javax.swing.JLabel" name="jLabelTitleISBN">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ISBN/Title : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField28">
+            <Component class="javax.swing.JTextField" name="jTextTitleISBN">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField28ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextTitleISBNActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton22">
+            <Component class="javax.swing.JButton" name="jButtonSearchBook">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Search"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JPanel" name="jPanel15">
+            <Container class="javax.swing.JPanel" name="jPanelSearchAppreciation">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -102,20 +102,20 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane6" alignment="0" pref="890" max="32767" attributes="0"/>
+                      <Component id="jScrollPaneShowAppreciations" alignment="0" pref="890" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jScrollPane6" pref="280" max="32767" attributes="0"/>
+                          <Component id="jScrollPaneShowAppreciations" pref="280" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Container class="javax.swing.JScrollPane" name="jScrollPane6">
+                <Container class="javax.swing.JScrollPane" name="jScrollPaneShowAppreciations">
                   <AuxValues>
                     <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                   </AuxValues>
@@ -142,7 +142,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel14">
+        <Container class="javax.swing.JPanel" name="jPanelTraitment">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -161,7 +161,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane7" pref="900" max="32767" attributes="0"/>
+                      <Component id="jScrollPaneAppreciationsWaiting" pref="900" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -170,14 +170,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane7" pref="115" max="32767" attributes="0"/>
+                      <Component id="jScrollPaneAppreciationsWaiting" pref="115" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane7">
+            <Container class="javax.swing.JScrollPane" name="jScrollPaneAppreciationsWaiting">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -200,7 +200,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel1">
+        <Container class="javax.swing.JPanel" name="jPanelManager">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -221,28 +221,28 @@
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelIdAppreciate" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextField29" min="-2" pref="68" max="-2" attributes="0"/>
+                              <Component id="jTextIdAppreciate" min="-2" pref="68" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton24" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonSearchIdAppreciate" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel32" min="-2" pref="124" max="-2" attributes="0"/>
+                              <Component id="jLabelAppreciationStatus" min="-2" pref="124" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jComboBox2" min="-2" pref="116" max="-2" attributes="0"/>
+                              <Component id="jComboBoxStatus" min="-2" pref="116" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton23" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonSetStatus" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="250" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="323" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPaneAppreciation" min="-2" pref="323" max="-2" attributes="0"/>
+                          <Component id="jLabelAppreciation" min="-2" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="jLabel34" min="-2" pref="111" max="-2" attributes="0"/>
+                              <Component id="jLabelCustomerLogin" min="-2" pref="111" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jLabel2" min="-2" pref="108" max="-2" attributes="0"/>
+                              <Component id="jLabelLogin" min="-2" pref="108" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -256,25 +256,25 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelCustomerLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="17" max="32767" attributes="0"/>
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelAppreciation" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="68" max="-2" attributes="0"/>
+                              <Component id="jScrollPaneAppreciation" min="-2" pref="68" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField29" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton24" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelIdAppreciate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextIdAppreciate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonSearchIdAppreciate" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton23" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelAppreciationStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonSetStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -284,22 +284,22 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButton24">
+            <Component class="javax.swing.JButton" name="jButtonSearchIdAppreciate">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Search"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel33">
+            <Component class="javax.swing.JLabel" name="jLabelIdAppreciate">
               <Properties>
                 <Property name="text" type="java.lang.String" value="idAppreciate : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField29">
+            <Component class="javax.swing.JTextField" name="jTextIdAppreciate">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField29ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextIdAppreciateActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox2">
+            <Component class="javax.swing.JComboBox" name="jComboBoxStatus">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -314,22 +314,22 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton23">
+            <Component class="javax.swing.JButton" name="jButtonSetStatus">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Set"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel32">
+            <Component class="javax.swing.JLabel" name="jLabelAppreciationStatus">
               <Properties>
                 <Property name="text" type="java.lang.String" value=" Appreciation Status  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="jLabelAppreciation">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Appreciation :"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+            <Container class="javax.swing.JScrollPane" name="jScrollPaneAppreciation">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -344,12 +344,12 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabel34">
+            <Component class="javax.swing.JLabel" name="jLabelCustomerLogin">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Customer Login  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="jLabelLogin">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Bob02"/>
               </Properties>

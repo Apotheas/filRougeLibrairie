@@ -27,7 +27,7 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="jPanelNewEvent1">
+        <Container class="javax.swing.JPanel" name="jPanelNewTheme">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -46,11 +46,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelTheme" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jTextField5" min="-2" pref="164" max="-2" attributes="0"/>
+                      <Component id="jTextTheme" min="-2" pref="164" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonCreateTheme" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="18" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -59,9 +59,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelTheme" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextTheme" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonCreateTheme" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
                   </Group>
@@ -69,24 +69,24 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="jLabelTheme">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Theme  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField5">
+            <Component class="javax.swing.JTextField" name="jTextTheme">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField5ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextThemeActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton6">
+            <Component class="javax.swing.JButton" name="jButtonCreateTheme">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Create"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanelManageEvents1">
+        <Container class="javax.swing.JPanel" name="jPanelManage">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -103,37 +103,37 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPaneManageEvents1" alignment="1" max="32767" attributes="0"/>
+                  <Component id="jScrollPaneManage" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jLabelSelectedEvent1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelSelectedTheme" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jComboBoxSelectedEvent1" min="-2" pref="133" max="-2" attributes="0"/>
+                              <Component id="jComboBoxSelectedTheme" min="-2" pref="133" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <Component id="jLabelSelectedEvent2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelSelectedSubTheme" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jComboBoxSelectedEvent2" min="-2" pref="133" max="-2" attributes="0"/>
+                              <Component id="jComboBoxSelectedSubTheme" min="-2" pref="133" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jButton10" alignment="0" max="32767" attributes="0"/>
-                          <Component id="jButton8" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jButtonDeleteSubTheme" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jButtonDeleteTheme" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="330" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelInsert" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextField6" min="-2" pref="128" max="-2" attributes="0"/>
+                              <Component id="jTextInsert" min="-2" pref="128" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jButton7" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonAdd" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jButton9" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonDeleteInsert" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
@@ -145,39 +145,39 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabelSelectedEvent1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBoxSelectedEvent1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton8" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelSelectedTheme" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxSelectedTheme" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelInsert" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextInsert" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonDeleteTheme" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton9" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonDeleteInsert" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButton10" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
-                                      <Component id="jLabelSelectedEvent2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBoxSelectedEvent2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                      <Component id="jLabelSelectedSubTheme" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jComboBoxSelectedSubTheme" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="jButtonDeleteSubTheme" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jScrollPaneManageEvents1" pref="325" max="32767" attributes="0"/>
+                      <Component id="jScrollPaneManage" pref="325" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="jScrollPaneManageEvents1">
+            <Container class="javax.swing.JScrollPane" name="jScrollPaneManage">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -199,12 +199,12 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabelSelectedEvent1">
+            <Component class="javax.swing.JLabel" name="jLabelSelectedTheme">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Selected Theme :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBoxSelectedEvent1">
+            <Component class="javax.swing.JComboBox" name="jComboBoxSelectedTheme">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -219,37 +219,37 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel6">
+            <Component class="javax.swing.JLabel" name="jLabelInsert">
               <Properties>
                 <Property name="text" type="java.lang.String" value=" Isbn/Title  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField6">
+            <Component class="javax.swing.JTextField" name="jTextInsert">
             </Component>
-            <Component class="javax.swing.JButton" name="jButton7">
+            <Component class="javax.swing.JButton" name="jButtonAdd">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Add"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton8">
+            <Component class="javax.swing.JButton" name="jButtonDeleteTheme">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Delete "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton9">
+            <Component class="javax.swing.JButton" name="jButtonDeleteInsert">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDeleteInsertActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton10">
+            <Component class="javax.swing.JButton" name="jButtonDeleteSubTheme">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBoxSelectedEvent2">
+            <Component class="javax.swing.JComboBox" name="jComboBoxSelectedSubTheme">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -264,14 +264,14 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabelSelectedEvent2">
+            <Component class="javax.swing.JLabel" name="jLabelSelectedSubTheme">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Selected subTheme :"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanelNewEvent2">
+        <Container class="javax.swing.JPanel" name="jPanelNewSubTheme">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -290,15 +290,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabelSelectedEvent3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelSelectedThemeSub" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jComboBoxSelectedEvent3" min="-2" pref="133" max="-2" attributes="0"/>
+                      <Component id="jComboBoxSelectedThemeSub" min="-2" pref="133" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelSubTheme" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField8" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="jTextSubTheme" min="-2" pref="100" max="-2" attributes="0"/>
                       <EmptySpace pref="50" max="32767" attributes="0"/>
-                      <Component id="jButton11" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonCreateSubTheme" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -308,11 +308,11 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabelSelectedEvent3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBoxSelectedEvent3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton11" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelSelectedThemeSub" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxSelectedThemeSub" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextSubTheme" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelSubTheme" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonCreateSubTheme" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                   </Group>
@@ -320,27 +320,27 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel4">
+            <Component class="javax.swing.JLabel" name="jLabelSubTheme">
               <Properties>
                 <Property name="text" type="java.lang.String" value="subTheme  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField8">
+            <Component class="javax.swing.JTextField" name="jTextSubTheme">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField8ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextSubThemeActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton11">
+            <Component class="javax.swing.JButton" name="jButtonCreateSubTheme">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Create"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabelSelectedEvent3">
+            <Component class="javax.swing.JLabel" name="jLabelSelectedThemeSub">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Selected Theme :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBoxSelectedEvent3">
+            <Component class="javax.swing.JComboBox" name="jComboBoxSelectedThemeSub">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">

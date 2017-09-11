@@ -73,42 +73,42 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel2" min="-2" pref="70" max="-2" attributes="0"/>
+                              <Component id="jLabelFirstName" min="-2" pref="70" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jTextField2" min="-2" pref="164" max="-2" attributes="0"/>
+                              <Component id="jTextFirstName" min="-2" pref="164" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel5" min="-2" pref="70" max="-2" attributes="0"/>
+                              <Component id="jLabelBirthDate" min="-2" pref="70" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jTextField5" min="-2" pref="164" max="-2" attributes="0"/>
+                              <Component id="jTextBirthDate" min="-2" pref="164" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel7" min="-2" pref="70" max="-2" attributes="0"/>
+                              <Component id="jLabelComment" min="-2" pref="70" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" min="-2" pref="223" max="-2" attributes="0"/>
+                              <Component id="jScrollPaneComment" min="-2" pref="223" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel6" pref="75" max="32767" attributes="0"/>
-                          <Component id="jLabel3" max="32767" attributes="0"/>
-                          <Component id="jLabel8" min="-2" pref="70" max="-2" attributes="0"/>
+                          <Component id="jLabelDeathDate" pref="75" max="32767" attributes="0"/>
+                          <Component id="jLabelLastName" max="32767" attributes="0"/>
+                          <Component id="jLabelBiography" min="-2" pref="70" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTextField6" min="-2" pref="164" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane2" min="-2" pref="326" max="-2" attributes="0"/>
+                                  <Component id="jTextDeathDate" min="-2" pref="164" max="-2" attributes="0"/>
+                                  <Component id="jScrollPaneBiography" min="-2" pref="326" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextField4" min="-2" pref="164" max="-2" attributes="0"/>
+                              <Component id="jTextLastName" min="-2" pref="164" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonNewAuthor" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -119,24 +119,24 @@
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelFirstName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextFirstName" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField5" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelBirthDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextBirthDate" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelLastName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextLastName" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelDeathDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextDeathDate" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -145,16 +145,16 @@
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelBiography" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jScrollPane1" min="-2" pref="57" max="-2" attributes="0"/>
+                                              <Component id="jScrollPaneComment" min="-2" pref="57" max="-2" attributes="0"/>
                                               <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="jScrollPane2" alignment="0" pref="0" max="32767" attributes="0"/>
+                                          <Component id="jScrollPaneBiography" alignment="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
@@ -164,11 +164,11 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelComment" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButtonNewAuthor" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -179,57 +179,57 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="jLabelFirstName">
               <Properties>
                 <Property name="text" type="java.lang.String" value="First Name  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField2">
+            <Component class="javax.swing.JTextField" name="jTextFirstName">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFirstNameActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="jButtonNewAuthor">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Add"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="jLabelLastName">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Last Name  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField4">
+            <Component class="javax.swing.JTextField" name="jTextLastName">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField4ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextLastNameActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel5">
+            <Component class="javax.swing.JLabel" name="jLabelBirthDate">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Birth Date  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField5">
+            <Component class="javax.swing.JTextField" name="jTextBirthDate">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField5ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextBirthDateActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel6">
+            <Component class="javax.swing.JLabel" name="jLabelDeathDate">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Death Date  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField6">
+            <Component class="javax.swing.JTextField" name="jTextDeathDate">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField6ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextDeathDateActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel7">
+            <Component class="javax.swing.JLabel" name="jLabelComment">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Comment :"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+            <Container class="javax.swing.JScrollPane" name="jScrollPaneComment">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -244,12 +244,12 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabel8">
+            <Component class="javax.swing.JLabel" name="jLabelBiography">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Biography  :"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+            <Container class="javax.swing.JScrollPane" name="jScrollPaneBiography">
               <AuxValues>
                 <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
               </AuxValues>
@@ -280,33 +280,33 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabelSelectedEvent1" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelSearchAuthor" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextField7" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
+                          <Component id="jTextSearchAuthor" alignment="0" min="-2" pref="164" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jButton3" min="-2" pref="93" max="-2" attributes="0"/>
+                              <Component id="jButtonUpdateAuthor" min="-2" pref="93" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton6" min="-2" pref="77" max="-2" attributes="0"/>
+                              <Component id="jButtonDeleteAuthor" min="-2" pref="77" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonAddBook" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonDeleteBook" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace pref="70" max="32767" attributes="0"/>
-                              <Component id="jLabelSelectedEvent" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelSelectedAuthor" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jComboBoxSelectedEvent" min="-2" pref="107" max="-2" attributes="0"/>
+                              <Component id="jComboBoxSelectedAuthor" min="-2" pref="107" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelTitleISBN" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextField3" min="-2" pref="128" max="-2" attributes="0"/>
+                              <Component id="jTextTitleISBN" min="-2" pref="128" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
@@ -324,28 +324,28 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabelSelectedEvent" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jComboBoxSelectedEvent" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextField3" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabelSelectedEvent1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelSelectedAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxSelectedAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelTitleISBN" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextTitleISBN" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelSearchAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField7" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextSearchAuthor" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonAddBook" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonDeleteBook" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonUpdateAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonDeleteAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -378,12 +378,12 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabelSelectedEvent">
+            <Component class="javax.swing.JLabel" name="jLabelSelectedAuthor">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Selected Author  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBoxSelectedEvent">
+            <Component class="javax.swing.JComboBox" name="jComboBoxSelectedAuthor">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -398,44 +398,44 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel4">
+            <Component class="javax.swing.JLabel" name="jLabelTitleISBN">
               <Properties>
                 <Property name="text" type="java.lang.String" value=" Isbn/Title :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField3">
+            <Component class="javax.swing.JTextField" name="jTextTitleISBN">
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="jButtonAddBook">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Add"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="jButtonUpdateAuthor">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Update"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton4">
+            <Component class="javax.swing.JButton" name="jButtonDeleteBook">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonDeleteBookActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton6">
+            <Component class="javax.swing.JButton" name="jButtonDeleteAuthor">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Delete "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabelSelectedEvent1">
+            <Component class="javax.swing.JLabel" name="jLabelSearchAuthor">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Search Author  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField7">
+            <Component class="javax.swing.JTextField" name="jTextSearchAuthor">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField7ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextSearchAuthorActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

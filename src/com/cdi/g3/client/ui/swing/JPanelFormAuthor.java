@@ -29,82 +29,82 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
 
         jPanelKeyWords = new javax.swing.JPanel();
         jPanelNewEvent = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jLabelFirstName = new javax.swing.JLabel();
+        jTextFirstName = new javax.swing.JTextField();
+        jButtonNewAuthor = new javax.swing.JButton();
+        jLabelLastName = new javax.swing.JLabel();
+        jTextLastName = new javax.swing.JTextField();
+        jLabelBirthDate = new javax.swing.JLabel();
+        jTextBirthDate = new javax.swing.JTextField();
+        jLabelDeathDate = new javax.swing.JLabel();
+        jTextDeathDate = new javax.swing.JTextField();
+        jLabelComment = new javax.swing.JLabel();
+        jScrollPaneComment = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jLabel8 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jLabelBiography = new javax.swing.JLabel();
+        jScrollPaneBiography = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jPanelManageEvents = new javax.swing.JPanel();
         jScrollPaneManageEvents = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jLabelSelectedEvent = new javax.swing.JLabel();
-        jComboBoxSelectedEvent = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jLabelSelectedEvent1 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        jLabelSelectedAuthor = new javax.swing.JLabel();
+        jComboBoxSelectedAuthor = new javax.swing.JComboBox<>();
+        jLabelTitleISBN = new javax.swing.JLabel();
+        jTextTitleISBN = new javax.swing.JTextField();
+        jButtonAddBook = new javax.swing.JButton();
+        jButtonUpdateAuthor = new javax.swing.JButton();
+        jButtonDeleteBook = new javax.swing.JButton();
+        jButtonDeleteAuthor = new javax.swing.JButton();
+        jLabelSearchAuthor = new javax.swing.JLabel();
+        jTextSearchAuthor = new javax.swing.JTextField();
 
         jPanelNewEvent.setBorder(javax.swing.BorderFactory.createTitledBorder("New"));
 
-        jLabel2.setText("First Name  :");
+        jLabelFirstName.setText("First Name  :");
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jTextFirstName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                jTextFirstNameActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Add");
+        jButtonNewAuthor.setText("Add");
 
-        jLabel3.setText("Last Name  :");
+        jLabelLastName.setText("Last Name  :");
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        jTextLastName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                jTextLastNameActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("Birth Date  :");
+        jLabelBirthDate.setText("Birth Date  :");
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        jTextBirthDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                jTextBirthDateActionPerformed(evt);
             }
         });
 
-        jLabel6.setText("Death Date  :");
+        jLabelDeathDate.setText("Death Date  :");
 
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        jTextDeathDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                jTextDeathDateActionPerformed(evt);
             }
         });
 
-        jLabel7.setText("Comment :");
+        jLabelComment.setText("Comment :");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jScrollPaneComment.setViewportView(jTextArea1);
 
-        jLabel8.setText("Biography  :");
+        jLabelBiography.setText("Biography  :");
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        jScrollPaneBiography.setViewportView(jTextArea2);
 
         javax.swing.GroupLayout jPanelNewEventLayout = new javax.swing.GroupLayout(jPanelNewEvent);
         jPanelNewEvent.setLayout(jPanelNewEventLayout);
@@ -114,33 +114,33 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelNewEventLayout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelNewEventLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelNewEventLayout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelComment, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPaneComment, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelDeathDate, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+                    .addComponent(jLabelLastName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelBiography, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNewEventLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextDeathDate, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPaneBiography, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelNewEventLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jButtonNewAuthor)
                 .addGap(15, 15, 15))
         );
         jPanelNewEventLayout.setVerticalGroup(
@@ -149,42 +149,42 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
                 .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanelNewEventLayout.createSequentialGroup()
                         .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelFirstName)
+                            .addComponent(jTextFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabelBirthDate)
+                            .addComponent(jTextBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelNewEventLayout.createSequentialGroup()
                         .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelLastName)
+                            .addComponent(jTextLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabelDeathDate)
+                            .addComponent(jTextDeathDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelNewEventLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelNewEventLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
+                                .addComponent(jLabelBiography)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanelNewEventLayout.createSequentialGroup()
                                 .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNewEventLayout.createSequentialGroup()
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jScrollPaneComment, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 20, Short.MAX_VALUE))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                    .addComponent(jScrollPaneBiography, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                                 .addContainerGap())))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNewEventLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNewEventLayout.createSequentialGroup()
-                                .addComponent(jLabel7)
+                                .addComponent(jLabelComment)
                                 .addGap(48, 48, 48))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNewEventLayout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(jButtonNewAuthor)
                                 .addGap(15, 15, 15))))))
         );
 
@@ -204,30 +204,30 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
         ));
         jScrollPaneManageEvents.setViewportView(jTable2);
 
-        jLabelSelectedEvent.setText("Selected Author  :");
+        jLabelSelectedAuthor.setText("Selected Author  :");
 
-        jComboBoxSelectedEvent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Collector", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSelectedAuthor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Collector", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel4.setText(" Isbn/Title :");
+        jLabelTitleISBN.setText(" Isbn/Title :");
 
-        jButton2.setText("Add");
+        jButtonAddBook.setText("Add");
 
-        jButton3.setText("Update");
+        jButtonUpdateAuthor.setText("Update");
 
-        jButton4.setText("Delete");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDeleteBook.setText("Delete");
+        jButtonDeleteBook.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonDeleteBookActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Delete ");
+        jButtonDeleteAuthor.setText("Delete ");
 
-        jLabelSelectedEvent1.setText("Search Author  :");
+        jLabelSearchAuthor.setText("Search Author  :");
 
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        jTextSearchAuthor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                jTextSearchAuthorActionPerformed(evt);
             }
         });
 
@@ -237,30 +237,30 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
             jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelSelectedEvent1)
+                .addComponent(jLabelSearchAuthor)
                 .addGap(18, 18, 18)
                 .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextSearchAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelManageEventsLayout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonUpdateAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonDeleteAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(11, 11, 11)
                 .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelManageEventsLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(jButtonAddBook)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton4))
+                        .addComponent(jButtonDeleteBook))
                     .addGroup(jPanelManageEventsLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                        .addComponent(jLabelSelectedEvent)
+                        .addComponent(jLabelSelectedAuthor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxSelectedEvent, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxSelectedAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(90, 90, 90)
-                        .addComponent(jLabel4)
+                        .addComponent(jLabelTitleISBN)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextTitleISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
                 .addComponent(jScrollPaneManageEvents)
@@ -273,23 +273,23 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
                     .addGroup(jPanelManageEventsLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelSelectedEvent)
-                            .addComponent(jComboBoxSelectedEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelSelectedEvent1))
+                            .addComponent(jLabelSelectedAuthor)
+                            .addComponent(jComboBoxSelectedAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelTitleISBN)
+                            .addComponent(jTextTitleISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelSearchAuthor))
                         .addGap(16, 16, 16))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextSearchAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton2)
-                        .addComponent(jButton4))
+                        .addComponent(jButtonAddBook)
+                        .addComponent(jButtonDeleteBook))
                     .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton3)
-                        .addComponent(jButton6)))
+                        .addComponent(jButtonUpdateAuthor)
+                        .addComponent(jButtonDeleteAuthor)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneManageEvents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
@@ -330,61 +330,61 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void jTextFirstNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFirstNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_jTextFirstNameActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButtonDeleteBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteBookActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_jButtonDeleteBookActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void jTextLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextLastNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_jTextLastNameActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void jTextBirthDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextBirthDateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_jTextBirthDateActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void jTextDeathDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDeathDateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_jTextDeathDateActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void jTextSearchAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextSearchAuthorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_jTextSearchAuthorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBoxSelectedEvent;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabelSelectedEvent;
-    private javax.swing.JLabel jLabelSelectedEvent1;
+    private javax.swing.JButton jButtonAddBook;
+    private javax.swing.JButton jButtonDeleteAuthor;
+    private javax.swing.JButton jButtonDeleteBook;
+    private javax.swing.JButton jButtonNewAuthor;
+    private javax.swing.JButton jButtonUpdateAuthor;
+    private javax.swing.JComboBox<String> jComboBoxSelectedAuthor;
+    private javax.swing.JLabel jLabelBiography;
+    private javax.swing.JLabel jLabelBirthDate;
+    private javax.swing.JLabel jLabelComment;
+    private javax.swing.JLabel jLabelDeathDate;
+    private javax.swing.JLabel jLabelFirstName;
+    private javax.swing.JLabel jLabelLastName;
+    private javax.swing.JLabel jLabelSearchAuthor;
+    private javax.swing.JLabel jLabelSelectedAuthor;
+    private javax.swing.JLabel jLabelTitleISBN;
     private javax.swing.JPanel jPanelKeyWords;
     private javax.swing.JPanel jPanelManageEvents;
     private javax.swing.JPanel jPanelNewEvent;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPaneBiography;
+    private javax.swing.JScrollPane jScrollPaneComment;
     private javax.swing.JScrollPane jScrollPaneManageEvents;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextBirthDate;
+    private javax.swing.JTextField jTextDeathDate;
+    private javax.swing.JTextField jTextFirstName;
+    private javax.swing.JTextField jTextLastName;
+    private javax.swing.JTextField jTextSearchAuthor;
+    private javax.swing.JTextField jTextTitleISBN;
     // End of variables declaration//GEN-END:variables
 }

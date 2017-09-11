@@ -28,73 +28,73 @@ public class JPanelFormThemes extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanelThemes = new javax.swing.JPanel();
-        jPanelNewEvent1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
-        jPanelManageEvents1 = new javax.swing.JPanel();
-        jScrollPaneManageEvents1 = new javax.swing.JScrollPane();
+        jPanelNewTheme = new javax.swing.JPanel();
+        jLabelTheme = new javax.swing.JLabel();
+        jTextTheme = new javax.swing.JTextField();
+        jButtonCreateTheme = new javax.swing.JButton();
+        jPanelManage = new javax.swing.JPanel();
+        jScrollPaneManage = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
-        jLabelSelectedEvent1 = new javax.swing.JLabel();
-        jComboBoxSelectedEvent1 = new javax.swing.JComboBox<>();
-        jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jComboBoxSelectedEvent2 = new javax.swing.JComboBox<>();
-        jLabelSelectedEvent2 = new javax.swing.JLabel();
-        jPanelNewEvent2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jButton11 = new javax.swing.JButton();
-        jLabelSelectedEvent3 = new javax.swing.JLabel();
-        jComboBoxSelectedEvent3 = new javax.swing.JComboBox<>();
+        jLabelSelectedTheme = new javax.swing.JLabel();
+        jComboBoxSelectedTheme = new javax.swing.JComboBox<>();
+        jLabelInsert = new javax.swing.JLabel();
+        jTextInsert = new javax.swing.JTextField();
+        jButtonAdd = new javax.swing.JButton();
+        jButtonDeleteTheme = new javax.swing.JButton();
+        jButtonDeleteInsert = new javax.swing.JButton();
+        jButtonDeleteSubTheme = new javax.swing.JButton();
+        jComboBoxSelectedSubTheme = new javax.swing.JComboBox<>();
+        jLabelSelectedSubTheme = new javax.swing.JLabel();
+        jPanelNewSubTheme = new javax.swing.JPanel();
+        jLabelSubTheme = new javax.swing.JLabel();
+        jTextSubTheme = new javax.swing.JTextField();
+        jButtonCreateSubTheme = new javax.swing.JButton();
+        jLabelSelectedThemeSub = new javax.swing.JLabel();
+        jComboBoxSelectedThemeSub = new javax.swing.JComboBox<>();
 
         setLayout(new java.awt.BorderLayout());
 
         jPanelThemes.setLayout(null);
 
-        jPanelNewEvent1.setBorder(javax.swing.BorderFactory.createTitledBorder("New Theme"));
+        jPanelNewTheme.setBorder(javax.swing.BorderFactory.createTitledBorder("New Theme"));
 
-        jLabel3.setText("Theme  :");
+        jLabelTheme.setText("Theme  :");
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        jTextTheme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                jTextThemeActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Create");
+        jButtonCreateTheme.setText("Create");
 
-        javax.swing.GroupLayout jPanelNewEvent1Layout = new javax.swing.GroupLayout(jPanelNewEvent1);
-        jPanelNewEvent1.setLayout(jPanelNewEvent1Layout);
-        jPanelNewEvent1Layout.setHorizontalGroup(
-            jPanelNewEvent1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelNewEvent1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelNewThemeLayout = new javax.swing.GroupLayout(jPanelNewTheme);
+        jPanelNewTheme.setLayout(jPanelNewThemeLayout);
+        jPanelNewThemeLayout.setHorizontalGroup(
+            jPanelNewThemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelNewThemeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(jLabelTheme)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton6)
+                .addComponent(jButtonCreateTheme)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
-        jPanelNewEvent1Layout.setVerticalGroup(
-            jPanelNewEvent1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelNewEvent1Layout.createSequentialGroup()
-                .addGroup(jPanelNewEvent1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6))
+        jPanelNewThemeLayout.setVerticalGroup(
+            jPanelNewThemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelNewThemeLayout.createSequentialGroup()
+                .addGroup(jPanelNewThemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTheme)
+                    .addComponent(jTextTheme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCreateTheme))
                 .addGap(0, 25, Short.MAX_VALUE))
         );
 
-        jPanelThemes.add(jPanelNewEvent1);
-        jPanelNewEvent1.setBounds(0, 469, 350, 80);
+        jPanelThemes.add(jPanelNewTheme);
+        jPanelNewTheme.setBounds(0, 469, 350, 80);
 
-        jPanelManageEvents1.setBorder(javax.swing.BorderFactory.createTitledBorder("Manage"));
+        jPanelManage.setBorder(javax.swing.BorderFactory.createTitledBorder("Manage"));
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -108,182 +108,182 @@ public class JPanelFormThemes extends javax.swing.JPanel {
                 "ISBN", "Title", "Author", "Publisher", "Stock"
             }
         ));
-        jScrollPaneManageEvents1.setViewportView(jTable3);
+        jScrollPaneManage.setViewportView(jTable3);
 
-        jLabelSelectedEvent1.setText("Selected Theme :");
+        jLabelSelectedTheme.setText("Selected Theme :");
 
-        jComboBoxSelectedEvent1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Romance", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSelectedTheme.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Romance", "Item 2", "Item 3", "Item 4" }));
 
-        jLabel6.setText(" Isbn/Title  :");
+        jLabelInsert.setText(" Isbn/Title  :");
 
-        jButton7.setText("Add");
+        jButtonAdd.setText("Add");
 
-        jButton8.setText("Delete ");
+        jButtonDeleteTheme.setText("Delete ");
 
-        jButton9.setText("Delete");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        jButtonDeleteInsert.setText("Delete");
+        jButtonDeleteInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                jButtonDeleteInsertActionPerformed(evt);
             }
         });
 
-        jButton10.setText("Delete");
+        jButtonDeleteSubTheme.setText("Delete");
 
-        jComboBoxSelectedEvent2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Americain", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSelectedSubTheme.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Americain", "Item 2", "Item 3", "Item 4" }));
 
-        jLabelSelectedEvent2.setText("Selected subTheme :");
+        jLabelSelectedSubTheme.setText("Selected subTheme :");
 
-        javax.swing.GroupLayout jPanelManageEvents1Layout = new javax.swing.GroupLayout(jPanelManageEvents1);
-        jPanelManageEvents1.setLayout(jPanelManageEvents1Layout);
-        jPanelManageEvents1Layout.setHorizontalGroup(
-            jPanelManageEvents1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneManageEvents1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEvents1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelManageLayout = new javax.swing.GroupLayout(jPanelManage);
+        jPanelManage.setLayout(jPanelManageLayout);
+        jPanelManageLayout.setHorizontalGroup(
+            jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPaneManage, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelManageEvents1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanelManageEvents1Layout.createSequentialGroup()
-                        .addComponent(jLabelSelectedEvent1)
+                .addGroup(jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelManageLayout.createSequentialGroup()
+                        .addComponent(jLabelSelectedTheme)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBoxSelectedEvent1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelManageEvents1Layout.createSequentialGroup()
-                        .addComponent(jLabelSelectedEvent2)
+                        .addComponent(jComboBoxSelectedTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelManageLayout.createSequentialGroup()
+                        .addComponent(jLabelSelectedSubTheme)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBoxSelectedEvent2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxSelectedSubTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33)
-                .addGroup(jPanelManageEvents1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonDeleteSubTheme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonDeleteTheme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 330, Short.MAX_VALUE)
-                .addGroup(jPanelManageEvents1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEvents1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                .addGroup(jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageLayout.createSequentialGroup()
+                        .addComponent(jLabelInsert)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEvents1Layout.createSequentialGroup()
-                        .addComponent(jButton7)
+                        .addComponent(jTextInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageLayout.createSequentialGroup()
+                        .addComponent(jButtonAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton9)))
+                        .addComponent(jButtonDeleteInsert)))
                 .addGap(23, 23, 23))
         );
-        jPanelManageEvents1Layout.setVerticalGroup(
-            jPanelManageEvents1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEvents1Layout.createSequentialGroup()
+        jPanelManageLayout.setVerticalGroup(
+            jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanelManageEvents1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelSelectedEvent1)
-                    .addComponent(jComboBoxSelectedEvent1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8))
-                .addGroup(jPanelManageEvents1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelManageEvents1Layout.createSequentialGroup()
+                .addGroup(jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelSelectedTheme)
+                    .addComponent(jComboBoxSelectedTheme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelInsert)
+                    .addComponent(jTextInsert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonDeleteTheme))
+                .addGroup(jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelManageLayout.createSequentialGroup()
                         .addGap(13, 13, 13)
-                        .addGroup(jPanelManageEvents1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton7)
-                            .addComponent(jButton9)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEvents1Layout.createSequentialGroup()
+                        .addGroup(jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonAdd)
+                            .addComponent(jButtonDeleteInsert)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanelManageEvents1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton10)
-                            .addGroup(jPanelManageEvents1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabelSelectedEvent2)
-                                .addComponent(jComboBoxSelectedEvent2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGroup(jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabelSelectedSubTheme)
+                                .addComponent(jComboBoxSelectedSubTheme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonDeleteSubTheme))))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPaneManageEvents1, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
+                .addComponent(jScrollPaneManage, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
         );
 
-        jPanelThemes.add(jPanelManageEvents1);
-        jPanelManageEvents1.setBounds(0, 0, 950, 463);
+        jPanelThemes.add(jPanelManage);
+        jPanelManage.setBounds(0, 0, 950, 463);
 
-        jPanelNewEvent2.setBorder(javax.swing.BorderFactory.createTitledBorder("New SubTheme"));
+        jPanelNewSubTheme.setBorder(javax.swing.BorderFactory.createTitledBorder("New SubTheme"));
 
-        jLabel4.setText("subTheme  :");
+        jLabelSubTheme.setText("subTheme  :");
 
-        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        jTextSubTheme.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField8ActionPerformed(evt);
+                jTextSubThemeActionPerformed(evt);
             }
         });
 
-        jButton11.setText("Create");
+        jButtonCreateSubTheme.setText("Create");
 
-        jLabelSelectedEvent3.setText("Selected Theme :");
+        jLabelSelectedThemeSub.setText("Selected Theme :");
 
-        jComboBoxSelectedEvent3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Romance", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSelectedThemeSub.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Romance", "Item 2", "Item 3", "Item 4" }));
 
-        javax.swing.GroupLayout jPanelNewEvent2Layout = new javax.swing.GroupLayout(jPanelNewEvent2);
-        jPanelNewEvent2.setLayout(jPanelNewEvent2Layout);
-        jPanelNewEvent2Layout.setHorizontalGroup(
-            jPanelNewEvent2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNewEvent2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelNewSubThemeLayout = new javax.swing.GroupLayout(jPanelNewSubTheme);
+        jPanelNewSubTheme.setLayout(jPanelNewSubThemeLayout);
+        jPanelNewSubThemeLayout.setHorizontalGroup(
+            jPanelNewSubThemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNewSubThemeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelSelectedEvent3)
+                .addComponent(jLabelSelectedThemeSub)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBoxSelectedEvent3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboBoxSelectedThemeSub, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4)
+                .addComponent(jLabelSubTheme)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextSubTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(jButton11)
+                .addComponent(jButtonCreateSubTheme)
                 .addGap(14, 14, 14))
         );
-        jPanelNewEvent2Layout.setVerticalGroup(
-            jPanelNewEvent2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNewEvent2Layout.createSequentialGroup()
+        jPanelNewSubThemeLayout.setVerticalGroup(
+            jPanelNewSubThemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNewSubThemeLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelNewEvent2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelSelectedEvent3)
-                    .addComponent(jComboBoxSelectedEvent3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jButton11))
+                .addGroup(jPanelNewSubThemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelSelectedThemeSub)
+                    .addComponent(jComboBoxSelectedThemeSub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextSubTheme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelSubTheme)
+                    .addComponent(jButtonCreateSubTheme))
                 .addGap(53, 53, 53))
         );
 
-        jPanelThemes.add(jPanelNewEvent2);
-        jPanelNewEvent2.setBounds(360, 470, 590, 80);
+        jPanelThemes.add(jPanelNewSubTheme);
+        jPanelNewSubTheme.setBounds(360, 470, 590, 80);
 
         add(jPanelThemes, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void jTextThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextThemeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_jTextThemeActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void jButtonDeleteInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteInsertActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_jButtonDeleteInsertActionPerformed
 
-    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+    private void jTextSubThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextSubThemeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField8ActionPerformed
+    }//GEN-LAST:event_jTextSubThemeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBoxSelectedEvent1;
-    private javax.swing.JComboBox<String> jComboBoxSelectedEvent2;
-    private javax.swing.JComboBox<String> jComboBoxSelectedEvent3;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabelSelectedEvent1;
-    private javax.swing.JLabel jLabelSelectedEvent2;
-    private javax.swing.JLabel jLabelSelectedEvent3;
-    private javax.swing.JPanel jPanelManageEvents1;
-    private javax.swing.JPanel jPanelNewEvent1;
-    private javax.swing.JPanel jPanelNewEvent2;
+    private javax.swing.JButton jButtonAdd;
+    private javax.swing.JButton jButtonCreateSubTheme;
+    private javax.swing.JButton jButtonCreateTheme;
+    private javax.swing.JButton jButtonDeleteInsert;
+    private javax.swing.JButton jButtonDeleteSubTheme;
+    private javax.swing.JButton jButtonDeleteTheme;
+    private javax.swing.JComboBox<String> jComboBoxSelectedSubTheme;
+    private javax.swing.JComboBox<String> jComboBoxSelectedTheme;
+    private javax.swing.JComboBox<String> jComboBoxSelectedThemeSub;
+    private javax.swing.JLabel jLabelInsert;
+    private javax.swing.JLabel jLabelSelectedSubTheme;
+    private javax.swing.JLabel jLabelSelectedTheme;
+    private javax.swing.JLabel jLabelSelectedThemeSub;
+    private javax.swing.JLabel jLabelSubTheme;
+    private javax.swing.JLabel jLabelTheme;
+    private javax.swing.JPanel jPanelManage;
+    private javax.swing.JPanel jPanelNewSubTheme;
+    private javax.swing.JPanel jPanelNewTheme;
     private javax.swing.JPanel jPanelThemes;
-    private javax.swing.JScrollPane jScrollPaneManageEvents1;
+    private javax.swing.JScrollPane jScrollPaneManage;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextInsert;
+    private javax.swing.JTextField jTextSubTheme;
+    private javax.swing.JTextField jTextTheme;
     // End of variables declaration//GEN-END:variables
 }

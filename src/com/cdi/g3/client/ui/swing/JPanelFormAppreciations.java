@@ -27,47 +27,47 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel12 = new javax.swing.JPanel();
-        jPanel13 = new javax.swing.JPanel();
-        jLabel31 = new javax.swing.JLabel();
-        jTextField28 = new javax.swing.JTextField();
-        jButton22 = new javax.swing.JButton();
-        jPanel15 = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
+        jPanelBackgroundAppreciation = new javax.swing.JPanel();
+        jPanelSearchBook = new javax.swing.JPanel();
+        jLabelTitleISBN = new javax.swing.JLabel();
+        jTextTitleISBN = new javax.swing.JTextField();
+        jButtonSearchBook = new javax.swing.JButton();
+        jPanelSearchAppreciation = new javax.swing.JPanel();
+        jScrollPaneShowAppreciations = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
-        jPanel14 = new javax.swing.JPanel();
-        jScrollPane7 = new javax.swing.JScrollPane();
+        jPanelTraitment = new javax.swing.JPanel();
+        jScrollPaneAppreciationsWaiting = new javax.swing.JScrollPane();
         jTable6 = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        jButton24 = new javax.swing.JButton();
-        jLabel33 = new javax.swing.JLabel();
-        jTextField29 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jButton23 = new javax.swing.JButton();
-        jLabel32 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanelManager = new javax.swing.JPanel();
+        jButtonSearchIdAppreciate = new javax.swing.JButton();
+        jLabelIdAppreciate = new javax.swing.JLabel();
+        jTextIdAppreciate = new javax.swing.JTextField();
+        jComboBoxStatus = new javax.swing.JComboBox<>();
+        jButtonSetStatus = new javax.swing.JButton();
+        jLabelAppreciationStatus = new javax.swing.JLabel();
+        jLabelAppreciation = new javax.swing.JLabel();
+        jScrollPaneAppreciation = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelCustomerLogin = new javax.swing.JLabel();
+        jLabelLogin = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
 
-        jPanel12.setLayout(new java.awt.BorderLayout());
+        jPanelBackgroundAppreciation.setLayout(new java.awt.BorderLayout());
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Search Book's Appreciations"));
+        jPanelSearchBook.setBorder(javax.swing.BorderFactory.createTitledBorder("Search Book's Appreciations"));
 
-        jLabel31.setText("ISBN/Title : ");
+        jLabelTitleISBN.setText("ISBN/Title : ");
 
-        jTextField28.addActionListener(new java.awt.event.ActionListener() {
+        jTextTitleISBN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField28ActionPerformed(evt);
+                jTextTitleISBNActionPerformed(evt);
             }
         });
 
-        jButton22.setText("Search");
+        jButtonSearchBook.setText("Search");
 
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Appreciations"));
+        jPanelSearchAppreciation.setBorder(javax.swing.BorderFactory.createTitledBorder("Appreciations"));
 
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -80,54 +80,54 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
                 "idAppreciate", "loginCustomer", "Appreciation", "Rate", "Status", "Moderator"
             }
         ));
-        jScrollPane6.setViewportView(jTable5);
+        jScrollPaneShowAppreciations.setViewportView(jTable5);
 
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPanelSearchAppreciationLayout = new javax.swing.GroupLayout(jPanelSearchAppreciation);
+        jPanelSearchAppreciation.setLayout(jPanelSearchAppreciationLayout);
+        jPanelSearchAppreciationLayout.setHorizontalGroup(
+            jPanelSearchAppreciationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPaneShowAppreciations, javax.swing.GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE)
         );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+        jPanelSearchAppreciationLayout.setVerticalGroup(
+            jPanelSearchAppreciationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelSearchAppreciationLayout.createSequentialGroup()
+                .addComponent(jScrollPaneShowAppreciations, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelSearchBookLayout = new javax.swing.GroupLayout(jPanelSearchBook);
+        jPanelSearchBook.setLayout(jPanelSearchBookLayout);
+        jPanelSearchBookLayout.setHorizontalGroup(
+            jPanelSearchBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelSearchBookLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel31)
+                .addComponent(jLabelTitleISBN)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField28, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextTitleISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(jButton22)
+                .addComponent(jButtonSearchBook)
                 .addGap(32, 584, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSearchBookLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelSearchAppreciation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
+        jPanelSearchBookLayout.setVerticalGroup(
+            jPanelSearchBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelSearchBookLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel31)
-                    .addComponent(jTextField28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton22))
+                .addGroup(jPanelSearchBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTitleISBN)
+                    .addComponent(jTextTitleISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSearchBook))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelSearchAppreciation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel12.add(jPanel13, java.awt.BorderLayout.CENTER);
+        jPanelBackgroundAppreciation.add(jPanelSearchBook, java.awt.BorderLayout.CENTER);
 
-        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Appreciations waiting for Traitment"));
+        jPanelTraitment.setBorder(javax.swing.BorderFactory.createTitledBorder("Appreciations waiting for Traitment"));
 
         jTable6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -140,147 +140,147 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
                 "idAppreciate", "ISBN ", "loginCustomer", "Appreciation"
             }
         ));
-        jScrollPane7.setViewportView(jTable6);
+        jScrollPaneAppreciationsWaiting.setViewportView(jTable6);
 
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelTraitmentLayout = new javax.swing.GroupLayout(jPanelTraitment);
+        jPanelTraitment.setLayout(jPanelTraitmentLayout);
+        jPanelTraitmentLayout.setHorizontalGroup(
+            jPanelTraitmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelTraitmentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+                .addComponent(jScrollPaneAppreciationsWaiting, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+        jPanelTraitmentLayout.setVerticalGroup(
+            jPanelTraitmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTraitmentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                .addComponent(jScrollPaneAppreciationsWaiting, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel12.add(jPanel14, java.awt.BorderLayout.PAGE_START);
+        jPanelBackgroundAppreciation.add(jPanelTraitment, java.awt.BorderLayout.PAGE_START);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Apreciations Management"));
+        jPanelManager.setBorder(javax.swing.BorderFactory.createTitledBorder("Apreciations Management"));
 
-        jButton24.setText("Search");
+        jButtonSearchIdAppreciate.setText("Search");
 
-        jLabel33.setText("idAppreciate : ");
+        jLabelIdAppreciate.setText("idAppreciate : ");
 
-        jTextField29.addActionListener(new java.awt.event.ActionListener() {
+        jTextIdAppreciate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField29ActionPerformed(evt);
+                jTextIdAppreciateActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Approved", " ", "Item 3", "Item 4" }));
+        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Approved", " ", "Item 3", "Item 4" }));
 
-        jButton23.setText("Set");
+        jButtonSetStatus.setText("Set");
 
-        jLabel32.setText(" Appreciation Status  :");
+        jLabelAppreciationStatus.setText(" Appreciation Status  :");
 
-        jLabel1.setText("Appreciation :");
+        jLabelAppreciation.setText("Appreciation :");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jScrollPaneAppreciation.setViewportView(jTextArea1);
 
-        jLabel34.setText("Customer Login  :");
+        jLabelCustomerLogin.setText("Customer Login  :");
 
-        jLabel2.setText("Bob02");
+        jLabelLogin.setText("Bob02");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelManagerLayout = new javax.swing.GroupLayout(jPanelManager);
+        jPanelManager.setLayout(jPanelManagerLayout);
+        jPanelManagerLayout.setHorizontalGroup(
+            jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelManagerLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel33)
+                .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelManagerLayout.createSequentialGroup()
+                        .addComponent(jLabelIdAppreciate)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextIdAppreciate, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton24))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonSearchIdAppreciate))
+                    .addGroup(jPanelManagerLayout.createSequentialGroup()
+                        .addComponent(jLabelAppreciationStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton23)))
+                        .addComponent(jButtonSetStatus)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPaneAppreciation, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelAppreciation)
+                    .addGroup(jPanelManagerLayout.createSequentialGroup()
+                        .addComponent(jLabelCustomerLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanelManagerLayout.setVerticalGroup(
+            jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelManagerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel34)
-                            .addComponent(jLabel2))
+                .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelManagerLayout.createSequentialGroup()
+                        .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelCustomerLogin)
+                            .addComponent(jLabelLogin))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
+                        .addComponent(jLabelAppreciation)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel33)
-                            .addComponent(jTextField29, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton24))
+                        .addComponent(jScrollPaneAppreciation, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelManagerLayout.createSequentialGroup()
+                        .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelIdAppreciate)
+                            .addComponent(jTextIdAppreciate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonSearchIdAppreciate))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel32)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton23))
+                        .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelAppreciationStatus)
+                            .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonSetStatus))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        jPanel12.add(jPanel1, java.awt.BorderLayout.PAGE_END);
+        jPanelBackgroundAppreciation.add(jPanelManager, java.awt.BorderLayout.PAGE_END);
 
-        add(jPanel12, java.awt.BorderLayout.CENTER);
+        add(jPanelBackgroundAppreciation, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField28ActionPerformed
+    private void jTextTitleISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTitleISBNActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField28ActionPerformed
+    }//GEN-LAST:event_jTextTitleISBNActionPerformed
 
-    private void jTextField29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField29ActionPerformed
+    private void jTextIdAppreciateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextIdAppreciateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField29ActionPerformed
+    }//GEN-LAST:event_jTextIdAppreciateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton22;
-    private javax.swing.JButton jButton23;
-    private javax.swing.JButton jButton24;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JButton jButtonSearchBook;
+    private javax.swing.JButton jButtonSearchIdAppreciate;
+    private javax.swing.JButton jButtonSetStatus;
+    private javax.swing.JComboBox<String> jComboBoxStatus;
+    private javax.swing.JLabel jLabelAppreciation;
+    private javax.swing.JLabel jLabelAppreciationStatus;
+    private javax.swing.JLabel jLabelCustomerLogin;
+    private javax.swing.JLabel jLabelIdAppreciate;
+    private javax.swing.JLabel jLabelLogin;
+    private javax.swing.JLabel jLabelTitleISBN;
+    private javax.swing.JPanel jPanelBackgroundAppreciation;
+    private javax.swing.JPanel jPanelManager;
+    private javax.swing.JPanel jPanelSearchAppreciation;
+    private javax.swing.JPanel jPanelSearchBook;
+    private javax.swing.JPanel jPanelTraitment;
+    private javax.swing.JScrollPane jScrollPaneAppreciation;
+    private javax.swing.JScrollPane jScrollPaneAppreciationsWaiting;
+    private javax.swing.JScrollPane jScrollPaneShowAppreciations;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField28;
-    private javax.swing.JTextField jTextField29;
+    private javax.swing.JTextField jTextIdAppreciate;
+    private javax.swing.JTextField jTextTitleISBN;
     // End of variables declaration//GEN-END:variables
 }
