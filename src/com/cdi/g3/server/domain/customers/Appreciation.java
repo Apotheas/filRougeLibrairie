@@ -16,6 +16,16 @@ public class Appreciation extends DomainObject implements Serializable{
 
 
     private String idAppreciation;
+    
+    
+    
+    public Appreciation() {
+    }
+
+    public Appreciation(final String id) {
+       idAppreciation = id;
+    } 
+    
     @Override
     public String getId() {
         return idAppreciation;

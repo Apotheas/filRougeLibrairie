@@ -282,14 +282,14 @@ create table "ORDERS"
 /*==============================================================*/
 create table ORDERLINE 
 (
-   IDORDERLINE          varchar(10)                    not null,
-   IDAPPRECIATE         varchar(10)                    null,
-   NUMISBNBOOK          varchar(13)                    not null,
-   IDORDER              varchar(10)                    null,
-   QUANTITYORDERLINE    smallint                       not null,
-   DISCOUNTORDERLINE    float                          null,
-   UNITCOSTORDERLINE    float                          not null,
-   RATETVAORDERLINE     float                          not null,
+    IDORDERLINE          varchar(10)                    not null,
+    QUANTITYORDERLINE    smallint                       not null,
+    UNITCOSTORDERLINE    float                          not null,
+    IDORDER              varchar(10)                    null,
+    NUMISBNBOOK          varchar(13)                    not null,
+    DISCOUNTORDERLINE    float                          null,  
+    RATETVAORDERLINE     float                          not null,
+    IDAPPRECIATE         varchar(10)                    null,
    constraint PK_ORDERLINE primary key (IDORDERLINE)
 );
 
@@ -311,3 +311,7 @@ create table APPRECIATION
    DATEmoderateAPPRECIATE		date		null
    constraint PK_APPRECIATION primary key (IDAPPRECIATE)
 );
+
+
+CREATE TABLE COUNTER( name VARCHAR(30), PRIMARY KEY(name), value INTEGER NOT NULL);
+

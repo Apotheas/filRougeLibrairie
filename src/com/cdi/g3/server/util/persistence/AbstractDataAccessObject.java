@@ -21,8 +21,8 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
     // =             Attributes             =
     // ======================================
     // Used for logging
-    private final transient String _cname = this.getClass().getName();
-    private static final String sname = AbstractDataAccessObject.class.getName();
+    protected final transient String cname = this.getClass().getName();
+    protected static final String sname = AbstractDataAccessObject.class.getName();
 
     // ======================================
     // =            Static Block            =
@@ -191,18 +191,15 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
     public final void insert(final DomainObject object) throws DuplicateKeyException {
         final String mname = "insert";
         Trace.entering(getCname(), mname, object);
-
+             // Gets a database connection
         try (Connection connection = getConnection(); PreparedStatement prstatement = connection.prepareStatement(getInsertSqlPreparedStatement())) {
-            // Gets a database connection
-
-            executePreparedSt(prstatement, object);
-
+           
             // Sets the object Id if necessary
             if (object.getId() == null) {
                 object.setId("" + getUniqueId());
             }
-
             // Inserts a Row
+             executePreparedSt(prstatement, object);
         } catch (SQLException e) {
             // The data already exists in the database
             if (e.getErrorCode() == DATA_ALREADY_EXIST) {
@@ -228,11 +225,11 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
     public final void update(final DomainObject object) throws ObjectNotFoundException {
         final String mname = "update";
         Trace.entering(getCname(), mname, object);
-
+         // Gets a database connection
         try (Connection connection = getConnection(); PreparedStatement prstatement = connection.prepareStatement(getUpdateSqlPreparedStatement())) {
-            // Gets a database connection
-            int retour = executePreparedSt(prstatement, object);
+                      
             // Update a Row
+            int retour = executePreparedSt(prstatement, object);
             if (retour == 0) {
                 throw new ObjectNotFoundException();
             }
@@ -427,6 +424,6 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
     protected abstract DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException;
 
     protected String getCname() {
-        return _cname;
+        return cname;
     }
 }

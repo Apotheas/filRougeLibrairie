@@ -2,7 +2,6 @@
 package com.cdi.g3.server.domain.customers;
 
 import com.cdi.g3.common.exception.CheckException;
-import com.cdi.g3.server.domain.CreditCard;
 import com.cdi.g3.server.domain.DomainObject;
 import java.io.Serializable;
 import java.util.ArrayList;

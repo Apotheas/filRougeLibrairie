@@ -22,7 +22,12 @@ public class Book extends DomainObject implements Serializable{
      
      
      
-     
+     public Book() {
+    }
+
+    public Book(final String id) {
+       numISBNBook = id;
+    } 
      
      
      @Override
