@@ -5,6 +5,7 @@
  */
 package com.cdi.g3.server.domain.orders;
 
+import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
 import java.io.Serializable;
 
@@ -14,8 +15,33 @@ import java.io.Serializable;
  */
 public class Shipper extends DomainObject implements Serializable{
 
-
+    // ======================================
+    // =             Attributes             =
+    // ======================================
     private String nameShipper;
+    private String commentShipper;
+    
+     // ======================================
+    // =            Constructors            =
+    // ======================================
+    public Shipper(final String nameShipper) {
+       this.nameShipper = nameShipper;
+    } 
+    
+    // ======================================
+    // =           Business methods         =
+    // ======================================
+
+    public void checkData() throws CheckException {
+        if (nameShipper == null || "".equals(nameShipper))
+            throw new CheckException("Invalid nameInfoStatus");
+        
+    }
+
+   // ======================================
+    // =         Getters and Setters        =
+    // ======================================
+    
     @Override
     public String getId() {
         return nameShipper;
@@ -24,5 +50,20 @@ public class Shipper extends DomainObject implements Serializable{
     public void setId(String nameShipper) {
         this.nameShipper = nameShipper;
     }
+
+    public String getCommentShipper() {
+        return commentShipper;
+    }
+
+    public void setCommentShipper(String commentShipper) {
+        this.commentShipper = commentShipper;
+    }
+
+    @Override
+    public String toString() {
+        return  nameShipper ;
+    }
+    
+    
     
 }

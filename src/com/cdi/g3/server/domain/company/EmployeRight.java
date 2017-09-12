@@ -57,7 +57,7 @@ public final class EmployeRight extends DomainObject implements Serializable{
      * @throws CheckException if data is invalid
      */
     public void checkData() throws CheckException {
-        if (getIdEmployeRight() == null || "".equals(getIdEmployeRight()))
+        if (getId() == null || "".equals(getId()))
             throw new CheckException("Invalid employeRight id");
         if (getTypeEmployeRight() == null || "".equals(getTypeEmployeRight()))
             throw new CheckException("Invalid employeRight  type");
@@ -70,11 +70,12 @@ public final class EmployeRight extends DomainObject implements Serializable{
     // =         Getters and Setters        =
     // ======================================
 
-    public String getIdEmployeRight() {
+    @Override
+    public String getId() {
         return idEmployeRight;
     }
-
-    public void setIdEmployeRight(String idEmployeRight) {
+    @Override
+    public void setId(String idEmployeRight) {
         this.idEmployeRight = idEmployeRight;
     }
 

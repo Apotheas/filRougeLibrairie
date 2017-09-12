@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.Date;
 
 
+
 /**
  *
  * @author youssef
@@ -101,15 +102,15 @@ public class OrdersDAO extends AbstractDataAccessObject{
             
             prestmt.setString(1, ((Orders) object).getAdressShipping().getId());
             prestmt.setString(2, ((Orders) object).getCustomer().getId());
-            prestmt.setDate(3, ((Orders) object).getDateOrder());
+            prestmt.setDate(3, (java.sql.Date) (Date) ((Orders) object).getDateOrder());
             prestmt.setString(4, ((Orders) object).getNameInfoStatus().getId());
             prestmt.setString(5, ((Orders) object).getAdressBilling().getId());
             prestmt.setString(6, ((Orders) object).getPachageShipper().getId());
             prestmt.setString(7, ((Orders) object).getInternalNumOrder());
             prestmt.setString(8, ((Orders) object).getPaymentSystemOrder());
-            prestmt.setString(8, ((Orders) object).getIpOrder());
-            prestmt.setDate(8, ((Orders) object).getDatepachageShipperOrder());
-            prestmt.setString(8, ((Orders) object).getId());
+            prestmt.setString(9, ((Orders) object).getIpOrder());
+            prestmt.setDate(10, (java.sql.Date) (Date) ((Orders) object).getDatepachageShipperOrder());
+            prestmt.setString(11, ((Orders) object).getId());
             
             retour = prestmt.executeUpdate();
 

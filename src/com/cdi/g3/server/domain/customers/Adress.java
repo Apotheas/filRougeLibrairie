@@ -1,26 +1,22 @@
-package com.cdi.g3.server.domain.customers; 
+package com.cdi.g3.server.domain.customers;
 
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.company.Company;
-import com.cdi.g3.server.domain.orders.InfoStatus;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-
 
 public final class Adress extends DomainObject implements Serializable {
 
     // ======================================
     // =             Attributes             =
     // ======================================
-     
     private String idAdress;
     private Customer customerShipAdress;
     private Customer customerBillAdress;
     private String nameReceiverAdress;
-    private String typeStreetAdress ;
+    private String typeStreetAdress;
     private String numAdress;
     private String nameStreetAdress;
     private String nameStreet2Adress;
@@ -28,84 +24,82 @@ public final class Adress extends DomainObject implements Serializable {
     private String cityAdress;
     private String countryAdress;
     private Company nameCompanyReceiverAdress;
-    
-    
+
     private Collection listOrdersShipping = new ArrayList();
     private Collection listOrdersBilling = new ArrayList();
-
 
     // ======================================
     // =           Business methods         =
     // ======================================
     public void checkData() throws CheckException {
         if (((customerShipAdress == null || "".equals(customerShipAdress)))
-            &&     
-            ((customerBillAdress == null || "".equals(customerBillAdress))))
+                && ((customerBillAdress == null || "".equals(customerBillAdress)))) {
             throw new CheckException("Invalid loginCustomerBillAdress , must be insert ");
-        
-        if (nameReceiverAdress == null || "".equals(nameReceiverAdress))
+        }
+
+        if (nameReceiverAdress == null || "".equals(nameReceiverAdress)) {
             throw new CheckException("Invalid nameReceiverAdress, must be insert");
-        
-        if (numAdress == null || "".equals(numAdress))
+        }
+
+        if (numAdress == null || "".equals(numAdress)) {
             throw new CheckException("Invalid numAdress, must be insert");
-        
-        if (nameStreetAdress == null || "".equals(nameStreetAdress))
+        }
+
+        if (nameStreetAdress == null || "".equals(nameStreetAdress)) {
             throw new CheckException("Invalid nameStreetAdress , must be insert");
-        
-        if (zipcodeAdress == null || "".equals(zipcodeAdress))
+        }
+
+        if (zipcodeAdress == null || "".equals(zipcodeAdress)) {
             throw new CheckException("Invalid zipcodeAdress  , must be insert");
-        
-        if (cityAdress == null || "".equals(cityAdress))
+        }
+
+        if (cityAdress == null || "".equals(cityAdress)) {
             throw new CheckException("Invalid cityAdress  , must be insert");
-        
-        
+        }
+
     }
 
-     // ======================================
+    // ======================================
     // =            Constructors            =
     // ======================================
-     public Adress() {
+    public Adress() {
     }
 
     public Adress(final String id) {
-       idAdress = id;
-    } 
+        idAdress = id;
+    }
 
-    public Adress(final 
-            String id, 
-            Customer CustomerShipAdress , 
-            Customer CustomerBillAdress, 
-            String nameReceiverAdress , 
-            String typeStreetAdress , 
-            String numAdress , 
-            String nameStreetAdress , 
-            String nameStreet2Adress , 
-            String zipcodeAdress , 
-            String cityAdress , 
-            String countryAdress , 
-            Company nameCompanyReceiverAdress)
+    public Adress(final String id,
+            Customer CustomerShipAdress,
+            Customer CustomerBillAdress,
+            String nameReceiverAdress,
+            String typeStreetAdress,
+            String numAdress,
+            String nameStreetAdress,
+            String nameStreet2Adress,
+            String zipcodeAdress,
+            String cityAdress,
+            String countryAdress,
+            Company nameCompanyReceiverAdress) {
+        super();
 
-    { super();
+        idAdress = id;
+        this.customerShipAdress = CustomerShipAdress;
+        this.customerBillAdress = CustomerBillAdress;
+        this.nameReceiverAdress = nameReceiverAdress;
+        this.typeStreetAdress = typeStreetAdress;
+        this.numAdress = numAdress;
+        this.nameStreetAdress = nameStreetAdress;
+        this.nameStreet2Adress = nameStreet2Adress;
+        this.zipcodeAdress = zipcodeAdress;
+        this.cityAdress = cityAdress;
+        this.countryAdress = countryAdress;
+        this.nameCompanyReceiverAdress = nameCompanyReceiverAdress;
+    }
 
-                idAdress = id;
-		this.customerShipAdress = CustomerShipAdress;
-		this.customerBillAdress = CustomerBillAdress;
-		this.nameReceiverAdress = nameReceiverAdress;
-		this.typeStreetAdress = typeStreetAdress;
-		this.numAdress = numAdress;
-		this.nameStreetAdress = nameStreetAdress;
-		this.nameStreet2Adress = nameStreet2Adress;
-		this.zipcodeAdress = zipcodeAdress;
-		this.cityAdress = cityAdress;
-		this.countryAdress = countryAdress;
-		this.nameCompanyReceiverAdress = nameCompanyReceiverAdress;
-	} 
- 
-    
     // ======================================
     // =         Getters and Setters        =
     // ======================================
-
     @Override
     public String getId() {
         return idAdress;
@@ -114,17 +108,14 @@ public final class Adress extends DomainObject implements Serializable {
     public void setId(String idAdress) {
         this.idAdress = idAdress;
     }
-    
-    
     //-------------------------------------//
-    
     public String getIdAdress() {
         return idAdress;
     }
 
     public void setIdAdress(String idAdress) {
         this.idAdress = idAdress;
-    }    
+    }
 
     public String getNameReceiverAdress() {
         return nameReceiverAdress;
@@ -229,14 +220,12 @@ public final class Adress extends DomainObject implements Serializable {
     public void setListOrdersBilling(Collection listOrdersBilling) {
         this.listOrdersBilling = listOrdersBilling;
     }
- 
+
     @Override
     public String toString() {
-        return  idAdress + 
-                customerShipAdress  +
-                customerBillAdress   ;
-               
-    }
+        return idAdress
+                + customerShipAdress
+                + customerBillAdress;
 
-  
+    }
 }

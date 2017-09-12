@@ -37,10 +37,7 @@ public class InfoCompanyDAO extends AbstractDataAccessObject{
     protected String getInsertSqlPreparedStatement() {        
         final String sql;
         
-        sql =   "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?)";
-//                "INSERT INTO " + TABLE + "(" + COLUMNS + ") VALUES ('" + infocompany.getName() + "', '" + infocompany.getLastNameInfoCompany()+ "','" + infocompany.getFirstNameInfoCompany()
-//                + "', '" + infocompany.getEmailInfoCompany()+ "', '" + infocompany.getPasswordInfoCompany()+ "', '" + infocompany.getNameInfoCompanyInfoCompany()+ "', '" 
-//                + infocompany.getCommentInfoCompany()+ "', '" + infocompany.getStatusInfoCompany()+ "' )";
+        sql =   "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?)";//                
         return sql;
     }
 
@@ -52,7 +49,7 @@ public class InfoCompanyDAO extends AbstractDataAccessObject{
 
     protected String getUpdateSqlPreparedStatement() {        
         final String sql;        
-        sql = "UPDATE " + TABLE + " SET DESCRIPTIONINFOCOMPANY = ?, NAMEINFOCOMPANY = ?" ;
+        sql = "UPDATE " + TABLE + " SET DESCRIPTIONINFOCOMPANY = ? WHERE NAMEINFOCOMPANY = ?" ;
         return sql;
         
     }
@@ -87,9 +84,8 @@ public class InfoCompanyDAO extends AbstractDataAccessObject{
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
         int retour = 0;
         try {
-            
-            prestmt.setString(1, ((InfoCompany) object).getNameInfoCompany());
-            prestmt.setString(2, ((InfoCompany) object).getDescriptionInfoCompany());
+            prestmt.setString(1, ((InfoCompany) object).getDescriptionInfoCompany());
+            prestmt.setString(2, ((InfoCompany) object).getId());
             
          
             

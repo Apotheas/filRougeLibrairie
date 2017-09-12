@@ -47,7 +47,7 @@ create table BOOK
    STATUSBOOK           integer                        not null,
    SUBTITREBOOK         varchar(50)                    null,   
    SYNOPSISBOOK         varchar(Max)                   null,
-   PATHICONBOOK         varchar(100)                    null,
+   PATHICONBOOK         varchar(100)                   null,
    WEIGHTBOOK           float                          null,
    SIZELARGEBOOK        float                          null,
    SIZELONGBOOK         float                          null,   

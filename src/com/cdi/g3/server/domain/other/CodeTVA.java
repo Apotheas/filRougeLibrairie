@@ -5,6 +5,7 @@
  */
 package com.cdi.g3.server.domain.other;
 
+import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
 import java.io.Serializable;
 
@@ -14,23 +15,83 @@ import java.io.Serializable;
  */
 public class CodeTVA extends DomainObject implements Serializable {
 
-    private String typeTVA;
+    // ======================================
+    // =             Attributes             =
+    // ======================================  
+    private String typeTva;
+    private Float rateCodeTva;
 
+    // ======================================
+    // =           Business methods         =
+    // ======================================
+    public void checkData() throws CheckException {
+
+        if (typeTva == null || "".equals(typeTva)) {
+            throw new CheckException("Invalid typeTva, must be insert");
+        }
+
+        if (rateCodeTva == null || "".equals(rateCodeTva)) {
+            throw new CheckException("Invalid rateCodeTva, must be insert");
+        }
+
+    }
+
+    // ======================================
+    // =             Constructors           =
+    // ======================================
     public CodeTVA() {
 
     }
 
-    public CodeTVA(String id) {
-        typeTVA = id;
+    public CodeTVA(String typeTva) {
+        this.typeTva = typeTva;
     }
 
-    @Override
-    public void setId(String typeTVA) {
-        this.typeTVA = typeTVA;
+    public CodeTVA(String typeTva, Float rateCodeTva) {
+        this.typeTva = typeTva;
+        this.rateCodeTva = rateCodeTva;
     }
 
+    // ======================================
+    // =         Getters and Setters        =
+    // ======================================
     @Override
     public String getId() {
-        return typeTVA;
+        return typeTva;
+
     }
+
+    @Override
+    public void setId(String id) {
+        this.typeTva = id;
+    }
+    
+    
+//    @Override
+//    public void setId(String id) {
+//        this.typeTva = typeTva;
+//    }
+
+    //--------------------------------------//
+    public String getTypeTva() {
+        return typeTva;
+    }
+
+    public void setTypeTva(String typeTva) {
+        this.typeTva = typeTva;
+    }
+
+    public Float getRateCodeTva() {
+        return rateCodeTva;
+    }
+
+    public void setRateCodeTva(Float rateCodeTva) {
+        this.rateCodeTva = rateCodeTva;
+    }
+
+    @Override
+    public String toString() {
+        return "typeTva=" + typeTva + ", rateCodeTva=" + rateCodeTva;
+    }
+
 }

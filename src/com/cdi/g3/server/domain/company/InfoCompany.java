@@ -57,24 +57,23 @@ public final class InfoCompany extends DomainObject implements Serializable{
      * @throws CheckException if data is invalnameInfoCompany
      */
     public void checkData() throws CheckException {
-        if (getNameInfoCompany() == null || "".equals(getNameInfoCompany()))
+        if (getId() == null || "".equals(getId()))
             throw new CheckException("InvalnameInfoCompany employeRight nameInfoCompany");
         if (getDescriptionInfoCompany() == null || "".equals(getDescriptionInfoCompany()))
             throw new CheckException("InvalnameInfoCompany employeRight  type");
        
     }
-
-
-
+    
     // ======================================
     // =         Getters and Setters        =
     // ======================================
 
-    public String getNameInfoCompany() {
+    @Override
+    public String getId() {
         return nameInfoCompany;
     }
-
-    public void setNameInfoCompany(String nameInfoCompany) {
+    @Override
+    public void setId(String nameInfoCompany) {
         this.nameInfoCompany = nameInfoCompany;
     }
 

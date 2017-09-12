@@ -38,12 +38,8 @@ public class CompanyDAO extends AbstractDataAccessObject{
     // =           Business methods         =
     // ======================================
     protected String getInsertSqlPreparedStatement() {        
-        final String sql;
-        
+        final String sql;        
         sql =   "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?,?,?,?,?)";
-//                "INSERT INTO " + TABLE + "(" + COLUMNS + ") VALUES ('" + company.getId() + "', '" + company.getLastNameCompany()+ "','" + company.getFirstNameCompany()
-//                + "', '" + company.getEmailCompany()+ "', '" + company.getPasswordCompany()+ "', '" + company.getNameCompanyCompany()+ "', '" 
-//                + company.getCommentCompany()+ "', '" + company.getStatusCompany()+ "' )";
         return sql;
     }
 
@@ -56,7 +52,7 @@ public class CompanyDAO extends AbstractDataAccessObject{
     protected String getUpdateSqlPreparedStatement() {        
         final String sql;        
         sql = "UPDATE " + TABLE + " SET NAMECOMPANY = ?, LOGOCOMPANY = ?, TELEPHONECOMPANY = ?,"
-                + " FAXCOMPANY = ?, MAILCOMPANY = ?, SIRETCOMPANY = ?" ;
+                + " FAXCOMPANY = ?, MAILCOMPANY = ? WHERE SIRETCOMPANY = ?" ;
         return sql;
         
     }
@@ -93,13 +89,12 @@ public class CompanyDAO extends AbstractDataAccessObject{
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
         int retour = 0;
         try {
-            
-            prestmt.setString(1, ((Company) object).getSiretCompany());
-            prestmt.setString(2, ((Company) object).getNameCompany());
-            prestmt.setString(3, ((Company) object).getLogoCompany());
-            prestmt.setString(4, ((Company) object).getTelephoneCompany());
-            prestmt.setString(5, ((Company) object).getFaxCompany());
-            prestmt.setString(6, ((Company) object).getMailCompany());
+            prestmt.setString(1, ((Company) object).getNameCompany());
+            prestmt.setString(2, ((Company) object).getLogoCompany());
+            prestmt.setString(3, ((Company) object).getTelephoneCompany());
+            prestmt.setString(4, ((Company) object).getFaxCompany());
+            prestmt.setString(5, ((Company) object).getMailCompany());
+            prestmt.setString(6, ((Company) object).getId());
          
             
             retour = prestmt.executeUpdate();
