@@ -5,8 +5,10 @@
  */
 package com.cdi.g3.server.domain.company;
 
+import com.cdi.g3.common.exception.DataAccessException;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
+import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displaySqlException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,46 +19,90 @@ import java.sql.SQLException;
  */
 public class EmployeRightDAO extends AbstractDataAccessObject{
     
+   
+    // ======================================
+    // =             Attributes             =
+    // ======================================
+    private static final String TABLE = "EmployeRight";  
     
-    @Override
-    protected String getCounterName() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    private static final String COLUMNS = "IDEMPLOYERIGHT, TYPEEMPLOYERIGHT";
+    private static final String COLUMNS_PREP= "  TYPEEMPLOYERIGHT, IDEMPLOYERIGHT";
+    // Used to get a unique id with the UniqueIdGenerator
+    private static final String COUNTER_NAME = "EMPLOYERIGHT";
+    
+    
+     // ======================================
+    // =           Business methods         =
+    // ======================================
+    protected String getInsertSqlPreparedStatement() {        
+        final String sql;
+        
+        sql =   "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?)";
+//                "INSERT INTO " + TABLE + "(" + COLUMNS + ") VALUES ('" + employeright.getId() + "', '" + employeright.getLastNameEmployeRight()+ "','" + employeright.getFirstNameEmployeRight()
+//                + "', '" + employeright.getEmailEmployeRight()+ "', '" + employeright.getPasswordEmployeRight()+ "', '" + employeright.getNameEmployeRightEmployeRight()+ "', '" 
+//                + employeright.getCommentEmployeRight()+ "', '" + employeright.getStatusEmployeRight()+ "' )";
+        return sql;
     }
 
-    @Override
-    protected String getInsertSqlPreparedStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    protected String getDeleteSqlStatement(final String id) {
+        final String sql;
+        sql = "DELETE FROM " + TABLE + " WHERE IDEMPLOYERIGHT = '" + id + "'";
+        return sql;
     }
 
-    @Override
-    protected String getDeleteSqlStatement(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    protected String getUpdateSqlPreparedStatement() {        
+        final String sql;        
+        sql = "UPDATE " + TABLE + " SET TYPEEMPLOYERIGHT = ?, IDEMPLOYERIGHT = ?" ;
+        return sql;
+        
     }
 
-    @Override
-    protected String getUpdateSqlPreparedStatement() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    protected String getSelectSqlStatement(final String id) {
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE IDEMPLOYERIGHT = '" + id + "' ";
+        return sql;
     }
 
-    @Override
-    protected String getSelectSqlStatement(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-
-    @Override
     protected String getSelectAllSqlStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE;
+        return sql;
     }
 
-    @Override
-    protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+  
+    protected DomainObject transformResultset2DomainObject(final ResultSet resultSet) throws SQLException {
+        final EmployeRight employeright;
+        employeright = new EmployeRight(resultSet.getString(1), resultSet.getString(2));
+     
+      
+        return employeright;
     }
 
-    @Override
+	protected String getCounterName() {
+		return COUNTER_NAME;
+	}
+        
+        
+       @Override
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int retour = 0;
+        try {
+            
+            prestmt.setString(1, ((EmployeRight) object).getIdEmployeRight());
+            prestmt.setString(2, ((EmployeRight) object).getTypeEmployeRight());
+            
+         
+            
+            retour = prestmt.executeUpdate();
+
+        } catch (SQLException e) {
+            // A Severe SQL Exception is caught
+            displaySqlException(e);
+            throw new DataAccessException("executePreparedSt : Cannot get data from the database: " + e.getMessage(), e);
+        }
+        return retour;
     }
-    
-    
+     
+        
+        
 }

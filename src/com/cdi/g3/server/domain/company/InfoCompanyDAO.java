@@ -5,8 +5,10 @@
  */
 package com.cdi.g3.server.domain.company;
 
+import com.cdi.g3.common.exception.DataAccessException;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
+import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displaySqlException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,45 +19,90 @@ import java.sql.SQLException;
  */
 public class InfoCompanyDAO extends AbstractDataAccessObject{
     
+  
+    // ======================================
+    // =             Attributes             =
+    // ======================================
+    private static final String TABLE = "InfoCompany";  
     
-    @Override
-    protected String getCounterName() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    private static final String COLUMNS = "NAMEINFOCOMPANY, DESCRIPTIONINFOCOMPANY";
+    private static final String COLUMNS_PREP= "  DESCRIPTIONINFOCOMPANY, NAMEINFOCOMPANY";
+    // Used to get a unique id with the UniqueNameGenerator
+    private static final String COUNTER_NAME = "INFOCOMPANY";
+    
+    
+     // ======================================
+    // =           Business methods         =
+    // ======================================
+    protected String getInsertSqlPreparedStatement() {        
+        final String sql;
+        
+        sql =   "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?)";
+//                "INSERT INTO " + TABLE + "(" + COLUMNS + ") VALUES ('" + infocompany.getName() + "', '" + infocompany.getLastNameInfoCompany()+ "','" + infocompany.getFirstNameInfoCompany()
+//                + "', '" + infocompany.getEmailInfoCompany()+ "', '" + infocompany.getPasswordInfoCompany()+ "', '" + infocompany.getNameInfoCompanyInfoCompany()+ "', '" 
+//                + infocompany.getCommentInfoCompany()+ "', '" + infocompany.getStatusInfoCompany()+ "' )";
+        return sql;
     }
 
-    @Override
-    protected String getInsertSqlPreparedStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    protected String getDeleteSqlStatement(final String id) {
+        final String sql;
+        sql = "DELETE FROM " + TABLE + " WHERE NAMEINFOCOMPANY = '" + id + "'";
+        return sql;
     }
 
-    @Override
-    protected String getDeleteSqlStatement(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    protected String getUpdateSqlPreparedStatement() {        
+        final String sql;        
+        sql = "UPDATE " + TABLE + " SET DESCRIPTIONINFOCOMPANY = ?, NAMEINFOCOMPANY = ?" ;
+        return sql;
+        
     }
 
-    @Override
-    protected String getUpdateSqlPreparedStatement() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    protected String getSelectSqlStatement(final String id) {
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE NAMEINFOCOMPANY = '" + id + "' ";
+        return sql;
     }
 
-    @Override
-    protected String getSelectSqlStatement(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-    }
-
-    @Override
     protected String getSelectAllSqlStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE;
+        return sql;
     }
 
-    @Override
-    protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+  
+    protected DomainObject transformResultset2DomainObject(final ResultSet resultSet) throws SQLException {
+        final InfoCompany infocompany;
+        infocompany = new InfoCompany(resultSet.getString(1), resultSet.getString(2));
+     
+      
+        return infocompany;
     }
 
-    @Override
+	protected String getCounterName() {
+		return COUNTER_NAME;
+	}
+        
+        
+       @Override
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int retour = 0;
+        try {
+            
+            prestmt.setString(1, ((InfoCompany) object).getNameInfoCompany());
+            prestmt.setString(2, ((InfoCompany) object).getDescriptionInfoCompany());
+            
+         
+            
+            retour = prestmt.executeUpdate();
+
+        } catch (SQLException e) {
+            // A Severe SQL Exception is caught
+            displaySqlException(e);
+            throw new DataAccessException("executePreparedSt : Cannot get data from the database: " + e.getMessage(), e);
+        }
+        return retour;
     }
-    
+     
+        
+        
 }
