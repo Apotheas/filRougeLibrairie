@@ -2,107 +2,241 @@ package com.cdi.g3.server.domain.customers;
 
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
+import com.cdi.g3.server.domain.company.Company;
+import com.cdi.g3.server.domain.orders.InfoStatus;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 
 
-public final class Adress extends DomainObject {
+public final class Adress extends DomainObject implements Serializable {
 
     // ======================================
     // =             Attributes             =
     // ======================================
+     
     private String idAdress;
-    private String _street1;
-    private String _street2;
-    private String _city;
-    private String _state;
-    private String _zipcode;
-    private String _country;
-
-    public Adress() {
-    }
-       
-       
-    public Adress(final String id) {
-       idAdress = id;
-    }
+    private Customer customerShipAdress;
+    private Customer customerBillAdress;
+    private String nameReceiverAdress;
+    private String typeStreetAdress ;
+    private String numAdress;
+    private String nameStreetAdress;
+    private String nameStreet2Adress;
+    private String zipcodeAdress;
+    private String cityAdress;
+    private String countryAdress;
+    private Company nameCompanyReceiverAdress;
     
+    
+    private Collection listOrdersShipping = new ArrayList();
+    private Collection listOrdersBilling = new ArrayList();
+
+
     // ======================================
     // =           Business methods         =
     // ======================================
     public void checkData() throws CheckException {
-        if (_city == null || "".equals(_city))
-            throw new CheckException("Invalid city");
-        if (_country == null || "".equals(_country))
-            throw new CheckException("Invalid country");
-        if (_street1 == null || "".equals(_street1))
-            throw new CheckException("Invalid street");
-        if (_zipcode == null || "".equals(_zipcode))
-            throw new CheckException("Invalid zipcode");
+        if (((customerShipAdress == null || "".equals(customerShipAdress)))
+            &&     
+            ((customerBillAdress == null || "".equals(customerBillAdress))))
+            throw new CheckException("Invalid loginCustomerBillAdress , must be insert ");
+        
+        if (nameReceiverAdress == null || "".equals(nameReceiverAdress))
+            throw new CheckException("Invalid nameReceiverAdress, must be insert");
+        
+        if (numAdress == null || "".equals(numAdress))
+            throw new CheckException("Invalid numAdress, must be insert");
+        
+        if (nameStreetAdress == null || "".equals(nameStreetAdress))
+            throw new CheckException("Invalid nameStreetAdress , must be insert");
+        
+        if (zipcodeAdress == null || "".equals(zipcodeAdress))
+            throw new CheckException("Invalid zipcodeAdress  , must be insert");
+        
+        if (cityAdress == null || "".equals(cityAdress))
+            throw new CheckException("Invalid cityAdress  , must be insert");
+        
+        
     }
 
+     // ======================================
+    // =            Constructors            =
+    // ======================================
+     public Adress() {
+    }
+
+    public Adress(final String id) {
+       idAdress = id;
+    } 
+
+    public Adress(final 
+            String id, 
+            Customer CustomerShipAdress , 
+            Customer CustomerBillAdress, 
+            String nameReceiverAdress , 
+            String typeStreetAdress , 
+            String numAdress , 
+            String nameStreetAdress , 
+            String nameStreet2Adress , 
+            String zipcodeAdress , 
+            String cityAdress , 
+            String countryAdress , 
+            Company nameCompanyReceiverAdress)
+
+    { super();
+
+                idAdress = id;
+		this.customerShipAdress = CustomerShipAdress;
+		this.customerBillAdress = CustomerBillAdress;
+		this.nameReceiverAdress = nameReceiverAdress;
+		this.typeStreetAdress = typeStreetAdress;
+		this.numAdress = numAdress;
+		this.nameStreetAdress = nameStreetAdress;
+		this.nameStreet2Adress = nameStreet2Adress;
+		this.zipcodeAdress = zipcodeAdress;
+		this.cityAdress = cityAdress;
+		this.countryAdress = countryAdress;
+		this.nameCompanyReceiverAdress = nameCompanyReceiverAdress;
+	} 
+ 
+    
     // ======================================
     // =         Getters and Setters        =
     // ======================================
 
-    
-    
     @Override
     public String getId() {
         return idAdress;
     }
-
     @Override
     public void setId(String idAdress) {
         this.idAdress = idAdress;
     }
-        
     
     
+    //-------------------------------------//
     
-    public String getStreet1() {
-        return _street1;
+    public String getIdAdress() {
+        return idAdress;
     }
 
-    public void setStreet1(final String street1) {
-        _street1 = street1;
+    public void setIdAdress(String idAdress) {
+        this.idAdress = idAdress;
+    }    
+
+    public String getNameReceiverAdress() {
+        return nameReceiverAdress;
     }
 
-    public String getStreet2() {
-        return _street2;
+    public void setNameReceiverAdress(String nameReceiverAdress) {
+        this.nameReceiverAdress = nameReceiverAdress;
     }
 
-    public void setStreet2(final String street2) {
-        _street2 = street2;
+    public String getTypeStreetAdress() {
+        return typeStreetAdress;
     }
 
-    public String getCity() {
-        return _city;
+    public void setTypeStreetAdress(String typeStreetAdress) {
+        this.typeStreetAdress = typeStreetAdress;
     }
 
-    public void setCity(final String city) {
-        _city = city;
+    public String getNumAdress() {
+        return numAdress;
     }
 
-    public String getState() {
-        return _state;
+    public void setNumAdress(String numAdress) {
+        this.numAdress = numAdress;
     }
 
-    public void setState(final String state) {
-        _state = state;
+    public String getNameStreetAdress() {
+        return nameStreetAdress;
     }
 
-    public String getZipcode() {
-        return _zipcode;
+    public void setNameStreetAdress(String nameStreetAdress) {
+        this.nameStreetAdress = nameStreetAdress;
     }
 
-    public void setZipcode(final String zipcode) {
-        _zipcode = zipcode;
+    public String getNameStreet2Adress() {
+        return nameStreet2Adress;
     }
 
-    public String getCountry() {
-        return _country;
+    public void setNameStreet2Adress(String nameStreet2Adress) {
+        this.nameStreet2Adress = nameStreet2Adress;
     }
 
-    public void setCountry(final String country) {
-        _country = country;
+    public String getZipcodeAdress() {
+        return zipcodeAdress;
     }
+
+    public void setZipcodeAdress(String zipcodeAdress) {
+        this.zipcodeAdress = zipcodeAdress;
+    }
+
+    public String getCityAdress() {
+        return cityAdress;
+    }
+
+    public void setCityAdress(String cityAdress) {
+        this.cityAdress = cityAdress;
+    }
+
+    public String getCountryAdress() {
+        return countryAdress;
+    }
+
+    public void setCountryAdress(String countryAdress) {
+        this.countryAdress = countryAdress;
+    }
+
+    public Company getNameCompanyReceiverAdress() {
+        return nameCompanyReceiverAdress;
+    }
+
+    public void setNameCompanyReceiverAdress(Company nameCompanyReceiverAdress) {
+        this.nameCompanyReceiverAdress = nameCompanyReceiverAdress;
+    }
+
+    public Customer getCustomerShipAdress() {
+        return customerShipAdress;
+    }
+
+    public void setCustomerShipAdress(Customer customerShipAdress) {
+        this.customerShipAdress = customerShipAdress;
+    }
+
+    public Customer getCustomerBillAdress() {
+        return customerBillAdress;
+    }
+
+    public void setCustomerBillAdress(Customer customerBillAdress) {
+        this.customerBillAdress = customerBillAdress;
+    }
+
+    public Collection getListOrdersShipping() {
+        return listOrdersShipping;
+    }
+
+    public void setListOrdersShipping(Collection listOrdersShipping) {
+        this.listOrdersShipping = listOrdersShipping;
+    }
+
+    public Collection getListOrdersBilling() {
+        return listOrdersBilling;
+    }
+
+    public void setListOrdersBilling(Collection listOrdersBilling) {
+        this.listOrdersBilling = listOrdersBilling;
+    }
+ 
+    @Override
+    public String toString() {
+        return  idAdress + 
+                customerShipAdress  +
+                customerBillAdress   ;
+               
+    }
+
+  
 }
