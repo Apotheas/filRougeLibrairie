@@ -12,17 +12,25 @@ import java.io.Serializable;
  *
  * @author youssef
  */
-public class CodeTVA extends DomainObject implements Serializable{
-
+public class CodeTVA extends DomainObject implements Serializable {
 
     private String typeTVA;
-    @Override
-    public String getId() {
-        return typeTVA;
+
+    public CodeTVA() {
+
     }
+
+    public CodeTVA(String id) {
+        typeTVA = id;
+    }
+
     @Override
     public void setId(String typeTVA) {
         this.typeTVA = typeTVA;
     }
-    
+
+    @Override
+    public String getId() {
+        return typeTVA;
+    }
 }

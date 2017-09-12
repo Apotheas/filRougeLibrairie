@@ -5,6 +5,7 @@
  */
 package com.cdi.g3.server.domain.catalog;
 
+import com.cdi.g3.common.exception.DataAccessException;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
 import java.sql.PreparedStatement;
@@ -17,45 +18,86 @@ import java.sql.SQLException;
  */
 public class EditorDAO extends AbstractDataAccessObject{
     
+    // ======================================
+    // =             Attributes             =
+    // ======================================
+    private static final String TABLE = "EDITOR";
+
+    private static final String COLUMNS = "IDEDITOR, NAMEEDITOR, STATUSEDITOR ";
+    private static final String COLUMNS_PREP = " NAMEEDITOR, STATUSEDITOR, IDEDITOR";
+    // Used to get a unique id with the UniqueIdGenerator
+    private static final String COUNTER_NAME = "EDITOR";
+    
+    
+    
+    
     
     @Override
     protected String getCounterName() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return COUNTER_NAME;
     }
 
     @Override
     protected String getInsertSqlPreparedStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        final String sql;
+        sql = "INSERT INTO " + TABLE + "(" + COLUMNS_PREP + ") VALUES(?,?,?)";
+        return sql;
     }
 
     @Override
     protected String getDeleteSqlStatement(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        final String sql;
+        sql = "DELETE FROM " + TABLE + " WHERE IDEDITOR = '" + id + "'";
+        return sql;
     }
 
     @Override
     protected String getUpdateSqlPreparedStatement() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        final String sql;
+        sql = "UPDATE " + TABLE + " SET NAMEEDITOR = ?, STATUSEDITOR = ?, WHERE IDEDITHOR = ?";
+        return sql;
     }
 
     @Override
     protected String getSelectSqlStatement(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE IDEDITOR = '" + id + "' ";
+        return sql;
     }
 
     @Override
     protected String getSelectAllSqlStatement() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE;
+        return sql; 
     }
 
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        final Editor editor;
+        editor = new Editor(resultSet.getString(1), resultSet.getString(2));
+        editor.setStatusEditor(resultSet.getInt(3));        
+        return editor;
     }
 
     @Override
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       int retour = 0;
+        try {
+
+            prestmt.setString(1, ((Editor) object).getNameEditor());
+            prestmt.setInt(2, ((Editor) object).getStatusEditor());
+            prestmt.setString(3, ((Editor) object).getIdEditor());
+            
+
+            retour = prestmt.executeUpdate();
+
+        } catch (SQLException e) {
+            // A Severe SQL Exception is caught
+            displaySqlException(e);
+            throw new DataAccessException("executePreparedSt : Cannot get data from the database: " + e.getMessage(), e);
+        }
+        return retour;
     }
     
     

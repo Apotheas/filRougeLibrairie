@@ -5,6 +5,13 @@
  */
 package com.cdi.g3.client.ui.swing;
 
+import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.exception.FinderException;
+import com.cdi.g3.server.domain.catalog.Book;
+import com.cdi.g3.server.service.catalog.CatalogService;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Apotheas
@@ -66,7 +73,7 @@ public class JPanelFormBooks extends javax.swing.JPanel {
         jScrollPaneComment = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jLabelComment = new javax.swing.JLabel();
-        jComboBoxEvent = new javax.swing.JComboBox<>();
+        jComboBoxEvent = new javax.swing.JComboBox<String>();
         jLabelEvent = new javax.swing.JLabel();
         jPanelUpdate = new javax.swing.JPanel();
         jLabelUpdateBook = new javax.swing.JLabel();
@@ -206,7 +213,7 @@ public class JPanelFormBooks extends javax.swing.JPanel {
 
         jLabelComment.setText("Comment :");
 
-        jComboBoxEvent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxEvent.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "none", "Item 2", "Item 3", "Item 4" }));
 
         jLabelEvent.setText("Event   :");
 
@@ -357,7 +364,18 @@ public class JPanelFormBooks extends javax.swing.JPanel {
 
         jLabelUpdateBook.setText("Isbn/Title  : ");
 
+        jTextUpdateBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextUpdateBookActionPerformed(evt);
+            }
+        });
+
         jButtonSearchBook.setText("Search");
+        jButtonSearchBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchBookActionPerformed(evt);
+            }
+        });
 
         jButtonUpdateBook.setText("Update ");
 
@@ -426,6 +444,24 @@ public class JPanelFormBooks extends javax.swing.JPanel {
     private void jTextSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextSearchActionPerformed
+
+    private void jButtonSearchBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchBookActionPerformed
+        Book book= null;
+        try {
+            CatalogService bookService = new CatalogService();
+             book = bookService.findBook(jTextUpdateBook.getText());
+        } catch (FinderException ex) {
+            Logger.getLogger(JPanelFormBooks.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CheckException ex) {
+            Logger.getLogger(JPanelFormBooks.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jTextISBN.setText(book.getId());
+        jTextPrice.setText(String.valueOf(book.getUnitCostBook()));
+    }//GEN-LAST:event_jButtonSearchBookActionPerformed
+
+    private void jTextUpdateBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextUpdateBookActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextUpdateBookActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

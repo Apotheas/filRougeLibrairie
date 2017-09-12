@@ -1,21 +1,79 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.cdi.g3.server.domain.catalog;
 
 import com.cdi.g3.server.domain.DomainObject;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
-/**
- *
- * @author youssef
- */
+
 public class Editor extends DomainObject implements Serializable{
 
 
     private String idEditor;
+    private String nameEditor;
+    private int statusEditor;
+    
+    private Collection listBook = new ArrayList();
+    
+    
+    
+    
+    public Editor(){
+        
+    }
+    
+    public Editor(String id){
+        idEditor = id;
+    }
+   
+    public Editor(String id, String nameEditor){
+        idEditor = id;
+        setNameEditor(nameEditor);
+    }
+
+    public String getIdEditor() {
+        return idEditor;
+    }
+
+    public void setIdEditor(String idEditor) {
+        this.idEditor = idEditor;
+    }
+
+    public String getNameEditor() {
+        return nameEditor;
+    }
+
+    public void setNameEditor(String nameEditor) {
+        this.nameEditor = nameEditor;
+    }
+
+    public int getStatusEditor() {
+        return statusEditor;
+    }
+
+    public void setStatusEditor(int statusEditor) {
+        this.statusEditor = statusEditor;
+    }
+
+    public Collection getListBook() {
+        return listBook;
+    }
+
+    public void setListBook(Collection listBook) {
+        this.listBook = listBook;
+    }
+
+    @Override
+    public String toString() {
+        return "id = " + idEditor + "nameEditor = " + nameEditor ;
+    }
+    
+    
+    
+    
+    
+    
     @Override
     public String getId() {
         return idEditor;
