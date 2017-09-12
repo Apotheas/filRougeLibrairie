@@ -1,4 +1,4 @@
-
+drop database librairieDB
 USE librairieDB
 Go
 
