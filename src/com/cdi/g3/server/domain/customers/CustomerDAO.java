@@ -52,7 +52,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
     protected String getUpdateSqlPreparedStatement() {        
         final String sql;        
         sql = "UPDATE " + TABLE + " SET LASTTNAMECUSTOMER = ?, FIRSTNAMECUSTOMER = ?, EMAILCUSTOMER = ?,"
-                + " PASSWORDCUSTOMER = ?, NAMECOMPANYCUSTOMER = ?, COMMENTCUSTOMER = ?, STATUSCUSTOMER = ?, LOGINCUSTOMER = ?" ;
+                + " PASSWORDCUSTOMER = ?, NAMECOMPANYCUSTOMER = ?, COMMENTCUSTOMER = ?, STATUSCUSTOMER = ? WHERE LOGINCUSTOMER = ?" ;
         return sql;
         
     }

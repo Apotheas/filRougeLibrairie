@@ -17,6 +17,14 @@ public final class Adress extends DomainObject {
     private String _zipcode;
     private String _country;
 
+    public Adress() {
+    }
+       
+       
+    public Adress(final String id) {
+       idAdress = id;
+    }
+    
     // ======================================
     // =           Business methods         =
     // ======================================
@@ -35,6 +43,8 @@ public final class Adress extends DomainObject {
     // =         Getters and Setters        =
     // ======================================
 
+    
+    
     @Override
     public String getId() {
         return idAdress;

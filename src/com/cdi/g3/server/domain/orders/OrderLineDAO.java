@@ -62,7 +62,7 @@ public class OrderLineDAO extends AbstractDataAccessObject {
     protected String getUpdateSqlPreparedStatement() {
         final String sql;        
         sql = "UPDATE " + TABLE + " SET QUANTITYORDERLINE = ?, UNITCOSTORDERLINE = ?, IDORDER = ?,"
-                + " NUMISBNBOOK = ?, DISCOUNTORDERLINE = ?, RATETVAORDERLINE = ?, IDAPPRECIATE = ?, IDORDERLINE = ?" ;
+                + " NUMISBNBOOK = ?, DISCOUNTORDERLINE = ?, RATETVAORDERLINE = ?, IDAPPRECIATE = ? WHERE IDORDERLINE = ?" ;
         return sql;
     }
 
