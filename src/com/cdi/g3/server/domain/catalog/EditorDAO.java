@@ -54,7 +54,7 @@ public class EditorDAO extends AbstractDataAccessObject{
     @Override
     protected String getUpdateSqlPreparedStatement() {
         final String sql;
-        sql = "UPDATE " + TABLE + " SET NAMEEDITOR = ?, STATUSEDITOR = ?, WHERE IDEDITHOR = ?";
+        sql = "UPDATE " + TABLE + " SET NAMEEDITOR = ?, STATUSEDITOR = ? WHERE IDEDITHOR = ?";
         return sql;
     }
 

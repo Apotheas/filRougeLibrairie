@@ -65,15 +65,15 @@ public class JPanelFormBooks extends javax.swing.JPanel {
         jToggleButtonCreate = new javax.swing.JToggleButton();
         jLabelSynopsis = new javax.swing.JLabel();
         jScrollPaneSynopsis = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jTextSynospsis = new javax.swing.JTextArea();
         jLabelImageUrl = new javax.swing.JLabel();
         jTextEditor = new javax.swing.JTextField();
         jLabelLongSize = new javax.swing.JLabel();
         jTextLongSize = new javax.swing.JTextField();
         jScrollPaneComment = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        jTextComment = new javax.swing.JTextArea();
         jLabelComment = new javax.swing.JLabel();
-        jComboBoxEvent = new javax.swing.JComboBox<String>();
+        jComboBoxEvent = new javax.swing.JComboBox<>();
         jLabelEvent = new javax.swing.JLabel();
         jPanelUpdate = new javax.swing.JPanel();
         jLabelUpdateBook = new javax.swing.JLabel();
@@ -199,21 +199,21 @@ public class JPanelFormBooks extends javax.swing.JPanel {
 
         jLabelSynopsis.setText("Synopsis  :");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPaneSynopsis.setViewportView(jTextArea1);
+        jTextSynospsis.setColumns(20);
+        jTextSynospsis.setRows(5);
+        jScrollPaneSynopsis.setViewportView(jTextSynospsis);
 
         jLabelImageUrl.setText("Image url   :");
 
         jLabelLongSize.setText("Long size  :");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPaneComment.setViewportView(jTextArea2);
+        jTextComment.setColumns(20);
+        jTextComment.setRows(5);
+        jScrollPaneComment.setViewportView(jTextComment);
 
         jLabelComment.setText("Comment :");
 
-        jComboBoxEvent.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "none", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxEvent.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "none", "Item 2", "Item 3", "Item 4" }));
 
         jLabelEvent.setText("Event   :");
 
@@ -455,8 +455,23 @@ public class JPanelFormBooks extends javax.swing.JPanel {
         } catch (CheckException ex) {
             Logger.getLogger(JPanelFormBooks.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
         jTextISBN.setText(book.getId());
         jTextPrice.setText(String.valueOf(book.getUnitCostBook()));
+        jTextTitle.setText(book.getTitleBook());
+        jTextImageUrl.setText(book.getPathIconBook());
+        jTextSynospsis.setText(book.getSynopsisBook());
+        jTextComment.setText(book.getCommentBook());
+        jTextWeight.setText(String.valueOf(book.getWeightBook()));
+        jTextLargeSize.setText(String.valueOf(book.getSizeLargeBook()));
+        jTextLongSize.setText(String.valueOf(book.getSizeLongBook()));
+        jTextStock.setText(String.valueOf(book.getStockBook()));
+        
+        
+        
+        
+        
     }//GEN-LAST:event_jButtonSearchBookActionPerformed
 
     private void jTextUpdateBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextUpdateBookActionPerformed
@@ -496,9 +511,8 @@ public class JPanelFormBooks extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPaneTree;
     private javax.swing.JTabbedPane jTabbedPaneStock;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextAuthor;
+    private javax.swing.JTextArea jTextComment;
     private javax.swing.JTextField jTextEditor;
     private javax.swing.JTextField jTextISBN;
     private javax.swing.JTextField jTextImageUrl;
@@ -507,6 +521,7 @@ public class JPanelFormBooks extends javax.swing.JPanel {
     private javax.swing.JTextField jTextPrice;
     private javax.swing.JTextField jTextSearch;
     private javax.swing.JTextField jTextStock;
+    private javax.swing.JTextArea jTextSynospsis;
     private javax.swing.JTextField jTextTitle;
     private javax.swing.JTextField jTextUpdateBook;
     private javax.swing.JTextField jTextWeight;

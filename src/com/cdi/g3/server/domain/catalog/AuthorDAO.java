@@ -54,7 +54,7 @@ public class AuthorDAO extends AbstractDataAccessObject {
     protected String getUpdateSqlPreparedStatement() {
         final String sql;
         sql = "UPDATE " + TABLE + " SET LASTNAMEAUTHOR = ?, FIRSTNAMEAUTHOR = ?, BIOGRAPHYAUTHOR = ?,"
-                + " BIRTHDATEAUTHOR = ?, DIEDATEAUTHOR = ?, COMMENTAUTHOR = ?,   WHERE IDAUTHOR = ?";
+                + " BIRTHDATEAUTHOR = ?, DIEDATEAUTHOR = ?, COMMENTAUTHOR = ?   WHERE IDAUTHOR = ?";
         return sql;
     }
 

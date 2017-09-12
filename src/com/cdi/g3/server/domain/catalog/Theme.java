@@ -5,13 +5,11 @@
  */
 package com.cdi.g3.server.domain.catalog;
 
+import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
 import java.io.Serializable;
 
-/**
- *
- * @author youssef
- */
+
 public class Theme extends DomainObject implements Serializable{
     
     
@@ -19,7 +17,31 @@ public class Theme extends DomainObject implements Serializable{
     
     
      
+     public Theme(){
+         
+     }
+     public Theme(String id){
+         nameTheme = id;
+     }
+
      
+        
+    public void checkData() throws CheckException {
+        if (getNameTheme()== null || "".equals(getNameTheme())) {
+            throw new CheckException("Invalid name theme");
+        }
+     
+    }
+     
+     
+     
+    public String getNameTheme() {
+        return nameTheme;
+    }
+
+    public void setNameTheme(String nameTheme) {
+        this.nameTheme = nameTheme;
+    }
      
      
      
@@ -32,6 +54,11 @@ public class Theme extends DomainObject implements Serializable{
     @Override
     public void setId(String nameTheme) {
         this.nameTheme = nameTheme;
+    }
+
+    @Override
+    public String toString() {
+        return "Theme = " + nameTheme ;
     }
     
 }
