@@ -5,8 +5,11 @@
  */
 package com.cdi.g3.server.domain.catalog;
 
+import com.cdi.g3.common.exception.DataAccessException;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
+import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displaySqlException;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,15 +78,31 @@ public class OccasionDAO extends AbstractDataAccessObject{
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Occasion occasion;
-        occasion = new Occasion(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3));
-        occasion.setDiscountOccasion(String.valueOf(resultSet.getString(4)));
+        occasion = new Occasion(resultSet.getString(1), resultSet.getDate(2), resultSet.getDate(3));
+        occasion.setDiscountOccasion((resultSet.getFloat(4)));
         
-        return author;
+        return occasion;
     }
 
     @Override
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int retour = 0;
+        try {
+
+            
+            prestmt.setDate(1, (Date) ((Occasion) object).getDateDebutOccasion());
+            prestmt.setDate(2, (Date) ((Occasion) object).getDateFinOccasion());
+            prestmt.setFloat(3, ((Occasion) object).getDiscountOccasion());
+            prestmt.setString(4, ((Occasion) object).getNameOccasion());
+
+            retour = prestmt.executeUpdate();
+
+        } catch (SQLException e) {
+            // A Severe SQL Exception is caught
+            displaySqlException(e);
+            throw new DataAccessException("executePreparedSt : Cannot get data from the database: " + e.getMessage(), e);
+        }
+        return retour;
     }
     
     
