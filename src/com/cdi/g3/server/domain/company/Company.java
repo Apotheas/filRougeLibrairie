@@ -60,7 +60,7 @@ public final class Company extends DomainObject implements Serializable{
      * @throws CheckException if data is invalid
      */
     public void checkData() throws CheckException {
-        if (getSiretCompany() == null || "".equals(getSiretCompany()))
+        if (getId() == null || "".equals(getId()))
             throw new CheckException("Invalid company siret");
         if (getNameCompany() == null || "".equals(getNameCompany()))
             throw new CheckException("Invalid company  name");
@@ -72,11 +72,12 @@ public final class Company extends DomainObject implements Serializable{
     // =         Getters and Setters        =
     // ======================================
 
-    public String getSiretCompany() {
+   @Override
+    public String getId() {
         return siretCompany;
     }
-
-    public void setSiretCompany(String siretCompany) {
+    @Override
+    public void setId(String siretCompany) {
         this.siretCompany = siretCompany;
     }
 

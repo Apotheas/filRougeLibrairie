@@ -37,10 +37,7 @@ public class EmployeRightDAO extends AbstractDataAccessObject{
     protected String getInsertSqlPreparedStatement() {        
         final String sql;
         
-        sql =   "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?)";
-//                "INSERT INTO " + TABLE + "(" + COLUMNS + ") VALUES ('" + employeright.getId() + "', '" + employeright.getLastNameEmployeRight()+ "','" + employeright.getFirstNameEmployeRight()
-//                + "', '" + employeright.getEmailEmployeRight()+ "', '" + employeright.getPasswordEmployeRight()+ "', '" + employeright.getNameEmployeRightEmployeRight()+ "', '" 
-//                + employeright.getCommentEmployeRight()+ "', '" + employeright.getStatusEmployeRight()+ "' )";
+        sql =   "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?)";//                
         return sql;
     }
 
@@ -52,8 +49,8 @@ public class EmployeRightDAO extends AbstractDataAccessObject{
 
     protected String getUpdateSqlPreparedStatement() {        
         final String sql;        
-        sql = "UPDATE " + TABLE + " SET TYPEEMPLOYERIGHT = ?, IDEMPLOYERIGHT = ?" ;
-        return sql;
+        sql = "UPDATE " + TABLE + " SET TYPEEMPLOYERIGHT = ? WHERE IDEMPLOYERIGHT = ?" ;
+        return sql; 
         
     }
 
@@ -87,9 +84,8 @@ public class EmployeRightDAO extends AbstractDataAccessObject{
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
         int retour = 0;
         try {
-            
-            prestmt.setString(1, ((EmployeRight) object).getIdEmployeRight());
-            prestmt.setString(2, ((EmployeRight) object).getTypeEmployeRight());
+            prestmt.setString(1, ((EmployeRight) object).getTypeEmployeRight());
+            prestmt.setString(2, ((EmployeRight) object).getId());
             
          
             

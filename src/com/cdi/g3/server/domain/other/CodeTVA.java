@@ -63,8 +63,14 @@ public class CodeTVA extends DomainObject implements Serializable {
 
     @Override
     public void setId(String id) {
-        this.typeTva = typeTva;
+        this.typeTva = id;
     }
+    
+    
+//    @Override
+//    public void setId(String id) {
+//        this.typeTva = typeTva;
+//    }
 
     //--------------------------------------//
     public String getTypeTva() {
