@@ -54,33 +54,35 @@ VALUES
 /* Table: BOOK                                                  */
 /*==============================================================*/
 INSERT INTO Book ( 
-        NUMISBNBOOK ,
-        IDEDITORBOOK,
-        TYPETVABOOK,
-        TITREBOOK,
-        SUBTITREBOOK,
-        UNITCOSTBOOK,
-        SYNOPSISBOOK,
-        PATHICONBOOK,
-        WEIGHTBOOK,
-        SIZELARGEBOOK,
-        SIZELONGBOOK,
-        STOCKBOOK,
-        COMMENTBOOK,
-        STATUSBOOK )
-
-
+        NUMISBNBOOK,         
+        IDEDITORBOOK,        
+        TYPETVABOOK ,        
+        TITREBOOK ,           
+        UNITCOSTBOOK,        
+        STOCKBOOK,            
+        STATUSBOOK,           
+        SUBTITREBOOK,         
+        SYNOPSISBOOK ,        
+        PATHICONBOOK ,        
+        WEIGHTBOOK,           
+        SIZELARGEBOOK,        
+        SIZELONGBOOK,          
+        COMMENTBOOK)
 VALUES 
-('2253092533','1','reduced','Le pi�ge',null, 8.10,'L auteur � succ�s Linda Conrads n a pas quitt� sa maison depuis onze ans. Hant�e par la mort de sa soeur et le visage de son assassin, qu elle a surpris juste avant qu il ne prenne la fuite, elle vit d�sormais recluse.','http://www.gibertjoseph.com/le-piege-8950921.html',null,null,null,15,'interessant',1),
-('2253092770','1','reduced', 'Da Vinci Code',null, 5.90,'Robert Langdon, un �minent sp�cialiste de symbologie de Harvard, est convoqu� d urgence au Louvre. On a d�couvert un message cod� sur le cadavre du conservateur en chef, retrouv� assassin� au milieu de la Grande Galerie.','http://www.gibertjoseph.com/da-vinci-code-8869292.html',null,null,null,11,'long et ennuyeux',1),
-('2265116491','3','reduced', 'Comme de long �chos',null, 19.90,' Partout, les monstres sont chez eux... � Vincent Dussart est s�r de son coup. Ce break impos� par sa femme va prendre fin aujourd hui. Il n a rien laiss� au hasard. Comme toujours. Confiant, il p�n�tre dans la maison .','http://www.gibertjoseph.com/comme-de-longs-echos-8822343.html',null,null,null,7,null,2),
-('2743640707','4','reduced', 'Les Proies',null, 9.00,'Pendant la Guerre de S�cession, un soldat yankee bless� est recueilli dans un pensionnat de jeunes filles du Sud. L intrusion d un homme bouleverse ce milieu f�minin corset� et repli� sur lui-m�me. Objet de tous les fantasmes','http://www.gibertjoseph.com/les-proies-8762857.html',null,null,null,34,'Magnifique livre , je conseille !',1),
-('2330081545','6','reduced','Le d�tective de Freud',null, 9.80,'Paris, 1911. � l issue du congr�s de l Association Psychanalytique Internationale, le jeune docteur Du Barrail est charg� par Sigmund Freud en personne d enqu�ter sur la mort myst�rieuse d un de leurs confr�res, retrouv�.','http://www.gibertjoseph.com/le-detective-de-freud-8762609.html',null,null,null,19,'Chef d oeuvre',1),
-('2290147001','4','reduced','Laisse moi t aimer',null, 7.40,null,'http://www.gibertjoseph.com/laisse-moi-t-aimer-8403762.html',null,null,null,63,null,1),
-('2290140961','2','reduced', 'Les ladies de Lantern Street','La femme mystere', 4.52,null,'http://www.gibertjoseph.com/les-ladies-de-lantern-street-la-femme-mystere-8403758.html',null,null,null,25,'Top!',2),
-('2290139998','7','reduced', 'Le jeu de la tentation',null, 7.95,'Trouver l amour ? En ce qui la concerne, Kate Seymour y a renonc� depuis une �ternit�. Ironie du sort, elle a h�rit� d un don infaillible : d�tecter l alchimie entre deux �tres. Alors, faisant contre mauvaise fortune','http://www.gibertjoseph.com/le-jeu-de-la-tentation-8403757.html',null,null,null,24,null,1),
-('2811222510','2','reduced', 'Wild heart',null, 7.20,'Alors que Menzoberazzan go�te � un semblant de paix, lib�r�e de ses hordes de d�mons, l Outreterre panse ses plaies. Le barbare du Valbise et son compagnon halfelin, seulement d�sireux de profiter de leur nouvelle','http://www.gibertjoseph.com/le-detective-de-freud-8762609.html',null,null,null,19,'Incroyable',2),
-('2290139963','3','reduced', 'Gareth',null, 4.07,'GarethGrace Burrowes (Auteur) Depuis neuf ans, Gareth Alexander se conduit en libertin. Pour satisfaire la derni�re volont� d une amie, il est contraint d apprendre � Felicity Worthington, comment diriger une maison close. Mais il ren�cle de plus','http://www.gibertjoseph.com/gareth-8392808.html',null,null,null,39,'Pas terrible',1)
+('2253092533','1','reduced','Le pi�ge',8.10,15,1, null ,'L auteur � succ�s Linda Conrads n a pas quitt� sa maison depuis onze ans. Hant�e par la mort de sa soeur et le visage de son assassin, qu elle a surpris juste avant qu il ne prenne la fuite, elle vit d�sormais recluse.','http://www.gibertjoseph.com/le-piege-8950921.html',null,null,null,'interessant'),
+('2253092770','1','reduced', 'Da Vinci Code',5.90,11,1, null ,'Robert Langdon, un �minent sp�cialiste de symbologie de Harvard, est convoqu� d urgence au Louvre. On a d�couvert un message cod� sur le cadavre du conservateur en chef, retrouv� assassin� au milieu de la Grande Galerie.','http://www.gibertjoseph.com/da-vinci-code-8869292.html',null,null,null,'long et ennuyeux'),
+('2265116491','3','reduced', 'Comme de long �chos',19.90,7,2, null,' Partout, les monstres sont chez eux... � Vincent Dussart est s�r de son coup. Ce break impos� par sa femme va prendre fin aujourd hui. Il n a rien laiss� au hasard. Comme toujours. Confiant, il p�n�tre dans la maison .','http://www.gibertjoseph.com/comme-de-longs-echos-8822343.html',null,null,null,null),
+('2743640707','4','reduced', 'Les Proies',9.00,34,1, null ,'Pendant la Guerre de S�cession, un soldat yankee bless� est recueilli dans un pensionnat de jeunes filles du Sud. L intrusion d un homme bouleverse ce milieu f�minin corset� et repli� sur lui-m�me. Objet de tous les fantasmes','http://www.gibertjoseph.com/les-proies-8762857.html',null,null,null,'Magnifique livre , je conseille !'),
+('2330081545','6','reduced','Le d�tective de Freud',9.80,19,1, null,'Paris, 1911. � l issue du congr�s de l Association Psychanalytique Internationale, le jeune docteur Du Barrail est charg� par Sigmund Freud en personne d enqu�ter sur la mort myst�rieuse d un de leurs confr�res, retrouv�.','http://www.gibertjoseph.com/le-detective-de-freud-8762609.html',null,null,null,'Chef d oeuvre'),
+('2290147001','4','reduced','Laisse moi t aimer',7.40,63,1, null,null,'http://www.gibertjoseph.com/laisse-moi-t-aimer-8403762.html',null,null,null,null),
+('2290140961','2','reduced', 'Les ladies de Lantern Street',4.52,25,2, 'La femme mystere' ,null,'http://www.gibertjoseph.com/les-ladies-de-lantern-street-la-femme-mystere-8403758.html',null,null,null,'Top!'),
+('2290139998','7','reduced', 'Le jeu de la tentation',7.95,24,1, null,'Trouver l amour ? En ce qui la concerne, Kate Seymour y a renonc� depuis une �ternit�. Ironie du sort, elle a h�rit� d un don infaillible : d�tecter l alchimie entre deux �tres. Alors, faisant contre mauvaise fortune','http://www.gibertjoseph.com/le-jeu-de-la-tentation-8403757.html',null,null,null,null),
+('2811222510','2','reduced', 'Wild heart',7.20,19,2, null,'Alors que Menzoberazzan go�te � un semblant de paix, lib�r�e de ses hordes de d�mons, l Outreterre panse ses plaies. Le barbare du Valbise et son compagnon halfelin, seulement d�sireux de profiter de leur nouvelle','http://www.gibertjoseph.com/le-detective-de-freud-8762609.html',null,null,null,'Incroyable'),
+('2290139963','3','reduced', 'Gareth',4.07,39,1, null,'GarethGrace Burrowes (Auteur) Depuis neuf ans, Gareth Alexander se conduit en libertin. Pour satisfaire la derni�re volont� d une amie, il est contraint d apprendre � Felicity Worthington, comment diriger une maison close. Mais il ren�cle de plus','http://www.gibertjoseph.com/gareth-8392808.html',null,null,null,'Pas terrible')
+
+
+
+             
 
 
  
@@ -239,23 +241,23 @@ VALUES
 
 INSERT INTO Author(
 idAuthor, 
-firstNameAuthor,
 lastNameAuthor,
+firstNameAuthor,
 biographyAuthor,
 birthDateAuthor,
 dieDateAuthor,
 commentAuthor 
 ) 
 VALUES
-('1','Raabe','Melanie','à 10 ans elle vendait deja du crack, elle se mis à écrire en centre de désintox','1965-12-09',null,''),
-('2','Brown','Dan','expert en communication, Dan à toujours aimé insulter le bas peuple','1945-08-07',null,''),
-('3','Piacentini','Elena','Maitresse de zerbib jonathan , elle finis par le tuer et se mis à ecrire des bouquin en prison','1975-04-04',null,''),
-('4','Cullinan','Thomas','pere origninel du culliningus , son premier livre fut un best fisteur ','1980-11-02',null,''),
-('5','Bande','Olivier','fils de larbre, olivier na jamais supporter ecrire sur du papier  ','1969-02-11',null,''),
-('6','Enoch','Susane','susan aime le chocolat et à toujours aimé faire du trampoline','1976-06-01',null,''),
-('7','Quick','Amanda','adepte de la partouze, amanda decris dans ses livres ses plus grandes conquetes sexuels','1989-10-11',null,''),
-('8','Haine','Lily','contrairement à son nom, lily na jamais ressenti de haine ','1979-11-09',null,''),
-('9','Burrows','Grace','anciennement frere de micheal scofield, il est devenu sa soeur apres opérations','1939-11-09','2015-01-04','')
+('1','Melanie','Raabe','à 10 ans elle vendait deja du crack, elle se mis à écrire en centre de désintox','1965-12-09',null,''),
+('2','Dan','Brown','expert en communication, Dan à toujours aimé insulter le bas peuple','1945-08-07',null,''),
+('3','Elena','Piacentini','Maitresse de zerbib jonathan , elle finis par le tuer et se mis à ecrire des bouquin en prison','1975-04-04',null,''),
+('4','Thomas','Cullinan','pere origninel du culliningus , son premier livre fut un best fisteur ','1980-11-02',null,''),
+('5','Olivier','Bande','fils de larbre, olivier na jamais supporter ecrire sur du papier  ','1969-02-11',null,''),
+('6','Susane','Enoch','susan aime le chocolat et à toujours aimé faire du trampoline','1976-06-01',null,''),
+('7','Amanda','Quick','adepte de la partouze, amanda decris dans ses livres ses plus grandes conquetes sexuels','1989-10-11',null,''),
+('8','Lily','Haine','contrairement à son nom, lily na jamais ressenti de haine ','1979-11-09',null,''),
+('9','Grace','Burrows','anciennement frere de micheal scofield, il est devenu sa soeur apres opérations','1939-11-09','2015-01-04','')
 
 
 
@@ -359,32 +361,40 @@ VALUES
 /* Table: ADRESS                                                */
 /*==============================================================*/
 INSERT INTO Adress (
-			idAdress,
-			loginCustomerShipAdress,
-			loginCustomerBillAdress,
-			typeStreetAdress,
-			numAdress,
-			nameStreetAdress,
-			nameSteet2Adress,
-			zipCodeAdress,
-			cityAdress,
-			countryAdress,
-			nameReceiverAdress ,
-			nameCompanyReceiverAdress
+			IDADRESS ,                 
+                        LOGINCUSTOMERSHIPADRESS,
+                        LOGINCUSTOMERBILLADRESS,  
+                        NAMERECEIVERADRESS,       
+                        TYPESTREETADRESS,         
+                        NUMADRESS ,               
+                        NAMESTREETADRESS,         
+                        NAMESTEET2ADRESS ,        
+                        ZIPCODEADRESS,            
+                        CITYADRESS,               
+                        COUNTRYADRESS, 
+                        NAMECOMPANYRECEIVERADRESS
 			 ) 
 
 VALUES 
-('1',null,null,'rue','12','Georges et Mai Politzer ','','75012','Paris','France','Marc', NULL),
+('1',null,null,'Marc','rue','12','Georges et Mai Politzer ','','75012','Paris','France', NULL),
 
-('2','Bob01','Bob01','livraison','152','rue de la fontaine  ','','75001','Paris','France','Marley', NULL), 
+('2','Bob01','Bob01','Marley','livraison','152','rue de la fontaine  ','','75001','Paris','France', NULL), 
 		------------------------------------------	
-('3','zidane02','zidane02','livraison','3','avenue de la republique  ','','93350','le Bourget','France','Foued',NULL), 
+('3','zidane02','zidane02','Foued','livraison','3','avenue de la republique  ','','93350','le Bourget','France',NULL), 
 		------------------------------------------	
-('4','marc03','marc03','livraison','17','avenue charle de gaule','','13001','marseille','France','Yous',NULL),
+('4','marc03','marc03','Yous','livraison','17','avenue charle de gaule','','13001','marseille','France',NULL),
 	------------------------------------------	
-('5','Nicole04','Nicole04','livraison','45','rue de vincennes ','','93100','Montreuil','France','Nicole',NULL ), 
+('5','Nicole04','Nicole04','Nicole','livraison','45','rue de vincennes ','','93100','Montreuil','France',NULL ), 
 	------------------------------------------			
-('6','Angelina05','Angelina05','livraison','114','avenue de la division leclerc ','','78100','Sartrouville','France','Angelina', NULL) 
+('6','Angelina05','Angelina05','Angelina','livraison','114','avenue de la division leclerc ','','78100','Sartrouville','France', NULL) 
+
+   
+   
+     
+
+
+
+
 
 
 /*==============================================================*/
@@ -442,30 +452,30 @@ INSERT INTO Orders(
 INSERT INTO Appreciation 
 		(
 		idAppreciate,
-		loginEmployeAppreciate,
-		loginCustomerAppreciate,
-		idOrderLineAppreciate ,
-		numISBNBookAppreciate,
-		commentAppreciate,
-		ratingAppreciate,
+                loginCustomerAppreciate,		
+                idOrderLineAppreciate ,
+                numISBNBookAppreciate,
 		dateAppreciate,
+                commentAppreciate,
+		ratingAppreciate,		
 		IPAPPRECIATE,
+                loginEmployeAppreciate,
 		moderateAPPRECIATE,
 		DATEmoderateAPPRECIATE
 		) 
 
-VALUES ('1','employe01','Bob01','1' ,'2330081545','VERY GOOD (APPRECIATION 1)',5,'2017-01-11','5.135.158.101', 1, '2017-01-15' ),		 
+VALUES ('1','Bob01','1' ,'2330081545','2017-01-11','VERY GOOD (APPRECIATION 1)',5,'5.135.158.101','employe01', 1, '2017-01-15' ),		 
 	------------------------------------------	
-	 ('2','employe02','zidane02','3' ,'2290140961','VERY GOOD  (APPRECIATION2)',4,'2017-02-12' ,'5.135.158.101' , 1, '2017-02-15'), 
+	 ('2','zidane02','3' ,'2290140961','2017-02-12' ,'VERY GOOD  (APPRECIATION2)',4,'5.135.158.101','employe02' , 1, '2017-02-15'), 
 	-----------------------------------------	
-	 ('3','employe03','marc03','11' ,'2290140961','GOOD  (APPRECIATION 3)',3,'2017-03-13','5.135.158.101' , 1, '2017-03-15' ), 
-	 ('4',NULL,'marc03','10' ,'2290147001','GOOD  (APPRECIATION 3)',3,'2017-03-13','5.135.158.101' , 0, null ), 
+	 ('3','marc03','11' ,'2290140961','2017-03-13','GOOD  (APPRECIATION 3)',3,'5.135.158.101','employe01' , 1, '2017-03-15' ), 
+	 ('4','marc03','10' ,'2290147001','2017-03-13','GOOD  (APPRECIATION 3)',3,'5.135.158.101',null , 0, null ), 
 	------------------------------------------
-        ('5','employe01','Nicole04','12' ,'2290139998','BUFFFFF   (APPRECIATION 4)', 2,'2017-04-14','5.135.158.101', 1, '2017-04-15'  ), 
-	 ('6',NULL,'Nicole04','6' ,'2253092770','BUFFFFF   (APPRECIATION 4)', 2,'2017-04-14','5.135.158.101', 0, NULL  ),
+        ('5','Nicole04','12' ,'2290139998','2017-04-14','BUFFFFF   (APPRECIATION 4)', 2,'5.135.158.101','employe01', 1, '2017-04-15'  ), 
+	 ('6','Nicole04','6' ,'2253092770','2017-04-14','BUFFFFF   (APPRECIATION 4)', 2,'5.135.158.101',null, 0, NULL  ),
 ------------------------------------------
-	 ('7',NULL,'Angelina05','4' ,'2811222510','NULLLL !!! (APPRECIATION 5)', 1,'2017-05-15','5.135.158.101' , 0, null  ),
-	 ('8',NULL,'Angelina05','4' ,'2811222510','NULLLL !!! (APPRECIATION 5)', 1,'2017-05-15','5.135.158.101' , 0, null  )
+	 ('7','Angelina05','4' ,'2811222510','2017-05-15','NULLLL !!! (APPRECIATION 5)', 1,'5.135.158.101' ,null, 0, null  ),
+	 ('8','Angelina05','4' ,'2811222510','2017-05-15','NULLLL !!! (APPRECIATION 5)', 1,'5.135.158.101',null, 0, null  )
 
 
 INSERT INTO COUNTER 

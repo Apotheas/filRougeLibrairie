@@ -1,4 +1,4 @@
-drop database librairieDB
+
 USE librairieDB
 Go
 
@@ -42,16 +42,17 @@ create table BOOK
    IDEDITORBOOK         varchar(10)                    not null,
    TYPETVABOOK          varchar(50)                    not null,
    TITREBOOK            varchar(50)                    not null,
-   SUBTITREBOOK         varchar(50)                    null,
    UNITCOSTBOOK         float                          not null,
+   STOCKBOOK            integer                        not null,
+   STATUSBOOK           integer                        not null,
+   SUBTITREBOOK         varchar(50)                    null,   
    SYNOPSISBOOK         varchar(Max)                   null,
    PATHICONBOOK         varchar(100)                    null,
    WEIGHTBOOK           float                          null,
    SIZELARGEBOOK        float                          null,
-   SIZELONGBOOK         float                          null,
-   STOCKBOOK            integer                        not null,
+   SIZELONGBOOK         float                          null,   
    COMMENTBOOK          varchar(Max)                   null,
-   STATUSBOOK           integer                        not null,
+   
    constraint PK_BOOK primary key (NUMISBNBOOK)
 );
 
@@ -79,7 +80,7 @@ create table THEME
 /* Table: SUBTHEME                                              */
 /*==============================================================*/
 create table SUBTHEME 
-(  IDSUBTHEME			varchar(10)                    not null,
+(  IDSUBTHEME			varchar(10)            not null,
    NAMESUBTHEME         varchar(50)                    not null,
    NAMETHEME            varchar(50)                    not null,
    constraint PK_SUBTHEME primary key (IDSUBTHEME)
@@ -92,7 +93,7 @@ create table SUBTHEMEBOOK
 (
    IDSUBTHEMEBOOK       varchar(10)                    not null,
    NUMISBNBOOK          varchar(13)                    not null,
-   IDSUBTHEME			varchar(10)                     not null,
+   IDSUBTHEME			varchar(10)            not null,
    constraint PK_SUBTHEMEBOOK primary key clustered (IDSUBTHEMEBOOK)
 );
 /*==============================================================*/
@@ -164,8 +165,8 @@ create table CUSTOMER
 create table AUTHOR 
 (
    IDAUTHOR             varchar(10)                    not null,
-   FIRSTNAMEAUTHOR      varchar(50)                    null,
    LASTNAMEAUTHOR       varchar(50)                    not null,
+   FIRSTNAMEAUTHOR      varchar(50)                    null,   
    BIOGRAPHYAUTHOR      varchar(250)                   null,
    BIRTHDATEAUTHOR      date                           null,
    DIEDATEAUTHOR        date                           null,
@@ -247,6 +248,7 @@ create table ADRESS
    IDADRESS                 varchar(10)                    not null ,   
    LOGINCUSTOMERSHIPADRESS  varchar(50)                    null,
    LOGINCUSTOMERBILLADRESS  varchar(50)                    null,
+   NAMERECEIVERADRESS       varchar(50)                    not null,
    TYPESTREETADRESS         varchar(30)                    null,
    NUMADRESS                varchar(10)                    not null,
    NAMESTREETADRESS         varchar(50)                    not null,
@@ -254,7 +256,6 @@ create table ADRESS
    ZIPCODEADRESS            varchar(5)                     not null,
    CITYADRESS               varchar(40)                    not null,
    COUNTRYADRESS            varchar(50)                    not null,
-   NAMERECEIVERADRESS       varchar(50)                    not null,
    NAMECOMPANYRECEIVERADRESS varchar(50)                   null,
    constraint PK_ADRESS primary key (IDADRESS)
 );
@@ -264,14 +265,14 @@ create table ADRESS
 /*==============================================================*/
 create table "ORDERS" 
 (
-   IDORDER                  varchar(10)                    not null,
-   NAMEINFOSTATUSORDER      varchar(50)                    not null,
+   IDORDER                  varchar(10)                    not null,   
    IDADRESSSHIPPINGORDER    varchar(10)                    not null,
    LOGINCUSTOMERORDER       varchar(50)                    not null,
+   DATEORDER                date                           not null,
+   NAMEINFOSTATUSORDER      varchar(50)                    not null,
    IDADRESSBILLINGORDER     varchar(10)                    null,
    IDPACKAGESHIPPERORDER    varchar(10)                    null,
-   INTERNALNUMORDER         varchar(10)                    not null,
-   DATEORDER                date                           not null,
+   INTERNALNUMORDER         varchar(10)                    not null,   
    PAYMENTSYSTEMORDER       varchar(50)                    not null,
    IPORDER                  varchar(45)                    not null,
    DATEPACKAGESHIPPERORDER  date                           null,
@@ -299,14 +300,15 @@ create table ORDERLINE
 create table APPRECIATION 
 (
    IDAPPRECIATE         varchar(10)                     not null ,
-   LOGINEMPLOYEAPPRECIATE varchar(50)                   null,
    LOGINCUSTOMERAPPRECIATE varchar(50)                  not null,
    IDORDERLINEAPPRECIATE varchar(10)                    not null,
    NUMISBNBOOKAPPRECIATE varchar(13)                    not null,
-   COMMENTAPPRECIATE    varchar(500)                    null,
-   RATINGAPPRECIATE     smallint                        null,
    DATEAPPRECIATE       date                            not null,
    IPAPPRECIATE         varchar(45)                     not null,
+   COMMENTAPPRECIATE    varchar(500)                    null,
+   RATINGAPPRECIATE     smallint                        null,
+   
+   LOGINEMPLOYEAPPRECIATE varchar(50)                   null,
    moderateAPPRECIATE	bit				null,
    DATEmoderateAPPRECIATE		date		null
    constraint PK_APPRECIATION primary key (IDAPPRECIATE)
