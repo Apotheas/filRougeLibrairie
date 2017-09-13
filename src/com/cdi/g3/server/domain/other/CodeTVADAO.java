@@ -35,8 +35,6 @@ public class CodeTVADAO extends AbstractDataAccessObject {
     @Override
     protected String getDeleteSqlStatement(String id) {
         final String sql;
-//        sql = "DELETE FROM " + TABLE + " WHERE idAdress = '" + id + "'";
-        
         sql = "DELETE FROM " + TABLE + " WHERE typeTva = '" + id + "'";
         return sql;
     }
@@ -44,8 +42,6 @@ public class CodeTVADAO extends AbstractDataAccessObject {
     @Override
     protected String getUpdateSqlPreparedStatement() {
         final String sql;
-//        sql = "UPDATE " + TABLE + " SET typeTva = ?, rateCodeTva = ? ";
-        
         sql = "UPDATE " + TABLE + " SET rateCodeTva = ? WHERE typeTva = ? ";
         return sql;
     }
@@ -79,7 +75,6 @@ public class CodeTVADAO extends AbstractDataAccessObject {
         try {
 
             prestmt.setFloat(1, ((CodeTVA) object).getRateCodeTva());
-//            prestmt.setString(1, ((CodeTVA) object).getTypeTva());
             prestmt.setString(2, ((CodeTVA) object).getTypeTva());
 
             retour = prestmt.executeUpdate();

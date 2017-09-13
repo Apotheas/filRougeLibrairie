@@ -74,7 +74,6 @@ public class KeyWordDAO extends AbstractDataAccessObject {
         try {
 
             prestmt.setString(1, ((KeyWord) object).getNameKeyWord());
-
             retour = prestmt.executeUpdate();
 
         } catch (SQLException e) {
