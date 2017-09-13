@@ -72,6 +72,22 @@ public class AdressDAO extends AbstractDataAccessObject{
         return sql;
     }
     
+    @Override
+    protected String getSelectAllSqlStatementByChamp(String column, String loginCustomer){
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE  
+                + " WHERE " + column + " = '"+ loginCustomer+"'";
+        
+        return sql;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
      @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Adress adress;

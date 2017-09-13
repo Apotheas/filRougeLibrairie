@@ -75,7 +75,7 @@ public class OrderService extends AbstractService {
         order.setCustomer(customer);
 
         // Retreives the data for all the order lines
-        final Collection listOrderLines = _orderLineDAO.findAll(orderId);
+        final Collection listOrderLines = _orderLineDAO.findAll("idOrder", orderId);
         order.setListOrderLines(listOrderLines);
 
         return order;
