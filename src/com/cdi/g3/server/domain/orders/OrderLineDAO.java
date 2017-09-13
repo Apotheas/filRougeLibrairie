@@ -124,47 +124,49 @@ public class OrderLineDAO extends AbstractDataAccessObject {
         return retour;
     }
     
-    public final Collection findAll(final String orderId) throws ObjectNotFoundException {
-   	return selectAll(orderId);
-   }
     
-    public final Collection selectAll(final String orderId) throws ObjectNotFoundException {
-       final String mname = "selectAll";
-       Trace.entering(cname, mname);
-
-       ResultSet resultSet = null;
-       final Collection objects = new ArrayList();
-       // Gets a database connection
-        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
-         
-           // Select a Row
-           resultSet = statement.executeQuery(getSelectAllSqlStatement(orderId));
-
-           while (resultSet.next()) {
-               // Set data to the collection
-               objects.add(transformResultset2DomainObject(resultSet));
-           }
-
-           if (objects.isEmpty())
-               throw new ObjectNotFoundException();
-
-       } catch (SQLException e) {
-           // A Severe SQL Exception is caught
-           displaySqlException(e);
-           throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
-       } finally {
-           // Close
-           try {
-               if (resultSet != null) resultSet.close();
-           } catch (SQLException e) {
-               displaySqlException("Cannot close connection", e);
-               throw new DataAccessException("Cannot close the database connection", e);
-           }
-       }
-
-       Trace.exiting(cname, mname, new Integer(objects.size()));
-       return objects;
-   }
+//    public final Collection findAll(final String orderId) throws ObjectNotFoundException {
+//   	return selectAll(orderId);
+//   }
+//    
+//    
+//    public final Collection selectAll(final String orderId) throws ObjectNotFoundException {
+//       final String mname = "selectAll";
+//       Trace.entering(cname, mname);
+//
+//       ResultSet resultSet = null;
+//       final Collection objects = new ArrayList();
+//       // Gets a database connection
+//        try (Connection connection = getConnection(); Statement statement = connection.createStatement()) {
+//         
+//           // Select a Row
+//           resultSet = statement.executeQuery(getSelectAllSqlStatement(orderId));
+//
+//           while (resultSet.next()) {
+//               // Set data to the collection
+//               objects.add(transformResultset2DomainObject(resultSet));
+//           }
+//
+//           if (objects.isEmpty())
+//               throw new ObjectNotFoundException();
+//
+//       } catch (SQLException e) {
+//           // A Severe SQL Exception is caught
+//           displaySqlException(e);
+//           throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
+//       } finally {
+//           // Close
+//           try {
+//               if (resultSet != null) resultSet.close();
+//           } catch (SQLException e) {
+//               displaySqlException("Cannot close connection", e);
+//               throw new DataAccessException("Cannot close the database connection", e);
+//           }
+//       }
+//
+//       Trace.exiting(cname, mname, new Integer(objects.size()));
+//       return objects;
+//   }
     
     
     
