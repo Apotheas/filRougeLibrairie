@@ -1,0 +1,154 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.cdi.g3.server.service.customers;
+
+import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.exception.CreateException;
+import com.cdi.g3.common.exception.FinderException;
+import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.common.exception.RemoveException;
+import com.cdi.g3.common.exception.UpdateException;
+import com.cdi.g3.common.logging.Trace;
+import com.cdi.g3.server.domain.customers.Appreciation;
+import com.cdi.g3.server.domain.customers.AppreciationDAO;
+import com.cdi.g3.server.service.AbstractService;
+import java.util.Collection;
+
+/**
+ *
+ * @author Izet
+ */
+public class AppreciationService extends AbstractService {
+    
+ 
+      // ======================================
+    // = Attributes =
+    // ======================================
+    private static final AppreciationDAO _dao = new AppreciationDAO();
+
+    // ======================================
+    // = Constructors =
+    // ======================================
+    public AppreciationService(){
+        
+    }
+
+    // ======================================
+    // = Business methods =
+    // ======================================
+    public Appreciation createAppreciation( final Appreciation appreciation ) throws CreateException, CheckException {
+        final String mname = "createAppreciation";
+        Trace.entering( _cname, mname, appreciation );
+
+        if ( appreciation == null )
+            throw new CreateException( "Appreciation object is null" );
+        
+        appreciation.checkData();
+//         Appreciation  appreciation1 = null ;
+        try {
+           _dao.findByPrimaryKey(appreciation.getId());
+        } catch (ObjectNotFoundException ex) {
+             //checkId( appreciation.getId() );
+            checkId( appreciation.getId());
+             // Creates the object
+            _dao.insert( appreciation );
+            return appreciation;
+        }
+        Trace.exiting( _cname, mname, appreciation );
+        throw new CreateException( "Appreciation object exist" );
+        
+    }
+
+    public Appreciation findAppreciation( final String appreciationId ) throws FinderException, CheckException {
+        final String mname = "findAppreciation";
+        Trace.entering( _cname, mname, appreciationId );
+
+        checkId( appreciationId );
+        // Finds the object
+        final Appreciation appreciation = (Appreciation) _dao.findByPrimaryKey( appreciationId );
+        Trace.exiting( _cname, mname, appreciation );
+        return appreciation;
+    }
+
+    public void deleteAppreciation( final String appreciationId ) throws RemoveException, CheckException {
+        final String mname = "deleteAppreciation";
+        Trace.entering( _cname, mname, appreciationId );
+
+        checkId( appreciationId );
+
+        // Checks if the object exists
+        try {
+            _dao.findByPrimaryKey( appreciationId );
+        } catch ( FinderException e ) {
+            throw new RemoveException( "Appreciation must exist to be deleted" );
+        }
+
+        // Deletes the object
+        try {
+            _dao.remove(appreciationId);
+        } catch ( ObjectNotFoundException e ) {
+            throw new RemoveException( "Appreciation must exist to be deleted" );
+        }
+    }
+
+    public void updateAppreciation(Appreciation appreciation  ) throws UpdateException, CheckException {
+        final String mname = "updateAppreciation";
+        Trace.entering( _cname, mname, appreciation );
+
+        if ( appreciation == null )
+            throw new UpdateException( "Appreciation object is null" );
+
+        checkId( appreciation.getId() );
+
+       final Appreciation appreciationFinded;
+
+        // Checks if the object exists
+        try {
+            appreciationFinded = (Appreciation) _dao.findByPrimaryKey( appreciation.getId() );
+        } catch ( FinderException e ) {
+            throw new UpdateException( "Appreciation must exist to be updated" );
+        }
+        
+        appreciation.checkData();
+        appreciation = setAppreciation(appreciation, appreciationFinded );
+        
+
+        // Updates the object
+        try {
+            _dao.update( appreciationFinded );
+        } catch ( ObjectNotFoundException e ) {
+            throw new UpdateException( "Appreciation must exist to be updated" );
+        }
+    }
+
+    public Collection findAppreciation() throws FinderException {
+        final String mname = "findAppreciation";
+        Trace.entering( _cname, mname );
+
+        // Finds all the objects
+        final Collection appreciation = _dao.selectAll();
+        
+        Trace.exiting( _cname, mname, new Integer( appreciation.size() ) );
+        return appreciation;
+    }
+
+    // ======================================
+    // = Private Methods =
+    // ======================================
+     private Appreciation setAppreciation(Appreciation appreciation, Appreciation appreciationFinded ){
+         return null;
+     }
+
+    /**
+     * This method returns a unique identifer generated by the system.
+     * 
+     * @return a unique identifer
+     */
+    public final String getUniqueId() {
+        return _dao.getUniqueId();
+    }
+
+}
