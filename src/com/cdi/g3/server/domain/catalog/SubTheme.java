@@ -1,21 +1,57 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.cdi.g3.server.domain.catalog;
 
+import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
-/**
- *
- * @author youssef
- */
+
 public class SubTheme extends DomainObject implements Serializable{
 
+   private String  idSubTheme ; 
+   private String  nameSubTheme ; 
+   private String  nameTheme ; 
+   private Collection listSubTheme = new ArrayList () ; 
+   
 
-    private String idSubTheme;
+     // ======================================
+    // =           Business methods         =
+    // ======================================
+    public void checkData() throws CheckException {
+       
+
+        if (nameSubTheme == null || "".equals(nameSubTheme)) {
+            throw new CheckException("Invalid nameSubTheme, must be insert");
+        }
+
+        if (nameTheme == null || "".equals(nameTheme)) {
+            throw new CheckException("Invalid nameTheme, must be insert");
+        }
+
+    } 
+    // ======================================
+    // =            Constructors            =
+    // ======================================
+    public SubTheme() {
+    }
+
+    public SubTheme(String nameSubTheme) {
+        this.nameSubTheme = nameSubTheme;
+    }
+
+    public SubTheme(String idSubTheme, String nameSubTheme, String nameTheme) {
+        this.idSubTheme = idSubTheme;
+        this.nameSubTheme = nameSubTheme;
+        this.nameTheme = nameTheme;
+    }
+ 
+    // ======================================
+    // =         Getters and Setters        =
+    // ======================================
+    
+    
     @Override
     public String getId() {
         return idSubTheme;
@@ -24,6 +60,55 @@ public class SubTheme extends DomainObject implements Serializable{
     public void setId(String idSubTheme) {
         this.idSubTheme = idSubTheme;
     }
+//---------------------------------------------///
+   
+    
+    public String getIdSubTheme() {
+        return idSubTheme;
+    }
+
+    public void setIdSubTheme(String idSubTheme) {
+        this.idSubTheme = idSubTheme;
+    }
+
+    public String getNameSubTheme() {
+        return nameSubTheme;
+    }
+
+    public void setNameSubTheme(String nameSubTheme) {
+        this.nameSubTheme = nameSubTheme;
+    }
+
+    public String getNameTheme() {
+        return nameTheme;
+    }
+
+    public void setNameTheme(String nameTheme) {
+        this.nameTheme = nameTheme;
+    }
+
+    public Collection getListSubTheme() {
+        return listSubTheme;
+    }
+
+    public void setListSubTheme(Collection listSubTheme) {
+        this.listSubTheme = listSubTheme;
+    }
+
+    @Override
+    public String toString() {
+        return "idSubTheme=" + idSubTheme +
+               ", nameSubTheme=" + nameSubTheme +
+               ", nameTheme=" + nameTheme ;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
 }
  
