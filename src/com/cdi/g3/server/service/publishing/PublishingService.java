@@ -6,6 +6,7 @@
 package com.cdi.g3.server.service.publishing;
 
 import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.server.domain.catalog.Author;
 import com.cdi.g3.server.domain.catalog.AuthorDAO;
 import com.cdi.g3.server.domain.catalog.Editor;
 import com.cdi.g3.server.domain.catalog.EditorDAO;
@@ -20,13 +21,19 @@ public class PublishingService extends AbstractService{
     AuthorDAO _daoAuthor = new AuthorDAO();
     EditorDAO _daoEditor = new EditorDAO();
     
-    public Collection findAuthorByISBN(String isbn) throws ObjectNotFoundException{
-        return _daoAuthor.findAll(isbn);
+    public Collection findAuthorByISBN(String column,String champ) throws ObjectNotFoundException{
+        return _daoAuthor.findAll(column ,champ);
         
     }
-    public Editor findEditorByISBN(String isbn) throws ObjectNotFoundException{
-        return (Editor)_daoEditor.selectByChamps(isbn);
+    public Editor findEditorByChamp(String column,String champ) throws ObjectNotFoundException{
+        
+        return (Editor)_daoEditor.selectByChamps(column, champ);
         
     }
-    
+    public Author findAuthor(String idAuthor)throws ObjectNotFoundException{
+        return (Author)_daoAuthor.findByPrimaryKey(idAuthor);
+    }
+    public Collection findAuthorByChamp(String column,String champ)throws ObjectNotFoundException{
+        return _daoAuthor.selectAllByChamp(column, champ);
+    }
 }   

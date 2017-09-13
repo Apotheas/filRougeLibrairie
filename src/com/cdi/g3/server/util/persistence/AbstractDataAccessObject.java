@@ -109,7 +109,7 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
         Trace.exiting(getCname(), mname, object);
         return object;
     }
-    public final DomainObject selectByChamps(final String champ) throws ObjectNotFoundException {
+    public final DomainObject selectByChamps(String column, String champ) throws ObjectNotFoundException {
         final String mname = "select";
         Trace.entering(getCname(), mname, champ);
 
@@ -124,7 +124,7 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
             statement = connection.createStatement();
 
             // Select a Row
-            resultSet = statement.executeQuery(getSelectSqlStatementByChamp(champ));
+            resultSet = statement.executeQuery(getSelectSqlStatementByChamp(column,champ));
             if (!resultSet.next()) {
                 throw new ObjectNotFoundException();
             }
@@ -169,8 +169,8 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
         return selectAll();
     }
     
-    public final Collection findAll(String id) throws ObjectNotFoundException {
-        return selectAll( id);
+    public final Collection findAll(String column,String champ) throws ObjectNotFoundException {
+        return selectAllByChamp(column, champ);
     }
 
     /**
@@ -232,7 +232,7 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
         return objects;
     }
     
-    public final Collection selectAll(String id) throws ObjectNotFoundException {
+    public final Collection selectAllByChamp(String column, String champ) throws ObjectNotFoundException {
         final String mname = "selectAll";
         Trace.entering(getCname(), mname);
 
@@ -247,7 +247,7 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
             statement = connection.createStatement();
 
             // Select a Row
-            resultSet = statement.executeQuery(getSelectAllSqlStatement(id));
+            resultSet = statement.executeQuery(getSelectAllSqlStatementByChamp(column ,champ));
 
             while (resultSet.next()) {
                 // Set data to the collection
@@ -283,10 +283,62 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
         Trace.exiting(getCname(), mname, new Integer(objects.size()));
         return objects;
     }
-    
-    
-    
-
+//     public final Collection selectAllByChamp(String column, String champ) throws ObjectNotFoundException {
+//        final String mname = "selectAll";
+//        Trace.entering(getCname(), mname);
+//
+//        Connection connection = null;
+//        Statement statement = null;
+//        ResultSet resultSet = null;
+//        final Collection objects = new ArrayList();
+//
+//        try {
+//            // Gets a database connection
+//            connection = getConnection();
+//            statement = connection.createStatement();
+//
+//            // Select a Row
+//            resultSet = statement.executeQuery(getSelectSqlStatementByChamp(column,champ));
+//
+//            while (resultSet.next()) {
+//                // Set data to the collection
+//                objects.add(transformResultset2DomainObject(resultSet));
+//            }
+//
+//            if (objects.isEmpty()) {
+//                throw new ObjectNotFoundException();
+//            }
+//
+//        } catch (SQLException e) {
+//            // A Severe SQL Exception is caught
+//            displaySqlException(e);
+//            throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
+//        } finally {
+//            // Close
+//            try {
+//                if (resultSet != null) {
+//                    resultSet.close();
+//                }
+//                if (statement != null) {
+//                    statement.close();
+//                }
+//                if (connection != null) {
+//                    connection.close();
+//                }
+//            } catch (SQLException e) {
+//                displaySqlException("Cannot close connection", e);
+//                throw new DataAccessException("Cannot close the database connection", e);
+//            }
+//        }
+//
+//        Trace.exiting(getCname(), mname, new Integer(objects.size()));
+//        return objects;
+//    }
+//    
+//    
+//    
+//    
+//
     /**
      * This method inserts an object into the database.
      *
@@ -514,11 +566,12 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
      * @return a select * sql statement
      */
     protected abstract String getSelectAllSqlStatement();
-    protected String getSelectSqlStatementByChamp(String champ){
+    
+    protected String getSelectSqlStatementByChamp(String column, String champ){
         return null;
     }
     
-    protected  String getSelectAllSqlStatement(String id){
+    protected  String getSelectAllSqlStatementByChamp(String column,String id){
         return null;
     }
     

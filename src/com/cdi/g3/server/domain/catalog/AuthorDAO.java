@@ -77,12 +77,12 @@ public class AuthorDAO extends AbstractDataAccessObject {
     }
     
     @Override
-    protected String getSelectAllSqlStatement(String isbn){
+    protected String getSelectAllSqlStatementByChamp(String column, String champ){
         final String sql;
         sql = "SELECT " + COLUMNS_SPEC + " FROM " + TABLE  +" aut,"+TABLE_BOOK+" bok,"+TABLE_AUTHORBOOK+" autbok "
                 + "WHERE  bok.NUMISBNBOOK = autbok.NUMISBNBOOK " +
-"		and autbok.IDAUTHOR = aut.IDAUTHOR " +
-"		and bok.NUMISBNBOOK = '"+ isbn+"'";
+                "and autbok.IDAUTHOR = aut.IDAUTHOR " +
+                "and bok."+column +" = '"+ champ+"'";
         
         return sql;
     }

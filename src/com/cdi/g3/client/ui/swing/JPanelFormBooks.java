@@ -481,8 +481,7 @@ public class JPanelFormBooks extends javax.swing.JPanel {
             jTextPrice.setText(String.valueOf(book.getUnitCostBook()));
             jTextTitle.setText(book.getTitleBook());
             jTextImageUrl.setText(book.getPathIconBook());
-            jTextPane1.setText(book.getSynopsisBook());
-            
+            jTextPane1.setText(book.getSynopsisBook());            
             jTextComment.setText(book.getCommentBook());
             jTextWeight.setText(String.valueOf(book.getWeightBook()));
             jTextLargeSize.setText(String.valueOf(book.getSizeLargeBook()));
@@ -492,12 +491,12 @@ public class JPanelFormBooks extends javax.swing.JPanel {
             PublishingService service = new PublishingService();            
             Collection<Author> listAuthor = new ArrayList();
             
-            listAuthor = service.findAuthorByISBN(book.getId());
+            listAuthor = service.findAuthorByChamp("numisbnbook",book.getId());
             for (Author author : listAuthor){
                 jTextAuthor.setText(author.getLastNameAuthor());
             }
             
-            Editor editor = (Editor)service.findEditorByISBN(book.getId());
+            Editor editor = (Editor)service.findEditorByChamp("numisbnbook",book.getId());
             jTextEditor.setText(editor.getNameEditor());
         } catch (ObjectNotFoundException ex) {
             Logger.getLogger(JPanelFormBooks.class.getName()).log(Level.SEVERE, null, ex);

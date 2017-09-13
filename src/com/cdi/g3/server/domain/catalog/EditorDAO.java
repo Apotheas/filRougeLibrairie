@@ -27,7 +27,7 @@ public class EditorDAO extends AbstractDataAccessObject{
     private static final String COLUMNS_PREP = " NAMEEDITOR, STATUSEDITOR, IDEDITOR";
     // Used to get a unique id with the UniqueIdGenerator
     private static final String COUNTER_NAME = "EDITOR";
-    private static final String TABLE_BOOK = "BOOK";
+   
     
     
     
@@ -81,14 +81,14 @@ public class EditorDAO extends AbstractDataAccessObject{
         return editor;
     }
     @Override
-    protected String getSelectSqlStatementByChamp(String isbn){
+    protected String getSelectSqlStatementByChamp(String column, String champ){
         final String sql;
         sql = "SELECT " + COLUMNS+ " FROM " + TABLE  +" e "+" join Book b " +
               "On e.IDEDITOR = b.IDEDITORBOOK "+
-              "WHERE   NUMISBNBOOK = '"+ isbn+"'";
+              "WHERE "+  column + " = '"+ champ+"'";
         
  
-        System.out.println(sql);
+        
         return sql;
     }
 
