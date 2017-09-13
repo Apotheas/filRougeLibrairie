@@ -101,21 +101,11 @@ public final class CustomerService extends AbstractService {
         checkId(customerId);
         // Finds the object
         final Customer customer = (Customer) _daoCustomer.findByPrimaryKey(customerId);
-        
-        
-        _daoAdress.selectAllByChamp("loginCustomerShipAdress", customer.getLoginCustomer());
-        
-        
-        
-        
+        _daoAdress.findAllByChamp("loginCustomerShipAdress", customer.getLoginCustomer());
         
         Trace.exiting(_cname, mname, customer);
-        return customer;
-        
+        return customer;        
     }
-    
-    
-    
     
 
     public void deleteCustomer(final String customerId) throws RemoveException, CheckException {
@@ -174,7 +164,7 @@ public final class CustomerService extends AbstractService {
         Trace.entering(_cname, mname);
 
         // Finds all the objects
-        final Collection customers = _daoCustomer.selectAll();
+        final Collection customers = _daoCustomer.findAll();
 
         Trace.exiting(_cname, mname, new Integer(customers.size()));
         return customers;
