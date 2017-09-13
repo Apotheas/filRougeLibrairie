@@ -17,7 +17,6 @@ import java.sql.SQLException;
  */
 public class SubThmeDAO extends AbstractDataAccessObject{
     
-    
     @Override
     protected String getCounterName() {
         throw new UnsupportedOperationException("Not supported yet.");
