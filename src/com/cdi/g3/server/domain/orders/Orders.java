@@ -55,6 +55,16 @@ public class Orders extends DomainObject implements Serializable{
 		this.dateOrder = dateOrder;
 		this.nameInfoStatus = nameInfoStatus;
 	} 
+     public Orders(Adress adressShipping, Customer customer, Date dateOrder, InfoStatus nameInfoStatus){
+		super();		
+		this.adressShipping = adressShipping;
+		this.customer = customer;
+		this.dateOrder = dateOrder;
+		this.nameInfoStatus = nameInfoStatus;
+	} 
+    
+    
+    
     
     // ======================================
     // =           Business methods         =

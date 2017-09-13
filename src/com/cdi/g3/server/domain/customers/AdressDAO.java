@@ -81,13 +81,6 @@ public class AdressDAO extends AbstractDataAccessObject{
         return sql;
     }
     
-    
-    
-    
-    
-    
-    
-    
      @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Adress adress;

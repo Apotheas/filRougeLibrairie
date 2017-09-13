@@ -3,6 +3,7 @@ package com.cdi.g3.server.domain.customers;
 
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
+import com.cdi.g3.server.domain.orders.Orders;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,10 +25,10 @@ public final class Customer extends DomainObject implements Serializable {
     private String nameCompanyCustomer;
     private String commentCustomer;
     private String statusCustomer;
-    private final Collection  listAddressShipping = new ArrayList();
-    private final Collection  listAddressBilling = new ArrayList();
-    private final Collection  listAppreciation = new ArrayList();
-    private final Collection  listOrders = new ArrayList();
+    private  Collection<Adress>  listAddressShipping = new ArrayList();
+    private  Collection<Adress>  listAddressBilling = new ArrayList();
+    private  Collection<Appreciation>  listAppreciation = new ArrayList();
+    private  Collection<Orders>  listOrders = new ArrayList();
 
     // ======================================
     // =            Constructors            =
@@ -65,6 +66,15 @@ public final class Customer extends DomainObject implements Serializable {
             throw new CheckException("Invalid customer last name");
         if (getFirstNameCustomer() == null || "".equals(getFirstNameCustomer()))
             throw new CheckException("Invalid customer first name");
+    }
+    
+    public void matchPassword(String password) throws CheckException {
+        if (password == null || "".equals(password))
+            throw new CheckException("Invalid password");
+
+        // The password entered by the customer is not the same stored in database
+        if (!password.equals(this.getPasswordCustomer()))
+            throw new CheckException("Password doesn't match");
     }
 
     // ======================================
@@ -135,6 +145,13 @@ public final class Customer extends DomainObject implements Serializable {
     public void setCommentCustomer(String commentCustomer) {
         this.commentCustomer = commentCustomer;
     }
+    
+     public void setlistAddressBilling(final Collection listAddressBilling) {
+       this.listAddressBilling = listAddressBilling;    }
+     
+     public void setlistAddressShipping(final Collection listAddressShipping) {
+       this.listAddressShipping = listAddressShipping;
+    }
 
     public String getStatusCustomer() {
         return statusCustomer;
@@ -159,6 +176,9 @@ public final class Customer extends DomainObject implements Serializable {
     public Collection getListOrders() {
         return listOrders;
     }
+    
+    
+    
 
     @Override
     public String toString() {

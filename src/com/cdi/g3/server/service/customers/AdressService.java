@@ -15,6 +15,7 @@ import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.customers.Adress;
 import com.cdi.g3.server.domain.customers.AdressDAO;
 import com.cdi.g3.server.service.AbstractService;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -22,133 +23,187 @@ import java.util.Collection;
  * @author Izet
  */
 public class AdressService extends AbstractService {
-    
- 
-      // ======================================
+
+    // ======================================
     // = Attributes =
     // ======================================
-    private static final AdressDAO _dao = new AdressDAO();
+    private static final AdressDAO _daoAdress = new AdressDAO();
 
     // ======================================
     // = Constructors =
     // ======================================
-    public AdressService(){
-        
+    public AdressService() {
+
     }
 
     // ======================================
     // = Business methods =
     // ======================================
-    public Adress createAdress( final Adress adress ) throws CreateException, CheckException {
+    public Adress createAdress(final Adress adress) throws CreateException, CheckException {
         final String mname = "createAdress";
-        Trace.entering( _cname, mname, adress );
+        Trace.entering(_cname, mname, adress);
 
-        if ( adress == null )
-            throw new CreateException( "Adress object is null" );
-        
-        adress.checkData();
-//         Adress  adress1 = null ;
-        try {
-           _dao.findByPrimaryKey(adress.getId());
-        } catch (ObjectNotFoundException ex) {
-             //checkId( adress.getId() );
-            checkId( adress.getId());
-             // Creates the object
-            _dao.insert( adress );
-            return adress;
+        if (adress == null) {
+            throw new CreateException("Adress object is null");
         }
-        Trace.exiting( _cname, mname, adress );
-        throw new CreateException( "Adress object exist" );
-        
-    }
 
-    public Adress findAdress( final String adressId ) throws FinderException, CheckException {
-        final String mname = "findAdress";
-        Trace.entering( _cname, mname, adressId );
+        if (adress.getCustomerBillAdress() == null && adress.getListOrdersShipping() == null) {
+            throw new CheckException("Invalid Customer for Adress");
+        }
+        adress.checkData();
+        checkId(adress.getId());
+        // Creates the object
+        _daoAdress.insert(adress);
 
-        checkId( adressId );
-        // Finds the object
-        final Adress adress = (Adress) _dao.findByPrimaryKey( adressId );
-        Trace.exiting( _cname, mname, adress );
+        Trace.exiting(_cname, mname, adress);
         return adress;
     }
 
-    public void deleteAdress( final String adressId ) throws RemoveException, CheckException {
-        final String mname = "deleteAdress";
-        Trace.entering( _cname, mname, adressId );
+    public Adress findAdress(final String adressId) throws FinderException, CheckException {
+        final String mname = "findAdress";
+        Trace.entering(_cname, mname, adressId);
 
-        checkId( adressId );
+        checkId(adressId);
+        // Finds the object
+        final Adress adress = (Adress) _daoAdress.findByPrimaryKey(adressId);
+        Trace.exiting(_cname, mname, adress);
+        return adress;
+    }
+
+    public void deleteAdress(final String adressId) throws RemoveException, CheckException {
+        final String mname = "deleteAdress";
+        Trace.entering(_cname, mname, adressId);
+
+        checkId(adressId);
 
         // Checks if the object exists
         try {
-            _dao.findByPrimaryKey( adressId );
-        } catch ( FinderException e ) {
-            throw new RemoveException( "Adress must exist to be deleted" );
+            _daoAdress.findByPrimaryKey(adressId);
+        } catch (FinderException e) {
+            throw new RemoveException("Adress must exist to be deleted");
         }
 
         // Deletes the object
         try {
-            _dao.remove(adressId);
-        } catch ( ObjectNotFoundException e ) {
-            throw new RemoveException( "Adress must exist to be deleted" );
+            _daoAdress.remove(adressId);
+        } catch (ObjectNotFoundException e) {
+            throw new RemoveException("Adress must exist to be deleted");
         }
     }
 
-    public void updateAdress(Adress adress  ) throws UpdateException, CheckException {
+    public void updateAdress(Adress adress) throws UpdateException, CheckException {
         final String mname = "updateAdress";
-        Trace.entering( _cname, mname, adress );
+        Trace.entering(_cname, mname, adress);
 
-        if ( adress == null )
-            throw new UpdateException( "Adress object is null" );
-
-        checkId( adress.getId() );
-
-       final Adress adressFinded;
-
+        if (adress == null) {
+            throw new UpdateException("Adress object is null");
+        }
+        if (adress.getCustomerBillAdress() == null && adress.getListOrdersShipping() == null) {
+            throw new CheckException("Invalid Customer for Adress");
+        }
+        
+        checkId(adress.getId());
+        final Adress adressFinded;
         // Checks if the object exists
         try {
-            adressFinded = (Adress) _dao.findByPrimaryKey( adress.getId() );
-        } catch ( FinderException e ) {
-            throw new UpdateException( "Adress must exist to be updated" );
+            adressFinded = (Adress) _daoAdress.findByPrimaryKey(adress.getId());
+        } catch (FinderException e) {
+            throw new UpdateException("Adress must exist to be updated");
         }
-        
-        adress.checkData();
-        adress = setAdress(adress, adressFinded );
-        
-
+        adress.checkData();        
+        adress = setAdress(adress, adressFinded);
         // Updates the object
         try {
-            _dao.update( adressFinded );
-        } catch ( ObjectNotFoundException e ) {
-            throw new UpdateException( "Adress must exist to be updated" );
+            _daoAdress.update(adress);
+        } catch (ObjectNotFoundException e) {
+            throw new UpdateException("Adress must exist to be updated");
         }
     }
-
-    public Collection findAdress() throws FinderException {
+    public Collection findAllAdress() throws FinderException {
         final String mname = "findAdress";
-        Trace.entering( _cname, mname );
+        Trace.entering(_cname, mname);
 
         // Finds all the objects
-        final Collection adress = _dao.selectAll();
-        
-        Trace.exiting( _cname, mname, new Integer( adress.size() ) );
+        final Collection adress = _daoAdress.findAll();
+
+        Trace.exiting(_cname, mname, new Integer(adress.size()));
         return adress;
     }
-
+    
+    public Collection findAllAdressShipping(String loginCustomer) throws FinderException {
+        final String mname = "findAllAdressShipping";
+        Trace.entering(_cname, mname);
+        // Finds all the objects
+        final Collection listAddressShipping = _daoAdress.findAllByChamp("loginCustomerShipAdress", loginCustomer);
+        Trace.exiting(_cname, mname, new Integer(listAddressShipping.size()));
+        return listAddressShipping;
+    }
+    public Adress findAdressShipping(String loginCustomer) throws FinderException {
+        final String mname = "findAdressShipping";
+        Trace.entering(_cname, mname);
+        // Finds all the objects
+        final Collection listAddressShipping = _daoAdress.findAllByChamp("loginCustomerShipAdress", loginCustomer);
+        ArrayList addressShipping = new ArrayList();
+        addressShipping.addAll(listAddressShipping);
+        
+        
+        Trace.exiting(_cname, mname, new Integer(listAddressShipping.size()));
+        return  (Adress) addressShipping.get(0);
+    }
+    
+    
+    
+    public Collection findAllAdressBilling(String loginCustomer) throws FinderException {
+        final String mname = "findAllAdressBilling";
+        Trace.entering(_cname, mname);
+        // Finds all the objects        
+        final Collection listAddressBilling = _daoAdress.findAllByChamp("loginCustomerBillAdress",loginCustomer);
+        
+        Trace.exiting(_cname, mname, new Integer(listAddressBilling.size()));
+        return listAddressBilling;
+    }
+    
+    public Adress findAdressBilling(String loginCustomer) throws FinderException {
+        final String mname = "findAllAdressBilling";
+        Trace.entering(_cname, mname);
+        // Finds all the objects        
+        final Collection listAddressBilling = _daoAdress.findAllByChamp("loginCustomerBillAdress",loginCustomer);
+        ArrayList addressBilling = new ArrayList();
+        addressBilling.addAll(listAddressBilling);
+        
+        Trace.exiting(_cname, mname, new Integer(listAddressBilling.size()));
+        return (Adress) addressBilling.get(0);
+        
+    }
+    
+    
+    
     // ======================================
     // = Private Methods =
     // ======================================
-     private Adress setAdress(Adress adress, Adress adressFinded ){
-         return null;
-     }
+    private Adress setAdress(Adress adress, Adress adressFinded) {
+        
+        adressFinded.setNameCompanyReceiverAdress(adress.getNameCompanyReceiverAdress());
+        adressFinded.setNameReceiverAdress(adress.getNameReceiverAdress());
+        adressFinded.setNumAdress(adress.getNumAdress());
+        adressFinded.setTypeStreetAdress(adress.getTypeStreetAdress());
+        adressFinded.setNameStreetAdress(adress.getNameStreetAdress());
+        adressFinded.setNameStreet2Adress(adress.getNameStreet2Adress());
+        adressFinded.setZipcodeAdress(adress.getZipcodeAdress());
+        adressFinded.setCityAdress(adress.getCityAdress());
+        adressFinded.setCountryAdress(adress.getCountryAdress());
+        adressFinded.setCustomerShipAdress(adress.getCustomerShipAdress());
+        adressFinded.setCustomerBillAdress(adress.getCustomerBillAdress());
+        return adressFinded;
+    }
 
     /**
      * This method returns a unique identifer generated by the system.
-     * 
+     *
      * @return a unique identifer
      */
     public final String getUniqueId() {
-        return _dao.getUniqueId();
+        return _daoAdress.getUniqueId();
     }
 
 }

@@ -27,7 +27,7 @@ public class AppreciationService extends AbstractService {
       // ======================================
     // = Attributes =
     // ======================================
-    private static final AppreciationDAO _dao = new AppreciationDAO();
+    private static final AppreciationDAO _daoAppreciation = new AppreciationDAO();
 
     // ======================================
     // = Constructors =
@@ -49,12 +49,12 @@ public class AppreciationService extends AbstractService {
         appreciation.checkData();
 //         Appreciation  appreciation1 = null ;
         try {
-           _dao.findByPrimaryKey(appreciation.getId());
+           _daoAppreciation.findByPrimaryKey(appreciation.getId());
         } catch (ObjectNotFoundException ex) {
              //checkId( appreciation.getId() );
             checkId( appreciation.getId());
              // Creates the object
-            _dao.insert( appreciation );
+            _daoAppreciation.insert( appreciation );
             return appreciation;
         }
         Trace.exiting( _cname, mname, appreciation );
@@ -68,7 +68,7 @@ public class AppreciationService extends AbstractService {
 
         checkId( appreciationId );
         // Finds the object
-        final Appreciation appreciation = (Appreciation) _dao.findByPrimaryKey( appreciationId );
+        final Appreciation appreciation = (Appreciation) _daoAppreciation.findByPrimaryKey( appreciationId );
         Trace.exiting( _cname, mname, appreciation );
         return appreciation;
     }
@@ -81,14 +81,14 @@ public class AppreciationService extends AbstractService {
 
         // Checks if the object exists
         try {
-            _dao.findByPrimaryKey( appreciationId );
+            _daoAppreciation.findByPrimaryKey( appreciationId );
         } catch ( FinderException e ) {
             throw new RemoveException( "Appreciation must exist to be deleted" );
         }
 
         // Deletes the object
         try {
-            _dao.remove(appreciationId);
+            _daoAppreciation.remove(appreciationId);
         } catch ( ObjectNotFoundException e ) {
             throw new RemoveException( "Appreciation must exist to be deleted" );
         }
@@ -107,7 +107,7 @@ public class AppreciationService extends AbstractService {
 
         // Checks if the object exists
         try {
-            appreciationFinded = (Appreciation) _dao.findByPrimaryKey( appreciation.getId() );
+            appreciationFinded = (Appreciation) _daoAppreciation.findByPrimaryKey( appreciation.getId() );
         } catch ( FinderException e ) {
             throw new UpdateException( "Appreciation must exist to be updated" );
         }
@@ -118,7 +118,7 @@ public class AppreciationService extends AbstractService {
 
         // Updates the object
         try {
-            _dao.update( appreciationFinded );
+            _daoAppreciation.update( appreciationFinded );
         } catch ( ObjectNotFoundException e ) {
             throw new UpdateException( "Appreciation must exist to be updated" );
         }
@@ -129,7 +129,7 @@ public class AppreciationService extends AbstractService {
         Trace.entering( _cname, mname );
 
         // Finds all the objects
-        final Collection appreciation = _dao.selectAll();
+        final Collection appreciation = _daoAppreciation.findAll();
         
         Trace.exiting( _cname, mname, new Integer( appreciation.size() ) );
         return appreciation;
@@ -148,7 +148,7 @@ public class AppreciationService extends AbstractService {
      * @return a unique identifer
      */
     public final String getUniqueId() {
-        return _dao.getUniqueId();
+        return _daoAppreciation.getUniqueId();
     }
 
 }

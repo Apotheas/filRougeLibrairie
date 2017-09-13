@@ -47,9 +47,18 @@ public class OrderLine extends DomainObject implements Serializable{
 		this.quantityOrderLine = quantityOrderLine;
 		this.unitCostOrderLine = unitCostOrderLine;
 		this.order = order;
+		this.book = book;		
+	} 
+        public OrderLine(int quantityOrderLine, float unitCostOrderLine, Orders order, Book book){
+		super();		
+		this.quantityOrderLine = quantityOrderLine;
+		this.unitCostOrderLine = unitCostOrderLine;
+		this.order = order;
 		this.book = book;
 		
 	} 
+        
+        
         
     // ======================================
     // =           Business methods         =

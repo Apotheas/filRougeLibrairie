@@ -43,6 +43,27 @@ public final class CustomerService extends AbstractService {
     // ======================================
     // = Business methods =
     // ======================================
+    public Customer authenticate(final String customerId, final String password) throws FinderException, CheckException {
+        final String mname = "authenticate";
+        Trace.entering(_cname, mname, new Object[]{customerId, password});
+
+        checkId(customerId);
+        if (password == null || "".equals(password))
+            throw new CheckException("Invalid password");
+        
+        // Finds the object
+        final Customer customer = (Customer)_daoCustomer.findByPrimaryKey(customerId);
+
+        // Check if it's the right password, if not, a CheckException is thrown
+        customer.matchPassword(password);
+
+        
+        Trace.exiting(_cname, mname, customer);
+        return customer;
+    }
+    
+    
+    
     public Customer createCustomer(final Customer customer) throws CreateException, CheckException {
         final String mname = "createCustomer";
         Trace.entering(_cname, mname, customer);
@@ -50,7 +71,6 @@ public final class CustomerService extends AbstractService {
         if (customer == null) {
             throw new CreateException("Customer object is null");
         }
-
         customer.checkData();
         //checkId( customer.getId() );
         checkId(customer.getId());
@@ -70,23 +90,7 @@ public final class CustomerService extends AbstractService {
             adressShipping.setCustomerShipAdress(customer);
             _daoAdress.insert(adressShipping);
         }
-//        
-//        // Creates all the appreciation linked with the customer
-//        for (Iterator iterator = customer.getListAppreciation().iterator(); iterator.hasNext();) {
-//            final Appreciation appreciation = (Appreciation) iterator.next();
-//            appreciation.checkData();  
-//            appreciation.setLoginCustomerAppreciate(customer);
-//            _daoAppreciation.insert(appreciation);
-//        }
-//        
-//        // Creates all the order linked with the customer
-//        for (Iterator iterator = customer.getListOrders().iterator(); iterator.hasNext();) {
-//            final Orders order = (Orders) iterator.next();
-//            order.checkData();  
-//            order.setCustomer(customer);
-//            _daoOrder.insert(order);
-//        }
-//        
+    
         // Creates the object
         _daoCustomer.insert(customer);
 
@@ -101,7 +105,17 @@ public final class CustomerService extends AbstractService {
         checkId(customerId);
         // Finds the object
         final Customer customer = (Customer) _daoCustomer.findByPrimaryKey(customerId);
-        _daoAdress.findAllByChamp("loginCustomerShipAdress", customer.getLoginCustomer());
+        
+        // Retreives the data for all the customer adress shipping
+        final Collection listAddressShipping = _daoAdress.findAllByChamp("loginCustomerShipAdress", customer.getLoginCustomer());
+        customer.setlistAddressShipping(listAddressShipping);
+        
+        
+        // Retreives the data for all the customer adress billing
+        final Collection listAddressBilling;
+        listAddressBilling = _daoAdress.findAllByChamp("loginCustomerBillAdress", customer.getLoginCustomer());
+        customer.setlistAddressBilling(listAddressBilling);
+       
         
         Trace.exiting(_cname, mname, customer);
         return customer;        
@@ -153,7 +167,7 @@ public final class CustomerService extends AbstractService {
 
         // Updates the object
         try {
-            _daoCustomer.update(customerFinded);
+            _daoCustomer.update(customer);
         } catch (ObjectNotFoundException e) {
             throw new UpdateException("Customer must exist to be updated");
         }
@@ -173,8 +187,16 @@ public final class CustomerService extends AbstractService {
     // ======================================
     // = Private Methods =
     // ======================================
-    private Customer setCustomer(Customer customer, Customer customerFinded) {
-        return null;
+    
+    private Customer setCustomer(Customer customer, Customer customerFinded) {        
+        customerFinded.setLastNameCustomer(customer.getLastNameCustomer());
+        customerFinded.setLastNameCustomer(customer.getFirstNameCustomer());
+        customerFinded.setPasswordCustomer(customer.getPasswordCustomer());
+        customerFinded.setPasswordCustomer(customer.getEmailCustomer());
+        customerFinded.setPasswordCustomer(customer.getNameCompanyCustomer());
+        customerFinded.setPasswordCustomer(customer.getStatusCustomer());
+        customerFinded.setPasswordCustomer(customer.getCommentCustomer());
+        return customerFinded;
     }
 
     /**
