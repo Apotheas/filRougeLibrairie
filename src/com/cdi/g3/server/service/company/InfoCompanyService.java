@@ -129,7 +129,7 @@ public class InfoCompanyService extends AbstractService {
         Trace.entering( _cname, mname );
 
         // Finds all the objects
-        final Collection infoCompany = _dao.selectAll();
+        final Collection infoCompany = _dao.findAll();
         
         Trace.exiting( _cname, mname, new Integer( infoCompany.size() ) );
         return infoCompany;

@@ -129,7 +129,7 @@ public class CompanyService extends AbstractService{
         Trace.entering( _cname, mname );
 
         // Finds all the objects
-        final Collection company = _dao.selectAll();
+        final Collection company = _dao.findAll();
         
         Trace.exiting( _cname, mname, new Integer( company.size() ) );
         return company;

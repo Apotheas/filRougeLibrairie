@@ -129,7 +129,7 @@ public class EmployeRightService extends AbstractService {
         Trace.entering( _cname, mname );
 
         // Finds all the objects
-        final Collection employeRight = _dao.selectAll();
+        final Collection employeRight = _dao.findAll();
         
         Trace.exiting( _cname, mname, new Integer( employeRight.size() ) );
         return employeRight;

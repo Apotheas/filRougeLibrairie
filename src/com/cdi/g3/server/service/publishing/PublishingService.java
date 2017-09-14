@@ -22,18 +22,18 @@ public class PublishingService extends AbstractService{
     EditorDAO _daoEditor = new EditorDAO();
     
     public Collection findAuthorByISBN(String column,String champ) throws ObjectNotFoundException{
-        return _daoAuthor.findAll(column ,champ);
+        return _daoAuthor.findAllByChamp(column ,champ);
         
     }
     public Editor findEditorByChamp(String column,String champ) throws ObjectNotFoundException{
         
-        return (Editor)_daoEditor.selectByChamps(column, champ);
+        return (Editor)_daoEditor.findByChamp(column, champ);
         
     }
     public Author findAuthor(String idAuthor)throws ObjectNotFoundException{
         return (Author)_daoAuthor.findByPrimaryKey(idAuthor);
     }
     public Collection findAuthorByChamp(String column,String champ)throws ObjectNotFoundException{
-        return _daoAuthor.selectAllByChamp(column, champ);
+        return _daoAuthor.findAllByChamp(column, champ);
     }
 }   

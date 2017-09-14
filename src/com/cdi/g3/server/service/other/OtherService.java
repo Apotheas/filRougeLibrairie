@@ -124,7 +124,7 @@ public class OtherService extends AbstractService {
         Trace.entering( _cname, mname );
 
         // Finds all the objects
-        final Collection codeTva = _daoCodeTVA.selectAll();
+        final Collection codeTva = _daoCodeTVA.findAll();
         
         Trace.exiting( _cname, mname, new Integer( codeTva.size() ) );
         return codeTva;
@@ -259,7 +259,7 @@ public class OtherService extends AbstractService {
         Trace.entering( _cname, mname );
 
         // Finds all the objects
-        final Collection keyWord = _daokeyWord.selectAll();
+        final Collection keyWord = _daokeyWord.findAll();
         
         Trace.exiting( _cname, mname, new Integer( keyWord.size() ) );
         return keyWord;
