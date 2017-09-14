@@ -91,8 +91,8 @@ VALUES
 /*==============================================================*/
 INSERT INTO KeyWordBook(
 idKeyWordBook,
-numISBNBook,
-nameKeyWord
+numISBNBookKB,
+nameKeyWordKB
 )
 VALUES
 ('1','2253092533','Rebel'),
@@ -140,8 +140,8 @@ Values
 
 INSERT INTO SubThemeBook ( 
             IDSUBTHEMEBOOK,
-            NUMISBNBOOK,
-            IDSUBTHEME ) 
+            NUMISBNBOOKSB,
+            IDSUBTHEMESB ) 
 
 Values  ('1','2253092533','1'),
         ('2','2253092770','4'),
@@ -172,8 +172,8 @@ VALUES
 /*==============================================================*/
 INSERT INTO OccasionBook (
         IDOCCASIONBOOK,          
-        NUMISBNBOOK,         
-        NAMEOCCASION )
+        NUMISBNBOOKOB,         
+        NAMEOCCASIONOB )
     Values 
         ('1','2290147001','Le mois de l amour'),
         ('2','2290140961','Le mois de l amour'),
@@ -266,8 +266,8 @@ VALUES
 /*==============================================================*/
 INSERT INTO AuthorBook(
 idAuthorBook,
-numISBNBook,
-idAuthor
+numISBNBookAB,
+idAuthorAB
 )
 VALUES
 ('1','2253092533','1'),
