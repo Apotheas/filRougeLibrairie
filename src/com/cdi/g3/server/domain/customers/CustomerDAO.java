@@ -37,9 +37,6 @@ public final class CustomerDAO extends AbstractDataAccessObject {
         final String sql;
         
         sql =   "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?,?,?,?,?,?,?)";
-//                "INSERT INTO " + TABLE + "(" + COLUMNS + ") VALUES ('" + customer.getId() + "', '" + customer.getLastNameCustomer()+ "','" + customer.getFirstNameCustomer()
-//                + "', '" + customer.getEmailCustomer()+ "', '" + customer.getPasswordCustomer()+ "', '" + customer.getNameCompanyCustomer()+ "', '" 
-//                + customer.getCommentCustomer()+ "', '" + customer.getStatusCustomer()+ "' )";
         return sql;
     }
 
@@ -51,7 +48,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
 
     protected String getUpdateSqlPreparedStatement() {        
         final String sql;        
-        sql = "UPDATE " + TABLE + " SET LASTTNAMECUSTOMER = ?, FIRSTNAMECUSTOMER = ?, EMAILCUSTOMER = ?,"
+        sql = "UPDATE " + TABLE + " SET LASTNAMECUSTOMER = ?, FIRSTNAMECUSTOMER = ?, EMAILCUSTOMER = ?,"
                 + " PASSWORDCUSTOMER = ?, NAMECOMPANYCUSTOMER = ?, COMMENTCUSTOMER = ?, STATUSCUSTOMER = ? WHERE LOGINCUSTOMER = ?" ;
         return sql;
         
@@ -68,6 +65,16 @@ public final class CustomerDAO extends AbstractDataAccessObject {
         sql = "SELECT " + COLUMNS + " FROM " + TABLE;
         return sql;
     }
+    
+    @Override
+    protected String getSelectSqlStatementByChamp(String column, String champ){
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE  
+                + " WHERE " + column + " = '"+ champ+"'";
+        System.out.println(sql);
+        return sql;
+    }
+    
 
   
     protected DomainObject transformResultset2DomainObject(final ResultSet resultSet) throws SQLException {

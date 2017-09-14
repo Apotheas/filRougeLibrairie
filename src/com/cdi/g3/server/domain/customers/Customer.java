@@ -48,6 +48,14 @@ public final class Customer extends DomainObject implements Serializable {
         setEmailCustomer(emailCustomer);
         setPasswordCustomer(passwordCustomer);
     }
+    
+    public Customer(final String lastNameCustomer, final String firstNameCustomer, 
+            final String emailCustomer, final String passwordCustomer) {        
+        setFirstNameCustomer(firstNameCustomer);
+        setLastNameCustomer(lastNameCustomer);
+        setEmailCustomer(emailCustomer);
+        setPasswordCustomer(passwordCustomer);
+    }
 
     // ======================================
     // =           Business methods         =
