@@ -33,8 +33,7 @@ public class AuthorDAO extends AbstractDataAccessObject {
             + ", DIEDATEAUTHOR, COMMENTAUTHOR, IDAUTHOR ";
     // Used to get a unique id with the UniqueIdGenerator
     private static final String COUNTER_NAME = "AUTHOR";
-    private static final String COLUMNS_SPEC = "aut.IDAUTHOR, LASTNAMEAUTHOR, FIRSTNAMEAUTHOR, BIOGRAPHYAUTHOR, BIRTHDATEAUTHOR"
-            + ", DIEDATEAUTHOR, COMMENTAUTHOR ";
+    
     @Override
     protected String getCounterName() {
         return COUNTER_NAME;
@@ -79,13 +78,19 @@ public class AuthorDAO extends AbstractDataAccessObject {
     @Override
     protected String getSelectAllSqlStatementByChamp(String column, String champ){
         final String sql;
-        sql = "SELECT " + COLUMNS_SPEC + " FROM " + TABLE  +" aut,"+TABLE_BOOK+" bok,"+TABLE_AUTHORBOOK+" autbok "
-                + "WHERE  bok.NUMISBNBOOK = autbok.NUMISBNBOOK " +
-                "and autbok.IDAUTHOR = aut.IDAUTHOR " +
-                "and bok."+column +" = '"+ champ+"'";
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE  +" aut,"+TABLE_BOOK+" bok,"+TABLE_AUTHORBOOK+" autbok "
+                + "WHERE  NUMISBNBOOK = NUMISBNBOOKAB " +
+                "and IDAUTHORAB = IDAUTHOR " +
+                "and "+column +" = '"+ champ+"'";
         
         return sql;
     }
+    
+    
+        
+ 
+        
+      
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Author author;
@@ -102,7 +107,7 @@ public class AuthorDAO extends AbstractDataAccessObject {
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
         int retour = 0;
         try {
-
+            
             prestmt.setString(1, ((Author) object).getLastNameAuthor());
             prestmt.setString(2, ((Author) object).getFirstNameAuthor());
             prestmt.setString(3, ((Author) object).getBiographyAuthor());

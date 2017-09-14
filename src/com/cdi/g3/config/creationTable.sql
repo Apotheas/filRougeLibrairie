@@ -62,8 +62,8 @@ create table BOOK
 create table KEYWORDBOOK 
 (
    IDKEYWORDBOOK        varchar(10)                    not null,
-   NUMISBNBOOK          varchar(13)                    not null,
-   NAMEKEYWORD          varchar(50)                    not null,
+   NUMISBNBOOKKB          varchar(13)                    not null,
+   NAMEKEYWORDKB          varchar(50)                    not null,
    constraint PK_KEYWORDBOOK primary key clustered (IDKEYWORDBOOK)
 );
 /*==============================================================*/
@@ -92,8 +92,8 @@ create table SUBTHEME
 create table SUBTHEMEBOOK 
 (
    IDSUBTHEMEBOOK       varchar(10)                    not null,
-   NUMISBNBOOK          varchar(13)                    not null,
-   IDSUBTHEME			varchar(10)            not null,
+   NUMISBNBOOKSB          varchar(13)                    not null,
+   IDSUBTHEMESB			varchar(10)            not null,
    constraint PK_SUBTHEMEBOOK primary key clustered (IDSUBTHEMEBOOK)
 );
 /*==============================================================*/
@@ -113,8 +113,8 @@ create table OCCASION
 create table OCCASIONBOOK 
 (
    IDOCCASIONBOOK           varchar(10)                    not null,
-   NUMISBNBOOK              varchar(13)                    not null,
-   NAMEOCCASION            varchar(50)                     not null,
+   NUMISBNBOOKOB              varchar(13)                    not null,
+   NAMEOCCASIONOB            varchar(50)                     not null,
    constraint PK_OCCASIONBOOK primary key clustered (IDOCCASIONBOOK)
 );
 
@@ -180,8 +180,8 @@ create table AUTHOR
 create table AUTHORBOOK 
 (
    IDAUTHORBOOK         varchar(10)                       not null,
-   NUMISBNBOOK          varchar(13)                       not null,
-   IDAUTHOR             varchar(10)                       not null,
+   NUMISBNBOOKAB          varchar(13)                       not null,
+   IDAUTHORAB             varchar(10)                       not null,
    constraint PK_AUTHORBOOK primary key clustered (IDAUTHORBOOK)
 );
 

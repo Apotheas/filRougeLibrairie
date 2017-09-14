@@ -38,13 +38,13 @@ alter table BOOK
 /* Table: KEYWORDBOOK                                           */
 /*==============================================================*/
 alter table KEYWORDBOOK
-   add constraint FK_KEYWORDB_FOUND_BOOK foreign key (NUMISBNBOOK)
+   add constraint FK_KEYWORDB_FOUND_BOOK foreign key (NUMISBNBOOKKB)
       references BOOK (NUMISBNBOOK)
       on update Cascade
       on delete Cascade;
 
 alter table KEYWORDBOOK
-   add constraint FK_KEYWORDB_FOUND2_KEYWORD foreign key (NAMEKEYWORD)
+   add constraint FK_KEYWORDB_FOUND2_KEYWORD foreign key (NAMEKEYWORDKB)
       references KEYWORD (NAMEKEYWORD)
       on update Cascade
       on delete Cascade;
@@ -68,13 +68,13 @@ alter table SUBTHEME
 /* Table: SUBTHEMEBOOK                                          */
 /*==============================================================*/
 alter table SUBTHEMEBOOK
-   add constraint FK_SUBTHEME_BELONG_BOOK foreign key (NUMISBNBOOK)
+   add constraint FK_SUBTHEME_BELONG_BOOK foreign key (NUMISBNBOOKSB)
       references BOOK (NUMISBNBOOK)
       on update Cascade
       on delete Cascade;
 
 alter table SUBTHEMEBOOK
-   add constraint FK_SUBTHEME_BELONG2_SUBTHEME foreign key (IDSUBTHEME)
+   add constraint FK_SUBTHEME_BELONG2_SUBTHEME foreign key (IDSUBTHEMESB)
       references SUBTHEME (IDSUBTHEME)
       on update Cascade
       on delete Cascade;
@@ -88,13 +88,13 @@ alter table SUBTHEMEBOOK
 /* Table: OCCASIONBOOK                                             */
 /*==============================================================*/
 alter table OCCASIONBOOK
-   add constraint FK_OCCASIONBOOK_PARTICIPA_BOOK foreign key (NUMISBNBOOK)
+   add constraint FK_OCCASIONBOOK_PARTICIPA_BOOK foreign key (NUMISBNBOOKOB)
       references BOOK (NUMISBNBOOK)
       on update Cascade
       on delete Cascade;
 
 alter table OCCASIONBOOK
-   add constraint FK_OCCASIONBOOK_PARTICIPA_OCCASION foreign key (NAMEOCCASION)
+   add constraint FK_OCCASIONBOOK_PARTICIPA_OCCASION foreign key (NAMEOCCASIONOB)
       references OCCASION (NAMEOCCASION)
       on update Cascade
       on delete Cascade;
@@ -126,13 +126,13 @@ alter table EMPLOYE
 /* Table: AUTHORBOOK                                            */
 /*==============================================================*/
 alter table AUTHORBOOK
-   add constraint FK_AUTHORBO_WRITE_BOOK foreign key (NUMISBNBOOK)
+   add constraint FK_AUTHORBO_WRITE_BOOK foreign key (NUMISBNBOOKAB)
       references BOOK (NUMISBNBOOK)
       on update Cascade
       on delete Cascade;
 
 alter table AUTHORBOOK
-   add constraint FK_AUTHORBO_WRITE2_AUTHOR foreign key (IDAUTHOR)
+   add constraint FK_AUTHORBO_WRITE2_AUTHOR foreign key (IDAUTHORAB)
       references AUTHOR (IDAUTHOR)
       on update Cascade
       on delete Cascade;

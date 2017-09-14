@@ -123,7 +123,7 @@ public class Author extends DomainObject implements Serializable {
 
     @Override
     public String toString() {
-        return "id = " + idAuthor + ", Name Author = " + lastNameAuthor;
+        return lastNameAuthor + " " + firstNameAuthor;
     }
     
     
