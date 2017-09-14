@@ -5,13 +5,16 @@
  */
 package com.cdi.g3.server.service.publishing;
 
+import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.server.domain.catalog.Author;
 import com.cdi.g3.server.domain.catalog.AuthorDAO;
 import com.cdi.g3.server.domain.catalog.Editor;
 import com.cdi.g3.server.domain.catalog.EditorDAO;
 import com.cdi.g3.server.service.AbstractService;
 import java.util.Collection;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -39,4 +42,21 @@ public class PublishingService extends AbstractService{
     public Collection FindAllAuthor()throws ObjectNotFoundException{
         return _daoAuthor.findAll();
     }
+    
+    public void updateAuthor(Author myAuthor) throws ObjectNotFoundException , UpdateException , CheckException{
+        
+        
+        if (myAuthor == null){
+            throw new UpdateException("myauthor is null");
+        }
+        
+        checkId(myAuthor.getId());
+        try{
+        _daoAuthor.update(myAuthor);
+        }catch(ObjectNotFoundException ex){
+            System.out.println(ex.getMessage() + " erreur update ");
+        }
+        
+    }
+    
 }   

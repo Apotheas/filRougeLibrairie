@@ -107,7 +107,7 @@ public class AuthorDAO extends AbstractDataAccessObject {
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
         int retour = 0;
         try {
-
+            
             prestmt.setString(1, ((Author) object).getLastNameAuthor());
             prestmt.setString(2, ((Author) object).getFirstNameAuthor());
             prestmt.setString(3, ((Author) object).getBiographyAuthor());
