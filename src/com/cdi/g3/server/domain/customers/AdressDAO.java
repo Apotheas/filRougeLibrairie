@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package com.cdi.g3.server.domain.customers;
+
+import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.DataAccessException;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.company.Company;
@@ -12,35 +14,30 @@ import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displa
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author youssef
  */
-public class AdressDAO extends AbstractDataAccessObject{
+public class AdressDAO extends AbstractDataAccessObject {
 
     private static final String TABLE = "Adress";
     private static final String COLUMNS = "idAdress, loginCustomerShipAdress, loginCustomerBillAdress,"
-            + " nameReceiverAdress, typeStreetAdress, numAdress, nameStreetAdress, nameStreet2Adress,"
-            + "zipcodeAdress, cityAdress, countryAdress,nameCompanyReceiverAdress,  ";
-    
-    
+            + " nameReceiverAdress, typeStreetAdress, numAdress, nameStreetAdress, NAMESTEET2ADRESS,"
+            + "zipcodeAdress, cityAdress, countryAdress,nameCompanyReceiverAdress  ";
+
     private static final String COLUMNS_PREP = "loginCustomerShipAdress, loginCustomerBillAdress,"
-            + " nameReceiverAdress, typeStreetAdress, numAdress, nameStreetAdress, nameStreet2Adress,"
+            + " nameReceiverAdress, typeStreetAdress, numAdress, nameStreetAdress, NAMESTEET2ADRESS,"
             + " zipcodeAdress, cityAdress, countryAdress,nameCompanyReceiverAdress, idAdress";
-    
-    // Used to get a unique id with the UniqueIdGenerator
-    private static final String COUNTER_NAME = "Adress";
- 
-    
+
     @Override
     protected String getInsertSqlPreparedStatement() {
-        final String sql;        
-        sql =   "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+        final String sql;
+        sql = "INSERT INTO " + TABLE + "(" + COLUMNS_PREP + ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         return sql;
     }
-    
-    
 
     @Override
     protected String getDeleteSqlStatement(String id) {
@@ -49,44 +46,49 @@ public class AdressDAO extends AbstractDataAccessObject{
         return sql;
     }
 
-  @Override
+    @Override
     protected String getUpdateSqlPreparedStatement() {
-        final String sql;        
+        final String sql;
+        
         sql = "UPDATE " + TABLE + " SET loginCustomerShipAdress = ?, loginCustomerBillAdress = ?, nameReceiverAdress = ?,"
-                + " typeStreetAdress = ?, numAdress = ?, nameStreetAdress = ?, nameStreet2Adress = ?, zipcodeAdress = ?,"
-                + " cityAdress = ?, countryAdress = ?, nameCompanyReceiverAdress = ? WHERE idAdress = ?" ;
+                + " typeStreetAdress = ?, numAdress = ?, nameStreetAdress = ?, NAMESTEET2ADRESS = ?, zipcodeAdress = ?,"
+                + " cityAdress = ?, countryAdress = ?, nameCompanyReceiverAdress = ? WHERE idAdress = ?";
+        System.out.println(sql);
+        
         return sql;
     }
 
-      @Override
+    @Override
     protected String getSelectSqlStatement(String id) {
         final String sql;
         sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE idAdress = '" + id + "' ";
         return sql;
     }
 
-      @Override
+    @Override
     protected String getSelectAllSqlStatement() {
         final String sql;
         sql = "SELECT " + COLUMNS + " FROM " + TABLE;
         return sql;
     }
-    
+
     @Override
-    protected String getSelectAllSqlStatementByChamp(String column, String loginCustomer){
+    protected String getSelectAllSqlStatementByChamp(String column, String champ) {
         final String sql;
-        sql = "SELECT " + COLUMNS + " FROM " + TABLE  
-                + " WHERE " + column + " = '"+ loginCustomer+"'";
-        
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE
+                + " WHERE " + column + " = '" + champ + "'";
         return sql;
     }
-    
-     @Override
+
+    // Used to get a unique id with the UniqueIdGenerator
+    private static final String COUNTER_NAME = "Adress";
+
+    @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Adress adress;
         adress = new Adress(resultSet.getString(1));
-        adress.setCustomerShipAdress(new Customer (resultSet.getString(2)));
-        adress.setCustomerBillAdress(new Customer (resultSet.getString(3)));
+        adress.setCustomerShipAdress(new Customer(resultSet.getString(2)));
+        adress.setCustomerBillAdress(new Customer(resultSet.getString(3)));
         adress.setNameReceiverAdress(resultSet.getString(4));
         adress.setTypeStreetAdress(resultSet.getString(5));
         adress.setNumAdress(resultSet.getString(6));
@@ -94,30 +96,36 @@ public class AdressDAO extends AbstractDataAccessObject{
         adress.setNameStreet2Adress(resultSet.getString(8));
         adress.setZipcodeAdress(resultSet.getString(9));
         adress.setCityAdress(resultSet.getString(10));
-        adress.setCountryAdress(resultSet.getString (11));
-        adress.setNameCompanyReceiverAdress(new Company (resultSet.getString(12)));
-        
+        adress.setCountryAdress(resultSet.getString(11));
+        adress.setNameCompanyReceiverAdress(new Company(resultSet.getString(12)));
+
         return adress;
     }
 
-     @Override
+    @Override
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
-       int retour = 0;
+        int retour = 0;
         try {
-            
-            prestmt.setString(1, ((Adress) object).getCustomerShipAdress().getId()); 
-            prestmt.setString(2, ((Adress) object).getCustomerBillAdress().getId());
+            if (((Adress) object).getCustomerShipAdress().getId() != null) {
+                prestmt.setString(1, ((Adress) object).getCustomerShipAdress().getId());
+            }
+            if (((Adress) object).getCustomerBillAdress() != null) {
+                prestmt.setString(2, ((Adress) object).getCustomerBillAdress().getId());
+            }
             prestmt.setString(3, ((Adress) object).getNameReceiverAdress());
             prestmt.setString(4, ((Adress) object).getTypeStreetAdress());
             prestmt.setString(5, ((Adress) object).getNumAdress());
-            prestmt.setString(6, ((Adress) object).getNameStreetAdress()); 
+            prestmt.setString(6, ((Adress) object).getNameStreetAdress());
             prestmt.setString(7, ((Adress) object).getNameStreet2Adress());
             prestmt.setString(8, ((Adress) object).getZipcodeAdress());
             prestmt.setString(9, ((Adress) object).getCityAdress());
             prestmt.setString(10, ((Adress) object).getCountryAdress());
-            prestmt.setString(11, ((Adress) object).getNameCompanyReceiverAdress().getId());
+
+            if (((Adress) object).getNameCompanyReceiverAdress().getId() != null) {
+                prestmt.setString(11, ((Adress) object).getNameCompanyReceiverAdress().getId());
+            }
             prestmt.setString(12, ((Adress) object).getId());
-            
+
             retour = prestmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -125,14 +133,19 @@ public class AdressDAO extends AbstractDataAccessObject{
             displaySqlException(e);
             throw new DataAccessException("executePreparedSt : Cannot get data from the database: " + e.getMessage(), e);
         }
+        catch (Exception ex) { 
+            System.out.println(ex.getMessage());
+//                throw new Exception("executePreparedSt : Cannot get data from the database: " + ex.getMessage());            
+        }
+        
+        
+        
         return retour;
     }
-    
+
     @Override
     protected String getCounterName() {
         return COUNTER_NAME;
     }
-
-    
 
 }
