@@ -36,4 +36,7 @@ public class PublishingService extends AbstractService{
     public Collection findAuthorByChamp(String column,String champ)throws ObjectNotFoundException{
         return _daoAuthor.findAllByChamp(column, champ);
     }
+    public Collection FindAllAuthor()throws ObjectNotFoundException{
+        return _daoAuthor.findAll();
+    }
 }   

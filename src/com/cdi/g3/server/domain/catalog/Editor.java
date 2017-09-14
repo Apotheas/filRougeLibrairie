@@ -66,7 +66,7 @@ public class Editor extends DomainObject implements Serializable{
 
     @Override
     public String toString() {
-        return "id = " + idEditor + "nameEditor = " + nameEditor ;
+        return nameEditor ;
     }
     
     

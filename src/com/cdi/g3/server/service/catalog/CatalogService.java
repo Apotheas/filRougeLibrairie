@@ -12,8 +12,11 @@ import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.catalog.BookDAO;
+import com.cdi.g3.server.domain.catalog.Editor;
+import com.cdi.g3.server.domain.catalog.EditorDAO;
 import com.cdi.g3.server.service.AbstractService;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,6 +24,7 @@ import java.util.logging.Logger;
 public class CatalogService extends AbstractService{
     
     private static final BookDAO _bookDao = new BookDAO();
+    private static final EditorDAO _editorDao = new EditorDAO();
      
     
     public Book findBook( final String bookId ) throws FinderException, CheckException {
@@ -34,14 +38,17 @@ public class CatalogService extends AbstractService{
         return book;
     }
     
-    public Collection FindBooksByChamp(String column, String champ )throws ObjectNotFoundException{
+    public Collection FindBooksByAuthor(String column, String champ )throws ObjectNotFoundException{
         
-        return _bookDao.findAllByChamp(column, champ);
+       Collection listBook = _bookDao.findAllByChamp(column, champ);
+       for (Iterator iterator = listBook.iterator() ; iterator.hasNext();){
+           Book book = (Book)iterator.next();
+           Editor editor = (Editor)  _editorDao.findByPrimaryKey(book.getEditor().getId());
+           book.setEditor(editor);
+       }
+       
         
-        
-        
-        
-        
+        return listBook;
     }
     
      public void createBook( final Book book ) throws FinderException, CheckException {
