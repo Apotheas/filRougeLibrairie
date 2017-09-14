@@ -8,6 +8,7 @@ package com.cdi.g3.server.domain.customers;
 import com.cdi.g3.common.exception.DataAccessException;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.company.Company;
+import com.cdi.g3.server.domain.company.Employe;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
 import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displaySqlException;
 import java.sql.PreparedStatement;
@@ -41,6 +42,10 @@ public class AppreciationDAO extends AbstractDataAccessObject{
         return sql;
     }
     
+      
+        
+ 
+        
     
 
     @Override
@@ -77,7 +82,7 @@ public class AppreciationDAO extends AbstractDataAccessObject{
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Appreciation adress;
         adress = new Appreciation(resultSet.getString(1));
-        adress.setLoginEmployeAppreciate(new Customer (resultSet.getString(2)));
+        adress.setLoginEmployeAppreciate(new Employe (resultSet.getString(2)));
         adress.setLoginCustomerAppreciate(new Customer (resultSet.getString(3)));
         adress.setIdOrderlineAppreciate(resultSet.getString(4));
         adress.setNumIsbnBookAppreciate(resultSet.getString(5));
@@ -91,7 +96,19 @@ public class AppreciationDAO extends AbstractDataAccessObject{
         
         return adress;
     }
-
+ @Override
+    protected String getSelectAllSqlStatementByChamp(String column, String champ){
+        final String sql;
+        sql = "SELECT " + COLUMNS+ " FROM " + TABLE  +" A "+" join Employe e " +
+              "On a.LOGINEMPLOYEAPPRECIATE = e.LOGINEMPLOYE "+
+              "WHERE "+  column + " = '"+ champ+"'";
+        
+ 
+        
+        return sql;
+    }
+    
+    
      @Override
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
        int retour = 0;

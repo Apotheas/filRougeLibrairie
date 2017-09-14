@@ -8,6 +8,7 @@ package com.cdi.g3.server.domain.customers;
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.company.Company;
+import com.cdi.g3.server.domain.company.Employe;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,7 +23,7 @@ public class Appreciation extends DomainObject implements Serializable{
     // =             Attributes             =
     // ======================================
     private String idAppreciate;
-    private Customer loginEmployeAppreciate;
+    private Employe loginEmployeAppreciate;
     private Customer loginCustomerAppreciate;
     private String idOrderlineAppreciate;
     private String numIsbnBookAppreciate;
@@ -78,7 +79,7 @@ public class Appreciation extends DomainObject implements Serializable{
     }
 
     public Appreciation(final String id,
-            Customer loginEmployeAppreciate,
+            Employe loginEmployeAppreciate,
             Customer loginCustomerAppreciate,
             String idOrderlineAppreciate,
             String numIsbnBookAppreciate,
@@ -125,11 +126,11 @@ public class Appreciation extends DomainObject implements Serializable{
         this.idAppreciate = idAppreciate;
     }
 
-    public Customer getLoginEmployeAppreciate() {
+    public Employe getLoginEmployeAppreciate() {
         return loginEmployeAppreciate;
     }
 
-    public void setLoginEmployeAppreciate(Customer loginEmployeAppreciate) {
+    public void setLoginEmployeAppreciate(Employe loginEmployeAppreciate) {
         this.loginEmployeAppreciate = loginEmployeAppreciate;
     }
 

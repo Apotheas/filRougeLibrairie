@@ -12,10 +12,15 @@ import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.exception.RemoveException;
 import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.common.logging.Trace;
+import com.cdi.g3.server.domain.company.Employe;
+import com.cdi.g3.server.domain.company.EmployeDAO;
 import com.cdi.g3.server.domain.customers.Appreciation;
 import com.cdi.g3.server.domain.customers.AppreciationDAO;
+import com.cdi.g3.server.domain.customers.Customer;
+
 import com.cdi.g3.server.service.AbstractService;
 import java.util.Collection;
+import java.util.Iterator;
 
 /**
  *
@@ -28,6 +33,7 @@ public class AppreciationService extends AbstractService {
     // = Attributes =
     // ======================================
     private static final AppreciationDAO _daoAppreciation = new AppreciationDAO();
+    private static final EmployeDAO _daoEmploye = new EmployeDAO();
 
     // ======================================
     // = Constructors =
@@ -59,6 +65,15 @@ public class AppreciationService extends AbstractService {
         }
         Trace.exiting( _cname, mname, appreciation );
         throw new CreateException( "Appreciation object exist" );
+        
+    }
+     public Collection FindAppreciationByChamp(String column, String champ )throws ObjectNotFoundException{
+        
+        return _daoAppreciation.findAllByChamp(column, champ);
+        
+        
+        
+        
         
     }
 
@@ -151,4 +166,22 @@ public class AppreciationService extends AbstractService {
         return _daoAppreciation.getUniqueId();
     }
 
+    
+
+    
+    public Collection FindAppreciationByEmployee(String column, String champ )throws ObjectNotFoundException{
+       
+      Collection listAppreciation = _daoAppreciation.findAllByChamp(column, champ);
+      for (Iterator iterator = listAppreciation.iterator() ; iterator.hasNext();){
+          Appreciation appreciation = (Appreciation)iterator.next();
+          Employe employe = (Employe)  _daoEmploye.findByPrimaryKey(appreciation.getLoginEmployeAppreciate().getId());
+          appreciation.setLoginEmployeAppreciate(employe);
+      }
+     
+       
+       return listAppreciation;
+   }
+    
+    
+    
 }

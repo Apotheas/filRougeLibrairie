@@ -22,7 +22,7 @@ public class HomePage extends javax.swing.JFrame {
         JPanelFormEvents panelEvents = new JPanelFormEvents();
         JPanelFormThemes panelThemes = new JPanelFormThemes();
         JPanelFormAuthor panelAuthors = new JPanelFormAuthor();
-        JPanelFormEmployees panelEmployees  = new JPanelFormEmployees();
+        JPanelFormEmploye panelEmployees  = new JPanelFormEmploye();
         JPanelFormKeyWords panelKeyWords = new JPanelFormKeyWords();
         JPanelFormAppreciations panelAppreciations = new JPanelFormAppreciations();
         
