@@ -24,7 +24,8 @@ public class BookDAO extends AbstractDataAccessObject{
     // ======================================
     private static final String TABLE = "BOOK"; 
     private EditorDAO editorDAO = new  EditorDAO();
-    
+    private static final String TABLE_AUTHOR = "AUTHOR";
+    private static final String TABLE_AUTHORBOOK = "AUTHORBOOK";
     private static final String COLUMNS = "NUMISBNBOOK, IDEDITORBOOK, TYPETVABOOK, TITREBOOK, UNITCOSTBOOK"
             + ", STOCKBOOK, STATUSBOOK, SUBTITREBOOK, SYNOPSISBOOK, PATHICONBOOK, WEIGHTBOOK, SIZELARGEBOOK"
             + ", SIZELONGBOOK, COMMENTBOOK";
@@ -71,14 +72,24 @@ public class BookDAO extends AbstractDataAccessObject{
         sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE NUMISBNBOOK = '" + id + "' ";
         return sql; 
     }
-
+    
     
     protected String getSelectAllSqlStatement() {
         final String sql;
         sql = "SELECT " + COLUMNS + " FROM " + TABLE;
         return sql; 
     }
-
+    
+    @Override
+    protected String getSelectAllSqlStatementByChamp(String column, String champ){
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE  +" ,"+TABLE_AUTHOR+" ,"+TABLE_AUTHORBOOK
+                + " WHERE  NUMISBNBOOK = NUMISBNBOOKAB " +
+                "and IDAUTHORAB = IDAUTHOR " +
+                "and "+column +" = '"+ champ+"'";
+        
+        return sql;
+    }
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Book book;

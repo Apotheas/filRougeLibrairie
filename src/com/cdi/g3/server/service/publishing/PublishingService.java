@@ -30,7 +30,7 @@ public class PublishingService extends AbstractService{
         return (Editor)_daoEditor.findByChamp(column, champ);
         
     }
-    public Author findAuthor(String idAuthor)throws ObjectNotFoundException{
+    public Author findAuthor(String column, String idAuthor)throws ObjectNotFoundException{
         return (Author)_daoAuthor.findByPrimaryKey(idAuthor);
     }
     public Collection findAuthorByChamp(String column,String champ)throws ObjectNotFoundException{

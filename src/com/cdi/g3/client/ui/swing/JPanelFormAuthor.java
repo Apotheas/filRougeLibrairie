@@ -7,12 +7,19 @@ package com.cdi.g3.client.ui.swing;
 
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.server.domain.catalog.Author;
+import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.service.catalog.CatalogService;
 import com.cdi.g3.server.service.publishing.PublishingService;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,11 +27,29 @@ import java.util.logging.Logger;
  */
 public class JPanelFormAuthor extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Author
-     */
+    DefaultTableModel myModel = new DefaultTableModel();
+    PublishingService publishingService = new PublishingService();
+    CatalogService catalogService = new CatalogService();
+    Vector bookCollection = new Vector();
+
     public JPanelFormAuthor() {
         initComponents();
+
+        myModel.addColumn("ISBN");
+        myModel.addColumn("TITLE");
+        myModel.addColumn("SUB-TITLE");
+        myModel.addColumn("EDITOR");
+        myModel.addColumn("STOCK");
+        myModel.addColumn("COST");
+        jTable.setModel(myModel);
+        
+    }
+
+    private void clear() {
+        int lignes = myModel.getRowCount();
+        for (int i = lignes - 1; i >= 0; i--) {
+            myModel.removeRow(i);
+        }
     }
 
     /**
@@ -55,7 +80,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
         jTextComment = new javax.swing.JTextPane();
         jPanelManageEvents = new javax.swing.JPanel();
         jScrollPaneManageEvents = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTable = new javax.swing.JTable();
         jLabelSelectedAuthor = new javax.swing.JLabel();
         jComboBoxSelectedAuthor = new javax.swing.JComboBox<String>();
         jLabelTitleISBN = new javax.swing.JLabel();
@@ -138,21 +163,17 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
                     .addComponent(jLabelBiography, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelNewEventLayout.createSequentialGroup()
-                        .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNewEventLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextDeathDate, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE))
-                            .addGroup(jPanelNewEventLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jButtonNewAuthor)
-                        .addGap(15, 15, 15))
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextDeathDate, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelNewEventLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelNewEventLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonNewAuthor)
+                .addGap(15, 15, 15))
         );
         jPanelNewEventLayout.setVerticalGroup(
             jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,7 +219,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
 
         jPanelManageEvents.setBorder(javax.swing.BorderFactory.createTitledBorder("Manage"));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -210,7 +231,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
                 "ISBN", "Title", "Author", "Publisher", "Stock"
             }
         ));
-        jScrollPaneManageEvents.setViewportView(jTable2);
+        jScrollPaneManageEvents.setViewportView(jTable);
 
         jLabelSelectedAuthor.setText("Selected Author  :");
 
@@ -374,24 +395,44 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextSearchAuthorActionPerformed
 
     private void jButtonSearchAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchAuthorActionPerformed
-        DateFormat df = new SimpleDateFormat("YYYY-MM-JJ");
-        Author author = null ;
+        clear();
+        DateFormat df = new SimpleDateFormat("YYYY-MM-dd");
+        
+        Collection<Author> listAuthor = new ArrayList();
         try {
+
+            listAuthor = publishingService.findAuthorByChamp("lastnameAuthor", jTextSearchAuthor.getText());
+            for (Author author : listAuthor) {
+                jTextLastName.setText(author.getLastNameAuthor());
+                jTextFirstName.setText(author.getFirstNameAuthor());
+                jTextBirthDate.setText(df.format(author.getBirthDateAuthor()));
+                if (author.getDieDateAuthor() != null) {
+                    jTextDeathDate.setText(df.format(author.getDieDateAuthor()));
+                }
+                jTextBiography.setText(author.getBiographyAuthor());
+                jTextComment.setText(author.getCommentAuthor());
+            }
             
-            PublishingService service = new PublishingService();            
-            author = service.findAuthor(jTextSearchAuthor.getText());           
         } catch (ObjectNotFoundException ex) {
             Logger.getLogger(JPanelFormAuthor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-            jTextLastName.setText(author.getLastNameAuthor());
-            jTextFirstName.setText(author.getFirstNameAuthor());
-            jTextBirthDate.setText(df.format(author.getBirthDateAuthor()));
-            if(author.getDieDateAuthor() != null){
-                jTextDeathDate.setText(df.format(author.getDieDateAuthor()));
+        try{
+            Vector v = null;
+            for (Iterator itarator =catalogService.FindBooksByChamp("lastNameAuthor", jTextSearchAuthor.getText()).iterator() ; itarator.hasNext();){
+                Book book = (Book)itarator.next();
+                v = new Vector();
+                v.add(book.getNumISBNBook());
+                v.add(book.getTitleBook());
+                v.add(book.getSubTitleBook());
+                v.add(book.getEditor());
+                v.add(book.getStockBook());
+                v.add(book.getUnitCostBook());
+                bookCollection.addAll(v);
             }            
-            jTextBiography.setText(author.getBiographyAuthor());
-            jTextComment.setText(author.getCommentAuthor());
+            myModel.addRow(bookCollection);
+        } catch (ObjectNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "Erreur insertion tableau");
+        }
     }//GEN-LAST:event_jButtonSearchAuthorActionPerformed
 
 
@@ -418,7 +459,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPaneManageEvents;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable;
     private javax.swing.JTextPane jTextBiography;
     private javax.swing.JTextField jTextBirthDate;
     private javax.swing.JTextPane jTextComment;
