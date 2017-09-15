@@ -27,6 +27,7 @@ public class HomePage extends javax.swing.JFrame {
         JPanelFormAppreciations panelAppreciations = new JPanelFormAppreciations();
         JPanelFormInfoStatus panelInfoStatus = new JPanelFormInfoStatus();
         JPanelFormCompany panelCompany = new JPanelFormCompany();
+        JPanelFormEditor panelEditor = new JPanelFormEditor();
         
         jInternalFrameOrders.setContentPane(panelOrders);
         jInternalFrameBooks.setContentPane(panelBooks);
@@ -39,6 +40,7 @@ public class HomePage extends javax.swing.JFrame {
         jInternalFrameKeyWords.setContentPane(panelKeyWords);
         jInternalFrameInfoStatus.setContentPane(panelInfoStatus);
         jInternalFrameCompany.setContentPane(panelCompany);
+        jInternalFrameEditors.setContentPane(panelEditor);
     }
 
     /**
@@ -58,13 +60,13 @@ public class HomePage extends javax.swing.JFrame {
         jInternalFrameEvents = new javax.swing.JInternalFrame();
         jInternalFrameThemes = new javax.swing.JInternalFrame();
         jInternalFrameAuthors = new javax.swing.JInternalFrame();
+        jInternalFrameEditors = new javax.swing.JInternalFrame();
         jInternalFrameKeyWords = new javax.swing.JInternalFrame();
         jInternalFrameAppreciations = new javax.swing.JInternalFrame();
         jInternalFrameInfoStatus = new javax.swing.JInternalFrame();
         jInternalFrameCompany = new javax.swing.JInternalFrame();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 1000));
         getContentPane().setLayout(new javax.swing.OverlayLayout(getContentPane()));
 
         jTabbedPaneHomePage.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Management System", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14))); // NOI18N
@@ -75,11 +77,11 @@ public class HomePage extends javax.swing.JFrame {
         jInternalFrameOrders.getContentPane().setLayout(jInternalFrameOrdersLayout);
         jInternalFrameOrdersLayout.setHorizontalGroup(
             jInternalFrameOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
+            .addGap(0, 675, Short.MAX_VALUE)
         );
         jInternalFrameOrdersLayout.setVerticalGroup(
             jInternalFrameOrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("Orders", jInternalFrameOrders);
@@ -91,11 +93,11 @@ public class HomePage extends javax.swing.JFrame {
         jInternalFrameCustomers.getContentPane().setLayout(jInternalFrameCustomersLayout);
         jInternalFrameCustomersLayout.setHorizontalGroup(
             jInternalFrameCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 611, Short.MAX_VALUE)
+            .addGap(0, 691, Short.MAX_VALUE)
         );
         jInternalFrameCustomersLayout.setVerticalGroup(
             jInternalFrameCustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 391, Short.MAX_VALUE)
+            .addGap(0, 464, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("Customers", jInternalFrameCustomers);
@@ -106,11 +108,11 @@ public class HomePage extends javax.swing.JFrame {
         jInternalFrameEmployees.getContentPane().setLayout(jInternalFrameEmployeesLayout);
         jInternalFrameEmployeesLayout.setHorizontalGroup(
             jInternalFrameEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
+            .addGap(0, 675, Short.MAX_VALUE)
         );
         jInternalFrameEmployeesLayout.setVerticalGroup(
             jInternalFrameEmployeesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("Employees", jInternalFrameEmployees);
@@ -121,11 +123,11 @@ public class HomePage extends javax.swing.JFrame {
         jInternalFrameBooks.getContentPane().setLayout(jInternalFrameBooksLayout);
         jInternalFrameBooksLayout.setHorizontalGroup(
             jInternalFrameBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
+            .addGap(0, 675, Short.MAX_VALUE)
         );
         jInternalFrameBooksLayout.setVerticalGroup(
             jInternalFrameBooksLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("Books", jInternalFrameBooks);
@@ -140,11 +142,11 @@ public class HomePage extends javax.swing.JFrame {
         jInternalFrameThemes.getContentPane().setLayout(jInternalFrameThemesLayout);
         jInternalFrameThemesLayout.setHorizontalGroup(
             jInternalFrameThemesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
+            .addGap(0, 675, Short.MAX_VALUE)
         );
         jInternalFrameThemesLayout.setVerticalGroup(
             jInternalFrameThemesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("Themes", jInternalFrameThemes);
@@ -155,14 +157,29 @@ public class HomePage extends javax.swing.JFrame {
         jInternalFrameAuthors.getContentPane().setLayout(jInternalFrameAuthorsLayout);
         jInternalFrameAuthorsLayout.setHorizontalGroup(
             jInternalFrameAuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
+            .addGap(0, 675, Short.MAX_VALUE)
         );
         jInternalFrameAuthorsLayout.setVerticalGroup(
             jInternalFrameAuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("Authors", jInternalFrameAuthors);
+
+        jInternalFrameEditors.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrameEditorsLayout = new javax.swing.GroupLayout(jInternalFrameEditors.getContentPane());
+        jInternalFrameEditors.getContentPane().setLayout(jInternalFrameEditorsLayout);
+        jInternalFrameEditorsLayout.setHorizontalGroup(
+            jInternalFrameEditorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 675, Short.MAX_VALUE)
+        );
+        jInternalFrameEditorsLayout.setVerticalGroup(
+            jInternalFrameEditorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 461, Short.MAX_VALUE)
+        );
+
+        jTabbedPaneHomePage.addTab("Editors", jInternalFrameEditors);
 
         jInternalFrameKeyWords.setVisible(true);
 
@@ -170,11 +187,11 @@ public class HomePage extends javax.swing.JFrame {
         jInternalFrameKeyWords.getContentPane().setLayout(jInternalFrameKeyWordsLayout);
         jInternalFrameKeyWordsLayout.setHorizontalGroup(
             jInternalFrameKeyWordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
+            .addGap(0, 675, Short.MAX_VALUE)
         );
         jInternalFrameKeyWordsLayout.setVerticalGroup(
             jInternalFrameKeyWordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("KeyWords", jInternalFrameKeyWords);
@@ -185,11 +202,11 @@ public class HomePage extends javax.swing.JFrame {
         jInternalFrameAppreciations.getContentPane().setLayout(jInternalFrameAppreciationsLayout);
         jInternalFrameAppreciationsLayout.setHorizontalGroup(
             jInternalFrameAppreciationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
+            .addGap(0, 675, Short.MAX_VALUE)
         );
         jInternalFrameAppreciationsLayout.setVerticalGroup(
             jInternalFrameAppreciationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("Appreciations", jInternalFrameAppreciations);
@@ -200,11 +217,11 @@ public class HomePage extends javax.swing.JFrame {
         jInternalFrameInfoStatus.getContentPane().setLayout(jInternalFrameInfoStatusLayout);
         jInternalFrameInfoStatusLayout.setHorizontalGroup(
             jInternalFrameInfoStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
+            .addGap(0, 675, Short.MAX_VALUE)
         );
         jInternalFrameInfoStatusLayout.setVerticalGroup(
             jInternalFrameInfoStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("InfoStatus", jInternalFrameInfoStatus);
@@ -215,11 +232,11 @@ public class HomePage extends javax.swing.JFrame {
         jInternalFrameCompany.getContentPane().setLayout(jInternalFrameCompanyLayout);
         jInternalFrameCompanyLayout.setHorizontalGroup(
             jInternalFrameCompanyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
+            .addGap(0, 675, Short.MAX_VALUE)
         );
         jInternalFrameCompanyLayout.setVerticalGroup(
             jInternalFrameCompanyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
         );
 
         jTabbedPaneHomePage.addTab("Company", jInternalFrameCompany);
@@ -274,6 +291,7 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jInternalFrameBooks;
     private javax.swing.JInternalFrame jInternalFrameCompany;
     private javax.swing.JInternalFrame jInternalFrameCustomers;
+    private javax.swing.JInternalFrame jInternalFrameEditors;
     private javax.swing.JInternalFrame jInternalFrameEmployees;
     private javax.swing.JInternalFrame jInternalFrameEvents;
     private javax.swing.JInternalFrame jInternalFrameInfoStatus;
