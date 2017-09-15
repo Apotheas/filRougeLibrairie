@@ -14,49 +14,64 @@ import com.cdi.g3.server.domain.catalog.Editor;
 import com.cdi.g3.server.domain.catalog.EditorDAO;
 import com.cdi.g3.server.service.AbstractService;
 import java.util.Collection;
-import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author cdi314
  */
-public class PublishingService extends AbstractService{
+public class PublishingService extends AbstractService {
+
     AuthorDAO _daoAuthor = new AuthorDAO();
     EditorDAO _daoEditor = new EditorDAO();
-    
-    public Collection findAuthorByISBN(String column,String champ) throws ObjectNotFoundException{
-        return _daoAuthor.findAllByChamp(column ,champ);
-        
+
+    public Editor findEditorByChamp(String column, String champ) throws ObjectNotFoundException {
+
+        return (Editor) _daoEditor.findByChamp(column, champ);
     }
-    public Editor findEditorByChamp(String column,String champ) throws ObjectNotFoundException{
-        
-        return (Editor)_daoEditor.findByChamp(column, champ);
-        
+
+    public Collection findAllEditor() throws ObjectNotFoundException {
+        return _daoEditor.findAll();
     }
-    public Author findAuthor(String column, String idAuthor)throws ObjectNotFoundException{
-        return (Author)_daoAuthor.findByPrimaryKey(idAuthor);
+
+    public Collection findAuthorByISBN(String column, String champ) throws ObjectNotFoundException {
+        return _daoAuthor.findAllByChamp(column, champ);
+
     }
-    public Collection findAuthorByChamp(String column,String champ)throws ObjectNotFoundException{
+
+    public Author findAuthor(String column, String idAuthor) throws ObjectNotFoundException {
+        return (Author) _daoAuthor.findByPrimaryKey(idAuthor);
+    }
+
+    public Collection findAuthorByChamp(String column, String champ) throws ObjectNotFoundException {
         return _daoAuthor.findAllByChamp(column, champ);
     }
-    public Collection FindAllAuthor()throws ObjectNotFoundException{
+
+    public Collection FindAllAuthor() throws ObjectNotFoundException {
         return _daoAuthor.findAll();
     }
-    
-    public void updateAuthor(Author myAuthor) throws ObjectNotFoundException , UpdateException , CheckException{
-        
-        
-        if (myAuthor == null){
+
+    public void updateAuthor(Author myAuthor) throws ObjectNotFoundException, UpdateException, CheckException {
+        if (myAuthor == null) {
             throw new UpdateException("myauthor is null");
         }
-        
         checkId(myAuthor.getId());
-        try{
-        _daoAuthor.update(myAuthor);
-        }catch(ObjectNotFoundException ex){
+        try {
+            _daoAuthor.update(myAuthor);
+        } catch (ObjectNotFoundException ex) {
             System.out.println(ex.getMessage() + " erreur update ");
         }
-        
     }
-    
-}   
+    public void updateEditor(Editor myEditor) throws  UpdateException, CheckException {
+        if (myEditor == null) {
+            throw new UpdateException("myEditor is null");
+        }
+        checkId(myEditor.getId());
+        try {
+            _daoEditor.update(myEditor);
+        } catch (ObjectNotFoundException ex) {
+            System.out.println(ex.getMessage() + " erreur update " + ex.getMessage());
+        }
+    }
+
+}

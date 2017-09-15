@@ -12,6 +12,7 @@ import com.cdi.g3.server.domain.catalog.Author;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.service.catalog.CatalogService;
 import com.cdi.g3.server.service.publishing.PublishingService;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,8 +34,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
 
     DefaultTableModel myModel = new DefaultTableModel();
     PublishingService publishingService = new PublishingService();
-    CatalogService catalogService = new CatalogService();
-    Vector bookList = new Vector();
+    CatalogService catalogService = new CatalogService();    
     Vector authorList = new Vector();
     DateFormat df = new SimpleDateFormat("dd-MM-YYYY");
 
@@ -55,9 +55,31 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
         int lignes = myModel.getRowCount();
         for (int i = lignes - 1; i >= 0; i--) {
             myModel.removeRow(i);
-        }
-        bookList.removeAllElements();
+        }  
+        
+    }
+    private void clearField(){
+        jTextBiography.setText(" ");
+        jTextBirthDate.setText(" ");
+        jTextComment.setText(" ");
+        jTextDeathDate.setText(" ");
+        jTextFirstName.setText(" ");
+        jTextLastName.setText(" ");
+        jTextSearchAuthor.setText(" ");
+    }
 
+    private DefaultComboBoxModel initAuthorsModel() {
+        return new DefaultComboBoxModel(initContactsVector());
+    }
+
+    private Vector initContactsVector() {
+        try {
+            Collection v = publishingService.FindAllAuthor();
+            authorList.addAll(v);
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(JPanelFormAuthor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return authorList;
     }
 
     /**
@@ -69,8 +91,8 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelKeyWords = new javax.swing.JPanel();
-        jPanelNewEvent = new javax.swing.JPanel();
+        jPanelAuthors = new javax.swing.JPanel();
+        jPanelNewAuthor = new javax.swing.JPanel();
         jLabelFirstName = new javax.swing.JLabel();
         jTextFirstName = new javax.swing.JTextField();
         jLabelLastName = new javax.swing.JLabel();
@@ -85,7 +107,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
         jTextBiography = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextComment = new javax.swing.JTextPane();
-        jPanelManageEvents = new javax.swing.JPanel();
+        jPanelManageAuthors = new javax.swing.JPanel();
         jScrollPaneManageEvents = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jLabelSelectedAuthor = new javax.swing.JLabel();
@@ -95,7 +117,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
         jTextSearchAuthor = new javax.swing.JTextField();
         jButtonSearchAuthor = new javax.swing.JButton();
 
-        jPanelNewEvent.setBorder(javax.swing.BorderFactory.createTitledBorder("New"));
+        jPanelNewAuthor.setBorder(javax.swing.BorderFactory.createTitledBorder("Infos Selected Author"));
 
         jLabelFirstName.setText("First Name  :");
 
@@ -137,71 +159,71 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(jTextComment);
 
-        javax.swing.GroupLayout jPanelNewEventLayout = new javax.swing.GroupLayout(jPanelNewEvent);
-        jPanelNewEvent.setLayout(jPanelNewEventLayout);
-        jPanelNewEventLayout.setHorizontalGroup(
-            jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelNewEventLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelNewAuthorLayout = new javax.swing.GroupLayout(jPanelNewAuthor);
+        jPanelNewAuthor.setLayout(jPanelNewAuthorLayout);
+        jPanelNewAuthorLayout.setHorizontalGroup(
+            jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelNewAuthorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanelNewEventLayout.createSequentialGroup()
+                .addGroup(jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelNewAuthorLayout.createSequentialGroup()
                         .addComponent(jLabelFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelNewEventLayout.createSequentialGroup()
+                    .addGroup(jPanelNewAuthorLayout.createSequentialGroup()
                         .addComponent(jLabelBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelNewEventLayout.createSequentialGroup()
+                    .addGroup(jPanelNewAuthorLayout.createSequentialGroup()
                         .addComponent(jLabelComment, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2)))
                 .addGap(77, 77, 77)
-                .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabelDeathDate, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
                     .addComponent(jLabelLastName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelBiography, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelNewEventLayout.createSequentialGroup()
+                .addGroup(jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelNewAuthorLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jTextDeathDate, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelNewEventLayout.createSequentialGroup()
+                    .addGroup(jPanelNewAuthorLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jTextLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelNewEventLayout.createSequentialGroup()
+                    .addGroup(jPanelNewAuthorLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(77, Short.MAX_VALUE))
         );
-        jPanelNewEventLayout.setVerticalGroup(
-            jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelNewEventLayout.createSequentialGroup()
-                .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanelNewEventLayout.createSequentialGroup()
-                        .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanelNewAuthorLayout.setVerticalGroup(
+            jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelNewAuthorLayout.createSequentialGroup()
+                .addGroup(jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelNewAuthorLayout.createSequentialGroup()
+                        .addGroup(jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelFirstName)
                             .addComponent(jTextFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelBirthDate)
                             .addComponent(jTextBirthDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanelNewEventLayout.createSequentialGroup()
-                        .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanelNewAuthorLayout.createSequentialGroup()
+                        .addGroup(jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelLastName)
                             .addComponent(jTextLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelDeathDate)
                             .addComponent(jTextDeathDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(24, 24, 24)
-                .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelNewEventLayout.createSequentialGroup()
+                .addGroup(jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelNewAuthorLayout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())
-                    .addGroup(jPanelNewEventLayout.createSequentialGroup()
-                        .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNewEventLayout.createSequentialGroup()
+                    .addGroup(jPanelNewAuthorLayout.createSequentialGroup()
+                        .addGroup(jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelNewAuthorLayout.createSequentialGroup()
                                     .addComponent(jLabelComment)
                                     .addGap(37, 37, 37))
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -209,7 +231,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
                         .addGap(0, 37, Short.MAX_VALUE))))
         );
 
-        jPanelManageEvents.setBorder(javax.swing.BorderFactory.createTitledBorder("Manage"));
+        jPanelManageAuthors.setBorder(javax.swing.BorderFactory.createTitledBorder("Manage"));
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -255,11 +277,11 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanelManageEventsLayout = new javax.swing.GroupLayout(jPanelManageEvents);
-        jPanelManageEvents.setLayout(jPanelManageEventsLayout);
-        jPanelManageEventsLayout.setHorizontalGroup(
-            jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelManageAuthorsLayout = new javax.swing.GroupLayout(jPanelManageAuthors);
+        jPanelManageAuthors.setLayout(jPanelManageAuthorsLayout);
+        jPanelManageAuthorsLayout.setHorizontalGroup(
+            jPanelManageAuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageAuthorsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelSearchAuthor)
                 .addGap(18, 18, 18)
@@ -271,29 +293,29 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBoxSelectedAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(58, 58, 58))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageAuthorsLayout.createSequentialGroup()
                 .addComponent(jScrollPaneManageEvents)
                 .addContainerGap())
-            .addGroup(jPanelManageEventsLayout.createSequentialGroup()
+            .addGroup(jPanelManageAuthorsLayout.createSequentialGroup()
                 .addGap(103, 103, 103)
                 .addComponent(jButtonUpdateAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanelManageEventsLayout.setVerticalGroup(
-            jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
-                .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelManageEventsLayout.createSequentialGroup()
+        jPanelManageAuthorsLayout.setVerticalGroup(
+            jPanelManageAuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageAuthorsLayout.createSequentialGroup()
+                .addGroup(jPanelManageAuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelManageAuthorsLayout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jLabelSearchAuthor)
                         .addGap(60, 60, 60))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageAuthorsLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanelManageAuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelManageAuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelSelectedAuthor)
                                 .addComponent(jComboBoxSelectedAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addGroup(jPanelManageAuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jTextSearchAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jButtonSearchAuthor)))
                         .addGap(18, 18, 18)
@@ -303,24 +325,24 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanelKeyWordsLayout = new javax.swing.GroupLayout(jPanelKeyWords);
-        jPanelKeyWords.setLayout(jPanelKeyWordsLayout);
-        jPanelKeyWordsLayout.setHorizontalGroup(
-            jPanelKeyWordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelKeyWordsLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelAuthorsLayout = new javax.swing.GroupLayout(jPanelAuthors);
+        jPanelAuthors.setLayout(jPanelAuthorsLayout);
+        jPanelAuthorsLayout.setHorizontalGroup(
+            jPanelAuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAuthorsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelKeyWordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelManageEvents, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelNewEvent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanelAuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelManageAuthors, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelNewAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        jPanelKeyWordsLayout.setVerticalGroup(
-            jPanelKeyWordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelKeyWordsLayout.createSequentialGroup()
+        jPanelAuthorsLayout.setVerticalGroup(
+            jPanelAuthorsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelAuthorsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelNewEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelNewAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelManageEvents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelManageAuthors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -328,12 +350,12 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelKeyWords, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelAuthors, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelKeyWords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelAuthors, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 40, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -359,8 +381,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextSearchAuthorActionPerformed
 
     private void jButtonSearchAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchAuthorActionPerformed
-
-        clearTab();
+        clearTab();        
         Collection<Author> listAuthor = new ArrayList();
         try {
 
@@ -392,11 +413,12 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
                 v.add(book.getEditor());
                 v.add(book.getStockBook());
                 v.add(book.getUnitCostBook() + " €");
-                bookList.addAll(v);
+                
+                myModel.addRow(v);
             }
-            myModel.addRow(bookList);
+            
         } catch (ObjectNotFoundException ex) {
-            JOptionPane.showMessageDialog(this, "Erreur insertion tableau");
+            JOptionPane.showMessageDialog(this, "No books for this Author on Database");
         }
     }//GEN-LAST:event_jButtonSearchAuthorActionPerformed
 
@@ -416,10 +438,21 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
             myAuthor.setFirstNameAuthor(jTextFirstName.getText());
             myAuthor.setCommentAuthor(jTextComment.getText());
             myAuthor.setBiographyAuthor(jTextBiography.getText());
-            myAuthor.setBirthDateAuthor(new Date(jTextBirthDate.getText()));
+
+            int retour = JOptionPane.showConfirmDialog(this,
+                    "Etes-Vous Sure de vouloir modifier l'autheur ? ",
+                    "Update",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             
-            publishingService.updateAuthor(myAuthor);
-            
+            if (retour == JOptionPane.CLOSED_OPTION || retour == JOptionPane.NO_OPTION) {
+            clearTab();
+            clearField();
+            }else{
+            publishingService.updateAuthor(myAuthor);            
+            JOptionPane.showMessageDialog(this, " Update Successfull !" );
+            clearTab();
+            clearField();
+            }   
         } catch (ObjectNotFoundException ex) {
             Logger.getLogger(JPanelFormAuthor.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UpdateException ex) {
@@ -427,22 +460,9 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
         } catch (CheckException ex) {
             Logger.getLogger(JPanelFormAuthor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jButtonUpdateAuthorActionPerformed
-    private DefaultComboBoxModel initAuthorsModel() {
-        return new DefaultComboBoxModel(initContactsVector());
-    }
 
-    private Vector initContactsVector() {
-
-        try {
-            Collection v = publishingService.FindAllAuthor();
-            authorList.addAll(v);
-        } catch (ObjectNotFoundException ex) {
-            Logger.getLogger(JPanelFormAuthor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return authorList;
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSearchAuthor;
     private javax.swing.JButton jButtonUpdateAuthor;
@@ -455,9 +475,9 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelLastName;
     private javax.swing.JLabel jLabelSearchAuthor;
     private javax.swing.JLabel jLabelSelectedAuthor;
-    private javax.swing.JPanel jPanelKeyWords;
-    private javax.swing.JPanel jPanelManageEvents;
-    private javax.swing.JPanel jPanelNewEvent;
+    private javax.swing.JPanel jPanelAuthors;
+    private javax.swing.JPanel jPanelManageAuthors;
+    private javax.swing.JPanel jPanelNewAuthor;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPaneManageEvents;

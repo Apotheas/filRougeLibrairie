@@ -71,16 +71,16 @@ public class AuthorDAO extends AbstractDataAccessObject {
     @Override
     protected String getSelectAllSqlStatement() {
         final String sql;
-        sql = "SELECT " + COLUMNS + " FROM " + TABLE;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " ORDER BY lastnameauthor";
         return sql;
     }
     
     @Override
     protected String getSelectAllSqlStatementByChamp(String column, String champ){
         final String sql;
-        sql = "SELECT " + COLUMNS + " FROM " + TABLE  +" aut,"+TABLE_BOOK+" bok,"+TABLE_AUTHORBOOK+" autbok "
-                + "WHERE  NUMISBNBOOK = NUMISBNBOOKAB " +
-                "and IDAUTHORAB = IDAUTHOR " +
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE  +" ,"+TABLE_BOOK+" ,"+TABLE_AUTHORBOOK+
+                " WHERE  NUMISBNBOOK = NUMISBNBOOKAB " +
+                "and IDAUTHORAB = IDAUTHOR " +                
                 "and "+column +" = '"+ champ+"'";
         
         return sql;

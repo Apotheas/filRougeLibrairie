@@ -10,6 +10,8 @@ import com.cdi.g3.common.exception.DuplicateKeyException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.logging.Trace;
+import com.cdi.g3.server.domain.catalog.Author;
+import com.cdi.g3.server.domain.catalog.AuthorDAO;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.catalog.BookDAO;
 import com.cdi.g3.server.domain.catalog.Editor;
@@ -25,7 +27,7 @@ public class CatalogService extends AbstractService{
     
     private static final BookDAO _bookDao = new BookDAO();
     private static final EditorDAO _editorDao = new EditorDAO();
-     
+    private static final AuthorDAO _authorDao = new AuthorDAO(); 
     
     public Book findBook( final String bookId ) throws FinderException, CheckException {
         final String mname = "findBook";
@@ -48,6 +50,12 @@ public class CatalogService extends AbstractService{
        }
        
         
+        return listBook;
+    }
+    public Collection FindBooksByEditor(String column, String champ )throws ObjectNotFoundException{
+        
+       Collection listBook = _bookDao.findAllByChamp(column, champ);    
+      
         return listBook;
     }
     
