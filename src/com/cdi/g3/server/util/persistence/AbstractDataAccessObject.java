@@ -230,13 +230,13 @@ public abstract class AbstractDataAccessObject implements DataAccessConstants {
         Trace.entering(getCname(), mname, object);
              // Gets a database connection
         try (Connection connection = getConnection(); PreparedStatement prstatement = connection.prepareStatement(getInsertSqlPreparedStatement())) {
-           
             // Sets the object Id if necessary
             if (object.getId() == null) {
                 object.setId("" + getUniqueId());
             }
+           
             // Inserts a Row
-             executePreparedSt(prstatement, object);
+        executePreparedSt(prstatement, object);
         } catch (SQLException e) {
             // The data already exists in the database
             if (e.getErrorCode() == DATA_ALREADY_EXIST) {

@@ -106,12 +106,17 @@ public class AdressDAO extends AbstractDataAccessObject {
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
         int retour = 0;
         try {
-            if (((Adress) object).getCustomerShipAdress().getId() != null) {
-                prestmt.setString(1, ((Adress) object).getCustomerShipAdress().getId());
-            }
-            if (((Adress) object).getCustomerBillAdress() != null) {
+            
+             if ( ((Adress) object).getCustomerShipAdress()  != null ){
+                 prestmt.setString(1, ((Adress) object).getCustomerShipAdress().getId());  
+             }
+             else prestmt.setString(1, null);
+            
+                      
+            if ( ((Adress) object).getCustomerBillAdress()  != null ){
                 prestmt.setString(2, ((Adress) object).getCustomerBillAdress().getId());
-            }
+                }
+            else prestmt.setString(2, null);            
             prestmt.setString(3, ((Adress) object).getNameReceiverAdress());
             prestmt.setString(4, ((Adress) object).getTypeStreetAdress());
             prestmt.setString(5, ((Adress) object).getNumAdress());
@@ -120,10 +125,12 @@ public class AdressDAO extends AbstractDataAccessObject {
             prestmt.setString(8, ((Adress) object).getZipcodeAdress());
             prestmt.setString(9, ((Adress) object).getCityAdress());
             prestmt.setString(10, ((Adress) object).getCountryAdress());
-
-            if (((Adress) object).getNameCompanyReceiverAdress().getId() != null) {
-                prestmt.setString(11, ((Adress) object).getNameCompanyReceiverAdress().getId());
-            }
+            
+            if ( ((Adress) object).getNameCompanyReceiverAdress()  != null ){
+           prestmt.setString(11, ((Adress) object).getNameCompanyReceiverAdress().getId());
+            }else
+               prestmt.setString(11,null);
+            
             prestmt.setString(12, ((Adress) object).getId());
 
             retour = prestmt.executeUpdate();
@@ -134,8 +141,8 @@ public class AdressDAO extends AbstractDataAccessObject {
             throw new DataAccessException("executePreparedSt : Cannot get data from the database: " + e.getMessage(), e);
         }
         catch (Exception ex) { 
-            System.out.println(ex.getMessage());
-//                throw new Exception("executePreparedSt : Cannot get data from the database: " + ex.getMessage());            
+            ex.getStackTrace();           
+//       throw new Exception("executePreparedSt : Cannot get data from the database: " + ex.getMessage());            
         }
         
         

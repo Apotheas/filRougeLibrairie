@@ -109,6 +109,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
             retour = prestmt.executeUpdate();
 
         } catch (SQLException e) {
+            e.getStackTrace();
             // A Severe SQL Exception is caught
             displaySqlException(e);
             throw new DataAccessException("executePreparedSt : Cannot get data from the database: " + e.getMessage(), e);
