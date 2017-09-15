@@ -44,5 +44,5 @@ public interface DataAccessConstants {
     /**
      * Password to access the database.
      */
-    String PASSWD_DB = "sa";
+    String PASSWD_DB = "Yasmine76";
 }
