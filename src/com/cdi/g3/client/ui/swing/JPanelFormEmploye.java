@@ -8,20 +8,23 @@ package com.cdi.g3.client.ui.swing;
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.server.domain.company.EmployeRight;
 
 
 import com.cdi.g3.server.domain.company.Employe;
 import com.cdi.g3.server.domain.customers.Appreciation;
+import com.cdi.g3.server.service.company.EmployeRightService;
 
 
 import com.cdi.g3.server.service.company.EmployeService;
 import com.cdi.g3.server.service.customers.AppreciationService;
-import com.cdi.g3.server.service.publishing.PublishingService;
+import java.util.Collection;
 
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,9 +35,12 @@ import javax.swing.table.DefaultTableModel;
 public class JPanelFormEmploye extends javax.swing.JPanel {
 
     DefaultTableModel myModel = new DefaultTableModel();
-    PublishingService publishingService = new PublishingService();
+    EmployeRightService employeRightService = new EmployeRightService();
     AppreciationService appreciationService = new AppreciationService();
+    EmployeService employeService = new EmployeService();
     Vector appreciationList = new Vector();
+    Vector employeRightList = new Vector();
+    Vector employeStatusList = new Vector();
 
     public JPanelFormEmploye() {
         initComponents();
@@ -45,6 +51,8 @@ public class JPanelFormEmploye extends javax.swing.JPanel {
         myModel.addColumn("COMMENTAPPRECIATE");
         myModel.addColumn("IPEAPPRECIATE");
         jTableModeration.setModel(myModel);
+        jComboBoxRights.setModel(initEmployeRightModel());
+        jComboBoxStatus.setModel(initEmployeStatusModel());
         
     }
 
@@ -195,6 +203,11 @@ public class JPanelFormEmploye extends javax.swing.JPanel {
         jLabelStatus.setText("Status  :");
 
         jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Active", "Item 3", "Item 4" }));
+        jComboBoxStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxStatusActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Email");
 
@@ -383,11 +396,45 @@ public class JPanelFormEmploye extends javax.swing.JPanel {
 
     private void jComboBoxRightsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxRightsActionPerformed
         
-       
+        Employe employe = ((Employe) jComboBoxRights.getSelectedItem());
+        jTextSearchEmploye.setText(employe.getLastNameEmploye());
+        jButtonEmployeSearch.doClick();
+
+
         
         
     }//GEN-LAST:event_jComboBoxRightsActionPerformed
 
+    private void jComboBoxStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxStatusActionPerformed
+ private DefaultComboBoxModel initEmployeRightModel() {
+        return new DefaultComboBoxModel(initRightVector());
+    }
+  private DefaultComboBoxModel initEmployeStatusModel() {
+        return new DefaultComboBoxModel(initStatusVector());
+    }
+
+    private Vector initRightVector() {
+
+        try {
+            Collection v = employeRightService.FindAllEmployeRight();
+            employeRightList.addAll(v);
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(JPanelFormAuthor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return employeRightList;
+    }
+    private Vector initStatusVector() {
+
+        try {
+            Collection v = employeService.FindAllEmploye();
+            employeStatusList.addAll(v);
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(JPanelFormAuthor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return employeStatusList;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton13;

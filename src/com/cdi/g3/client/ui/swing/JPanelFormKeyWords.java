@@ -5,17 +5,50 @@
  */
 package com.cdi.g3.client.ui.swing;
 
-/**
- *
- * @author Apotheas
- */
+import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.exception.CreateException;
+import com.cdi.g3.common.exception.FinderException;
+import com.cdi.g3.server.domain.other.KeyWord;
+import com.cdi.g3.server.domain.other.KeyWordDAO;
+import com.cdi.g3.server.service.other.OtherService;
+import java.util.Collection;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+
+
 public class JPanelFormKeyWords extends javax.swing.JPanel {
 
+    Vector keywordList = new Vector(); 
+    OtherService otherService = new OtherService(); 
+    KeyWordDAO keywordDAO = new KeyWordDAO() ; 
+    KeyWord keyWord = new KeyWord(); 
     /**
      * Creates new form JPanelFormKeyWords
      */
     public JPanelFormKeyWords() {
         initComponents();
+  // SET MODEL INIT KEYWORD MODEL 
+        jComboBoxSelectedKeyWord.setModel(initKeywordsModel());
+    }
+// INIT KEYWORD MODEL 
+   private DefaultComboBoxModel initKeywordsModel() {
+        return new DefaultComboBoxModel(initKeywordsVector());
+    } 
+ // INIT KEYWORD MODEL    
+     private Vector initKeywordsVector() {
+
+     
+        Collection v = null ; 
+        try {
+         v = otherService.findKeyWord();
+        } catch (FinderException ex) {
+            Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            keywordList.addAll(v);
+
+        return keywordList;
     }
 
     /**
@@ -30,13 +63,14 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
         jPanelKeyWords = new javax.swing.JPanel();
         jPanelNewEvent = new javax.swing.JPanel();
         jLabelKeyWord = new javax.swing.JLabel();
-        jTextKeyWord = new javax.swing.JTextField();
+        jTextF_KeyWord = new javax.swing.JTextField();
         jButtonCreate = new javax.swing.JButton();
+        jButtonSearch = new javax.swing.JButton();
         jPanelManageEvents = new javax.swing.JPanel();
         jScrollPaneManageEvents = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabelSelectedKeyWord = new javax.swing.JLabel();
-        jComboBoxSelectedKeyWord = new javax.swing.JComboBox<>();
+        jComboBoxSelectedKeyWord = new javax.swing.JComboBox<String>();
         jLabelInsert = new javax.swing.JLabel();
         jTextInsert = new javax.swing.JTextField();
         jButtonAdd = new javax.swing.JButton();
@@ -47,16 +81,17 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
 
         jLabelKeyWord.setText("Key word   :");
 
-        jTextKeyWord.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextKeyWordActionPerformed(evt);
-            }
-        });
-
         jButtonCreate.setText("Create");
         jButtonCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCreateActionPerformed(evt);
+            }
+        });
+
+        jButtonSearch.setText("Search");
+        jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchActionPerformed(evt);
             }
         });
 
@@ -68,19 +103,22 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
                 .addGap(28, 28, 28)
                 .addComponent(jLabelKeyWord)
                 .addGap(18, 18, 18)
-                .addComponent(jTextKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTextF_KeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonCreate)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(jButtonSearch)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanelNewEventLayout.setVerticalGroup(
             jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelNewEventLayout.createSequentialGroup()
                 .addGroup(jPanelNewEventLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelKeyWord)
-                    .addComponent(jTextKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonCreate))
-                .addGap(0, 14, Short.MAX_VALUE))
+                    .addComponent(jTextF_KeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCreate)
+                    .addComponent(jButtonSearch))
+                .addGap(0, 15, Short.MAX_VALUE))
         );
 
         jPanelManageEvents.setBorder(javax.swing.BorderFactory.createTitledBorder("Manage"));
@@ -101,7 +139,7 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
 
         jLabelSelectedKeyWord.setText("Selected KeyWord  :");
 
-        jComboBoxSelectedKeyWord.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Collector", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSelectedKeyWord.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Collector", "Item 2", "Item 3", "Item 4" }));
 
         jLabelInsert.setText(" Isbn/Title/Author/Cat  :");
 
@@ -132,14 +170,14 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonDeleteInsert))
                     .addGroup(jPanelManageEventsLayout.createSequentialGroup()
-                        .addComponent(jComboBoxSelectedKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 444, Short.MAX_VALUE)
+                        .addComponent(jComboBoxSelectedKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabelInsert)
                         .addGap(18, 18, 18)
                         .addComponent(jTextInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(23, 23, 23))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
-                .addComponent(jScrollPaneManageEvents)
+                .addComponent(jScrollPaneManageEvents, javax.swing.GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanelManageEventsLayout.setVerticalGroup(
@@ -165,15 +203,15 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
         jPanelKeyWords.setLayout(jPanelKeyWordsLayout);
         jPanelKeyWordsLayout.setHorizontalGroup(
             jPanelKeyWordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelKeyWordsLayout.createSequentialGroup()
+            .addGroup(jPanelKeyWordsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelKeyWordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelKeyWordsLayout.createSequentialGroup()
-                        .addComponent(jPanelManageEvents, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(14, 14, 14))
-                    .addGroup(jPanelKeyWordsLayout.createSequentialGroup()
                         .addComponent(jPanelNewEvent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelKeyWordsLayout.createSequentialGroup()
+                        .addComponent(jPanelManageEvents, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(14, 14, 14))))
         );
         jPanelKeyWordsLayout.setVerticalGroup(
             jPanelKeyWordsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,21 +233,36 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanelKeyWords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextKeyWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextKeyWordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextKeyWordActionPerformed
 
     private void jButtonDeleteInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteInsertActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonDeleteInsertActionPerformed
 
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            
+            
+            keyWord.setNameKeyWord(jTextF_KeyWord.getText());
+             
+            otherService.createKeyWord(keyWord);
+        } catch (CreateException ex) {
+            Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CheckException ex) {
+            Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        
     }//GEN-LAST:event_jButtonCreateActionPerformed
+
+    private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -217,6 +270,7 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
     private javax.swing.JButton jButtonCreate;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonDeleteInsert;
+    private javax.swing.JButton jButtonSearch;
     private javax.swing.JComboBox<String> jComboBoxSelectedKeyWord;
     private javax.swing.JLabel jLabelInsert;
     private javax.swing.JLabel jLabelKeyWord;
@@ -226,7 +280,7 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelNewEvent;
     private javax.swing.JScrollPane jScrollPaneManageEvents;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextF_KeyWord;
     private javax.swing.JTextField jTextInsert;
-    private javax.swing.JTextField jTextKeyWord;
     // End of variables declaration//GEN-END:variables
 }

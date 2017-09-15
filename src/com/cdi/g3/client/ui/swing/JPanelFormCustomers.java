@@ -7,27 +7,45 @@ package com.cdi.g3.client.ui.swing;
 
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.FinderException;
+import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.customers.Adress;
 import com.cdi.g3.server.domain.customers.Customer;
+import com.cdi.g3.server.service.catalog.CatalogService;
 import com.cdi.g3.server.service.customers.AdressService;
 import com.cdi.g3.server.service.customers.CustomerService;
+import com.cdi.g3.server.service.publishing.PublishingService;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Apotheas
  */
 public class JPanelFormCustomers extends javax.swing.JPanel {
+    
+    DefaultTableModel myModelAdressShip = new DefaultTableModel();
+    DefaultTableModel myModelAdressBill = new DefaultTableModel();
+    Vector adressShipList = new Vector();
+    Vector adressBillList = new Vector();
+    DateFormat df = new SimpleDateFormat("dd-MM-YYYY");
 
     /**
      * Creates new form Accounts
      */
     public JPanelFormCustomers() {
-        initComponents();
+        initComponents();        
+        jComboBoxShip.setModel(initComboAdressBishModel(adressShipList));
+        
+        
     }
 
     /**
@@ -410,6 +428,11 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         );
 
         jComboBoxShip.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxShip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxShipActionPerformed(evt);
+            }
+        });
 
         jComboBoxBill.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -566,7 +589,6 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
         final String mname = "jButtonUpdateActionPerformed";
-
         CustomerService serviceCustomer = new CustomerService();
         AdressService serviceAdress = new AdressService();
         Customer customer = null;
@@ -629,16 +651,37 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             jTextLastName.setText(customer.getLastNameCustomer());
             jTextEmail.setText(customer.getEmailCustomer());
             jTextPassword.setText(customer.getPasswordCustomer());
-
-            for (Iterator iterator = customer.getListAddressShipping().iterator(); iterator.hasNext();) {
-                final Adress adressShipping = (Adress) iterator.next();
-                jTextNameReceiverAdressShipp.setText(adressShipping.getNameReceiverAdress());
-                jTextStreetShipp.setText(adressShipping.getNameStreetAdress());
-                jTextZipCodeShipp.setText(adressShipping.getZipcodeAdress());
-                jTextCityShipp.setText(adressShipping.getCityAdress());
-                jTextCompany.setText(adressShipping.getNameCompanyReceiverAdress().getNameCompany());
-                jTextIdAdressShipp.setText(adressShipping.getId());
-            }
+            
+            initComboAdressBishModel(customer.getListAddressShipping());
+            adressShipList.addAll(customer.getListAddressShipping());
+             jComboBoxShip.setModel(initComboAdressBishModel(adressShipList));
+            
+//            Vector v = null;
+//            for (Iterator iterator = customer.getListAddressShipping().iterator(); iterator.hasNext();) {
+//                final Adress adressShipping = (Adress) iterator.next();
+//                v = new Vector();
+//                v.add(adressShipping.getNameReceiverAdress());
+//                v.add(adressShipping.getNameStreetAdress());
+//                v.add(adressShipping.getZipcodeAdress());
+//                v.add(adressShipping.getCityAdress());
+//                v.add(adressShipping.getNameCompanyReceiverAdress().getNameCompany());
+//                v.add(adressShipping.getId());
+//                adressShipList.addAll(v);
+//            }
+            
+            
+            
+//            myModelAdressShip.addRow(adressShipList);
+            
+//            for (Iterator iterator = customer.getListAddressShipping().iterator(); iterator.hasNext();) {
+//                final Adress adressShipping = (Adress) iterator.next();
+//                jTextNameReceiverAdressShipp.setText(adressShipping.getNameReceiverAdress());
+//                jTextStreetShipp.setText(adressShipping.getNameStreetAdress());
+//                jTextZipCodeShipp.setText(adressShipping.getZipcodeAdress());
+//                jTextCityShipp.setText(adressShipping.getCityAdress());
+//                jTextCompany.setText(adressShipping.getNameCompanyReceiverAdress().getNameCompany());
+//                jTextIdAdressShipp.setText(adressShipping.getId());
+//            }
 
             for (Iterator iterator = customer.getListAddressBilling().iterator(); iterator.hasNext();) {
                 final Adress adressBilling = (Adress) iterator.next();
@@ -717,7 +760,6 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             }
 
             customer = serviceCustomer.createCustomer(customer);
-
             Adress adressShipping = new Adress(jTextIdAdressShipp.getText());
             adressShipping.setNameReceiverAdress(jTextNameReceiverAdressShipp.getText());
             adressShipping.setNumAdress(jTextNumStreetShipp.getText());
@@ -793,6 +835,32 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButtonCreateAdressShipActionPerformed
 
+    private void jComboBoxShipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxShipActionPerformed
+       
+        final Adress adressShipping = ((Adress) jComboBoxShip.getSelectedItem());               
+                jTextNameReceiverAdressShipp.setText(adressShipping.getNameReceiverAdress());
+                jTextStreetShipp.setText(adressShipping.getNameStreetAdress());
+                jTextZipCodeShipp.setText(adressShipping.getZipcodeAdress());
+                jTextCityShipp.setText(adressShipping.getCityAdress());
+                jTextCompany.setText(adressShipping.getNameCompanyReceiverAdress().getNameCompany());
+                jTextIdAdressShipp.setText(adressShipping.getId());
+        
+    }//GEN-LAST:event_jComboBoxShipActionPerformed
+   
+    
+    private DefaultComboBoxModel initComboAdressBishModel(Collection adressesChip) {
+        return new DefaultComboBoxModel( initAdressShipVector(adressesChip) );
+    }
+    private Vector initAdressShipVector(Collection adressesChip) {
+        final String mname = "initAdressChipVector";
+        Vector v = new Vector();
+        v.addAll(adressesChip);
+        return v;
+    }
+    
+    
+    
+    
     protected final transient String _cname = this.getClass().getName();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCreate;

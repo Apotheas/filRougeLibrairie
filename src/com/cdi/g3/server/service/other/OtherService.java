@@ -161,7 +161,7 @@ public class OtherService extends AbstractService {
     
  // CREATE CODE TVA  -----------------------------------------------------------------------
     public KeyWord createKeyWord(final KeyWord keyWord) throws CreateException, CheckException {
-        final String mname = "createCodeTva";
+        final String mname = "createKeyWord";
         Trace.entering(_cname, mname, keyWord);
 
         if (keyWord == null) {
