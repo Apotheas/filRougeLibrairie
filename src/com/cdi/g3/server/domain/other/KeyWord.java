@@ -63,7 +63,7 @@ public class KeyWord extends DomainObject implements Serializable {
 
     @Override
     public String toString() {
-        return "nameKeyWord=" + nameKeyWord;
+        return nameKeyWord;
     }
 
 }
