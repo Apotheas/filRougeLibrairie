@@ -61,7 +61,11 @@ public class EmployeRightService extends AbstractService {
         throw new CreateException( "EmployeRight object exist" );
         
     }
-
+ public Collection FindAllEmployeRight()throws ObjectNotFoundException{
+        return _dao.findAll();
+    }
+    
+    
     public EmployeRight findEmployeRight( final String employeRightId ) throws FinderException, CheckException {
         final String mname = "findEmployeRight";
         Trace.entering( _cname, mname, employeRightId );
