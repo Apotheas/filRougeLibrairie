@@ -223,8 +223,8 @@ public final class Adress extends DomainObject implements Serializable {
 
     @Override
     public String toString() {
-        return idAdress
-                + customerShipAdress
+        return this.idAdress + " "
+                + customerShipAdress + " "
                 + customerBillAdress;
 
     }

@@ -23,7 +23,7 @@ public final class UniqueIdGeneratorDAO {
     // ======================================
     // =             Attributes             =
     // ======================================
-    private static final String TABLE = "T_COUNTER";
+    private static final String TABLE = "COUNTER";
 
     /**
      * This method is used when a unique id doesn't exist. This method inserts
