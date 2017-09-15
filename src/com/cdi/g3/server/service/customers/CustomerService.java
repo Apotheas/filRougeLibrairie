@@ -29,7 +29,8 @@ public final class CustomerService extends AbstractService {
     // = Attributes =
     // ======================================
     private static final CustomerDAO _daoCustomer = new CustomerDAO();
-    private static final AdressDAO _daoAdress = new AdressDAO();
+//  private static final AdressDAO _daoAdress = new AdressDAO();
+    private static final AdressService serviceAdress = new AdressService();
     private static final AppreciationDAO _daoAppreciation = new AppreciationDAO();
     private static final OrdersDAO _daoOrder = new OrdersDAO();
 
@@ -80,7 +81,7 @@ public final class CustomerService extends AbstractService {
             final Adress adressBilling = (Adress) iterator.next();
             adressBilling.checkData();            
             adressBilling.setCustomerBillAdress(customer);
-            _daoAdress.insert(adressBilling);
+            serviceAdress.getDaoAdress().insert(adressBilling);
         }
         
         // Creates all the adressShipping linked with the customer
@@ -88,7 +89,7 @@ public final class CustomerService extends AbstractService {
             final Adress adressShipping = (Adress) iterator.next();
             adressShipping.checkData();  
             adressShipping.setCustomerShipAdress(customer);
-            _daoAdress.insert(adressShipping);
+            serviceAdress.getDaoAdress().insert(adressShipping);
         }
     
         // Creates the object
@@ -104,18 +105,23 @@ public final class CustomerService extends AbstractService {
 
         checkId(customerId);
         // Finds the object
-        final Customer customer = (Customer) _daoCustomer.findByPrimaryKey(customerId);
+        final Customer customer = (Customer) _daoCustomer.findByPrimaryKey(customerId);       
         
-        // Retreives the data for all the customer adress shipping
-        final Collection listAddressShipping = _daoAdress.findAllByChamp("loginCustomerShipAdress", customer.getLoginCustomer());
-        customer.setlistAddressShipping(listAddressShipping);
-        
+        // RetreCollectionives the data for all the customer adress shipping//        
+         try {
+            final Collection  listAddressShipping = serviceAdress.getDaoAdress().findAllByChamp("loginCustomerShipAdress", customer.getLoginCustomer());
+            customer.setlistAddressShipping(listAddressShipping);
+         } 
+           catch( ObjectNotFoundException e) {}
+//        }        
         
         // Retreives the data for all the customer adress billing
+        try {
         final Collection listAddressBilling;
-        listAddressBilling = _daoAdress.findAllByChamp("loginCustomerBillAdress", customer.getLoginCustomer());
+        listAddressBilling = serviceAdress.getDaoAdress().findAllByChamp("loginCustomerBillAdress", customer.getLoginCustomer());
         customer.setlistAddressBilling(listAddressBilling);
-       
+          } 
+           catch( ObjectNotFoundException e) {}          
         
         Trace.exiting(_cname, mname, customer);
         return customer;        
@@ -150,7 +156,6 @@ public final class CustomerService extends AbstractService {
         if (customer == null) {
             throw new UpdateException("Customer object is null");
         }
-
         checkId(customer.getId());
 
 //        final Customer customerFinded;

@@ -7,27 +7,45 @@ package com.cdi.g3.client.ui.swing;
 
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.FinderException;
+import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.customers.Adress;
 import com.cdi.g3.server.domain.customers.Customer;
+import com.cdi.g3.server.service.catalog.CatalogService;
 import com.cdi.g3.server.service.customers.AdressService;
 import com.cdi.g3.server.service.customers.CustomerService;
+import com.cdi.g3.server.service.publishing.PublishingService;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Apotheas
  */
 public class JPanelFormCustomers extends javax.swing.JPanel {
+    
+    DefaultTableModel myModelAdressShip = new DefaultTableModel();
+    DefaultTableModel myModelAdressBill = new DefaultTableModel();
+    Vector adressShipList = new Vector();
+    Vector adressBillList = new Vector();
+    DateFormat df = new SimpleDateFormat("dd-MM-YYYY");
 
     /**
      * Creates new form Accounts
      */
     public JPanelFormCustomers() {
-        initComponents();
+        initComponents();        
+        jComboBoxShip.setModel(initComboAdressBishModel(adressShipList));
+        
+        
     }
 
     /**
@@ -75,6 +93,9 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jTextStreetShipp = new javax.swing.JTextField();
         jTextCityShipp = new javax.swing.JTextField();
         jTextZipCodeShipp = new javax.swing.JTextField();
+        jTextNumStreetShipp = new javax.swing.JTextField();
+        jLabelNumStreetShipp = new javax.swing.JLabel();
+        jButtonCreateAdressShip = new javax.swing.JButton();
         jPanelBillingAddress = new javax.swing.JPanel();
         jLabelZipCodeBill = new javax.swing.JLabel();
         jTextCityBill = new javax.swing.JTextField();
@@ -86,6 +107,11 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jLabelIdAdressBill = new javax.swing.JLabel();
         jTextStreetBill = new javax.swing.JTextField();
         jLabelCityBill = new javax.swing.JLabel();
+        jTextNumStreetBill = new javax.swing.JTextField();
+        jLabelNumStreetBill = new javax.swing.JLabel();
+        jButtonCreateAdressBill = new javax.swing.JButton();
+        jComboBoxShip = new javax.swing.JComboBox();
+        jComboBoxBill = new javax.swing.JComboBox();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -150,11 +176,11 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
                 .addComponent(jTextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonSearch)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(60, 60, 60)
                 .addComponent(jButtonUpdate)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonDelete)
-                .addGap(22, 22, 22))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanelManageLayout.setVerticalGroup(
             jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +219,12 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             }
         });
 
-        jButtonCreate.setText("Create");
+        jButtonCreate.setText("Create Customer");
+        jButtonCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCreateActionPerformed(evt);
+            }
+        });
 
         jLabelFirstName.setText("First name :");
 
@@ -231,62 +262,79 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             }
         });
 
+        jLabelNumStreetShipp.setText("Num Street   :");
+
+        jButtonCreateAdressShip.setText("Create Adress Shipping");
+        jButtonCreateAdressShip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCreateAdressShipActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelShippingAdressLayout = new javax.swing.GroupLayout(jPanelShippingAdress);
         jPanelShippingAdress.setLayout(jPanelShippingAdressLayout);
         jPanelShippingAdressLayout.setHorizontalGroup(
             jPanelShippingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelShippingAdressLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelShippingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelShippingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelShippingAdressLayout.createSequentialGroup()
                         .addComponent(jLabelIdAdressShipp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(jTextIdAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelShippingAdressLayout.createSequentialGroup()
-                        .addComponent(jLabelCityShipp)
+                        .addComponent(jLabelNumStreetShipp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextCityShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelShippingAdressLayout.createSequentialGroup()
-                        .addComponent(jLabelZipCodeShipp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextZipCodeShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextNumStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelShippingAdressLayout.createSequentialGroup()
                         .addComponent(jLabelStreetShipp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelShippingAdressLayout.createSequentialGroup()
+                        .addComponent(jLabelZipCodeShipp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextZipCodeShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelShippingAdressLayout.createSequentialGroup()
+                        .addComponent(jLabelCityShipp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextCityShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelShippingAdressLayout.createSequentialGroup()
+                        .addComponent(jButtonCreateAdressShip)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanelShippingAdressLayout.createSequentialGroup()
                         .addComponent(jLabeNameReceiverAdressShipp)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextNameReceiverAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextNameReceiverAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanelShippingAdressLayout.setVerticalGroup(
             jPanelShippingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelShippingAdressLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
                 .addGroup(jPanelShippingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelIdAdressShipp)
-                    .addComponent(jTextIdAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jTextIdAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelIdAdressShipp))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelShippingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabeNameReceiverAdressShipp)
+                    .addComponent(jLabeNameReceiverAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextNameReceiverAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(8, 8, 8)
+                .addGroup(jPanelShippingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNumStreetShipp)
+                    .addComponent(jTextNumStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelShippingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelStreetShipp)
                     .addComponent(jTextStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelShippingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelShippingAdressLayout.createSequentialGroup()
-                        .addComponent(jLabelZipCodeShipp)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanelShippingAdressLayout.createSequentialGroup()
-                        .addComponent(jTextZipCodeShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanelShippingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextCityShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelCityShipp))
-                        .addContainerGap(29, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelShippingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelZipCodeShipp)
+                    .addComponent(jTextZipCodeShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelShippingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelCityShipp)
+                    .addComponent(jTextCityShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCreateAdressShip)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelBillingAddress.setBorder(javax.swing.BorderFactory.createTitledBorder("Billing adress"));
@@ -307,73 +355,95 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
         jLabelCityBill.setText("City  :");
 
+        jLabelNumStreetBill.setText("Num Street   :");
+
+        jButtonCreateAdressBill.setText("Create Adress Billing");
+
         javax.swing.GroupLayout jPanelBillingAddressLayout = new javax.swing.GroupLayout(jPanelBillingAddress);
         jPanelBillingAddress.setLayout(jPanelBillingAddressLayout);
         jPanelBillingAddressLayout.setHorizontalGroup(
             jPanelBillingAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBillingAddressLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelBillingAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelBillingAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelBillingAddressLayout.createSequentialGroup()
+                        .addComponent(jLabelNameReceiverAdressBill)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextNameReceiverAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelBillingAddressLayout.createSequentialGroup()
                         .addComponent(jLabelIdAdressBill)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextIdAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelBillingAddressLayout.createSequentialGroup()
-                        .addComponent(jLabelCityBill)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextCityBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelBillingAddressLayout.createSequentialGroup()
-                        .addComponent(jLabelZipCodeBill)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextZipCodeBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingAddressLayout.createSequentialGroup()
+                        .addComponent(jLabelNumStreetBill)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                        .addComponent(jTextNumStreetBill, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelBillingAddressLayout.createSequentialGroup()
                         .addComponent(jLabelStreetBill)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextStreetBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelBillingAddressLayout.createSequentialGroup()
-                        .addComponent(jLabelNameReceiverAdressBill)
-                        .addGap(12, 12, 12)
-                        .addComponent(jTextNameReceiverAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                        .addComponent(jLabelZipCodeBill)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextZipCodeBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelBillingAddressLayout.createSequentialGroup()
+                        .addComponent(jButtonCreateAdressBill)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanelBillingAddressLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabelCityBill)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextCityBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanelBillingAddressLayout.setVerticalGroup(
             jPanelBillingAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBillingAddressLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(jPanelBillingAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelIdAdressBill)
-                    .addComponent(jTextIdAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jTextIdAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelIdAdressBill))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelBillingAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNameReceiverAdressBill)
                     .addComponent(jTextNameReceiverAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelBillingAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNumStreetBill)
+                    .addComponent(jTextNumStreetBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelBillingAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelStreetBill)
                     .addComponent(jTextStreetBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelBillingAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelBillingAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelZipCodeBill)
-                    .addGroup(jPanelBillingAddressLayout.createSequentialGroup()
-                        .addComponent(jTextZipCodeBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanelBillingAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextCityBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelCityBill))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(jTextZipCodeBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelBillingAddressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelCityBill)
+                    .addComponent(jTextCityBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCreateAdressBill)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jComboBoxShip.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxShip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxShipActionPerformed(evt);
+            }
+        });
+
+        jComboBoxBill.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanelAccountLayout = new javax.swing.GroupLayout(jPanelAccount);
         jPanelAccount.setLayout(jPanelAccountLayout);
         jPanelAccountLayout.setHorizontalGroup(
             jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAccountLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
                 .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelAccountLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jPanelShippingAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelAccountLayout.createSequentialGroup()
-                        .addGap(28, 28, 28)
                         .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelAccountLayout.createSequentialGroup()
                                 .addComponent(jLabelFirstName)
@@ -390,32 +460,36 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
                                 .addGap(45, 45, 45)
                                 .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jTextEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                                    .addComponent(jTextLogin))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAccountLayout.createSequentialGroup()
+                                    .addComponent(jTextLogin))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                         .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanelAccountLayout.createSequentialGroup()
-                                    .addGap(20, 20, 20)
-                                    .addComponent(jLabelStatus)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanelAccountLayout.createSequentialGroup()
-                                    .addComponent(jLabelCompany)
-                                    .addGap(20, 20, 20)
-                                    .addComponent(jTextCompany)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAccountLayout.createSequentialGroup()
-                                .addComponent(jLabelPassword)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(13, 13, 13))
-                    .addComponent(jPanelBillingAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAccountLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButtonCreate)
-                .addGap(25, 25, 25))
+                                .addComponent(jLabelStatus)
+                                .addGap(47, 47, 47)
+                                .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanelAccountLayout.createSequentialGroup()
+                                .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabelCompany)
+                                    .addComponent(jLabelPassword))
+                                .addGap(125, 125, 125)
+                                .addComponent(jTextCompany, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanelAccountLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanelShippingAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxShip, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                        .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAccountLayout.createSequentialGroup()
+                                .addComponent(jPanelBillingAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAccountLayout.createSequentialGroup()
+                                .addComponent(jComboBoxBill, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonCreate)))))
+                .addGap(47, 47, 47))
         );
         jPanelAccountLayout.setVerticalGroup(
             jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -432,6 +506,15 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
                     .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelAccountLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelFirstName))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelLastName)
+                            .addComponent(jTextLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanelAccountLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelAccountLayout.createSequentialGroup()
@@ -441,22 +524,18 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
                                     .addComponent(jTextCompany, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jTextPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelPassword)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                        .addComponent(jPanelBillingAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonCreate))
-                    .addGroup(jPanelAccountLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelFirstName))
-                        .addGap(22, 22, 22)
-                        .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelLastName)
-                            .addComponent(jTextLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addComponent(jPanelShippingAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabelPassword)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonCreate, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBoxShip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelBillingAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelShippingAdress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanelAccountsLayout = new javax.swing.GroupLayout(jPanelAccounts);
@@ -466,29 +545,30 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             .addGroup(jPanelAccountsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPaneTree, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelAccountsLayout.createSequentialGroup()
-                        .addComponent(jPanelManage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanelManage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelAccountsLayout.createSequentialGroup()
-                        .addComponent(jPanelAccount, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(264, 264, 264))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(105, Short.MAX_VALUE))))
         );
         jPanelAccountsLayout.setVerticalGroup(
             jPanelAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAccountsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPaneTree, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
+                    .addComponent(jScrollPaneTree)
                     .addGroup(jPanelAccountsLayout.createSequentialGroup()
                         .addComponent(jPanelManage, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jPanelAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addContainerGap(26, Short.MAX_VALUE))))
         );
 
-        add(jPanelAccounts, java.awt.BorderLayout.CENTER);
+        add(jPanelAccounts, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextPasswordActionPerformed
@@ -508,93 +588,100 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextZipCodeShippActionPerformed
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-      final String mname = "jButtonUpdateActionPerformed";
-       
+        final String mname = "jButtonUpdateActionPerformed";
         CustomerService serviceCustomer = new CustomerService();
         AdressService serviceAdress = new AdressService();
         Customer customer = null;
         try {
             // Sets all the customer data
             //customer customerf = serviceCustomer.findCustomer(Id);
-        
-            customer = new Customer( jTextFirstName.getText(), jTextLastName.getText(), jTextEmail.getText(),jTextPassword.getText() );
-            customer.setPasswordCustomer(jTextPassword.getText());
-            System.out.println(jTextPassword.getText() );
-            
-            
-            
-            Adress adressShipping =  new Adress(jTextIdAdressShipp.getText());
-            adressShipping.setNameStreetAdress(jTextNameReceiverAdressShipp.getText()); 
-            adressShipping.setNameStreetAdress(jTextStreetShipp.getText()); 
-            adressShipping.setNameStreetAdress(jTextZipCodeShipp.getText()); 
-            adressShipping.setNameStreetAdress(jTextCityShipp.getText()); 
-            adressShipping.setNameStreetAdress(jTextStreetShipp.getText()); 
-            adressShipping.setCustomerShipAdress(customer);             
-            serviceAdress.updateAdress(adressShipping); 
-            
-            Adress adressBilling =  new Adress(jTextIdAdressBill.getText());
-            adressBilling.setNameStreetAdress(jTextNameReceiverAdressBill.getText()); 
-            adressBilling.setNameStreetAdress(jTextStreetBill.getText()); 
-            adressBilling.setNameStreetAdress(jTextZipCodeBill.getText()); 
-            adressBilling.setNameStreetAdress(jTextCityBill.getText()); 
-            adressBilling.setNameStreetAdress(jTextStreetBill.getText()); 
-            adressBilling.setCustomerBillAdress(customer);            
+            customer = new Customer(jTextFirstName.getText(), jTextLastName.getText(), jTextEmail.getText(), jTextPassword.getText());
+            customer.setId(jTextLogin.getText());
+
+            Adress adressShipping = new Adress(jTextIdAdressShipp.getText());
+            adressShipping.setNameReceiverAdress(jTextNameReceiverAdressShipp.getText());
+            adressShipping.setNameStreetAdress(jTextStreetShipp.getText());
+            adressShipping.setZipcodeAdress(jTextZipCodeShipp.getText());
+            adressShipping.setCityAdress(jTextCityShipp.getText());
+            adressShipping.setCustomerShipAdress(customer);
+            adressShipping.setCustomerBillAdress(customer);
+
+            Adress adressBilling = new Adress(jTextIdAdressBill.getText());
+            adressBilling.setNameReceiverAdress(jTextNameReceiverAdressBill.getText());
+            adressBilling.setNameStreetAdress(jTextStreetBill.getText());
+            adressBilling.setZipcodeAdress(jTextZipCodeBill.getText());
+            adressBilling.setCityAdress(jTextCityBill.getText());
+            adressBilling.setCustomerBillAdress(customer);
+
             serviceAdress.updateAdress(adressBilling);
-            
-            
-            
-            
+            //serviceAdress.updateAdress(adressShipping); 
+
             // Asks if we want to remove the customer
-        final int anwser = JOptionPane.showConfirmDialog(this, "Do you want to update customer "
-                +customer.getId() + " " +customer.getLastNameCustomer(), "Delete", JOptionPane.YES_NO_OPTION);
-        if (anwser == JOptionPane.NO_OPTION) {
-            return;
-        }
-         
-        serviceCustomer.updateCustomer(customer);
-                  
-            
-           
-            
-           
+            final int anwser = JOptionPane.showConfirmDialog(this, "Do you want to update customer "
+                    + customer.getId() + " " + customer.getLastNameCustomer(), "Delete", JOptionPane.YES_NO_OPTION);
+            if (anwser == JOptionPane.NO_OPTION) {
+                return;
+            }
+
+            serviceCustomer.updateCustomer(customer);
+
             // Create the customer
-            JOptionPane.showMessageDialog(this, "Customer number "+customer.getId() + 
-                    " is updeted", "info message", JOptionPane.INFORMATION_MESSAGE);
-                        
+            JOptionPane.showMessageDialog(this, "Customer number " + customer.getId()
+                    + " is updeted", "info message", JOptionPane.INFORMATION_MESSAGE);
+
 //            jComboBoxCarnet.setModel(initCarnetModel());
 //            jTree1.setModel(initCarnetTreeModel());
-
             //textContactId.setText(contact.getIdContact());
             //textContactDate.setText(DateFormat.getDateInstance().format(result.getContactDate()));
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Cannot access the customer service", "Error", JOptionPane.ERROR_MESSAGE);
             Trace.throwing(_cname, mname, e);
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
         try {
             CustomerService serviceCustomer = new CustomerService();
             Customer customer = serviceCustomer.findCustomer(jTextSearch.getText());
-            
+
             jTextLogin.setText(customer.getLoginCustomer());
             jTextFirstName.setText(customer.getFirstNameCustomer());
             jTextLastName.setText(customer.getLastNameCustomer());
-            jTextEmail.setText(customer.getEmailCustomer());            
+            jTextEmail.setText(customer.getEmailCustomer());
             jTextPassword.setText(customer.getPasswordCustomer());
             
-            for (Iterator iterator = customer.getListAddressShipping().iterator(); iterator.hasNext();) {
-                final Adress adressShipping = (Adress) iterator.next();
-                jTextNameReceiverAdressShipp.setText(adressShipping.getNameReceiverAdress());
-                jTextStreetShipp.setText(adressShipping.getNameStreetAdress());
-                jTextZipCodeShipp.setText(adressShipping.getZipcodeAdress());
-                jTextCityShipp.setText(adressShipping.getCityAdress());
-                jTextCompany.setText(adressShipping.getNameCompanyReceiverAdress().getNameCompany());
-                jTextIdAdressShipp.setText(adressShipping.getId());
-            }
+            initComboAdressBishModel(customer.getListAddressShipping());
+            adressShipList.addAll(customer.getListAddressShipping());
+             jComboBoxShip.setModel(initComboAdressBishModel(adressShipList));
+            
+//            Vector v = null;
+//            for (Iterator iterator = customer.getListAddressShipping().iterator(); iterator.hasNext();) {
+//                final Adress adressShipping = (Adress) iterator.next();
+//                v = new Vector();
+//                v.add(adressShipping.getNameReceiverAdress());
+//                v.add(adressShipping.getNameStreetAdress());
+//                v.add(adressShipping.getZipcodeAdress());
+//                v.add(adressShipping.getCityAdress());
+//                v.add(adressShipping.getNameCompanyReceiverAdress().getNameCompany());
+//                v.add(adressShipping.getId());
+//                adressShipList.addAll(v);
+//            }
+            
+            
+            
+//            myModelAdressShip.addRow(adressShipList);
+            
+//            for (Iterator iterator = customer.getListAddressShipping().iterator(); iterator.hasNext();) {
+//                final Adress adressShipping = (Adress) iterator.next();
+//                jTextNameReceiverAdressShipp.setText(adressShipping.getNameReceiverAdress());
+//                jTextStreetShipp.setText(adressShipping.getNameStreetAdress());
+//                jTextZipCodeShipp.setText(adressShipping.getZipcodeAdress());
+//                jTextCityShipp.setText(adressShipping.getCityAdress());
+//                jTextCompany.setText(adressShipping.getNameCompanyReceiverAdress().getNameCompany());
+//                jTextIdAdressShipp.setText(adressShipping.getId());
+//            }
 
             for (Iterator iterator = customer.getListAddressBilling().iterator(); iterator.hasNext();) {
                 final Adress adressBilling = (Adress) iterator.next();
@@ -640,30 +727,150 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         final CustomerService serviceCustomer = new CustomerService();
         try {
             serviceCustomer.deleteCustomer(customerId);
-            
-            JOptionPane.showMessageDialog(this, "Customer login "+ customerId + 
-                    " is deleted", "info message", JOptionPane.INFORMATION_MESSAGE);
-            
+
+            JOptionPane.showMessageDialog(this, "Customer login " + customerId
+                    + " is deleted", "info message", JOptionPane.INFORMATION_MESSAGE);
+
 //            jComboBoxCarnet.setModel(initCarnetModel());
 //            jTree1.setModel(initCarnetTreeModel());
 //            clearFrame();
-            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Cannot access the customer service", "Error", JOptionPane.ERROR_MESSAGE);
             Trace.throwing(_cname, mname, e);
         } // TODO add your handling code here:
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_jButtonDeleteActionPerformed
 
+    private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
+        final String mname = "jButtonCreateActionPerformed";
+        CustomerService serviceCustomer = new CustomerService();
+        AdressService serviceAdress = new AdressService();
+        Customer customer = null;
+        try {
+            // Sets all the customer data
+            //customer customerf = serviceCustomer.findCustomer(Id);
+            customer = new Customer(jTextLogin.getText(), jTextFirstName.getText(), jTextLastName.getText(), jTextEmail.getText(), jTextPassword.getText());
+
+            // Asks if we want to remove the customer
+            final int anwser = JOptionPane.showConfirmDialog(this, "Do you want to create customer "
+                    + customer.getId() + " " + customer.getLastNameCustomer(), "Delete", JOptionPane.YES_NO_OPTION);
+            if (anwser == JOptionPane.NO_OPTION) {
+                return;
+            }
+
+            customer = serviceCustomer.createCustomer(customer);
+            Adress adressShipping = new Adress(jTextIdAdressShipp.getText());
+            adressShipping.setNameReceiverAdress(jTextNameReceiverAdressShipp.getText());
+            adressShipping.setNumAdress(jTextNumStreetShipp.getText());
+            adressShipping.setNameStreetAdress(jTextStreetShipp.getText());
+            adressShipping.setZipcodeAdress(jTextZipCodeShipp.getText());
+            adressShipping.setCityAdress(jTextCityShipp.getText());
+            adressShipping.setCustomerShipAdress(customer);
+            adressShipping.setCustomerBillAdress(customer);
+
+//            
+//            Adress adressBilling =  new Adress(jTextIdAdressBill.getText());
+//            adressBilling.setNameReceiverAdress(jTextNameReceiverAdressBill.getText()); 
+//            adressBilling.setNameStreetAdress(jTextStreetBill.getText()); 
+//            adressBilling.setZipcodeAdress(jTextZipCodeBill.getText()); 
+//            adressBilling.setCityAdress(jTextCityBill.getText());             
+//            adressBilling.setCustomerBillAdress(customer); //            
+//            adressShipping = serviceAdress.createAdress(adressShipping);            
+            customer.getListAddressBilling().add(adressShipping);
+            customer.getListAddressShipping().add(adressShipping);
+
+            //serviceAdress.updateAdress(adressShipping); 
+            // Create the customer
+            JOptionPane.showMessageDialog(this, "Customer number " + customer.getId()
+                    + " is creaeted", "info message", JOptionPane.INFORMATION_MESSAGE);
+
+//            jComboBoxCarnet.setModel(initCarnetModel());
+//            jTree1.setModel(initCarnetTreeModel());
+            //textContactId.setText(contact.getIdContact());
+            //textContactDate.setText(DateFormat.getDateInstance().format(result.getContactDate()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Cannot access the customer service", "Error", JOptionPane.ERROR_MESSAGE);
+            Trace.throwing(_cname, mname, e);
+        }
+
+
+    }//GEN-LAST:event_jButtonCreateActionPerformed
+
+    private void jButtonCreateAdressShipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateAdressShipActionPerformed
+        final String mname = "jButtonCreateActionPerformed";
+        AdressService serviceAdress = new AdressService();
+        Adress adressShipping = new Adress();
+        try {
+            // Asks if we want to remove the customer
+            final int anwser = JOptionPane.showConfirmDialog(this, "Do you want to create adressShipping "
+                    + adressShipping.getId(), "Delete", JOptionPane.YES_NO_OPTION);
+            if (anwser == JOptionPane.NO_OPTION) {
+                return;
+            }
+            adressShipping.setNameReceiverAdress(jTextNameReceiverAdressShipp.getText());
+            adressShipping.setNumAdress(jTextNumStreetShipp.getText());
+            adressShipping.setNameStreetAdress(jTextStreetShipp.getText());
+            adressShipping.setZipcodeAdress(jTextZipCodeShipp.getText());
+            adressShipping.setCityAdress(jTextCityShipp.getText());
+            adressShipping.setCountryAdress(jTextCityShipp.getText());
+            adressShipping.setCustomerShipAdress(new Customer(jTextLogin.getText()));
+
+            adressShipping = serviceAdress.createAdress(adressShipping);
+            // Create the customer
+            JOptionPane.showMessageDialog(this, "adressShipping number " + adressShipping.getId()
+                    + " is creaeted", "info message", JOptionPane.INFORMATION_MESSAGE);
+
+//            jComboBoxCarnet.setModel(initCarnetModel());
+//            jTree1.setModel(initCarnetTreeModel());
+            //textContactId.setText(contact.getIdContact());
+            //textContactDate.setText(DateFormat.getDateInstance().format(result.getContactDate()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Cannot access the customer service", "Error", JOptionPane.ERROR_MESSAGE);
+            Trace.throwing(_cname, mname, e);
+        }
+
+
+    }//GEN-LAST:event_jButtonCreateAdressShipActionPerformed
+
+    private void jComboBoxShipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxShipActionPerformed
+       
+        final Adress adressShipping = ((Adress) jComboBoxShip.getSelectedItem());               
+                jTextNameReceiverAdressShipp.setText(adressShipping.getNameReceiverAdress());
+                jTextStreetShipp.setText(adressShipping.getNameStreetAdress());
+                jTextZipCodeShipp.setText(adressShipping.getZipcodeAdress());
+                jTextCityShipp.setText(adressShipping.getCityAdress());
+                jTextCompany.setText(adressShipping.getNameCompanyReceiverAdress().getNameCompany());
+                jTextIdAdressShipp.setText(adressShipping.getId());
+        
+    }//GEN-LAST:event_jComboBoxShipActionPerformed
+   
+    
+    private DefaultComboBoxModel initComboAdressBishModel(Collection adressesChip) {
+        return new DefaultComboBoxModel( initAdressShipVector(adressesChip) );
+    }
+    private Vector initAdressShipVector(Collection adressesChip) {
+        final String mname = "initAdressChipVector";
+        Vector v = new Vector();
+        v.addAll(adressesChip);
+        return v;
+    }
+    
+    
+    
+    
     protected final transient String _cname = this.getClass().getName();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCreate;
+    private javax.swing.JButton jButtonCreateAdressBill;
+    private javax.swing.JButton jButtonCreateAdressShip;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonUpdate;
+    private javax.swing.JComboBox jComboBoxBill;
+    private javax.swing.JComboBox jComboBoxShip;
     private javax.swing.JComboBox<String> jComboBoxStatus;
     private javax.swing.JLabel jLabeNameReceiverAdressShipp;
     private javax.swing.JLabel jLabelCityBill;
@@ -676,6 +883,8 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelLastName;
     private javax.swing.JLabel jLabelLogin;
     private javax.swing.JLabel jLabelNameReceiverAdressBill;
+    private javax.swing.JLabel jLabelNumStreetBill;
+    private javax.swing.JLabel jLabelNumStreetShipp;
     private javax.swing.JLabel jLabelPassword;
     private javax.swing.JLabel jLabelSearch;
     private javax.swing.JLabel jLabelStatus;
@@ -700,6 +909,8 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     private javax.swing.JTextField jTextLogin;
     private javax.swing.JTextField jTextNameReceiverAdressBill;
     private javax.swing.JTextField jTextNameReceiverAdressShipp;
+    private javax.swing.JTextField jTextNumStreetBill;
+    private javax.swing.JTextField jTextNumStreetShipp;
     private javax.swing.JTextField jTextPassword;
     private javax.swing.JTextField jTextSearch;
     private javax.swing.JTextField jTextStreetBill;
