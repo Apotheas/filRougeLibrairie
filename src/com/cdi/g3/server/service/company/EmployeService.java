@@ -14,6 +14,7 @@ import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.company.Employe;
 import com.cdi.g3.server.domain.company.EmployeDAO;
+import com.cdi.g3.server.domain.orders.InfoStatus;
 import com.cdi.g3.server.service.AbstractService;
 import java.util.Collection;
 
@@ -68,6 +69,21 @@ public class EmployeService extends AbstractService {
         return employe;
     }
 
+//    public Employe findStatusByEmploye(final String statusEmploye) throws FinderException, CheckException {
+//        final String mname = "findStatusByEmploye";
+//        Trace.entering(_cname, mname, statusEmploye);
+//
+//        checkId(statusEmploye);
+//        // Finds the object
+//        final Employe employe = (Employe) _daoEmploye.findByChamp(InfoStatus,statusEmploye);
+//        Trace.exiting(_cname, mname, employe);
+//        return statusEmploye;
+//    
+//    
+//    }
+    
+    
+    
     public void deleteEmploye(final String employeId) throws RemoveException, CheckException {
         final String mname = "deleteEmploye";
         Trace.entering(_cname, mname, employeId);
@@ -125,7 +141,9 @@ public class EmployeService extends AbstractService {
         Trace.exiting(_cname, mname, new Integer(employe.size()));
         return employe;
     }
-    
+     public Collection FindAllEmploye()throws ObjectNotFoundException{
+        return _daoEmploye.findAll();
+    }
   
     
     
