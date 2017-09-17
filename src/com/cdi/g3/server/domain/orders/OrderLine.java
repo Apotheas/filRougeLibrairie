@@ -30,8 +30,6 @@ public class OrderLine extends DomainObject implements Serializable{
    private float rateTvaOrderLine;
    private  Appreciation appreciation;
    
-     
-   
   // ======================================
     // =            Constructors            =
     // ======================================
@@ -57,9 +55,13 @@ public class OrderLine extends DomainObject implements Serializable{
 		this.book = book;
 		
 	} 
-        
-        
-        
+        public OrderLine(Book book , int quantityOrderLine, float unitCostOrderLine,float rateTvaOrderLine){
+		super();
+                this.book = book;
+		this.quantityOrderLine = quantityOrderLine;
+		this.unitCostOrderLine = unitCostOrderLine;
+		this.rateTvaOrderLine = rateTvaOrderLine;
+	} 
     // ======================================
     // =           Business methods         =
     // ======================================

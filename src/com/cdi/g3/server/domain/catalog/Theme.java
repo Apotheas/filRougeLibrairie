@@ -8,13 +8,11 @@ package com.cdi.g3.server.domain.catalog;
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
 import java.io.Serializable;
-
-
+import java.util.ArrayList;
+import java.util.Collection;
 public class Theme extends DomainObject implements Serializable{
-    
-    
     private String nameTheme;
-    
+    private Collection subThemeList = new ArrayList();
     
      
      public Theme(){
@@ -42,10 +40,14 @@ public class Theme extends DomainObject implements Serializable{
     public void setNameTheme(String nameTheme) {
         this.nameTheme = nameTheme;
     }
-     
-     
-     
-     
+
+    public Collection getSubThemeList() {
+        return subThemeList;
+    }
+
+    public void setSubThemeList(Collection subThemeList) {
+        this.subThemeList = subThemeList;
+    }
      
      @Override
     public String getId() {

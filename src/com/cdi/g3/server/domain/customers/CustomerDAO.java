@@ -82,7 +82,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
         customer = new Customer(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),resultSet.getString(4),resultSet.getString(5));
         customer.setNameCompanyCustomer(resultSet.getString(6));
         customer.setCommentCustomer(resultSet.getString(7));
-        customer.setStatusCustomer(resultSet.getString(8));
+        customer.setStatusCustomer(resultSet.getInt(8));
       
         return customer;
     }
@@ -103,7 +103,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
             prestmt.setString(4, ((Customer) object).getPasswordCustomer());
             prestmt.setString(5, ((Customer) object).getNameCompanyCustomer());
             prestmt.setString(6, ((Customer) object).getCommentCustomer());
-            prestmt.setString(7, ((Customer) object).getStatusCustomer());
+            prestmt.setInt(7, ((Customer) object).getStatusCustomer());
             prestmt.setString(8, ((Customer) object).getLoginCustomer());
             
             retour = prestmt.executeUpdate();

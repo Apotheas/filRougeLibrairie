@@ -177,5 +177,16 @@ public class OrderService extends AbstractService {
     }
     
     
+    public Collection findOrders() throws FinderException {
+        final String mname = "findOrderss";
+        Trace.entering(_cname, mname);
+        // Finds all the objects
+        final Collection orders = _orderDAO.findAll();
+
+        Trace.exiting(_cname, mname, new Integer(orders.size()));
+        return orders;
+    }
+    
+    
     
 }
