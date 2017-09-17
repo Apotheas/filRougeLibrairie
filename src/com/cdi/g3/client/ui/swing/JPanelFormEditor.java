@@ -313,7 +313,7 @@ public class JPanelFormEditor extends javax.swing.JPanel {
             jTextName.setText(myEditor.getNameEditor());
 
         } catch (ObjectNotFoundException ex) {
-            Logger.getLogger(JPanelFormAuthor.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, " this Editor isnt in Database ");
         }
         try {
 

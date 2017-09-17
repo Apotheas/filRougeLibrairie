@@ -13,10 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author youssef
- */
+
 public class AuthorDAO extends AbstractDataAccessObject {
 
     // ======================================

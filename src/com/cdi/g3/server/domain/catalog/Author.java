@@ -12,10 +12,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-/**
- *
- * @author youssef
- */
+
 public class Author extends DomainObject implements Serializable {
 
     private String idAuthor;

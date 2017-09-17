@@ -5,6 +5,7 @@
  */
 package com.cdi.g3.server.service.publishing;
 
+import com.cdi.g3.client.ui.swing.HomePage;
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.exception.UpdateException;
@@ -14,6 +15,9 @@ import com.cdi.g3.server.domain.catalog.Editor;
 import com.cdi.g3.server.domain.catalog.EditorDAO;
 import com.cdi.g3.server.service.AbstractService;
 import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -34,9 +38,13 @@ public class PublishingService extends AbstractService {
         return _daoEditor.findAll();
     }
 
-    public Collection findAuthorByISBN(String column, String champ) throws ObjectNotFoundException {
-        return _daoAuthor.findAllByChamp(column, champ);
-
+    public Collection findAuthorByISBN(String column, String champ) {
+        try {
+            return _daoAuthor.findAllByChamp(column, champ);
+        } catch (ObjectNotFoundException ex) {
+            System.out.println(" eurreur no authors founded " + ex.getMessage());
+        }
+        return null;
     }
 
     public Author findAuthor(String column, String idAuthor) throws ObjectNotFoundException {

@@ -14,6 +14,7 @@ import com.cdi.g3.server.service.catalog.CatalogService;
 import com.cdi.g3.server.service.publishing.PublishingService;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,29 +33,29 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JPanelFormAuthor extends javax.swing.JPanel {
 
-    DefaultTableModel myModel = new DefaultTableModel();
-    PublishingService publishingService = new PublishingService();
-    CatalogService catalogService = new CatalogService();    
-    Vector authorList = new Vector();
-    DateFormat df = new SimpleDateFormat("dd-MM-YYYY");
+    private DefaultTableModel tabModel = new DefaultTableModel();
+    private PublishingService publishingService = new PublishingService();
+    private CatalogService catalogService = new CatalogService();    
+    private Vector authorList = new Vector();
+    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
     public JPanelFormAuthor() {
         initComponents();
 
-        myModel.addColumn("ISBN");
-        myModel.addColumn("TITLE");
-        myModel.addColumn("SUB-TITLE");
-        myModel.addColumn("EDITOR");
-        myModel.addColumn("STOCK");
-        myModel.addColumn("COST");
-        jTable.setModel(myModel);
+        tabModel.addColumn("ISBN");
+        tabModel.addColumn("TITLE");
+        tabModel.addColumn("SUB-TITLE");
+        tabModel.addColumn("EDITOR");
+        tabModel.addColumn("STOCK");
+        tabModel.addColumn("COST");
+        jTable.setModel(tabModel);
         jComboBoxSelectedAuthor.setModel(initAuthorsModel());
     }
 
     private void clearTab() {
-        int lignes = myModel.getRowCount();
+        int lignes = tabModel.getRowCount();
         for (int i = lignes - 1; i >= 0; i--) {
-            myModel.removeRow(i);
+            tabModel.removeRow(i);
         }  
         
     }
@@ -69,10 +70,10 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
     }
 
     private DefaultComboBoxModel initAuthorsModel() {
-        return new DefaultComboBoxModel(initContactsVector());
+        return new DefaultComboBoxModel(initAuthorsVector());
     }
 
-    private Vector initContactsVector() {
+    private Vector initAuthorsVector() {
         try {
             Collection v = publishingService.FindAllAuthor();
             authorList.addAll(v);
@@ -111,7 +112,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
         jScrollPaneManageEvents = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jLabelSelectedAuthor = new javax.swing.JLabel();
-        jComboBoxSelectedAuthor = new javax.swing.JComboBox<String>();
+        jComboBoxSelectedAuthor = new javax.swing.JComboBox<>();
         jButtonUpdateAuthor = new javax.swing.JButton();
         jLabelSearchAuthor = new javax.swing.JLabel();
         jTextSearchAuthor = new javax.swing.JTextField();
@@ -192,8 +193,8 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
                         .addComponent(jTextLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelNewAuthorLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         jPanelNewAuthorLayout.setVerticalGroup(
             jPanelNewAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,7 +401,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
             }
 
         } catch (ObjectNotFoundException ex) {
-            Logger.getLogger(JPanelFormAuthor.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "this Author isnt in Database");
         }
         try {
             Vector v = null;
@@ -414,7 +415,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
                 v.add(book.getStockBook());
                 v.add(book.getUnitCostBook() + " €");
                 
-                myModel.addRow(v);
+                tabModel.addRow(v);
             }
             
         } catch (ObjectNotFoundException ex) {
@@ -437,7 +438,9 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
             myAuthor.setLastNameAuthor(jTextLastName.getText());
             myAuthor.setFirstNameAuthor(jTextFirstName.getText());
             myAuthor.setCommentAuthor(jTextComment.getText());
-            myAuthor.setBiographyAuthor(jTextBiography.getText());
+            myAuthor.setBiographyAuthor(jTextBiography.getText());            
+            myAuthor.setBirthDateAuthor(formatStringToSQLDate(jTextBirthDate.getText()));
+            myAuthor.setDieDateAuthor(formatStringToSQLDate(jTextDeathDate.getText()));
 
             int retour = JOptionPane.showConfirmDialog(this,
                     "Etes-Vous Sure de vouloir modifier l'autheur ? ",
@@ -459,10 +462,19 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
             Logger.getLogger(JPanelFormAuthor.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CheckException ex) {
             Logger.getLogger(JPanelFormAuthor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(JPanelFormAuthor.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_jButtonUpdateAuthorActionPerformed
-
+     public java.sql.Date formatStringToSQLDate(String strDate) throws Exception{
+        Date utilDate = new Date(); //DateFormat
+        SimpleDateFormat dfFormat = new SimpleDateFormat("yyyy-MM-dd"); // parse string into a DATE format      
+        utilDate = dfFormat.parse(strDate); // convert a util.Date to milliseconds via its getTime() method         
+        long time = utilDate.getTime(); // get the long value of java.sql.Date 
+        java.sql.Date sqlDate = new java.sql.Date(time);
+        return sqlDate;   
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSearchAuthor;
     private javax.swing.JButton jButtonUpdateAuthor;

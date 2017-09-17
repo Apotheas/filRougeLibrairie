@@ -33,9 +33,9 @@ public class Book extends DomainObject implements Serializable {
     private  Collection listSubTheme = new ArrayList();
     private  Collection listAuthor = new ArrayList();
     private  Collection listKeyWord = new ArrayList();
-    private Collection listEvent = new ArrayList();
-    private Collection listAppreciation = new ArrayList();
-    private Collection listOrderLine = new ArrayList();
+    private  Collection listEvent = new ArrayList();
+    private  Collection listAppreciation = new ArrayList();
+    private  Collection listOrderLine = new ArrayList();
 
     public Book() {
     }
@@ -253,7 +253,7 @@ public class Book extends DomainObject implements Serializable {
 
     @Override
     public String toString() {
-        return numISBNBook + " " + titleBook + " stockBook = " + stockBook;
+        return titleBook ;
     }
 
     @Override
