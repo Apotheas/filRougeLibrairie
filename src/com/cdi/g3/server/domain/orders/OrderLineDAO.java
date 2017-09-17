@@ -106,12 +106,24 @@ public class OrderLineDAO extends AbstractDataAccessObject {
         try {
             
             prestmt.setInt(1, ((OrderLine) object).getQuantityOrderLine());
+            
             prestmt.setFloat(2, ((OrderLine) object).getUnitCostOrderLine());
+            
             prestmt.setString(3, ((OrderLine) object).getOrder().getId());
+            
             prestmt.setString(4, ((OrderLine) object).getBook().getId());
+            
             prestmt.setFloat(5, ((OrderLine) object).getDiscountOrderLine());
-            prestmt.setFloat(6, ((OrderLine) object).getRateTvaOrderLine());
+            
+            prestmt.setFloat(6, ((OrderLine) object).getRateTvaOrderLine());            
+            
+             if (((OrderLine) object).getAppreciation() != null) {
             prestmt.setString(7, ((OrderLine) object).getAppreciation().getId());
+            }
+             else
+                 {
+                prestmt.setString(7, null);
+            }
             prestmt.setString(8, ((OrderLine) object).getIdOrderLine());
             
             retour = prestmt.executeUpdate();

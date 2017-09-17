@@ -7,14 +7,13 @@ package com.cdi.g3.server.domain.orders;
 
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
-import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.customers.Adress;
 import com.cdi.g3.server.domain.customers.Customer;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-
+import java.util.Vector;
 /**
  *
  * @author youssef
@@ -42,10 +41,12 @@ public class Orders extends DomainObject implements Serializable{
     // =            Constructors            =
     // ======================================
      public Orders() {
+         nameInfoStatus = new InfoStatus("processing");
     }
 
     public Orders(final String id) {
        idOrders = id;
+       nameInfoStatus = new InfoStatus("processing");
     } 
     public Orders(final String id, Adress adressShipping, Customer customer, Date dateOrder, InfoStatus nameInfoStatus){
 		super();
@@ -181,7 +182,20 @@ public class Orders extends DomainObject implements Serializable{
         return idOrders + " " + customer + " " + internalNumOrder;
     }
     
-    
+     public Vector getVector() {
+        Vector v = new Vector();
+        v.add(this);
+        v.add(this.idOrders);
+        v.add(this.internalNumOrder);
+        v.add(this.customer.getLastNameCustomer());
+        v.add(this.customer.getFirstNameCustomer());
+         v.add(this.adressShipping.getId());
+        v.add(this.dateOrder);
+        v.add(this.pachageShipper.getShipper().getId());
+        v.add(this.ipOrder);
+        v.add(this.nameInfoStatus.getId());
+        return v;
+    }
     
     
 }

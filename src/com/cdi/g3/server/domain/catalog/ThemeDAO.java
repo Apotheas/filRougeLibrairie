@@ -68,6 +68,10 @@ public class ThemeDAO extends AbstractDataAccessObject {
         sql = "SELECT " + COLUMNS + " FROM " + TABLE;
         return sql;
     }
+    
+    
+    
+    
 
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {

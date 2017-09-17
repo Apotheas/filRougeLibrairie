@@ -16,37 +16,35 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
-
-
 /**
  *
  * @author youssef
  */
-public class OrdersDAO extends AbstractDataAccessObject{
+public class OrdersDAO extends AbstractDataAccessObject {
+
     // ======================================
     // =             Attributes             =
     // ======================================
+
     private static final String TABLE = "Orders";
     private static final String COLUMNS = "IDORDER, IDADRESSSHIPPINGORDER, LOGINCUSTOMERORDER,"
             + " DATEORDER, NAMEINFOSTATUSORDER, IDADRESSBILLINGORDER, IDPACKAGESHIPPERORDER, INTERNALNUMORDER,"
             + "PAYMENTSYSTEMORDER, IPORDER, DATEPACKAGESHIPPERORDER";
-    
+
     private static final String COLUMNS_PREP = "IDADRESSSHIPPINGORDER, LOGINCUSTOMERORDER,"
             + " DATEORDER, NAMEINFOSTATUSORDER, IDADRESSBILLINGORDER, IDPACKAGESHIPPERORDER, INTERNALNUMORDER,"
             + "PAYMENTSYSTEMORDER, IPORDER, DATEPACKAGESHIPPERORDER, IDORDER";
-    
+
     // Used to get a unique id with the UniqueIdGenerator
     private static final String COUNTER_NAME = "Orders";
-    
-    
+
     // ======================================
     // =           Business methods         =
     // ======================================
-
     @Override
     protected String getInsertSqlPreparedStatement() {
-        final String sql;        
-        sql =   "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        final String sql;
+        sql = "INSERT INTO " + TABLE + "(" + COLUMNS_PREP + ") VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         return sql;
     }
 
@@ -59,10 +57,10 @@ public class OrdersDAO extends AbstractDataAccessObject{
 
     @Override
     protected String getUpdateSqlPreparedStatement() {
-        final String sql;        
+        final String sql;
         sql = "UPDATE " + TABLE + " SET IDADRESSSHIPPINGORDER = ?, LOGINCUSTOMERORDER = ?, DATEORDER = ?,"
                 + " NAMEINFOSTATUSORDER = ?, IDADRESSBILLINGORDER = ?, IDPACKAGESHIPPERORDER = ?, INTERNALNUMORDER = ?, PAYMENTSYSTEMORDER = ?,"
-                + " IPORDER = ?, DATEPACKAGESHIPPERORDER = ? WHERE IDORDER = ?" ;
+                + " IPORDER = ?, DATEPACKAGESHIPPERORDER = ? WHERE IDORDER = ?";
         return sql;
     }
 
@@ -79,13 +77,12 @@ public class OrdersDAO extends AbstractDataAccessObject{
         sql = "SELECT " + COLUMNS + " FROM " + TABLE;
         return sql;
     }
-    
-    
+
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Orders order;
-        order = new Orders( resultSet.getString(1), new Adress( resultSet.getString(2)),
-        new Customer (resultSet.getString(3)),resultSet.getDate(4),new InfoStatus(resultSet.getString(5)));
+        order = new Orders(resultSet.getString(1), new Adress(resultSet.getString(2)),
+                new Customer(resultSet.getString(3)), resultSet.getDate(4), new InfoStatus(resultSet.getString(5)));
         order.setAdressShipping(new Adress(resultSet.getString(6)));
         order.setPachageShipper(new PachageShipper(resultSet.getString(7)));
         order.setInternalNumOrder(resultSet.getString(8));
@@ -97,21 +94,41 @@ public class OrdersDAO extends AbstractDataAccessObject{
 
     @Override
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
-       int retour = 0;
+        int retour = 0;
         try {
+
+            if (((Orders) object).getAdressShipping() != null) {
+                prestmt.setString(1, ((Orders) object).getAdressShipping().getId());
+            } else {
+                prestmt.setString(1, null);
+            }
+
             
-            prestmt.setString(1, ((Orders) object).getAdressShipping().getId());
             prestmt.setString(2, ((Orders) object).getCustomer().getId());
+            
             prestmt.setDate(3, (java.sql.Date) (Date) ((Orders) object).getDateOrder());
-            prestmt.setString(4, ((Orders) object).getNameInfoStatus().getId());
-            prestmt.setString(5, ((Orders) object).getAdressBilling().getId());
-            prestmt.setString(6, ((Orders) object).getPachageShipper().getId());
+
+            if (((Orders) object).getNameInfoStatus() != null) {
+                prestmt.setString(4, ((Orders) object).getNameInfoStatus().getId());
+            } else {
+                prestmt.setString(2, new InfoStatus().getId());
+            }
+            if (((Orders) object).getAdressBilling() != null) {
+                prestmt.setString(5, ((Orders) object).getAdressBilling().getId());
+            } else {
+                prestmt.setString(2, null);
+            }
+            if (((Orders) object).getPachageShipper() != null) {
+                prestmt.setString(6, ((Orders) object).getPachageShipper().getId());
+            } else {
+                prestmt.setString(2, null);
+            }
             prestmt.setString(7, ((Orders) object).getInternalNumOrder());
             prestmt.setString(8, ((Orders) object).getPaymentSystemOrder());
             prestmt.setString(9, ((Orders) object).getIpOrder());
             prestmt.setDate(10, (java.sql.Date) (Date) ((Orders) object).getDatepachageShipperOrder());
             prestmt.setString(11, ((Orders) object).getId());
-            
+
             retour = prestmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -121,10 +138,10 @@ public class OrdersDAO extends AbstractDataAccessObject{
         }
         return retour;
     }
-    
+
     @Override
     protected String getCounterName() {
-         return COUNTER_NAME;
+        return COUNTER_NAME;
     }
-    
+
 }
