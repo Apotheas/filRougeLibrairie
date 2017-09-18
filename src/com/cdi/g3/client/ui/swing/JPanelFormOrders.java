@@ -44,10 +44,13 @@ import javax.swing.table.DefaultTableModel;
 //public class JPanelFormOrders extends javax.swing.JPanel {
     public class JPanelFormOrders extends  JDesktopPane{
 //    CatalogService bookService = new CatalogService();
+      OrderService serviceOrder = new OrderService();
       OtherService otherService = new OtherService();
       BookDAO _daoBook =new BookDAO();
       JPanelFormCustomers jPanalCustomer = new JPanelFormCustomers();
       Vector cartShopingData = new Vector();
+      Vector vectorJTableOrders = new Vector();
+      
        Collection books ;
     /**
      * Creates new form JPanelOrders
@@ -72,15 +75,14 @@ import javax.swing.table.DefaultTableModel;
         jTabbedPaneOrders = new javax.swing.JTabbedPane();
         jPanelManage = new javax.swing.JPanel();
         jPanelSearchOrder = new javax.swing.JPanel();
-        jLabelSearch = new javax.swing.JLabel();
-        jTextSearch = new javax.swing.JTextField();
-        jLabelOrderStatus = new javax.swing.JLabel();
+        jTextSearchOrders = new javax.swing.JTextField();
         jComboBoxOrderStatus = new javax.swing.JComboBox<String>();
-        jButtonSearch = new javax.swing.JButton();
+        jButtonSearchOrders = new javax.swing.JButton();
         jPanelCart = new javax.swing.JPanel();
         jScrollPaneCart = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        jTableOrders = new javax.swing.JTable();
         jButtonSetStatus = new javax.swing.JButton();
+        jComboBoxSearchOrdersBycolumn = new javax.swing.JComboBox();
         jPanelOrdersWaiting = new javax.swing.JPanel();
         jScrollPaneOrdersWaiting = new javax.swing.JScrollPane();
         jTable6 = new javax.swing.JTable();
@@ -151,48 +153,54 @@ import javax.swing.table.DefaultTableModel;
         jComboBoxAdressBilling = new javax.swing.JComboBox();
         jRadioButtonSame = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
         jPanelSearchOrder.setBorder(javax.swing.BorderFactory.createTitledBorder("Search order"));
 
-        jLabelSearch.setText("Order id / User  : ");
-
-        jTextSearch.addActionListener(new java.awt.event.ActionListener() {
+        jTextSearchOrders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextSearchActionPerformed(evt);
+                jTextSearchOrdersActionPerformed(evt);
             }
         });
 
-        jLabelOrderStatus.setText("Order Status  :");
-
         jComboBoxOrderStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Shipped", "Item 2", "Item 3", "Item 4" }));
 
-        jButtonSearch.setText("Search");
+        jButtonSearchOrders.setText("Search");
+        jButtonSearchOrders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchOrdersActionPerformed(evt);
+            }
+        });
 
         jPanelCart.setBorder(javax.swing.BorderFactory.createTitledBorder("Shopping Cart"));
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        jTableOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ISBN", "Title", "Author", "Quantity"
+                "Num order", "Num intern order", "Date order", "LastName Customer", "FirstName Customer", "Name shipper", "Date shipping", "Ip customer", "Satatus order"
             }
-        ));
-        jScrollPaneCart.setViewportView(jTable5);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPaneCart.setViewportView(jTableOrders);
 
         javax.swing.GroupLayout jPanelCartLayout = new javax.swing.GroupLayout(jPanelCart);
         jPanelCart.setLayout(jPanelCartLayout);
         jPanelCartLayout.setHorizontalGroup(
             jPanelCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneCart)
+            .addComponent(jScrollPaneCart, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
         );
         jPanelCartLayout.setVerticalGroup(
             jPanelCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,41 +209,41 @@ import javax.swing.table.DefaultTableModel;
 
         jButtonSetStatus.setText("Set");
 
+        jComboBoxSearchOrdersBycolumn.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Number Order", "InternNum Order", "Login Customer", "Status Order" }));
+
         javax.swing.GroupLayout jPanelSearchOrderLayout = new javax.swing.GroupLayout(jPanelSearchOrder);
         jPanelSearchOrder.setLayout(jPanelSearchOrderLayout);
         jPanelSearchOrderLayout.setHorizontalGroup(
             jPanelSearchOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelSearchOrderLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabelSearch)
-                .addGap(110, 110, 110)
-                .addComponent(jTextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jButtonSearch)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(jLabelOrderStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBoxOrderStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonSetStatus)
-                .addGap(32, 32, 32))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSearchOrderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanelCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanelSearchOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelSearchOrderLayout.createSequentialGroup()
+                        .addComponent(jPanelCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanelSearchOrderLayout.createSequentialGroup()
+                        .addComponent(jComboBoxSearchOrdersBycolumn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jTextSearchOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jButtonSearchOrders)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBoxOrderStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonSetStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))))
         );
         jPanelSearchOrderLayout.setVerticalGroup(
             jPanelSearchOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelSearchOrderLayout.createSequentialGroup()
                 .addGap(88, 88, 88)
                 .addGroup(jPanelSearchOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelSearch)
-                    .addComponent(jTextSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelOrderStatus)
+                    .addComponent(jButtonSearchOrders)
+                    .addComponent(jButtonSetStatus)
+                    .addComponent(jComboBoxSearchOrdersBycolumn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxOrderStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSearch)
-                    .addComponent(jButtonSetStatus))
-                .addGap(18, 18, 18)
+                    .addComponent(jTextSearchOrders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addComponent(jPanelCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
         );
@@ -281,7 +289,7 @@ import javax.swing.table.DefaultTableModel;
                 .addGroup(jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelSearchOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelOrdersWaiting, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(244, 244, 244))
         );
         jPanelManageLayout.setVerticalGroup(
             jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -702,7 +710,7 @@ import javax.swing.table.DefaultTableModel;
                     .addGroup(jPanelNewLayout.createSequentialGroup()
                         .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelNewLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(0, 315, Short.MAX_VALUE)
                                 .addComponent(jComboBoxCreteriaSearchBook, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextAddBook, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -789,19 +797,12 @@ import javax.swing.table.DefaultTableModel;
 
         jTabbedPaneOrders.addTab("New", jPanelNew);
 
-        jTable1.setModel(initOrdersTableModel());
-        jScrollPane1.setViewportView(jTable1);
-
-        jTabbedPane1.addTab("tab1", jScrollPane1);
-
-        jTabbedPaneOrders.addTab("Orders", jTabbedPane1);
-
         add(jTabbedPaneOrders, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextSearchActionPerformed
+    private void jTextSearchOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextSearchOrdersActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextSearchActionPerformed
+    }//GEN-LAST:event_jTextSearchOrdersActionPerformed
 
     private void jButtonAddBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddBookActionPerformed
         final String mname = "jButtonAddBookActionPerformed";
@@ -999,6 +1000,69 @@ import javax.swing.table.DefaultTableModel;
         } 
     }//GEN-LAST:event_jComboBoxBookMouseEntered
 
+    private void jButtonSearchOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchOrdersActionPerformed
+       final String mname = "jButtonSearchOrdersActionPerformed";
+       Vector rowDada = new Vector();
+       Collection    orders = null;
+          
+       
+       if (jComboBoxSearchOrdersBycolumn.getSelectedIndex() == 0) {
+       
+          Orders order = null;
+           try {
+              order = serviceOrder.findOrder(jTextSearchOrders.getText());
+           } catch (FinderException ex) {
+               Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+           } catch (CheckException ex) {
+               Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           Vector colData = null;
+                    colData = new Vector();
+                    colData.add(order);
+                    rowDada.add(order.getVector());           
+            vectorJTableOrders.add(rowDada);
+       }
+       
+       
+       
+       if (jComboBoxSearchOrdersBycolumn.getSelectedIndex() == 1) {
+           Orders order = null;
+         
+           try {
+               order = serviceOrder.findOrderByNumIternOrder("INTERNALNUMORDER", jTextSearchOrders.getText());
+           } catch (ObjectNotFoundException ex) {
+               Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+           }
+           Vector colData = null;
+                    colData = new Vector();
+                    colData.add(order);
+                    rowDada.add(order.getVector());           
+            vectorJTableOrders.add(rowDada);
+       }
+        
+       
+       if (jComboBoxSearchOrdersBycolumn.getSelectedIndex() == 2) {
+       
+                try {
+                       orders = serviceOrder.findOrdersByCustomer("LoginCustomer", jTextSearchOrders.getText());
+                   } catch (ObjectNotFoundException ex) {
+                       Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+                   }
+
+                for (Orders order : (Collection <Orders>) orders) {
+                    Vector colData = null;
+                    colData = new Vector();
+                    colData.add(order);
+                    rowDada.add(order.getVector());
+                }
+             vectorJTableOrders.add(rowDada);
+       
+       }
+       
+       jTableOrders.setModel(initOrdersTableModel(vectorJTableOrders));
+        
+    }//GEN-LAST:event_jButtonSearchOrdersActionPerformed
+
     
     
     public DefaultComboBoxModel initBooksComboBoxModel(Collection books) {
@@ -1012,41 +1076,28 @@ import javax.swing.table.DefaultTableModel;
     }
         
         
-    public DefaultTableModel initOrdersTableModel() {
-        return new DefaultTableModel(initVectorTableData(), initVectorColumnNamesTable());
+    public DefaultTableModel initOrdersTableModel(Vector v) {
+        return new DefaultTableModel(initVectorOrdersTableData(v), initVectorColumnNamesTable());
     }
     
-    private Vector initVectorTableData() {
-       final String mname = "initVectorTableData";
-       OrderService serviceOrder = new OrderService();
-       Vector rowDada = new Vector();      
-       Collection    orders = null;
-        try {
-            orders = serviceOrder.findOrders();
-        } catch (FinderException ex) {
-            Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       for (Orders order : (Collection <Orders>) orders) {
-           Vector colData = null;
-           colData = new Vector();
-           colData.add(order);
-           rowDada.add(order.getVector());
-       }
-        return rowDada; 
+    private Vector initVectorOrdersTableData(Vector v) {
+       vectorJTableOrders.clear();
+       vectorJTableOrders.add(v);
+       return vectorJTableOrders;
     }
 
     private Vector initVectorColumnNamesTable() {
         Vector<String> columnNames = new Vector();
-        columnNames.add("Order");
-        columnNames.add("LOGIN");
-        columnNames.add("Last Name");
-        columnNames.add("First Name");
-        columnNames.add("Adress Shipping");
-        columnNames.add("Date Order");
+        columnNames.add("Num order");
+        columnNames.add("Num intern order");
+        columnNames.add("Date order");
+        columnNames.add("LastName customer");
+        columnNames.add("FirstName customer");
+        columnNames.add("AdressShip customer");        
         columnNames.add("Name Shipper");
+        columnNames.add("DateShip order");
         columnNames.add("Ip Customer");
         columnNames.add("Status Order");
-        columnNames.add("Status");
         return columnNames;
     }
     
@@ -1087,7 +1138,7 @@ protected final transient String _cname = this.getClass().getName();
     private javax.swing.JButton jButtonClearCart;
     private javax.swing.JButton jButtonDeleteLine;
     private javax.swing.JButton jButtonProceed;
-    private javax.swing.JButton jButtonSearch;
+    private javax.swing.JButton jButtonSearchOrders;
     private javax.swing.JButton jButtonSetStatus;
     private javax.swing.JComboBox jComboBoxAdressBilling;
     private javax.swing.JComboBox jComboBoxAdressShipping;
@@ -1095,6 +1146,7 @@ protected final transient String _cname = this.getClass().getName();
     private javax.swing.JComboBox jComboBoxCreteriaSearchBook;
     private javax.swing.JComboBox jComboBoxCustomer;
     private javax.swing.JComboBox<String> jComboBoxOrderStatus;
+    private javax.swing.JComboBox jComboBoxSearchOrdersBycolumn;
     private javax.swing.JLabel jLabelCCV;
     private javax.swing.JLabel jLabelCard;
     private javax.swing.JLabel jLabelCityBill;
@@ -1111,9 +1163,7 @@ protected final transient String _cname = this.getClass().getName();
     private javax.swing.JLabel jLabelLastNameShipp;
     private javax.swing.JLabel jLabelNumAdressBill;
     private javax.swing.JLabel jLabelNumAdressShip;
-    private javax.swing.JLabel jLabelOrderStatus;
     private javax.swing.JLabel jLabelQuantity;
-    private javax.swing.JLabel jLabelSearch;
     private javax.swing.JLabel jLabelStreet2AdressBill;
     private javax.swing.JLabel jLabelStreet2Ship;
     private javax.swing.JLabel jLabelStreetBill;
@@ -1132,15 +1182,12 @@ protected final transient String _cname = this.getClass().getName();
     private javax.swing.JPanel jPanelSearchOrder;
     private javax.swing.JPanel jPanelShipping;
     private javax.swing.JRadioButton jRadioButtonSame;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPaneCart;
     private javax.swing.JScrollPane jScrollPaneOrdersWaiting;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPaneOrders;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
+    private javax.swing.JTable jTableOrders;
     private javax.swing.JTable jTableShoppingCart;
     private javax.swing.JTextField jTextAddBook;
     private javax.swing.JTextField jTextCCV;
@@ -1160,7 +1207,7 @@ protected final transient String _cname = this.getClass().getName();
     private javax.swing.JTextField jTextOrderDate;
     private javax.swing.JTextField jTextOrderId;
     private javax.swing.JTextField jTextQuantity;
-    private javax.swing.JTextField jTextSearch;
+    private javax.swing.JTextField jTextSearchOrders;
     private javax.swing.JTextField jTextStreet2Bill;
     private javax.swing.JTextField jTextStreet2Shipp;
     private javax.swing.JTextField jTextStreetBill;

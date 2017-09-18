@@ -6,17 +6,22 @@
 package com.cdi.g3.server.domain.orders;
 
 import com.cdi.g3.common.exception.DataAccessException;
+import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.common.utiles.Utility;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.customers.Adress;
 import com.cdi.g3.server.domain.customers.Customer;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
 import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displaySqlException;
+import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.getConnection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.sql.Date;
+import java.sql.Statement;
 
 /**
  *
@@ -79,6 +84,62 @@ public class OrdersDAO extends AbstractDataAccessObject {
         sql = "SELECT " + COLUMNS + " FROM " + TABLE;
         return sql;
     }
+    
+    @Override
+    protected String getSelectAllSqlStatementByChamp(String column, String champ){
+        final String sql;
+        sql = "SELECT " + COLUMNS+ " FROM " + TABLE  +" ord "+" join Customer cus " +
+              "On ord.LOGINCUSTOMERORDER = cus.LOGINCUSTOMER "+
+              "WHERE "+  column + " = '"+ champ+"'";      
+ 
+        
+        return sql;
+    }
+    
+    
+  
+    public DomainObject getOrdersByStatus(String column, String champ) throws ObjectNotFoundException{
+        final String sql;
+        sql = "SELECT " + COLUMNS+ " FROM " + TABLE  +" ord "+" join InfoStatus infs " +
+              "On ord.NAMEINFOSTATUSORDER = infs.NAMEINFOSTATUS "+
+              "WHERE "+  column + " = '"+ champ+"'";
+        final String mname = "select";
+        Trace.entering(getCname(), mname, column);
+        ResultSet resultSet = null;
+        DomainObject object;
+        // Gets a database connection
+        try (Connection connection = getConnection(); 
+            Statement statement = connection.createStatement()) {
+            
+            // Select a Row
+            resultSet = statement.executeQuery(sql);
+            if (!resultSet.next()) {
+                throw new ObjectNotFoundException();
+            }
+
+            // Set data to current object
+            object = transformResultset2DomainObject(resultSet);
+
+        } catch (SQLException e) {
+            // A Severe SQL Exception is caught
+            displaySqlException(e);
+            throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
+        } finally {
+            // Close
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }                
+            } catch (SQLException e) {
+                displaySqlException("Cannot close connection", e);
+                throw new DataAccessException("Cannot close the database connection", e);
+            }
+        }
+
+        Trace.exiting(getCname(), mname, object);
+        return object;        
+    }
+    
 
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {

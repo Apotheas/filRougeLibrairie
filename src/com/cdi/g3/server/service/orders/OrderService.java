@@ -175,6 +175,20 @@ public class OrderService extends AbstractService {
         }
     }
     
+    public Collection findOrdersByCustomer(String column, String champ) throws ObjectNotFoundException {
+        return  _orderDAO.findAllByChamp(column, champ);
+    }
+    
+    
+    public Orders findOrderByNumIternOrder(String column, String champ) throws ObjectNotFoundException {
+        return   (Orders) _orderDAO.findByChamp(column, champ);
+    }
+
+    
+    public Orders findOrdersByStatus(String column, String champ) throws ObjectNotFoundException {
+         return  (Orders) _orderDAO.getOrdersByStatus(column,champ);
+    }
+    
     
     public Collection findOrders() throws FinderException {
         final String mname = "findOrderss";
