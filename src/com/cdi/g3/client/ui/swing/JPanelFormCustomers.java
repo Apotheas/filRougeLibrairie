@@ -20,6 +20,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
@@ -735,7 +736,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     private void jComboBoxShipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxShipActionPerformed
         jComboBoxShip.setModel(initAdressShipComboBoxModel(adressShipList));
         final Adress adressShipping = ((Adress) jComboBoxShip.getSelectedItem());
-        setChampsShppingAdress(adressShipping);        
+        setChampsShippingAdress(adressShipping);        
         jButtonCreateAdressShip.setVisible(false);
         jComboBoxShip.setVisible(true);
         jButton1.setVisible(true);
@@ -885,7 +886,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
        
     }//GEN-LAST:event_jComboBoxBillActionPerformed
    
-    private void setChampsBillingAdress(Adress adress){
+    public void setChampsBillingAdress(Adress adress){
         jTextNameReceiverAdressBill.setText(adress.getNameReceiverAdress());
         jTextNumStreetBill.setText(adress.getNumAdress());
         jTextStreetBill.setText(adress.getNameStreetAdress());
@@ -897,7 +898,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jTextIdAdressBill.setText(adress.getId());
         
     }
-    private void clearBillingAdress(){
+    public void clearBillingAdress(){
         jTextNameReceiverAdressBill.setText("");
         jTextNumStreetBill.setText("");
         jTextStreetBill.setText("");
@@ -910,7 +911,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         
     }
     
-     private void setChampsShppingAdress(Adress adress){
+     public void setChampsShippingAdress(Adress adress){
         jTextNameReceiverAdressShipp.setText(adress.getNameReceiverAdress());
         jTextNumStreetShipp.setText(adress.getNumAdress());
         jTextStreetShipp.setText(adress.getNameStreetAdress());
@@ -922,7 +923,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jTextIdAdressShipp.setText(adress.getId());
         
     }
-    private void clearShippingAdress(){
+    public void clearShippingAdress(){
         jTextNameReceiverAdressShipp.setText("");
         jTextNumStreetShipp.setText("");
         jTextStreetShipp.setText("");
@@ -1043,6 +1044,17 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         columnNames.add("Status");
         return columnNames;
     }
+
+    public JComboBox getjComboBoxBill() {
+        return jComboBoxBill;
+    }
+
+    public JComboBox getjComboBoxShip() {
+        return jComboBoxShip;
+    }
+    
+    
+    
     
     protected final transient String _cname = this.getClass().getName();
     // Variables declaration - do not modify//GEN-BEGIN:variables

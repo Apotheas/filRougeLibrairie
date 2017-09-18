@@ -5,19 +5,24 @@
  */
 package com.cdi.g3.client.ui.swing;
 
+import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.logging.Trace;
+import com.cdi.g3.common.utiles.Utility;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.catalog.BookDAO;
 import com.cdi.g3.server.domain.customers.Adress;
 import com.cdi.g3.server.domain.customers.Customer;
 import com.cdi.g3.server.domain.orders.OrderLine;
 import com.cdi.g3.server.domain.orders.Orders;
+import com.cdi.g3.server.domain.other.CodeTVA;
 import com.cdi.g3.server.service.catalog.CatalogService;
 import com.cdi.g3.server.service.customers.CustomerService;
 import com.cdi.g3.server.service.orders.OrderService;
+import com.cdi.g3.server.service.other.OtherService;
 import java.text.DateFormat;
+import java.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,7 +44,11 @@ import javax.swing.table.DefaultTableModel;
 //public class JPanelFormOrders extends javax.swing.JPanel {
     public class JPanelFormOrders extends  JDesktopPane{
 //    CatalogService bookService = new CatalogService();
-    
+      OtherService otherService = new OtherService();
+      BookDAO _daoBook =new BookDAO();
+      JPanelFormCustomers jPanalCustomer = new JPanelFormCustomers();
+      Vector cartShopingData = new Vector();
+       Collection books ;
     /**
      * Creates new form JPanelOrders
      */
@@ -87,37 +96,37 @@ import javax.swing.table.DefaultTableModel;
         jButtonClearCart = new javax.swing.JButton();
         jPanelShipping = new javax.swing.JPanel();
         jLabelLastNameShipp = new javax.swing.JLabel();
-        jTextLastNameShip = new javax.swing.JTextField();
+        jTextNameReceiverAdressShipp = new javax.swing.JTextField();
         jLabelIdAdressShipp = new javax.swing.JLabel();
-        jTextIdAdressShip = new javax.swing.JTextField();
+        jTextIdAdressShipp = new javax.swing.JTextField();
         jLabelStreetShipp = new javax.swing.JLabel();
         jLabelZipShipp = new javax.swing.JLabel();
         jLabelCityShipp = new javax.swing.JLabel();
-        jTextStreetShip = new javax.swing.JTextField();
-        jTextCityShip = new javax.swing.JTextField();
-        jTextZipShip = new javax.swing.JTextField();
-        jTextStreet2Ship = new javax.swing.JTextField();
+        jTextStreetShipp = new javax.swing.JTextField();
+        jTextCityShipp = new javax.swing.JTextField();
+        jTextZipCodeShipp = new javax.swing.JTextField();
+        jTextStreet2Shipp = new javax.swing.JTextField();
         jLabelStreet2Ship = new javax.swing.JLabel();
-        jTextNumAdressShip = new javax.swing.JTextField();
+        jTextNumStreetShipp = new javax.swing.JTextField();
         jLabelNumAdressShip = new javax.swing.JLabel();
         jLabelCountryShip = new javax.swing.JLabel();
-        jTextCountryShip = new javax.swing.JTextField();
+        jTextCountryShipp = new javax.swing.JTextField();
         jPanelBilling = new javax.swing.JPanel();
         jLabelZipBill = new javax.swing.JLabel();
         jTextCityBill = new javax.swing.JTextField();
         jLabelLastNameBill = new javax.swing.JLabel();
         jTextIdAdressBill = new javax.swing.JTextField();
-        jTextLastNameBill = new javax.swing.JTextField();
-        jTextZipBill = new javax.swing.JTextField();
+        jTextNameReceiverAdressBill = new javax.swing.JTextField();
+        jTextZipCodeBill = new javax.swing.JTextField();
         jLabelStreetBill = new javax.swing.JLabel();
         jLabelIdAdressBill = new javax.swing.JLabel();
         jTextStreetBill = new javax.swing.JTextField();
         jLabelCityBill = new javax.swing.JLabel();
-        jTextStreet2AdressBill = new javax.swing.JTextField();
+        jTextStreet2Bill = new javax.swing.JTextField();
         jLabelStreet2AdressBill = new javax.swing.JLabel();
-        jTextNumAdressBill = new javax.swing.JTextField();
+        jTextNumStreetBill = new javax.swing.JTextField();
         jLabelNumAdressBill = new javax.swing.JLabel();
-        jTextCoutryAdressBill = new javax.swing.JTextField();
+        jTextCountryBill = new javax.swing.JTextField();
         jLabelCoutryAdressBill = new javax.swing.JLabel();
         jPanelCheckout = new javax.swing.JPanel();
         jButtonProceed = new javax.swing.JButton();
@@ -350,9 +359,9 @@ import javax.swing.table.DefaultTableModel;
 
         jLabelCityShipp.setText("City  :");
 
-        jTextZipShip.addActionListener(new java.awt.event.ActionListener() {
+        jTextZipCodeShipp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextZipShipActionPerformed(evt);
+                jTextZipCodeShippActionPerformed(evt);
             }
         });
 
@@ -372,71 +381,71 @@ import javax.swing.table.DefaultTableModel;
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingLayout.createSequentialGroup()
                         .addComponent(jLabelIdAdressShipp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(jTextIdAdressShip, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextIdAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingLayout.createSequentialGroup()
                         .addComponent(jLabelLastNameShipp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextLastNameShip, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextNameReceiverAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingLayout.createSequentialGroup()
                         .addComponent(jLabelZipShipp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextZipShip, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextZipCodeShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingLayout.createSequentialGroup()
                         .addComponent(jLabelStreet2Ship)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextStreet2Ship, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextStreet2Shipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingLayout.createSequentialGroup()
                         .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelStreetShipp)
                             .addComponent(jLabelNumAdressShip))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextNumAdressShip)
-                            .addComponent(jTextStreetShip, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
+                            .addComponent(jTextNumStreetShipp)
+                            .addComponent(jTextStreetShipp, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingLayout.createSequentialGroup()
                         .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelCityShipp)
                             .addComponent(jLabelCountryShip))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextCityShip, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                            .addComponent(jTextCountryShip))))
+                            .addComponent(jTextCityShipp, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                            .addComponent(jTextCountryShipp))))
                 .addContainerGap())
         );
         jPanelShippingLayout.setVerticalGroup(
             jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelShippingLayout.createSequentialGroup()
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextIdAdressShip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextIdAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelIdAdressShipp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextLastNameShip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextNameReceiverAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelLastNameShipp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextNumAdressShip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextNumStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNumAdressShip))
                 .addGap(8, 8, 8)
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextStreetShip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelStreetShipp))
                 .addGap(11, 11, 11)
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextStreet2Ship, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextStreet2Shipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelStreet2Ship))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextZipShip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextZipCodeShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelZipShipp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextCityShip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextCityShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCityShipp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCountryShip)
-                    .addComponent(jTextCountryShip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTextCountryShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jPanelBilling.setBorder(javax.swing.BorderFactory.createTitledBorder("Billing Adress"));
@@ -445,9 +454,9 @@ import javax.swing.table.DefaultTableModel;
 
         jLabelLastNameBill.setText("Last Name  :");
 
-        jTextZipBill.addActionListener(new java.awt.event.ActionListener() {
+        jTextZipCodeBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextZipBillActionPerformed(evt);
+                jTextZipCodeBillActionPerformed(evt);
             }
         });
 
@@ -473,7 +482,7 @@ import javax.swing.table.DefaultTableModel;
                     .addGroup(jPanelBillingLayout.createSequentialGroup()
                         .addComponent(jLabelZipBill)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextZipBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextZipCodeBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelBillingLayout.createSequentialGroup()
                         .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelIdAdressBill)
@@ -485,20 +494,20 @@ import javax.swing.table.DefaultTableModel;
                             .addGroup(jPanelBillingLayout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextNumAdressBill)
-                                    .addComponent(jTextLastNameBill, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                                    .addComponent(jTextNumStreetBill)
+                                    .addComponent(jTextNameReceiverAdressBill, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                                     .addComponent(jTextIdAdressBill, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
                                     .addComponent(jTextStreetBill, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                                .addComponent(jTextStreet2AdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jTextStreet2Bill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingLayout.createSequentialGroup()
                         .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelCityBill)
                             .addComponent(jLabelCoutryAdressBill))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextCoutryAdressBill)
+                            .addComponent(jTextCountryBill)
                             .addComponent(jTextCityBill, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
@@ -510,11 +519,11 @@ import javax.swing.table.DefaultTableModel;
                     .addComponent(jTextIdAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextLastNameBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextNameReceiverAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelLastNameBill))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextNumAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextNumStreetBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNumAdressBill))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -522,14 +531,14 @@ import javax.swing.table.DefaultTableModel;
                     .addComponent(jLabelStreetBill))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextStreet2AdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextStreet2Bill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelStreet2AdressBill))
                 .addGap(7, 7, 7)
                 .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelBillingLayout.createSequentialGroup()
                         .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelZipBill)
-                            .addComponent(jTextZipBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextZipCodeBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextCityBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelBillingLayout.createSequentialGroup()
@@ -537,7 +546,7 @@ import javax.swing.table.DefaultTableModel;
                         .addComponent(jLabelCityBill)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextCoutryAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextCountryBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCoutryAdressBill))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -636,10 +645,15 @@ import javax.swing.table.DefaultTableModel;
         );
 
         jComboBoxCustomer.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCustomerActionPerformed(evt);
+            }
+        });
 
         jComboBoxBook.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jComboBoxBookMouseClicked(evt);
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jComboBoxBookMouseEntered(evt);
             }
         });
         jComboBoxBook.addActionListener(new java.awt.event.ActionListener() {
@@ -655,8 +669,18 @@ import javax.swing.table.DefaultTableModel;
         jLabelComboBoxBooks.setText("Select a Book");
 
         jComboBoxAdressShipping.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxAdressShipping.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxAdressShippingActionPerformed(evt);
+            }
+        });
 
         jComboBoxAdressBilling.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxAdressBilling.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxAdressBillingActionPerformed(evt);
+            }
+        });
 
         jRadioButtonSame.setText("Same as Shipping");
 
@@ -791,90 +815,180 @@ import javax.swing.table.DefaultTableModel;
         } catch (FinderException ex) {
             Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        Vector rowCartShopping = new Vector();
         Book book =  (Book) jComboBoxBook.getSelectedItem();
-        jTableShoppingCart.setValueAt(book.getId(),0, 0);
-        jTableShoppingCart.setValueAt(jTextQuantity.getText(),0, 1);
-        jTableShoppingCart.setValueAt(book.getUnitCostBook(),0, 2);
         
-        System.out.println(book.getCodeTVA().getRateCodeTva());
+        rowCartShopping.add(0,book.getId());
+        rowCartShopping.add(1,jTextQuantity.getText());
+        rowCartShopping.add(2,book.getUnitCostBook());
         
         
-        jTableShoppingCart.setValueAt(book.getCodeTVA().getRateCodeTva(),0, 3);
-        float prixHT = Integer.parseInt(jTextQuantity.getText())*book.getCodeTVA().getRateCodeTva();
-        float prixTCC = prixHT * book.getCodeTVA().getRateCodeTva();
-        jTableShoppingCart.setValueAt(prixHT,0, 4);
-        jTableShoppingCart.setValueAt(prixTCC,0, 5);
+        
+        
+//        jTableShoppingCart.setValueAt( (String) book.getId(),0, 0);
+//        jTableShoppingCart.setValueAt(Integer.getInteger(jTextQuantity.getText()),0, 1);
+//        jTableShoppingCart.setValueAt((Float)book.getUnitCostBook(),0, 2);
+        
+        
+        CodeTVA codeTVA  =null;
+            try {
+                codeTVA = (CodeTVA) otherService.findCodeTVA(book.getCodeTVA().getId());
+            } catch (FinderException ex) {
+                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CheckException ex) {
+                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+            }
+//        jTableShoppingCart.setValueAt((Float)codeTVA.getRateCodeTva(),0, 3);            
+        
+        
+        float prixHT = (Integer.parseInt(jTextQuantity.getText())) * book.getUnitCostBook();
+        float prixTCC = prixHT + (prixHT * codeTVA.getRateCodeTva())/100;
+//      jTableShoppingCart.setValueAt(prixHT,0, 4);
+//      jTableShoppingCart.setValueAt(prixTCC,0, 5);
+        
+        rowCartShopping.add(3,codeTVA.getRateCodeTva());
+        rowCartShopping.add(4,prixHT);
+        rowCartShopping.add(5,prixTCC);
+        cartShopingData.add(rowCartShopping);
+        
+        jTableShoppingCart.setModel(initCartShopingTableModel(cartShopingData));
+        jComboBoxBook.setModel(initBooksComboBoxModel(books));
         
 // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAddBookActionPerformed
 
-    private void jTextZipShipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextZipShipActionPerformed
+    private void jTextZipCodeShippActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextZipCodeShippActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextZipShipActionPerformed
+    }//GEN-LAST:event_jTextZipCodeShippActionPerformed
 
-    private void jTextZipBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextZipBillActionPerformed
+    private void jTextZipCodeBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextZipCodeBillActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextZipBillActionPerformed
+    }//GEN-LAST:event_jTextZipCodeBillActionPerformed
 
     private void jButtonProceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProceedActionPerformed
-    final String mname = "jButtonProceedActionPerformed";
+        final String mname = "jButtonProceedActionPerformed";
         final OrderService OrderService = new OrderService();
-    final CustomerService customerService = new CustomerService();
+        final CustomerService customerService = new CustomerService();
         final Orders order;
         try {
             // Sets all the Order data
-            order = new Orders();            
-            
+            order = new Orders();
             // Sets all the order items data
             final Collection orderLines = new ArrayList();            
             OrderLine orderLine;
-            for(int i=0; i< this.jTableShoppingCart.getRowCount(); i++) {                       
+            
+            for (Iterator iterator = cartShopingData.iterator(); iterator.hasNext();){
+                Vector vectorRowCartShoping = (Vector) iterator.next();
                 
-                    orderLine = new OrderLine(new Book( (String) jTableShoppingCart.getModel().getValueAt(0,1)), 
-                            (int) jTableShoppingCart.getModel().getValueAt(1,i),
-                             (float) jTableShoppingCart.getModel().getValueAt(2,i),
-                            (float) jTableShoppingCart.getModel().getValueAt(3,i) );                        
-                    
-                    orderLines.add(orderLine);
+                int quantity = Integer.parseInt((String) vectorRowCartShoping.elementAt(1));
+                float unitCost = ((Float) vectorRowCartShoping.elementAt(2));
+                float rateTVA = ((Float) vectorRowCartShoping.elementAt(3));
+                               
+                orderLine = new OrderLine(new Book( (String) vectorRowCartShoping.elementAt(0)), 
+                            quantity, unitCost, rateTVA );
+                orderLines.add(orderLine);
+                
             }
+            
+//            for(int i=0; i< this.cartShopingData.size(); i++) { 
+//               int quantity = ((Integer) jTableShoppingCart.getModel().getValueAt(i,1)).intValue();
+//               float unitCost = (float)(jTableShoppingCart.getModel().getValueAt(i,2));
+//               float rateTVA = (float) (jTableShoppingCart.getModel().getValueAt(i,3));
+//                
+//                orderLine = new OrderLine(new Book( (String) jTableShoppingCart.getModel().getValueAt(i,0)), 
+//                            quantity, unitCost, rateTVA );
+//                    orderLines.add(orderLine);
+//            }
             
              // Sets all the Order data
             final Customer customer = ((Customer) jComboBoxCustomer.getSelectedItem());
             order.setCustomer(customer);
-            order.setDateOrder(new Date());
+            order.setDateOrder(java.sql.Date.valueOf( LocalDate.now()));            
             order.setPaymentSystemOrder("CB");
             
-            if (jTextIdAdressShip.getText()== null|| jTextIdAdressShip.getText().isEmpty())
+            if (jTextIdAdressShipp.getText()== null|| jTextIdAdressShipp.getText().isEmpty())
                 JOptionPane.showMessageDialog(this, "select a customer", "info message", JOptionPane.INFORMATION_MESSAGE);
             
-            order.setAdressShipping(new Adress(jTextIdAdressShip.getText()));
-            order.setAdressBilling(new Adress(jTextIdAdressBill.getText()));
+            jComboBoxCustomer.setModel(jPanalCustomer.initCustomersComboBoxModel(customer.getListAddressBilling()));
+            final Adress adressBilling = ((Adress) jComboBoxAdressShipping.getSelectedItem());        
+            
+                    
+            jComboBoxCustomer.setModel(jPanalCustomer.initCustomersComboBoxModel(customer.getListAddressShipping()));
+            final Adress adressShipping = ((Adress) jComboBoxAdressShipping.getSelectedItem());        
+            
+            
+            order.setAdressShipping(adressShipping);
+            order.setAdressBilling(adressBilling);
             order.setListOrderLines(orderLines);
-            
             // Create the order
-            
             final Orders result = OrderService.createOrder(order);
-            jTextOrderId.setText(result.getId());
+            jTextOrderId.setText(result.getId());            
             jTextOrderDate.setText(DateFormat.getDateInstance().format(result.getDateOrder()));
 
         } catch (Exception e) {
+             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Cannot access the order service", "Error", JOptionPane.ERROR_MESSAGE);
             Trace.throwing(_cname, mname, e);
         }
     }//GEN-LAST:event_jButtonProceedActionPerformed
 
     private void jComboBoxBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBookActionPerformed
-            BookDAO _daoBook =new BookDAO();
-                try {
-              Collection books ;
-                books = _daoBook.findAll();
-                jComboBoxBook.setModel(initBooksComboBoxModel(books));
+            
+                try {             
+              books = _daoBook.findAll();
+              jComboBoxBook.setModel(initBooksComboBoxModel(books));
         } catch (ObjectNotFoundException ex) {
             Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
         }  // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxBookActionPerformed
 
-    private void jComboBoxBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxBookMouseClicked
+    
+    
+    
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBoxCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCustomerActionPerformed
+         Customer customer = (Customer) jComboBoxCustomer.getSelectedItem();
+        
+        jComboBoxAdressShipping.setModel(jPanalCustomer.initAdressShipComboBoxModel(
+                           customer.getListAddressShipping())); 
+        
+        jComboBoxAdressBilling.setModel(jPanalCustomer.initAdressBillComboBoxModel(
+                           customer.getListAddressBilling())); 
+    }//GEN-LAST:event_jComboBoxCustomerActionPerformed
+
+    private void jComboBoxAdressBillingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAdressBillingActionPerformed
+       final Adress adressBilling = ((Adress) jComboBoxAdressBilling.getSelectedItem());
+        jTextNameReceiverAdressBill.setText(adressBilling.getNameReceiverAdress());
+        jTextNumStreetBill.setText(adressBilling.getNumAdress());
+        jTextStreetBill.setText(adressBilling.getNameStreetAdress());
+        jTextStreet2Bill.setText(adressBilling.getNameStreet2Adress());
+        jTextZipCodeBill.setText(adressBilling.getZipcodeAdress());
+        jTextCityBill.setText(adressBilling.getCityAdress());
+        jTextCountryBill.setText(adressBilling.getCountryAdress());
+//      jTextCompany.setText(adress.getNameCompanyReceiverAdress().getNameCompany());
+        jTextIdAdressBill.setText(adressBilling.getId());
+    }//GEN-LAST:event_jComboBoxAdressBillingActionPerformed
+
+    private void jComboBoxAdressShippingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAdressShippingActionPerformed
+        final Adress adressShipping = ((Adress) jComboBoxAdressShipping.getSelectedItem());
+        jTextNameReceiverAdressShipp.setText(adressShipping.getNameReceiverAdress());
+        jTextNumStreetShipp.setText(adressShipping.getNumAdress());
+        jTextStreetShipp.setText(adressShipping.getNameStreetAdress());
+         jTextStreet2Shipp.setText(adressShipping.getNameStreet2Adress());
+        jTextZipCodeShipp.setText(adressShipping.getZipcodeAdress());
+        jTextCityShipp.setText(adressShipping.getCityAdress());
+        jTextCountryShipp.setText(adressShipping.getCountryAdress());
+//      jTextCompany.setText(adressBilling.getNameCompanyReceiverAdress().getNameCompany());
+        jTextIdAdressShipp.setText(adressShipping.getId());
+        
+    }//GEN-LAST:event_jComboBoxAdressShippingActionPerformed
+
+    private void jComboBoxBookMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxBookMouseEntered
         BookDAO _daoBook =new BookDAO();
                 try {
               Collection books ;
@@ -882,24 +996,20 @@ import javax.swing.table.DefaultTableModel;
                 jComboBoxBook.setModel(initBooksComboBoxModel(books));
         } catch (ObjectNotFoundException ex) {
             Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-        }  // TODO
-    }//GEN-LAST:event_jComboBoxBookMouseClicked
+        } 
+    }//GEN-LAST:event_jComboBoxBookMouseEntered
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    
+    
     public DefaultComboBoxModel initBooksComboBoxModel(Collection books) {
         return new DefaultComboBoxModel( initBooksVector(books) );
     }
     private Vector initBooksVector(Collection books) {
-        final String mname = "initAdressChipVector";
+        final String mname = "initBooksVector";
         Vector v = new Vector();
         v.addAll(books);
         return v;
     }
-        
-        
         
         
     public DefaultTableModel initOrdersTableModel() {
@@ -939,6 +1049,36 @@ import javax.swing.table.DefaultTableModel;
         columnNames.add("Status");
         return columnNames;
     }
+    
+    
+    
+    
+    public DefaultTableModel initCartShopingTableModel(Vector v) {
+        return new DefaultTableModel(initVectorCartShopingTableData(v), initVectorCartShopingColumnNamesTable());
+    }
+    
+    private Vector initVectorCartShopingTableData(Vector v) {
+       final String mname = "initVectorCartShopingTableData";      
+//       cartShopingData.addAll(v);
+       return cartShopingData; 
+    }
+
+    private Vector initVectorCartShopingColumnNamesTable() {
+        Vector<String> columnNames = new Vector();
+        columnNames.add("ISBN");
+        columnNames.add("QUANTITY");
+        columnNames.add("UNIT COST");
+        columnNames.add("TVA");
+        columnNames.add("PRIX HT");
+        columnNames.add("PRIX TTC");
+        return columnNames;
+    }
+    
+    
+    
+    
+    
+    
     
 protected final transient String _cname = this.getClass().getName();
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1006,26 +1146,26 @@ protected final transient String _cname = this.getClass().getName();
     private javax.swing.JTextField jTextCCV;
     private javax.swing.JTextField jTextCard;
     private javax.swing.JTextField jTextCityBill;
-    private javax.swing.JTextField jTextCityShip;
-    private javax.swing.JTextField jTextCountryShip;
-    private javax.swing.JTextField jTextCoutryAdressBill;
+    private javax.swing.JTextField jTextCityShipp;
+    private javax.swing.JTextField jTextCountryBill;
+    private javax.swing.JTextField jTextCountryShipp;
     private javax.swing.JTextField jTextExpDate;
     private javax.swing.JTextField jTextHolderName;
     private javax.swing.JTextField jTextIdAdressBill;
-    private javax.swing.JTextField jTextIdAdressShip;
-    private javax.swing.JTextField jTextLastNameBill;
-    private javax.swing.JTextField jTextLastNameShip;
-    private javax.swing.JTextField jTextNumAdressBill;
-    private javax.swing.JTextField jTextNumAdressShip;
+    private javax.swing.JTextField jTextIdAdressShipp;
+    private javax.swing.JTextField jTextNameReceiverAdressBill;
+    private javax.swing.JTextField jTextNameReceiverAdressShipp;
+    private javax.swing.JTextField jTextNumStreetBill;
+    private javax.swing.JTextField jTextNumStreetShipp;
     private javax.swing.JTextField jTextOrderDate;
     private javax.swing.JTextField jTextOrderId;
     private javax.swing.JTextField jTextQuantity;
     private javax.swing.JTextField jTextSearch;
-    private javax.swing.JTextField jTextStreet2AdressBill;
-    private javax.swing.JTextField jTextStreet2Ship;
+    private javax.swing.JTextField jTextStreet2Bill;
+    private javax.swing.JTextField jTextStreet2Shipp;
     private javax.swing.JTextField jTextStreetBill;
-    private javax.swing.JTextField jTextStreetShip;
-    private javax.swing.JTextField jTextZipBill;
-    private javax.swing.JTextField jTextZipShip;
+    private javax.swing.JTextField jTextStreetShipp;
+    private javax.swing.JTextField jTextZipCodeBill;
+    private javax.swing.JTextField jTextZipCodeShipp;
     // End of variables declaration//GEN-END:variables
 }

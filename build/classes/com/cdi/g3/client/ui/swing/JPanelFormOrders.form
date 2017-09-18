@@ -491,22 +491,22 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabelIdAdressShipp" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace pref="18" max="32767" attributes="0"/>
-                                  <Component id="jTextIdAdressShip" min="-2" pref="121" max="-2" attributes="0"/>
+                                  <Component id="jTextIdAdressShipp" min="-2" pref="121" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabelLastNameShipp" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jTextLastNameShip" min="-2" pref="121" max="-2" attributes="0"/>
+                                  <Component id="jTextNameReceiverAdressShipp" min="-2" pref="121" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabelZipShipp" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jTextZipShip" min="-2" pref="121" max="-2" attributes="0"/>
+                                  <Component id="jTextZipCodeShipp" min="-2" pref="121" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabelStreet2Ship" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jTextStreet2Ship" min="-2" pref="121" max="-2" attributes="0"/>
+                                  <Component id="jTextStreet2Shipp" min="-2" pref="121" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -515,8 +515,8 @@
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jTextNumAdressShip" max="32767" attributes="0"/>
-                                      <Component id="jTextStreetShip" pref="121" max="32767" attributes="0"/>
+                                      <Component id="jTextNumStreetShipp" max="32767" attributes="0"/>
+                                      <Component id="jTextStreetShipp" pref="121" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -526,8 +526,8 @@
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jTextCityShip" pref="121" max="32767" attributes="0"/>
-                                      <Component id="jTextCountryShip" max="32767" attributes="0"/>
+                                      <Component id="jTextCityShipp" pref="121" max="32767" attributes="0"/>
+                                      <Component id="jTextCountryShipp" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -539,43 +539,43 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextIdAdressShip" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextIdAdressShipp" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelIdAdressShipp" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextLastNameShip" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextNameReceiverAdressShipp" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelLastNameShipp" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextNumAdressShip" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextNumStreetShipp" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelNumAdressShip" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextStreetShip" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextStreetShipp" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelStreetShipp" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextStreet2Ship" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextStreet2Shipp" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelStreet2Ship" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextZipShip" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextZipCodeShipp" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelZipShipp" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextCityShip" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextCityShipp" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelCityShipp" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabelCountryShip" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextCountryShip" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextCountryShipp" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -587,14 +587,14 @@
                     <Property name="text" type="java.lang.String" value="Last Name  :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextLastNameShip">
+                <Component class="javax.swing.JTextField" name="jTextNameReceiverAdressShipp">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelIdAdressShipp">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="IdAdressShip"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextIdAdressShip">
+                <Component class="javax.swing.JTextField" name="jTextIdAdressShipp">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelStreetShipp">
                   <Properties>
@@ -611,23 +611,23 @@
                     <Property name="text" type="java.lang.String" value="City  :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextStreetShip">
+                <Component class="javax.swing.JTextField" name="jTextStreetShipp">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextCityShip">
+                <Component class="javax.swing.JTextField" name="jTextCityShipp">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextZipShip">
+                <Component class="javax.swing.JTextField" name="jTextZipCodeShipp">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextZipShipActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextZipCodeShippActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextStreet2Ship">
+                <Component class="javax.swing.JTextField" name="jTextStreet2Shipp">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelStreet2Ship">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Street2"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextNumAdressShip">
+                <Component class="javax.swing.JTextField" name="jTextNumStreetShipp">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelNumAdressShip">
                   <Properties>
@@ -639,7 +639,7 @@
                     <Property name="text" type="java.lang.String" value="Country"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextCountryShip">
+                <Component class="javax.swing.JTextField" name="jTextCountryShipp">
                 </Component>
               </SubComponents>
             </Container>
@@ -661,7 +661,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabelZipBill" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="jTextZipBill" min="-2" pref="121" max="-2" attributes="0"/>
+                                  <Component id="jTextZipCodeBill" min="-2" pref="121" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -675,15 +675,15 @@
                                       <Group type="102" attributes="0">
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jTextNumAdressBill" max="32767" attributes="0"/>
-                                              <Component id="jTextLastNameBill" pref="121" max="32767" attributes="0"/>
+                                              <Component id="jTextNumStreetBill" max="32767" attributes="0"/>
+                                              <Component id="jTextNameReceiverAdressBill" pref="121" max="32767" attributes="0"/>
                                               <Component id="jTextIdAdressBill" pref="121" max="32767" attributes="0"/>
                                               <Component id="jTextStreetBill" alignment="0" pref="121" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace pref="18" max="32767" attributes="0"/>
-                                          <Component id="jTextStreet2AdressBill" min="-2" pref="121" max="-2" attributes="0"/>
+                                          <Component id="jTextStreet2Bill" min="-2" pref="121" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -694,7 +694,7 @@
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jTextCoutryAdressBill" max="32767" attributes="0"/>
+                                      <Component id="jTextCountryBill" max="32767" attributes="0"/>
                                       <Component id="jTextCityBill" pref="121" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -712,12 +712,12 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextLastNameBill" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextNameReceiverAdressBill" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelLastNameBill" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextNumAdressBill" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextNumStreetBill" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelNumAdressBill" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -727,7 +727,7 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextStreet2AdressBill" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextStreet2Bill" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelStreet2AdressBill" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
@@ -735,7 +735,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabelZipBill" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jTextZipBill" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jTextZipCodeBill" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jTextCityBill" min="-2" max="-2" attributes="0"/>
@@ -747,7 +747,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jTextCoutryAdressBill" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jTextCountryBill" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabelCoutryAdressBill" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
@@ -770,11 +770,11 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextIdAdressBill">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextLastNameBill">
+                <Component class="javax.swing.JTextField" name="jTextNameReceiverAdressBill">
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextZipBill">
+                <Component class="javax.swing.JTextField" name="jTextZipCodeBill">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextZipBillActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextZipCodeBillActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelStreetBill">
@@ -794,21 +794,21 @@
                     <Property name="text" type="java.lang.String" value="City  :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextStreet2AdressBill">
+                <Component class="javax.swing.JTextField" name="jTextStreet2Bill">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelStreet2AdressBill">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Steet2"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextNumAdressBill">
+                <Component class="javax.swing.JTextField" name="jTextNumStreetBill">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelNumAdressBill">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="jLabel2"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="jTextCoutryAdressBill">
+                <Component class="javax.swing.JTextField" name="jTextCountryBill">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelCoutryAdressBill">
                   <Properties>
@@ -984,10 +984,13 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxCustomerActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBoxBook">
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jComboBoxBookMouseClicked"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jComboBoxBookMouseEntered"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxBookActionPerformed"/>
               </Events>
             </Component>
@@ -1022,6 +1025,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxAdressShippingActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="jComboBoxAdressBilling">
               <Properties>
@@ -1034,6 +1040,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxAdressBillingActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="jRadioButtonSame">
               <Properties>
