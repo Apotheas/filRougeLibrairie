@@ -3,19 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Apotheas/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/domain/catalog/Author.java</file>
-            <file>file:/C:/Users/Apotheas/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/util/persistence/AbstractDataAccessObject.java</file>
-            <file>file:/C:/Users/Apotheas/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/config/creationTable.sql</file>
-            <file>file:/C:/Users/Apotheas/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/domain/catalog/Theme.java</file>
-            <file>file:/C:/Users/Apotheas/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/client/ui/swing/JPanelFormAppreciations.java</file>
-            <file>file:/C:/Users/Apotheas/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/util/persistence/DataAccessConstants.java</file>
-            <file>file:/C:/Users/Apotheas/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/domain/catalog/Occasion.java</file>
-            <file>file:/C:/Users/Apotheas/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/domain/catalog/BookDAO.java</file>
-            <file>file:/C:/Users/Apotheas/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/domain/orders/OrdersDAO.java</file>
-            <file>file:/C:/Users/Apotheas/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/domain/catalog/AuthorDAO.java</file>
-            <file>file:/C:/Users/Apotheas/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/domain/catalog/ThemeDAO.java</file>
-            <file>file:/C:/Users/Apotheas/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/client/ui/swing/HomePage.java</file>
-            <file>file:/C:/Users/Apotheas/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/domain/catalog/OccasionDAO.java</file>
+            <file>file:/C:/Users/cdi317/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/service/publishing/PublishingService.java</file>
+            <file>file:/C:/Users/cdi317/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/domain/catalog/AuthorDAO.java</file>
+            <file>file:/C:/Users/cdi317/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/client/ui/swing/JPanelFormAuthor.java</file>
+            <file>file:/C:/Users/cdi317/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/service/catalog/CatalogService.java</file>
+            <file>file:/C:/Users/cdi317/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/client/ui/swing/JPanelFormEditor.java</file>
+            <file>file:/C:/Users/cdi317/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/domain/catalog/BookDAO.java</file>
+            <file>file:/C:/Users/cdi317/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/client/ui/swing/HomePage.java</file>
+            <file>file:/C:/Users/cdi317/Documents/NetBeansProjects/filRougeLibrairie/src/com/cdi/g3/server/domain/catalog/EditorDAO.java</file>
         </group>
     </open-files>
 </project-private>

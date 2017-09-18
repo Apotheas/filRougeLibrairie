@@ -55,7 +55,7 @@ public class EditorDAO extends AbstractDataAccessObject{
     @Override
     protected String getUpdateSqlPreparedStatement() {
         final String sql;
-        sql = "UPDATE " + TABLE + " SET NAMEEDITOR = ?, STATUSEDITOR = ? WHERE IDEDITHOR = ?";
+        sql = "UPDATE " + TABLE + " SET NAMEEDITOR = ?, STATUSEDITOR = ? WHERE IDEDITOR = ?";
         return sql;
     }
 
@@ -69,10 +69,10 @@ public class EditorDAO extends AbstractDataAccessObject{
     @Override
     protected String getSelectAllSqlStatement() {
         final String sql;
-        sql = "SELECT " + COLUMNS + " FROM " + TABLE;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " ORDER BY NAMEEDITOR";
         return sql; 
     }
-
+    
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Editor editor;
@@ -85,8 +85,16 @@ public class EditorDAO extends AbstractDataAccessObject{
         final String sql;
         sql = "SELECT " + COLUMNS+ " FROM " + TABLE  +" e "+" join Book b " +
               "On e.IDEDITOR = b.IDEDITORBOOK "+
-              "WHERE "+  column + " = '"+ champ+"'";
+              "WHERE "+  column + " = '"+ champ+"'";      
+ 
         
+        return sql;
+    }
+    protected String getSelectAllSqlStatementByChamp(String column, String champ){
+        final String sql;
+        sql = "SELECT " + COLUMNS+ " FROM " + TABLE  +" e "+" join Book b " +
+              "On e.IDEDITOR = b.IDEDITORBOOK "+
+              "WHERE "+  column + " = '"+ champ+"'";      
  
         
         return sql;

@@ -13,16 +13,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author youssef
- */
+
 public class BookDAO extends AbstractDataAccessObject{
     
      // ======================================
     // =             Attributes             =
     // ======================================
     private static final String TABLE = "BOOK"; 
+    private static final String TABLE_EDITOR = "EDITOR";
     private EditorDAO editorDAO = new  EditorDAO();
     private static final String TABLE_AUTHOR = "AUTHOR";
     private static final String TABLE_AUTHORBOOK = "AUTHORBOOK";
@@ -36,27 +34,27 @@ public class BookDAO extends AbstractDataAccessObject{
     private static final String COUNTER_NAME = "BOOK";
 
      
-   
+   @Override
     protected String getCounterName() {
         return COUNTER_NAME;
     }
 
     
-    
+    @Override
     protected String getInsertSqlPreparedStatement() {
         final String sql;
         sql = "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return sql;
     }
 
-   
+   @Override
     protected String getDeleteSqlStatement(String id) {
         final String sql;
         sql = "DELETE FROM " + TABLE + " WHERE NUMISBNBOOK = '" + id + "'";
         return sql;
     }
 
-   
+   @Override
     protected String getUpdateSqlPreparedStatement() {
         final String sql;        
         sql = "UPDATE " + TABLE + " SET IDEDITORBOOK = ?, TYPETVABOOK = ?, TITREBOOK = ?"
@@ -66,14 +64,14 @@ public class BookDAO extends AbstractDataAccessObject{
         return sql;
     }
 
-    
+    @Override
     protected String getSelectSqlStatement(String id) {
         final String sql;
         sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE NUMISBNBOOK = '" + id + "' ";
         return sql; 
     }
     
-    
+    @Override
     protected String getSelectAllSqlStatement() {
         final String sql;
         sql = "SELECT " + COLUMNS + " FROM " + TABLE;
@@ -83,9 +81,10 @@ public class BookDAO extends AbstractDataAccessObject{
     @Override
     protected String getSelectAllSqlStatementByChamp(String column, String champ){
         final String sql;
-        sql = "SELECT " + COLUMNS + " FROM " + TABLE  +" ,"+TABLE_AUTHOR+" ,"+TABLE_AUTHORBOOK
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE  +" ,"+TABLE_AUTHOR+" ,"+TABLE_AUTHORBOOK + " , "+ TABLE_EDITOR
                 + " WHERE  NUMISBNBOOK = NUMISBNBOOKAB " +
                 "and IDAUTHORAB = IDAUTHOR " +
+                " and IDEDITORBOOK = IDEDITOR "+
                 "and "+column +" = '"+ champ+"'";
         
         return sql;
