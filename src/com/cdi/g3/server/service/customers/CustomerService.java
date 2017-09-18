@@ -76,21 +76,21 @@ public final class CustomerService extends AbstractService {
         //checkId( customer.getId() );
         checkId(customer.getId());
 
-        // Creates all the adressBilling linked with the customer
-        for (Iterator iterator = customer.getListAddressBilling().iterator(); iterator.hasNext();) {
-            final Adress adressBilling = (Adress) iterator.next();
-            adressBilling.checkData();            
-            adressBilling.setCustomerBillAdress(customer);
-            serviceAdress.getDaoAdress().insert(adressBilling);
-        }
-        
-        // Creates all the adressShipping linked with the customer
-        for (Iterator iterator = customer.getListAddressShipping().iterator(); iterator.hasNext();) {
-            final Adress adressShipping = (Adress) iterator.next();
-            adressShipping.checkData();  
-            adressShipping.setCustomerShipAdress(customer);
-            serviceAdress.getDaoAdress().insert(adressShipping);
-        }
+//        // Creates all the adressBilling linked with the customer
+//        for (Iterator iterator = customer.getListAddressBilling().iterator(); iterator.hasNext();) {
+//            final Adress adressBilling = (Adress) iterator.next();
+//            adressBilling.checkData();            
+//            adressBilling.setCustomerBillAdress(customer);
+//            serviceAdress.getDaoAdress().insert(adressBilling);
+//        }
+//        
+//        // Creates all the adressShipping linked with the customer
+//        for (Iterator iterator = customer.getListAddressShipping().iterator(); iterator.hasNext();) {
+//            final Adress adressShipping = (Adress) iterator.next();
+//            adressShipping.checkData();  
+//            adressShipping.setCustomerShipAdress(customer);
+//            serviceAdress.getDaoAdress().insert(adressShipping);
+//        }
     
         // Creates the object
         _daoCustomer.insert(customer);
@@ -107,21 +107,21 @@ public final class CustomerService extends AbstractService {
         // Finds the object
         final Customer customer = (Customer) _daoCustomer.findByPrimaryKey(customerId);       
         
-        // RetreCollectionives the data for all the customer adress shipping//        
-         try {
-            final Collection  listAddressShipping = serviceAdress.getDaoAdress().findAllByChamp("loginCustomerShipAdress", customer.getLoginCustomer());
-            customer.setlistAddressShipping(listAddressShipping);
-         } 
-           catch( ObjectNotFoundException e) {}
-//        }        
-        
-        // Retreives the data for all the customer adress billing
-        try {
-        final Collection listAddressBilling;
-        listAddressBilling = serviceAdress.getDaoAdress().findAllByChamp("loginCustomerBillAdress", customer.getLoginCustomer());
-        customer.setlistAddressBilling(listAddressBilling);
-          } 
-           catch( ObjectNotFoundException e) {}          
+//        // RetreCollectionives the data for all the customer adress shipping//        
+//         try {
+//            final Collection  listAddressShipping = serviceAdress.getDaoAdress().findAllByChamp("loginCustomerShipAdress", customer.getLoginCustomer());
+//            customer.setlistAddressShipping(listAddressShipping);
+//         } 
+//           catch( ObjectNotFoundException e) {}
+////        }        
+//        
+//        // Retreives the data for all the customer adress billing
+//        try {
+//        final Collection listAddressBilling;
+//        listAddressBilling = serviceAdress.getDaoAdress().findAllByChamp("loginCustomerBillAdress", customer.getLoginCustomer());
+//        customer.setlistAddressBilling(listAddressBilling);
+//          } 
+//           catch( ObjectNotFoundException e) {}          
         
         Trace.exiting(_cname, mname, customer);
         return customer;        

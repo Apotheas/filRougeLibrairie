@@ -6,6 +6,7 @@
 package com.cdi.g3.server.domain.orders;
 
 import com.cdi.g3.common.exception.DataAccessException;
+import com.cdi.g3.common.utiles.Utility;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.customers.Adress;
 import com.cdi.g3.server.domain.customers.Customer;
@@ -14,7 +15,8 @@ import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displa
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.text.DateFormat;
+import java.sql.Date;
 
 /**
  *
@@ -102,26 +104,26 @@ public class OrdersDAO extends AbstractDataAccessObject {
             } else {
                 prestmt.setString(1, null);
             }
-
+            prestmt.setString(2,((Orders) object).getCustomer().getId());  
             
-            prestmt.setString(2, ((Orders) object).getCustomer().getId());
+            prestmt.setDate(3,(Date) ((Orders) object).getDateOrder());  
+           
+//             prestmt.setString(4, ((Orders) object).getNameInfoStatus().getId());
             
-            prestmt.setDate(3, (java.sql.Date) (Date) ((Orders) object).getDateOrder());
-
-            if (((Orders) object).getNameInfoStatus() != null) {
+             if (((Orders) object).getNameInfoStatus() != null) {
                 prestmt.setString(4, ((Orders) object).getNameInfoStatus().getId());
             } else {
-                prestmt.setString(2, new InfoStatus().getId());
+                prestmt.setString(4, new InfoStatus().getId());
             }
             if (((Orders) object).getAdressBilling() != null) {
                 prestmt.setString(5, ((Orders) object).getAdressBilling().getId());
             } else {
-                prestmt.setString(2, null);
+                prestmt.setString(5, null);
             }
             if (((Orders) object).getPachageShipper() != null) {
                 prestmt.setString(6, ((Orders) object).getPachageShipper().getId());
             } else {
-                prestmt.setString(2, null);
+                prestmt.setString(6, null);
             }
             prestmt.setString(7, ((Orders) object).getInternalNumOrder());
             prestmt.setString(8, ((Orders) object).getPaymentSystemOrder());
@@ -133,9 +135,15 @@ public class OrdersDAO extends AbstractDataAccessObject {
 
         } catch (SQLException e) {
             // A Severe SQL Exception is caught
+            
+            e.printStackTrace();
             displaySqlException(e);
             throw new DataAccessException("executePreparedSt : Cannot get data from the database: " + e.getMessage(), e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        
+        
         return retour;
     }
 

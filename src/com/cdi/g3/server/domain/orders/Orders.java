@@ -189,7 +189,7 @@ public class Orders extends DomainObject implements Serializable{
         v.add(this.internalNumOrder);
         v.add(this.customer.getLastNameCustomer());
         v.add(this.customer.getFirstNameCustomer());
-         v.add(this.adressShipping.getId());
+        v.add(this.adressShipping.getId());
         v.add(this.dateOrder);
         v.add(this.pachageShipper.getShipper().getId());
         v.add(this.ipOrder);
