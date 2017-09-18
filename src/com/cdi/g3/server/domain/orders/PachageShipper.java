@@ -26,10 +26,17 @@ public class PachageShipper extends DomainObject implements Serializable{
     // =            Constructors            =
     // ======================================
      public PachageShipper() {
+         shipper = new Shipper("DHL");
     }
 
     public PachageShipper(final String id) {
        idPachageShipper = id;
+       shipper = new Shipper("DHL");
+    } 
+    
+     public PachageShipper(final String id , Shipper shipper) {
+       idPachageShipper = id;
+       this.shipper = shipper;
     } 
     
      public PachageShipper(final String id, Shipper shipper, float costPachageShipper) {

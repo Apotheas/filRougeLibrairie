@@ -7,6 +7,7 @@ import com.cdi.g3.server.domain.orders.Orders;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Vector;
 /**
  * This class represents a users for the librairie company.
  */
@@ -24,7 +25,7 @@ public final class Customer extends DomainObject implements Serializable {
     private String passwordCustomer;
     private String nameCompanyCustomer;
     private String commentCustomer;
-    private String statusCustomer;
+    private int statusCustomer;
     private  Collection<Adress>  listAddressShipping = new ArrayList();
     private  Collection<Adress>  listAddressBilling = new ArrayList();
     private  Collection<Appreciation>  listAppreciation = new ArrayList();
@@ -161,13 +162,15 @@ public final class Customer extends DomainObject implements Serializable {
        this.listAddressShipping = listAddressShipping;
     }
 
-    public String getStatusCustomer() {
+    public int getStatusCustomer() {
         return statusCustomer;
     }
 
-    public void setStatusCustomer(String statusCustomer) {
-        this.statusCustomer = statusCustomer;    
+    public void setStatusCustomer(int statusCustomer) {
+        this.statusCustomer = statusCustomer;
     }
+
+    
 
     public Collection getListAddressShipping() {
         return listAddressShipping;
@@ -192,6 +195,20 @@ public final class Customer extends DomainObject implements Serializable {
     public String toString() {
         return  loginCustomer +"  "+  lastNameCustomer  ;
     }
+    
+     public Vector getVector() {
+        Vector v = new Vector();
+        v.add(this);
+        v.add(this.loginCustomer);
+        v.add(this.firstNameCustomer);
+        v.add(this.lastNameCustomer);
+        v.add(this.emailCustomer);
+        v.add(this.commentCustomer);
+        v.add(this.statusCustomer);
+        return v;
+    }
+    
+    
 }
     
     

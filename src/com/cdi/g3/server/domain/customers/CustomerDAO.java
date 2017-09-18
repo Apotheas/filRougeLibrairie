@@ -2,12 +2,14 @@
 package com.cdi.g3.server.domain.customers;
 
 import com.cdi.g3.common.exception.DataAccessException;
+import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
 import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 
 /**
  * This class does all the database access for the class Customer.
@@ -21,6 +23,9 @@ public final class CustomerDAO extends AbstractDataAccessObject {
     // ======================================
     // =             Attributes             =
     // ======================================
+    
+     private static final AdressDAO _daoAdress = new AdressDAO();
+    
     private static final String TABLE = "Customer";  
     
     private static final String COLUMNS = "LOGINCUSTOMER, LASTNAMECUSTOMER, FIRSTNAMECUSTOMER, EMAILCUSTOMER, PASSWORDCUSTOMER"
@@ -82,8 +87,23 @@ public final class CustomerDAO extends AbstractDataAccessObject {
         customer = new Customer(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),resultSet.getString(4),resultSet.getString(5));
         customer.setNameCompanyCustomer(resultSet.getString(6));
         customer.setCommentCustomer(resultSet.getString(7));
-        customer.setStatusCustomer(resultSet.getString(8));
-      
+        customer.setStatusCustomer(resultSet.getInt(8));
+        // RetreCollectionives the data for all the customer adress shipping//        
+         try {
+            final Collection  listAddressShipping = _daoAdress.findAllByChamp("loginCustomerShipAdress", customer.getLoginCustomer());
+            customer.setlistAddressShipping(listAddressShipping);
+         } 
+           catch( ObjectNotFoundException e) {}
+//        }        
+        
+        // Retreives the data for all the customer adress billing
+        try {
+        final Collection listAddressBilling;
+        listAddressBilling = _daoAdress.findAllByChamp("loginCustomerBillAdress", customer.getLoginCustomer());
+        customer.setlistAddressBilling(listAddressBilling);
+          } 
+           catch( ObjectNotFoundException e) {}     
+        
         return customer;
     }
 
@@ -103,7 +123,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
             prestmt.setString(4, ((Customer) object).getPasswordCustomer());
             prestmt.setString(5, ((Customer) object).getNameCompanyCustomer());
             prestmt.setString(6, ((Customer) object).getCommentCustomer());
-            prestmt.setString(7, ((Customer) object).getStatusCustomer());
+            prestmt.setInt(7, ((Customer) object).getStatusCustomer());
             prestmt.setString(8, ((Customer) object).getLoginCustomer());
             
             retour = prestmt.executeUpdate();
