@@ -6,13 +6,19 @@
 package com.cdi.g3.server.domain.orders;
 
 import com.cdi.g3.common.exception.DataAccessException;
+import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.company.EmployeRight;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
 import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displaySqlException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -68,6 +74,59 @@ public class InfoStatusDAO extends AbstractDataAccessObject{
         sql = "SELECT " + COLUMNS + " FROM " + TABLE;
         return sql;
     }
+    
+    protected String getSelectAllStatusOrderSqlStatement() {
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE valueInfoStatus Between 0 and 9";
+        return sql;
+    }
+    
+    public final Collection findAllStatusOrders() throws ObjectNotFoundException {
+        final String mname = "selectAll";
+        Trace.entering(getCname(), mname);
+        ResultSet resultSet = null;
+        final Collection objects = new ArrayList();
+         // Gets a database connection
+        try (Connection connection = getConnection(); 
+            Statement statement = connection.createStatement()) {
+         
+            // Select a Row
+            resultSet = statement.executeQuery(getSelectAllStatusOrderSqlStatement());
+
+            while (resultSet.next()) {
+                // Set data to the collection
+                objects.add(transformResultset2DomainObject(resultSet));
+            }
+
+            if (objects.isEmpty()) {
+                throw new ObjectNotFoundException();
+            }
+
+        } catch (SQLException e) {
+            // A Severe SQL Exception is caught
+            displaySqlException(e);
+            throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
+        } finally {
+            // Close
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+               
+            } catch (SQLException e) {
+                displaySqlException("Cannot close connection", e);
+                throw new DataAccessException("Cannot close the database connection", e);
+            }
+        }
+        
+        Trace.exiting(getCname(), mname, new Integer(objects.size()));
+        return objects;
+    
+    
+    }
+
+    
+    
 
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {

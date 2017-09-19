@@ -1007,14 +1007,14 @@ public class JPanelFormOrders extends JDesktopPane {
     private void jButtonSearchOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchOrdersActionPerformed
         final String mname = "jButtonSearchOrdersActionPerformed";
         Vector vOrders = new Vector();
-        Collection orders = null;
+        Collection orders = new ArrayList();
 
         if (jComboBoxSearchOrdersBycolumn.getSelectedIndex() == 0) {
 
             Orders order = null;
             try {
                 order = serviceOrder.findOrder(jTextSearchOrders.getText());//              
-                vOrders.add(order);
+                orders.add(order);
 
             } catch (FinderException ex) {
                 Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
@@ -1028,7 +1028,7 @@ public class JPanelFormOrders extends JDesktopPane {
             Orders order = null;
             try {
                 order = serviceOrder.findOrderByNumIternOrder("INTERNALNUMORDER", jTextSearchOrders.getText());//              
-                vOrders.add(order);
+                orders.add(order);
 
             } catch (ObjectNotFoundException ex) {
                 Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);

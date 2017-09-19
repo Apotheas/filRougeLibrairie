@@ -37,20 +37,18 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     //public class JPanelFormCustomers extends  JDesktopPane{
     
     DefaultTableModel myModelAdressShip = new DefaultTableModel();
-    
-    
     DefaultTableModel myModelAdressBill = new DefaultTableModel();
-    Vector adressShipList = new Vector();
+    DefaultTableModel myModelCustomers = new DefaultTableModel();
     Vector adressBillList = new Vector();
+    Vector adressShipList = new Vector();
+    Vector customersVector = new Vector();
+    
+    
     DateFormat df = new SimpleDateFormat("dd-MM-YYYY");
 
     public DefaultTableModel getMyModelAdressBill() {
         return myModelAdressBill;
     }
-    
-    
-    
-
     /**
      * Creates new form Accounts
      */
@@ -67,6 +65,9 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jTable1.setVisible(true);
         jButton1.setVisible(false);
         jButton2.setVisible(false);
+        
+        chargeComboBoxCustomers ();
+//        jComboBoxCustomers.setSelectedIndex(-1);
 //        jComboBoxShip.setModel(initComboAdressShipModel(adressShipList));
 //        jComboBoxBill.setModel(initComboAdressBillModel(adressBillList));
     }
@@ -141,6 +142,8 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jLabelSearch = new javax.swing.JLabel();
         jButtonUpdate = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
+        jComboBoxCustomers = new javax.swing.JComboBox();
+        jComboBoxSearchCustomer = new javax.swing.JComboBox();
         jTextLogin = new javax.swing.JTextField();
         jButtonAdressShipping = new javax.swing.JButton();
         jButtonAdressBilling = new javax.swing.JButton();
@@ -482,7 +485,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
         jPanelManage.setBorder(javax.swing.BorderFactory.createTitledBorder("Manage"));
         jPanelManage.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanelManage.add(jTextSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 142, -1));
+        jPanelManage.add(jTextSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 100, -1));
 
         jButtonSearch.setText("search");
         jButtonSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -490,10 +493,10 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
                 jButtonSearchActionPerformed(evt);
             }
         });
-        jPanelManage.add(jButtonSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, -1, -1));
+        jPanelManage.add(jButtonSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, -1, -1));
 
-        jLabelSearch.setText("id/pseudo/email  :");
-        jPanelManage.add(jLabelSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
+        jLabelSearch.setText("search by pseudo/email  :");
+        jPanelManage.add(jLabelSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, -1, -1));
 
         jButtonUpdate.setText("Update");
         jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -510,6 +513,22 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             }
         });
         jPanelManage.add(jButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 60, 70, -1));
+
+        jComboBoxCustomers.setModel(initAdressBillComboBoxModel(customersVector));
+        jComboBoxCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jComboBoxCustomersMouseEntered(evt);
+            }
+        });
+        jComboBoxCustomers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCustomersActionPerformed(evt);
+            }
+        });
+        jPanelManage.add(jComboBoxCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 170, -1));
+
+        jComboBoxSearchCustomer.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pseudo Email" }));
+        jPanelManage.add(jComboBoxSearchCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 90, -1));
 
         jPanelAccount.add(jPanelManage, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 680, 90));
 
@@ -598,6 +617,8 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         } catch (FinderException ex) {
             Logger.getLogger(JPanelFormCustomers.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
     }//GEN-LAST:event_jTreeCustomersMouseClicked
 
     private void jTextLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextLoginActionPerformed
@@ -734,7 +755,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     private void jComboBoxShipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxShipActionPerformed
-        jComboBoxShip.setModel(initAdressShipComboBoxModel(adressShipList));
+       
         final Adress adressShipping = ((Adress) jComboBoxShip.getSelectedItem());
         setChampsShippingAdress(adressShipping);        
         jButtonCreateAdressShip.setVisible(false);
@@ -875,9 +896,10 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButtonAdressBillingActionPerformed
 
+    
+    
     private void jComboBoxBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBillActionPerformed
      
-        jComboBoxBill.setModel(initAdressBillComboBoxModel(adressBillList));
         final Adress adressBilling = ((Adress) jComboBoxBill.getSelectedItem());        
         setChampsBillingAdress(adressBilling);
         jButtonCreateAdressBill.setVisible(false);
@@ -885,6 +907,24 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jButton2.setVisible(true);
        
     }//GEN-LAST:event_jComboBoxBillActionPerformed
+
+    private void jComboBoxCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCustomersActionPerformed
+       jComboBoxBill.setModel(initAdressBillComboBoxModel(adressBillList));
+       jComboBoxShip.setModel(initAdressShipComboBoxModel(adressShipList));
+    }//GEN-LAST:event_jComboBoxCustomersActionPerformed
+
+    private void jComboBoxCustomersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxCustomersMouseEntered
+//         CustomerService serviceCustomer = new CustomerService();
+//        try {
+//            Collection customers = serviceCustomer.findCustomers();
+//            customersVector.addAll(customers);
+//          jComboBoxCustomers.setModel(initAdressBillComboBoxModel(customersVector));
+//        } catch (FinderException ex) {
+//            Logger.getLogger(JPanelFormCustomers.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+     
+        
+    }//GEN-LAST:event_jComboBoxCustomersMouseEntered
    
     public void setChampsBillingAdress(Adress adress){
         jTextNameReceiverAdressBill.setText(adress.getNameReceiverAdress());
@@ -935,6 +975,8 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jTextIdAdressShipp.setText("");
         
     }
+    
+   
     
     public DefaultComboBoxModel initCustomersComboBoxModel(Collection customers) {
         return new DefaultComboBoxModel( initCustomersVector(customers) );
@@ -1054,6 +1096,18 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     }
     
     
+    public void chargeComboBoxCustomers (){
+        CustomerService serviceCustomer = new CustomerService();
+        try {
+            Collection customers = serviceCustomer.findCustomers();            
+            jComboBoxCustomers.setModel(initAdressBillComboBoxModel(customers));
+        } catch (FinderException ex) {
+            Logger.getLogger(JPanelFormCustomers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+    }
+    
+    
     
     
     protected final transient String _cname = this.getClass().getName();
@@ -1069,6 +1123,8 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     private javax.swing.JButton jButtonSearch;
     private javax.swing.JButton jButtonUpdate;
     private javax.swing.JComboBox jComboBoxBill;
+    private javax.swing.JComboBox jComboBoxCustomers;
+    private javax.swing.JComboBox jComboBoxSearchCustomer;
     private javax.swing.JComboBox jComboBoxShip;
     private javax.swing.JComboBox<String> jComboBoxStatus;
     private javax.swing.JLabel jLabeNameReceiverAdressShipp;
