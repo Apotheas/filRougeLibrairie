@@ -156,13 +156,6 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCustomers1 = new javax.swing.JTable();
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jPanelManage1 = new javax.swing.JPanel();
-        jTextSearchCustomer = new javax.swing.JTextField();
-        jButtonSearchCustomer = new javax.swing.JButton();
-        jLabelSearch = new javax.swing.JLabel();
-        jComboBoxCustomers = new javax.swing.JComboBox();
-        jComboBoxSearchCustomer = new javax.swing.JComboBox();
-        AddCustomer = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableCustomers = new javax.swing.JTable();
         jPanelCustomer = new javax.swing.JPanel();
@@ -185,6 +178,13 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jComboBoxBill1 = new javax.swing.JComboBox();
         jButtonAdressShipping1 = new javax.swing.JButton();
         jButtonAdressBilling1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jComboBoxCustomers1 = new javax.swing.JComboBox();
+        jComboBoxSearchCustomer1 = new javax.swing.JComboBox();
+        jLabelSearch1 = new javax.swing.JLabel();
+        jTextSearchCustomer1 = new javax.swing.JTextField();
+        jButtonSearchCustomer1 = new javax.swing.JButton();
+        AddCustomer1 = new javax.swing.JButton();
 
         jPanelShippingAdress1.setBorder(javax.swing.BorderFactory.createTitledBorder("Shipping adress"));
 
@@ -482,45 +482,6 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
         jTabbedPaneManageAccount.addTab("Customers", jScrollPane1);
 
-        jPanelManage1.setBorder(javax.swing.BorderFactory.createTitledBorder("Manage"));
-        jPanelManage1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanelManage1.add(jTextSearchCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 100, -1));
-
-        jButtonSearchCustomer.setText("search");
-        jButtonSearchCustomer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSearchCustomerActionPerformed(evt);
-            }
-        });
-        jPanelManage1.add(jButtonSearchCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 50, -1, -1));
-
-        jLabelSearch.setText("search by pseudo/email  :");
-        jPanelManage1.add(jLabelSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
-
-        jComboBoxCustomers.setModel(initAdressBillComboBoxModel(customersVector));
-        jComboBoxCustomers.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jComboBoxCustomersMouseEntered(evt);
-            }
-        });
-        jComboBoxCustomers.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxCustomersActionPerformed(evt);
-            }
-        });
-        jPanelManage1.add(jComboBoxCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 170, -1));
-
-        jComboBoxSearchCustomer.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pseudo", "Email" }));
-        jPanelManage1.add(jComboBoxSearchCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 90, -1));
-
-        AddCustomer.setText("AddCustomer");
-        AddCustomer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddCustomerActionPerformed(evt);
-            }
-        });
-        jPanelManage1.add(AddCustomer, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, -1, -1));
-
         jTableCustomers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -700,30 +661,102 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
                 .addComponent(jButtonSend))
         );
 
+        jComboBoxCustomers1.setModel(initAdressBillComboBoxModel(customersVector));
+        jComboBoxCustomers1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jComboBoxCustomers1MouseEntered(evt);
+            }
+        });
+        jComboBoxCustomers1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCustomers1ActionPerformed(evt);
+            }
+        });
+
+        jComboBoxSearchCustomer1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pseudo", "Email" }));
+
+        jLabelSearch1.setText("search by pseudo/email  :");
+
+        jButtonSearchCustomer1.setText("search");
+        jButtonSearchCustomer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchCustomer1ActionPerformed(evt);
+            }
+        });
+
+        AddCustomer1.setText("AddCustomer");
+        AddCustomer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddCustomer1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jComboBoxCustomers1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabelSearch1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jComboBoxSearchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextSearchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonSearchCustomer1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(AddCustomer1)
+                        .addGap(55, 55, 55))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(jLabelSearch1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBoxCustomers1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxSearchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextSearchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonSearchCustomer1)
+                            .addComponent(AddCustomer1))
+                        .addGap(29, 29, 29))))
+        );
+
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3)
-                    .addComponent(jPanelCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanelCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3))
                 .addContainerGap())
-            .addComponent(jPanelManage1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addComponent(jPanelManage1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addComponent(jPanelCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(277, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
-        jDesktopPane1.setLayer(jPanelManage1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jPanelCustomer, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jTabbedPaneManageAccount.addTab("tab4", jDesktopPane1);
 
@@ -737,7 +770,9 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         );
         jPanelAccountsLayout.setVerticalGroup(
             jPanelAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPaneManageAccount)
+            .addGroup(jPanelAccountsLayout.createSequentialGroup()
+                .addComponent(jTabbedPaneManageAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 112, Short.MAX_VALUE))
         );
 
         add(jPanelAccounts, java.awt.BorderLayout.CENTER);
@@ -894,59 +929,6 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxStatus1ActionPerformed
 
-    private void AddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCustomerActionPerformed
-        jPanelCustomer.setVisible(true);
-        jComboBoxShip1.setModel(initAdressShipComboBoxModel(adressShipList));
-        jComboBoxBill1.setModel(initAdressShipComboBoxModel(adressBillList));
-
-    }//GEN-LAST:event_AddCustomerActionPerformed
-
-    private void jComboBoxCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCustomersActionPerformed
-        customersVector.clear();
-        customersVector.add((Customer)jComboBoxCustomers.getSelectedItem());
-        jTableCustomers.setModel(initCustomersTableModel(customersVector));
-    }//GEN-LAST:event_jComboBoxCustomersActionPerformed
-
-    private void jComboBoxCustomersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxCustomersMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxCustomersMouseEntered
-
-    private void jButtonSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchCustomerActionPerformed
-
-        final String mname = "jButtonSearchOrdersActionPerformed";
-        Vector vOrders = new Vector();
-        Collection orders = new ArrayList();
-
-        if (jComboBoxSearchCustomer.getSelectedIndex() == 0) {
-
-            Customer customer = null;
-            try {
-                customer = serviceCustomer.findCustomer(jTextSearchCustomer.getText());//
-                orders.add(customer);
-
-            } catch (FinderException ex) {
-                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (CheckException ex) {
-                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-
-        if (jComboBoxSearchCustomer.getSelectedIndex() == 1) {
-            Customer customer = null;
-            try {
-                customer = serviceCustomer.findCustomerByNumEmail("Email", jTextSearchCustomer.getText());//
-                orders.add(customer);
-
-            } catch (ObjectNotFoundException ex) {
-                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-        vOrders.addAll(orders);
-        jTableCustomers.setModel(initCustomersTableModel(vOrders));
-    }//GEN-LAST:event_jButtonSearchCustomerActionPerformed
-
     private void jTreeCustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTreeCustomersMouseClicked
         final String mname = "jTreeCustomersMouseClicked";
         CustomerService serviceCustomer = new CustomerService();
@@ -958,6 +940,58 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_jTreeCustomersMouseClicked
+
+    private void jComboBoxCustomers1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxCustomers1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCustomers1MouseEntered
+
+    private void jComboBoxCustomers1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCustomers1ActionPerformed
+       customersVector.clear();
+        customersVector.add((Customer)jComboBoxCustomers1.getSelectedItem());
+        jTableCustomers.setModel(initCustomersTableModel(customersVector));
+    }//GEN-LAST:event_jComboBoxCustomers1ActionPerformed
+
+    private void jButtonSearchCustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchCustomer1ActionPerformed
+       final String mname = "jButtonSearchOrdersActionPerformed";
+        Vector vOrders = new Vector();
+        Collection orders = new ArrayList();
+
+        if (jComboBoxSearchCustomer1.getSelectedIndex() == 0) {
+
+            Customer customer = null;
+            try {
+                customer = serviceCustomer.findCustomer(jTextSearchCustomer1.getText());//
+                orders.add(customer);
+
+            } catch (FinderException ex) {
+                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CheckException ex) {
+                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        if (jComboBoxSearchCustomer1.getSelectedIndex() == 1) {
+            Customer customer = null;
+            try {
+                customer = serviceCustomer.findCustomerByNumEmail("Email", jTextSearchCustomer1.getText());//
+                orders.add(customer);
+
+            } catch (ObjectNotFoundException ex) {
+                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        vOrders.addAll(orders);
+        jTableCustomers.setModel(initCustomersTableModel(vOrders));
+    }//GEN-LAST:event_jButtonSearchCustomer1ActionPerformed
+
+    private void AddCustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCustomer1ActionPerformed
+     jPanelCustomer.setVisible(true);
+        jComboBoxShip1.setModel(initAdressShipComboBoxModel(adressShipList));
+        jComboBoxBill1.setModel(initAdressShipComboBoxModel(adressBillList));
+
+    }//GEN-LAST:event_AddCustomer1ActionPerformed
    
     public void setChampsBillingAdress(Adress adress){
         jTextNameReceiverAdressBill1.setText(adress.getNameReceiverAdress());
@@ -1127,7 +1161,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         Collection customers =null;
         try {
            customers = serviceCustomer.findCustomers();            
-            jComboBoxCustomers.setModel(initAdressBillComboBoxModel(customers));
+            jComboBoxCustomers1.setModel(initAdressBillComboBoxModel(customers));
         } catch (FinderException ex) {
             Logger.getLogger(JPanelFormCustomers.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1141,16 +1175,16 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     
     protected final transient String _cname = this.getClass().getName();
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddCustomer;
+    private javax.swing.JButton AddCustomer1;
     private javax.swing.JButton jButtonAdressBilling1;
     private javax.swing.JButton jButtonAdressShipping1;
-    private javax.swing.JButton jButtonSearchCustomer;
+    private javax.swing.JButton jButtonSearchCustomer1;
     private javax.swing.JButton jButtonSend;
     private javax.swing.JButton jButtonSendAdressBill;
     private javax.swing.JButton jButtonSendAdressShip;
     private javax.swing.JComboBox jComboBoxBill1;
-    private javax.swing.JComboBox jComboBoxCustomers;
-    private javax.swing.JComboBox jComboBoxSearchCustomer;
+    private javax.swing.JComboBox jComboBoxCustomers1;
+    private javax.swing.JComboBox jComboBoxSearchCustomer1;
     private javax.swing.JComboBox jComboBoxShip1;
     private javax.swing.JComboBox<String> jComboBoxStatus1;
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -1172,7 +1206,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelNumStreetBill1;
     private javax.swing.JLabel jLabelNumStreetShipp1;
     private javax.swing.JLabel jLabelPassword1;
-    private javax.swing.JLabel jLabelSearch;
+    private javax.swing.JLabel jLabelSearch1;
     private javax.swing.JLabel jLabelStatus1;
     private javax.swing.JLabel jLabelStreet2Bill1;
     private javax.swing.JLabel jLabelStreet2Shipp1;
@@ -1180,10 +1214,10 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     private javax.swing.JLabel jLabelStreetShipp1;
     private javax.swing.JLabel jLabelZipCodeBill1;
     private javax.swing.JLabel jLabelZipCodeShipp1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelAccounts;
     private javax.swing.JPanel jPanelBillingAdress1;
     private javax.swing.JPanel jPanelCustomer;
-    private javax.swing.JPanel jPanelManage1;
     private javax.swing.JPanel jPanelShippingAdress1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
@@ -1207,7 +1241,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     private javax.swing.JTextField jTextNumStreetBill1;
     private javax.swing.JTextField jTextNumStreetShipp1;
     private javax.swing.JTextField jTextPassword1;
-    private javax.swing.JTextField jTextSearchCustomer;
+    private javax.swing.JTextField jTextSearchCustomer1;
     private javax.swing.JTextField jTextStreet2Bill1;
     private javax.swing.JTextField jTextStreet2Shipp1;
     private javax.swing.JTextField jTextStreetBill1;
