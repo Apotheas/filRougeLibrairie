@@ -49,12 +49,12 @@ public class AdressDAO extends AbstractDataAccessObject {
     @Override
     protected String getUpdateSqlPreparedStatement() {
         final String sql;
-        
+
         sql = "UPDATE " + TABLE + " SET loginCustomerShipAdress = ?, loginCustomerBillAdress = ?, nameReceiverAdress = ?,"
                 + " typeStreetAdress = ?, numAdress = ?, nameStreetAdress = ?, NAMESTEET2ADRESS = ?, zipcodeAdress = ?,"
                 + " cityAdress = ?, countryAdress = ?, nameCompanyReceiverAdress = ? WHERE idAdress = ?";
         System.out.println(sql);
-        
+
         return sql;
     }
 
@@ -87,7 +87,9 @@ public class AdressDAO extends AbstractDataAccessObject {
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Adress adress;
         adress = new Adress(resultSet.getString(1));
+
         adress.setCustomerShipAdress(new Customer(resultSet.getString(2)));
+
         adress.setCustomerBillAdress(new Customer(resultSet.getString(3)));
         adress.setNameReceiverAdress(resultSet.getString(4));
         adress.setTypeStreetAdress(resultSet.getString(5));
@@ -106,17 +108,18 @@ public class AdressDAO extends AbstractDataAccessObject {
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
         int retour = 0;
         try {
-            
-             if ( ((Adress) object).getCustomerShipAdress()  != null ){
-                 prestmt.setString(1, ((Adress) object).getCustomerShipAdress().getId());  
-             }
-             else prestmt.setString(1, null);
-            
-                      
-            if ( ((Adress) object).getCustomerBillAdress()  != null ){
+
+            if (((Adress) object).getCustomerShipAdress() != null) {
+                prestmt.setString(1, ((Adress) object).getCustomerShipAdress().getId());
+            } else {
+                prestmt.setString(1, null);
+            }
+
+            if (((Adress) object).getCustomerBillAdress() != null) {
                 prestmt.setString(2, ((Adress) object).getCustomerBillAdress().getId());
-                }
-            else prestmt.setString(2, null);            
+            } else {
+                prestmt.setString(2, null);
+            }
             prestmt.setString(3, ((Adress) object).getNameReceiverAdress());
             prestmt.setString(4, ((Adress) object).getTypeStreetAdress());
             prestmt.setString(5, ((Adress) object).getNumAdress());
@@ -125,12 +128,13 @@ public class AdressDAO extends AbstractDataAccessObject {
             prestmt.setString(8, ((Adress) object).getZipcodeAdress());
             prestmt.setString(9, ((Adress) object).getCityAdress());
             prestmt.setString(10, ((Adress) object).getCountryAdress());
-            
-            if ( ((Adress) object).getNameCompanyReceiverAdress()  != null ){
-           prestmt.setString(11, ((Adress) object).getNameCompanyReceiverAdress().getId());
-            }else
-               prestmt.setString(11,null);
-            
+
+            if (((Adress) object).getNameCompanyReceiverAdress() != null) {
+                prestmt.setString(11, ((Adress) object).getNameCompanyReceiverAdress().getId());
+            } else {
+                prestmt.setString(11, null);
+            }
+
             prestmt.setString(12, ((Adress) object).getId());
 
             retour = prestmt.executeUpdate();
@@ -139,14 +143,11 @@ public class AdressDAO extends AbstractDataAccessObject {
             // A Severe SQL Exception is caught
             displaySqlException(e);
             throw new DataAccessException("executePreparedSt : Cannot get data from the database: " + e.getMessage(), e);
-        }
-        catch (Exception ex) { 
-            ex.getStackTrace();           
+        } catch (Exception ex) {
+            ex.getStackTrace();
 //       throw new Exception("executePreparedSt : Cannot get data from the database: " + ex.getMessage());            
         }
-        
-        
-        
+
         return retour;
     }
 

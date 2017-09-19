@@ -14,6 +14,7 @@ import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.catalog.BookDAO;
 import com.cdi.g3.server.domain.customers.Adress;
 import com.cdi.g3.server.domain.customers.Customer;
+import com.cdi.g3.server.domain.orders.InfoStatus;
 import com.cdi.g3.server.domain.orders.OrderLine;
 import com.cdi.g3.server.domain.orders.Orders;
 import com.cdi.g3.server.domain.other.CodeTVA;
@@ -42,25 +43,24 @@ import javax.swing.table.DefaultTableModel;
  * @author Apotheas
  */
 //public class JPanelFormOrders extends javax.swing.JPanel {
-    public class JPanelFormOrders extends  JDesktopPane{
+public class JPanelFormOrders extends JDesktopPane {
 //    CatalogService bookService = new CatalogService();
-      OrderService serviceOrder = new OrderService();
-      OtherService otherService = new OtherService();
-      BookDAO _daoBook =new BookDAO();
-      JPanelFormCustomers jPanalCustomer = new JPanelFormCustomers();
-      Vector cartShopingData = new Vector();
-      Vector vectorJTableOrders = new Vector();
-      
-       Collection books ;
+
+    OrderService serviceOrder = new OrderService();
+    OtherService otherService = new OtherService();
+    BookDAO _daoBook = new BookDAO();
+    JPanelFormCustomers jPanalCustomer = new JPanelFormCustomers();
+    Vector cartShopingData = new Vector();
+    Vector vectorJTableOrders = new Vector();
+
+    Collection books;
+
     /**
      * Creates new form JPanelOrders
      */
     public JPanelFormOrders() {
-        initComponents(); 
-        
-        
-       
-       
+        initComponents();
+
     }
 
     /**
@@ -165,6 +165,16 @@ import javax.swing.table.DefaultTableModel;
         });
 
         jComboBoxOrderStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Shipped", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxOrderStatus.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxOrderStatusItemStateChanged(evt);
+            }
+        });
+        jComboBoxOrderStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxOrderStatusActionPerformed(evt);
+            }
+        });
 
         jButtonSearchOrders.setText("Search");
         jButtonSearchOrders.addActionListener(new java.awt.event.ActionListener() {
@@ -208,6 +218,11 @@ import javax.swing.table.DefaultTableModel;
         );
 
         jButtonSetStatus.setText("Set");
+        jButtonSetStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSetStatusActionPerformed(evt);
+            }
+        });
 
         jComboBoxSearchOrdersBycolumn.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Number Order", "InternNum Order", "Login Customer", "Status Order" }));
 
@@ -806,56 +821,50 @@ import javax.swing.table.DefaultTableModel;
 
     private void jButtonAddBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddBookActionPerformed
         final String mname = "jButtonAddBookActionPerformed";
-        final CustomerService customerService = new CustomerService();  
+        final CustomerService customerService = new CustomerService();
         JPanelFormCustomers jPanalCustomer = new JPanelFormCustomers();
         try {
 //            if (jComboBoxCustomer.equals(null)) {
-            final Collection  customers = customerService.findCustomers();
+            final Collection customers = customerService.findCustomers();
             jComboBoxCustomer.setModel(jPanalCustomer.initCustomersComboBoxModel(customers));
 //            }
         } catch (FinderException ex) {
             Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         Vector rowCartShopping = new Vector();
-        Book book =  (Book) jComboBoxBook.getSelectedItem();
-        
-        rowCartShopping.add(0,book.getId());
-        rowCartShopping.add(1,jTextQuantity.getText());
-        rowCartShopping.add(2,book.getUnitCostBook());
-        
-        
-        
-        
+        Book book = (Book) jComboBoxBook.getSelectedItem();
+
+        rowCartShopping.add(0, book.getId());
+        rowCartShopping.add(1, jTextQuantity.getText());
+        rowCartShopping.add(2, book.getUnitCostBook());
+
 //        jTableShoppingCart.setValueAt( (String) book.getId(),0, 0);
 //        jTableShoppingCart.setValueAt(Integer.getInteger(jTextQuantity.getText()),0, 1);
 //        jTableShoppingCart.setValueAt((Float)book.getUnitCostBook(),0, 2);
-        
-        
-        CodeTVA codeTVA  =null;
-            try {
-                codeTVA = (CodeTVA) otherService.findCodeTVA(book.getCodeTVA().getId());
-            } catch (FinderException ex) {
-                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (CheckException ex) {
-                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        CodeTVA codeTVA = null;
+        try {
+            codeTVA = (CodeTVA) otherService.findCodeTVA(book.getCodeTVA().getId());
+        } catch (FinderException ex) {
+            Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CheckException ex) {
+            Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+        }
 //        jTableShoppingCart.setValueAt((Float)codeTVA.getRateCodeTva(),0, 3);            
-        
-        
+
         float prixHT = (Integer.parseInt(jTextQuantity.getText())) * book.getUnitCostBook();
-        float prixTCC = prixHT + (prixHT * codeTVA.getRateCodeTva())/100;
+        float prixTCC = prixHT + (prixHT * codeTVA.getRateCodeTva()) / 100;
 //      jTableShoppingCart.setValueAt(prixHT,0, 4);
 //      jTableShoppingCart.setValueAt(prixTCC,0, 5);
-        
-        rowCartShopping.add(3,codeTVA.getRateCodeTva());
-        rowCartShopping.add(4,prixHT);
-        rowCartShopping.add(5,prixTCC);
+
+        rowCartShopping.add(3, codeTVA.getRateCodeTva());
+        rowCartShopping.add(4, prixHT);
+        rowCartShopping.add(5, prixTCC);
         cartShopingData.add(rowCartShopping);
-        
+
         jTableShoppingCart.setModel(initCartShopingTableModel(cartShopingData));
         jComboBoxBook.setModel(initBooksComboBoxModel(books));
-        
+
 // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAddBookActionPerformed
 
@@ -876,22 +885,22 @@ import javax.swing.table.DefaultTableModel;
             // Sets all the Order data
             order = new Orders();
             // Sets all the order items data
-            final Collection orderLines = new ArrayList();            
+            final Collection orderLines = new ArrayList();
             OrderLine orderLine;
-            
-            for (Iterator iterator = cartShopingData.iterator(); iterator.hasNext();){
+
+            for (Iterator iterator = cartShopingData.iterator(); iterator.hasNext();) {
                 Vector vectorRowCartShoping = (Vector) iterator.next();
-                
+
                 int quantity = Integer.parseInt((String) vectorRowCartShoping.elementAt(1));
                 float unitCost = ((Float) vectorRowCartShoping.elementAt(2));
                 float rateTVA = ((Float) vectorRowCartShoping.elementAt(3));
-                               
-                orderLine = new OrderLine(new Book( (String) vectorRowCartShoping.elementAt(0)), 
-                            quantity, unitCost, rateTVA );
+
+                orderLine = new OrderLine(new Book((String) vectorRowCartShoping.elementAt(0)),
+                        quantity, unitCost, rateTVA);
                 orderLines.add(orderLine);
-                
+
             }
-            
+
 //            for(int i=0; i< this.cartShopingData.size(); i++) { 
 //               int quantity = ((Integer) jTableShoppingCart.getModel().getValueAt(i,1)).intValue();
 //               float unitCost = (float)(jTableShoppingCart.getModel().getValueAt(i,2));
@@ -901,69 +910,64 @@ import javax.swing.table.DefaultTableModel;
 //                            quantity, unitCost, rateTVA );
 //                    orderLines.add(orderLine);
 //            }
-            
-             // Sets all the Order data
+            // Sets all the Order data
             final Customer customer = ((Customer) jComboBoxCustomer.getSelectedItem());
             order.setCustomer(customer);
-            order.setDateOrder(java.sql.Date.valueOf( LocalDate.now()));            
+            order.setDateOrder(java.sql.Date.valueOf(LocalDate.now()));
             order.setPaymentSystemOrder("CB");
-            
-            if (jTextIdAdressShipp.getText()== null|| jTextIdAdressShipp.getText().isEmpty())
+
+            if (jTextIdAdressShipp.getText() == null || jTextIdAdressShipp.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "select a customer", "info message", JOptionPane.INFORMATION_MESSAGE);
-            
+            }
+
             jComboBoxCustomer.setModel(jPanalCustomer.initCustomersComboBoxModel(customer.getListAddressBilling()));
-            final Adress adressBilling = ((Adress) jComboBoxAdressShipping.getSelectedItem());        
-            
-                    
+            final Adress adressBilling = ((Adress) jComboBoxAdressShipping.getSelectedItem());
+
             jComboBoxCustomer.setModel(jPanalCustomer.initCustomersComboBoxModel(customer.getListAddressShipping()));
-            final Adress adressShipping = ((Adress) jComboBoxAdressShipping.getSelectedItem());        
-            
-            
+            final Adress adressShipping = ((Adress) jComboBoxAdressShipping.getSelectedItem());
+
             order.setAdressShipping(adressShipping);
             order.setAdressBilling(adressBilling);
             order.setListOrderLines(orderLines);
             // Create the order
             final Orders result = OrderService.createOrder(order);
-            jTextOrderId.setText(result.getId());            
+            jTextOrderId.setText(result.getId());
             jTextOrderDate.setText(DateFormat.getDateInstance().format(result.getDateOrder()));
 
         } catch (Exception e) {
-             e.printStackTrace();
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Cannot access the order service", "Error", JOptionPane.ERROR_MESSAGE);
             Trace.throwing(_cname, mname, e);
         }
     }//GEN-LAST:event_jButtonProceedActionPerformed
 
     private void jComboBoxBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBookActionPerformed
-            
-                try {             
-              books = _daoBook.findAll();
-              jComboBoxBook.setModel(initBooksComboBoxModel(books));
+
+        try {
+            books = _daoBook.findAll();
+            jComboBoxBook.setModel(initBooksComboBoxModel(books));
         } catch (ObjectNotFoundException ex) {
             Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
         }  // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxBookActionPerformed
 
-    
-    
-    
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBoxCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCustomerActionPerformed
-         Customer customer = (Customer) jComboBoxCustomer.getSelectedItem();
-        
+        Customer customer = (Customer) jComboBoxCustomer.getSelectedItem();
+
         jComboBoxAdressShipping.setModel(jPanalCustomer.initAdressShipComboBoxModel(
-                           customer.getListAddressShipping())); 
-        
+                customer.getListAddressShipping()));
+
         jComboBoxAdressBilling.setModel(jPanalCustomer.initAdressBillComboBoxModel(
-                           customer.getListAddressBilling())); 
+                customer.getListAddressBilling()));
     }//GEN-LAST:event_jComboBoxCustomerActionPerformed
 
     private void jComboBoxAdressBillingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAdressBillingActionPerformed
-       final Adress adressBilling = ((Adress) jComboBoxAdressBilling.getSelectedItem());
+        final Adress adressBilling = ((Adress) jComboBoxAdressBilling.getSelectedItem());
         jTextNameReceiverAdressBill.setText(adressBilling.getNameReceiverAdress());
         jTextNumStreetBill.setText(adressBilling.getNumAdress());
         jTextStreetBill.setText(adressBilling.getNameStreetAdress());
@@ -980,110 +984,147 @@ import javax.swing.table.DefaultTableModel;
         jTextNameReceiverAdressShipp.setText(adressShipping.getNameReceiverAdress());
         jTextNumStreetShipp.setText(adressShipping.getNumAdress());
         jTextStreetShipp.setText(adressShipping.getNameStreetAdress());
-         jTextStreet2Shipp.setText(adressShipping.getNameStreet2Adress());
+        jTextStreet2Shipp.setText(adressShipping.getNameStreet2Adress());
         jTextZipCodeShipp.setText(adressShipping.getZipcodeAdress());
         jTextCityShipp.setText(adressShipping.getCityAdress());
         jTextCountryShipp.setText(adressShipping.getCountryAdress());
 //      jTextCompany.setText(adressBilling.getNameCompanyReceiverAdress().getNameCompany());
         jTextIdAdressShipp.setText(adressShipping.getId());
-        
+
     }//GEN-LAST:event_jComboBoxAdressShippingActionPerformed
 
     private void jComboBoxBookMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxBookMouseEntered
-        BookDAO _daoBook =new BookDAO();
-                try {
-              Collection books ;
-                books = _daoBook.findAll();
-                jComboBoxBook.setModel(initBooksComboBoxModel(books));
+        BookDAO _daoBook = new BookDAO();
+        try {
+            Collection books;
+            books = _daoBook.findAll();
+            jComboBoxBook.setModel(initBooksComboBoxModel(books));
         } catch (ObjectNotFoundException ex) {
             Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }//GEN-LAST:event_jComboBoxBookMouseEntered
 
     private void jButtonSearchOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchOrdersActionPerformed
-       final String mname = "jButtonSearchOrdersActionPerformed";
-       Vector rowDada = new Vector();
-       Collection    orders = null;
-          
-       
-       if (jComboBoxSearchOrdersBycolumn.getSelectedIndex() == 0) {
-       
-          Orders order = null;
-           try {
-              order = serviceOrder.findOrder(jTextSearchOrders.getText());
-           } catch (FinderException ex) {
-               Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-           } catch (CheckException ex) {
-               Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-           }
-           Vector colData = null;
-                    colData = new Vector();
-                    colData.add(order);
-                    rowDada.add(order.getVector());           
-            vectorJTableOrders.add(rowDada);
-       }
-       
-       
-       
-       if (jComboBoxSearchOrdersBycolumn.getSelectedIndex() == 1) {
-           Orders order = null;
-         
-           try {
-               order = serviceOrder.findOrderByNumIternOrder("INTERNALNUMORDER", jTextSearchOrders.getText());
-           } catch (ObjectNotFoundException ex) {
-               Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-           }
-           Vector colData = null;
-                    colData = new Vector();
-                    colData.add(order);
-                    rowDada.add(order.getVector());           
-            vectorJTableOrders.add(rowDada);
-       }
-        
-       
-       if (jComboBoxSearchOrdersBycolumn.getSelectedIndex() == 2) {
-       
-                try {
-                       orders = serviceOrder.findOrdersByCustomer("LoginCustomer", jTextSearchOrders.getText());
-                   } catch (ObjectNotFoundException ex) {
-                       Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-                   }
+        final String mname = "jButtonSearchOrdersActionPerformed";
+        Vector vOrders = new Vector();
+        Collection orders = null;
 
-                for (Orders order : (Collection <Orders>) orders) {
-                    Vector colData = null;
-                    colData = new Vector();
-                    colData.add(order);
-                    rowDada.add(order.getVector());
-                }
-             vectorJTableOrders.add(rowDada);
-       
-       }
-       
-       jTableOrders.setModel(initOrdersTableModel(vectorJTableOrders));
-        
+        if (jComboBoxSearchOrdersBycolumn.getSelectedIndex() == 0) {
+
+            Orders order = null;
+            try {
+                order = serviceOrder.findOrder(jTextSearchOrders.getText());//              
+                vOrders.add(order);
+
+            } catch (FinderException ex) {
+                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CheckException ex) {
+                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        if (jComboBoxSearchOrdersBycolumn.getSelectedIndex() == 1) {
+            Orders order = null;
+            try {
+                order = serviceOrder.findOrderByNumIternOrder("INTERNALNUMORDER", jTextSearchOrders.getText());//              
+                vOrders.add(order);
+
+            } catch (ObjectNotFoundException ex) {
+                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        if (jComboBoxSearchOrdersBycolumn.getSelectedIndex() == 2) {
+
+            try {
+                orders = serviceOrder.findOrdersByCustomer("LoginCustomer", jTextSearchOrders.getText());
+
+            } catch (ObjectNotFoundException ex) {
+                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        vOrders.addAll(orders);
+        jTableOrders.setModel(initOrdersTableModel(vOrders));
+
     }//GEN-LAST:event_jButtonSearchOrdersActionPerformed
 
-    
-    
+    private void jButtonSetStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSetStatusActionPerformed
+        final String mname = "jButtonSetStatusActionPerformed";
+        Vector vOrders = new Vector();
+
+        Collection orders = null;
+        final InfoStatus statusOrders = (InfoStatus) jComboBoxOrderStatus.getSelectedItem();
+        try {
+            orders = serviceOrder.findOrdersByStatus("NAMEINFOSTATUSORDER", statusOrders.getId());
+
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        vOrders.addAll(orders);
+        jTableOrders.setModel(initOrdersTableModel(vOrders));
+
+    }//GEN-LAST:event_jButtonSetStatusActionPerformed
+
+    private void jComboBoxOrderStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxOrderStatusActionPerformed
+        Collection infoStatus = null;
+        try {
+            infoStatus = serviceOrder.findStatusOrders();
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jComboBoxOrderStatus.setModel(initStatusOrdersComboBoxModel(infoStatus));
+    }//GEN-LAST:event_jComboBoxOrderStatusActionPerformed
+
+    private void jComboBoxOrderStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxOrderStatusItemStateChanged
+        Collection infoStatus = null;
+        try {
+            infoStatus = serviceOrder.findStatusOrders();
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jComboBoxOrderStatus.setModel(initStatusOrdersComboBoxModel(infoStatus));
+
+    }//GEN-LAST:event_jComboBoxOrderStatusItemStateChanged
+
     public DefaultComboBoxModel initBooksComboBoxModel(Collection books) {
-        return new DefaultComboBoxModel( initBooksVector(books) );
+        return new DefaultComboBoxModel(initBooksVector(books));
     }
+
     private Vector initBooksVector(Collection books) {
         final String mname = "initBooksVector";
         Vector v = new Vector();
         v.addAll(books);
         return v;
     }
-        
-        
-    public DefaultTableModel initOrdersTableModel(Vector v) {
+
+    public DefaultComboBoxModel initStatusOrdersComboBoxModel(Collection statusOrders) {
+        return new DefaultComboBoxModel(initStatusOrdersVector(statusOrders));
+    }
+
+    private Vector initStatusOrdersVector(Collection statusOrders) {
+        final String mname = "initStatusOrdersVector";
+        Vector v = new Vector();
+        v.addAll(statusOrders);
+        return v;
+    }
+
+    public DefaultTableModel initOrdersTableModel(Collection v) {
         return new DefaultTableModel(initVectorOrdersTableData(v), initVectorColumnNamesTable());
     }
-    
-    private Vector initVectorOrdersTableData(Vector v) {
-       vectorJTableOrders.clear();
-       vectorJTableOrders.add(v);
-       return vectorJTableOrders;
+
+    private Vector initVectorOrdersTableData(Collection v) {
+        vectorJTableOrders.clear();
+
+        for (Orders order : (Collection<Orders>) v) {
+            Vector colData = null;
+            colData = new Vector();
+            colData.add(order);
+            vectorJTableOrders.add(order.getVector());
+        }
+        return vectorJTableOrders;
+
     }
 
     private Vector initVectorColumnNamesTable() {
@@ -1093,25 +1134,22 @@ import javax.swing.table.DefaultTableModel;
         columnNames.add("Date order");
         columnNames.add("LastName customer");
         columnNames.add("FirstName customer");
-        columnNames.add("AdressShip customer");        
+        columnNames.add("AdressShip customer");
         columnNames.add("Name Shipper");
         columnNames.add("DateShip order");
         columnNames.add("Ip Customer");
         columnNames.add("Status Order");
         return columnNames;
     }
-    
-    
-    
-    
+
     public DefaultTableModel initCartShopingTableModel(Vector v) {
         return new DefaultTableModel(initVectorCartShopingTableData(v), initVectorCartShopingColumnNamesTable());
     }
-    
+
     private Vector initVectorCartShopingTableData(Vector v) {
-       final String mname = "initVectorCartShopingTableData";      
+        final String mname = "initVectorCartShopingTableData";
 //       cartShopingData.addAll(v);
-       return cartShopingData; 
+        return cartShopingData;
     }
 
     private Vector initVectorCartShopingColumnNamesTable() {
@@ -1124,14 +1162,8 @@ import javax.swing.table.DefaultTableModel;
         columnNames.add("PRIX TTC");
         return columnNames;
     }
-    
-    
-    
-    
-    
-    
-    
-protected final transient String _cname = this.getClass().getName();
+
+    protected final transient String _cname = this.getClass().getName();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAddBook;

@@ -85,6 +85,30 @@ public class OrderLineDAO extends AbstractDataAccessObject {
         sql = "SELECT " + COLUMNS + " FROM " + TABLE;
         return sql;
     }
+    
+    
+    
+    @Override
+    protected String getSelectAllSqlStatementByChamp(String column, String champ){
+        final String sql;
+        sql = "SELECT " + "IDORDERLINE, QUANTITYORDERLINE, UNITCOSTORDERLINE,"
+            + " ordl.IDORDER, NUMISBNBOOK, DISCOUNTORDERLINE, RATETVAORDERLINE, IDAPPRECIATE"
+                + " FROM " + TABLE  +" ordl "+" join Orders  ord " +
+              "On ord.IDORDER = ordl.IDORDER "+
+              " WHERE ordl."+  column + " = '"+ champ+"'"; 
+        return sql;
+    }
+    
+    @Override
+    protected String getSelectSqlStatementByChamp(String column, String champ){
+        final String sql;
+        sql = "SELECT " + COLUMNS+ " FROM " + TABLE  +
+              " WHERE "+  column + " = '"+ champ+"'"; 
+        
+        System.out.println(sql);
+        return sql;
+    }
+    
 
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {

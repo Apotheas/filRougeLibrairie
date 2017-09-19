@@ -22,6 +22,8 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.sql.Date;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -74,7 +76,8 @@ public class OrdersDAO extends AbstractDataAccessObject {
     @Override
     protected String getSelectSqlStatement(String id) {
         final String sql;
-        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE IDORDER = '" + id + "' ";
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE IDORDER = '" + id + "'";
+        
         return sql;
     }
 
@@ -90,35 +93,47 @@ public class OrdersDAO extends AbstractDataAccessObject {
         final String sql;
         sql = "SELECT " + COLUMNS+ " FROM " + TABLE  +" ord "+" join Customer cus " +
               "On ord.LOGINCUSTOMERORDER = cus.LOGINCUSTOMER "+
-              "WHERE "+  column + " = '"+ champ+"'";      
+              " WHERE "+  column + " = '"+ champ+"'";   
  
         
         return sql;
     }
     
+    @Override
+    protected String getSelectSqlStatementByChamp(String column, String champ){
+        final String sql;
+        sql = "SELECT " + COLUMNS+ " FROM " + TABLE  +
+              " WHERE "+  column + " = '"+ champ+"'"; 
+        return sql;
+    }
     
-  
-    public DomainObject getOrdersByStatus(String column, String champ) throws ObjectNotFoundException{
+    public final Collection getOrdersByStatus(String column, String champ) throws ObjectNotFoundException {
+        final String mname = "getOrdersByStatus";
+        Trace.entering(getCname(), mname);
+
         final String sql;
         sql = "SELECT " + COLUMNS+ " FROM " + TABLE  +" ord "+" join InfoStatus infs " +
               "On ord.NAMEINFOSTATUSORDER = infs.NAMEINFOSTATUS "+
-              "WHERE "+  column + " = '"+ champ+"'";
-        final String mname = "select";
-        Trace.entering(getCname(), mname, column);
+              " WHERE "+  column + " = '"+ champ+"'";
+        System.out.println(sql);
+         
         ResultSet resultSet = null;
-        DomainObject object;
-        // Gets a database connection
+        final Collection objects = new ArrayList();
+         // Gets a database connection
         try (Connection connection = getConnection(); 
             Statement statement = connection.createStatement()) {
-            
+        
             // Select a Row
             resultSet = statement.executeQuery(sql);
-            if (!resultSet.next()) {
-                throw new ObjectNotFoundException();
+
+            while (resultSet.next()) {
+                // Set data to the collection
+                objects.add(transformResultset2DomainObject(resultSet));
             }
 
-            // Set data to current object
-            object = transformResultset2DomainObject(resultSet);
+            if (objects.isEmpty()) {
+                throw new ObjectNotFoundException();
+            }
 
         } catch (SQLException e) {
             // A Severe SQL Exception is caught
@@ -129,16 +144,20 @@ public class OrdersDAO extends AbstractDataAccessObject {
             try {
                 if (resultSet != null) {
                     resultSet.close();
-                }                
+                }             
             } catch (SQLException e) {
                 displaySqlException("Cannot close connection", e);
                 throw new DataAccessException("Cannot close the database connection", e);
             }
         }
 
-        Trace.exiting(getCname(), mname, object);
-        return object;        
+        Trace.exiting(getCname(), mname, new Integer(objects.size()));
+        return objects;
     }
+    
+    
+    
+    
     
 
     @Override
@@ -196,7 +215,6 @@ public class OrdersDAO extends AbstractDataAccessObject {
 
         } catch (SQLException e) {
             // A Severe SQL Exception is caught
-            
             e.printStackTrace();
             displaySqlException(e);
             throw new DataAccessException("executePreparedSt : Cannot get data from the database: " + e.getMessage(), e);
