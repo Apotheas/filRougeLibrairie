@@ -189,6 +189,14 @@ public final class CustomerService extends AbstractService {
         Trace.exiting(_cname, mname, new Integer(customers.size()));
         return customers;
     }
+    
+    public Customer findCustomerByNumEmail(String column, String champ) throws ObjectNotFoundException {
+        final String mname = "findCustomerByNumEmail";
+        Trace.entering(_cname, mname);
+        return   (Customer) _daoCustomer.findByChamp(column, champ);
+        
+    }
+    
 
     // ======================================
     // = Private Methods =
