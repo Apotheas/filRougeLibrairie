@@ -206,10 +206,10 @@ public class OrderService extends AbstractService {
          final String mname = "findStatus";
         Trace.entering(_cname, mname);
         // Finds all the objects
-        final Collection orders = _infoStatusDAO.findAllStatusOrders();
+        final Collection status = _infoStatusDAO.findAllStatusByCondition("Between 0 and 9");
 
-        Trace.exiting(_cname, mname, new Integer(orders.size()));
-        return orders;
+        Trace.exiting(_cname, mname, new Integer(status.size()));
+        return status;
      }
     
     

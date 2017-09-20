@@ -13,6 +13,7 @@ import com.cdi.g3.server.domain.customers.Appreciation;
 import com.cdi.g3.server.domain.customers.AppreciationDAO;
 import com.cdi.g3.server.domain.customers.Customer;
 import com.cdi.g3.server.domain.customers.CustomerDAO;
+import com.cdi.g3.server.domain.orders.InfoStatusDAO;
 import com.cdi.g3.server.domain.orders.Orders;
 import com.cdi.g3.server.domain.orders.OrdersDAO;
 import com.cdi.g3.server.service.AbstractService;
@@ -33,6 +34,8 @@ public final class CustomerService extends AbstractService {
     private static final AdressService serviceAdress = new AdressService();
     private static final AppreciationDAO _daoAppreciation = new AppreciationDAO();
     private static final OrdersDAO _daoOrder = new OrdersDAO();
+    private static final InfoStatusDAO _infoStatusDAO = new InfoStatusDAO();
+
 
     // ======================================
     // = Constructors =
@@ -190,12 +193,25 @@ public final class CustomerService extends AbstractService {
         return customers;
     }
     
-    public Customer findCustomerByNumEmail(String column, String champ) throws ObjectNotFoundException {
+    public Customer findCustomerByEmail(String column, String champ) throws ObjectNotFoundException {
         final String mname = "findCustomerByNumEmail";
         Trace.entering(_cname, mname);
         return   (Customer) _daoCustomer.findByChamp(column, champ);
         
     }
+    
+    public Collection findStatusCustomers() throws ObjectNotFoundException {
+         final String mname = "findStatus";
+        Trace.entering(_cname, mname);
+        // Finds all the objects
+        final Collection status = _infoStatusDAO.findAllStatusByCondition("Between 10 and 19");
+
+        Trace.exiting(_cname, mname, new Integer(status.size()));
+        return status;
+     }
+    
+    
+    
     
 
     // ======================================
