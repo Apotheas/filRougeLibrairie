@@ -1,3 +1,6 @@
+
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,6 +14,7 @@ import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.customers.Adress;
 import com.cdi.g3.server.domain.customers.Customer;
+import com.cdi.g3.server.domain.orders.InfoStatus;
 import com.cdi.g3.server.domain.orders.Orders;
 import com.cdi.g3.server.service.customers.AdressService;
 import com.cdi.g3.server.service.customers.CustomerService;
@@ -28,9 +32,12 @@ import javax.swing.JDesktopPane;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.event.ListSelectionListener;
 
 /**
  *
@@ -46,7 +53,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     Vector adressBillList = new Vector();
     Vector adressShipList = new Vector();
     Vector customersVector = new Vector();
-    
+    Vector statusCustomersVector = new Vector();
     
     DateFormat df = new SimpleDateFormat("dd-MM-YYYY");
 
@@ -70,7 +77,16 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
      */
     public JPanelFormCustomers() {
         initComponents(); 
-        jTableCustomers1.setAutoCreateRowSorter(true);
+        jTableCustomers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        
+//        jTableCustomers1.setAutoCreateRowSorter(true);
+        jTableCustomers.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent evt) {
+                selectLineTableCustomerActionPerformed(evt);
+            }
+        });
+        
         
         jPanelShippingAdress1.setVisible(false);
         jPanelBillingAdress1.setVisible(false);
@@ -81,8 +97,6 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 //        jButtonCreateAdressShip.setVisible(false);
 //        jButtonCreateAdressBill.setVisible(false);
         
-        jTableCustomers1.setVisible(true);
-        
 //        jButton11.setVisible(false);
 //        jButton21.setVisible(false);    
         
@@ -92,10 +106,9 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jPanelShippingAdress1.setVisible(false);
         jPanelBillingAdress1.setVisible(false);
         chargeComboBoxCustomers ();
+        chargeComboBoxStatusCustomers();       
+        jComboBoxStatus1.setModel(initStatusCustomersComboBoxModel(statusCustomersVector));     
         jTableCustomers.setModel(initCustomersTableModel(customersVector));
-        
-        
-        
         
 //        jComboBoxCustomers.setSelectedIndex(-1);
 //        jComboBoxShip.setModel(initComboAdressShipModel(adressShipList));
@@ -153,9 +166,14 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jTabbedPaneManageAccount = new javax.swing.JTabbedPane();
         jScrollPaneTree1 = new javax.swing.JScrollPane();
         jTreeCustomers = new javax.swing.JTree();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableCustomers1 = new javax.swing.JTable();
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jPanel1 = new javax.swing.JPanel();
+        jComboBoxCustomers1 = new javax.swing.JComboBox();
+        jComboBoxSearchCustomer1 = new javax.swing.JComboBox();
+        jLabelSearch1 = new javax.swing.JLabel();
+        jTextSearchCustomer1 = new javax.swing.JTextField();
+        jButtonSearchCustomer1 = new javax.swing.JButton();
+        AddCustomer1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableCustomers = new javax.swing.JTable();
         jPanelCustomer = new javax.swing.JPanel();
@@ -165,9 +183,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jLabelPassword1 = new javax.swing.JLabel();
         jTextCompany1 = new javax.swing.JTextField();
         jLabelCompany1 = new javax.swing.JLabel();
-        jTextEmail1 = new javax.swing.JTextField();
         jLabelLogin1 = new javax.swing.JLabel();
-        jTextFirstName1 = new javax.swing.JTextField();
         jLabelEmail1 = new javax.swing.JLabel();
         jTextLogin1 = new javax.swing.JTextField();
         jLabelFirstName1 = new javax.swing.JLabel();
@@ -178,13 +194,29 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jComboBoxBill1 = new javax.swing.JComboBox();
         jButtonAdressShipping1 = new javax.swing.JButton();
         jButtonAdressBilling1 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jComboBoxCustomers1 = new javax.swing.JComboBox();
-        jComboBoxSearchCustomer1 = new javax.swing.JComboBox();
-        jLabelSearch1 = new javax.swing.JLabel();
-        jTextSearchCustomer1 = new javax.swing.JTextField();
-        jButtonSearchCustomer1 = new javax.swing.JButton();
-        AddCustomer1 = new javax.swing.JButton();
+        jPanelShippingAdress2 = new javax.swing.JPanel();
+        jLabeNameReceiverAdressShipp2 = new javax.swing.JLabel();
+        jTextNameReceiverAdressShipp2 = new javax.swing.JTextField();
+        jLabelStreetShipp2 = new javax.swing.JLabel();
+        jLabelZipCodeShipp2 = new javax.swing.JLabel();
+        jLabelCityShipp2 = new javax.swing.JLabel();
+        jTextStreetShipp2 = new javax.swing.JTextField();
+        jTextCityShipp2 = new javax.swing.JTextField();
+        jTextZipCodeShipp2 = new javax.swing.JTextField();
+        jTextNumStreetShipp2 = new javax.swing.JTextField();
+        jLabelNumStreetShipp2 = new javax.swing.JLabel();
+        jTextStreet2Shipp2 = new javax.swing.JTextField();
+        jLabelStreet2Shipp2 = new javax.swing.JLabel();
+        jTextCountryShipp2 = new javax.swing.JTextField();
+        jLabelCountryShipp2 = new javax.swing.JLabel();
+        jTextIdAdressShipp2 = new javax.swing.JTextField();
+        jLabelIdAdressShipp2 = new javax.swing.JLabel();
+        jButtonSendAdressShip1 = new javax.swing.JButton();
+        jButtonSendAdressShip3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jTextEmail1 = new javax.swing.JTextField();
+        jTextFirstName1 = new javax.swing.JTextField();
 
         jPanelShippingAdress1.setBorder(javax.swing.BorderFactory.createTitledBorder("Shipping adress"));
 
@@ -470,17 +502,35 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
         jTabbedPaneManageAccount.addTab("Consult", jScrollPaneTree1);
 
-        jTableCustomers1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        jComboBoxCustomers1.setModel(initAdressBillComboBoxModel(customersVector));
+        jComboBoxCustomers1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jComboBoxCustomers1MouseEntered(evt);
             }
-        ));
-        jScrollPane1.setViewportView(jTableCustomers1);
+        });
+        jComboBoxCustomers1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCustomers1ActionPerformed(evt);
+            }
+        });
 
-        jTabbedPaneManageAccount.addTab("Customers", jScrollPane1);
+        jComboBoxSearchCustomer1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pseudo", "Email" }));
+
+        jLabelSearch1.setText("search by pseudo/email  :");
+
+        jButtonSearchCustomer1.setText("search");
+        jButtonSearchCustomer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSearchCustomer1ActionPerformed(evt);
+            }
+        });
+
+        AddCustomer1.setText("AddCustomer");
+        AddCustomer1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddCustomer1ActionPerformed(evt);
+            }
+        });
 
         jTableCustomers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -521,12 +571,6 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         });
 
         jLabelCompany1.setText("Company  : ");
-
-        jTextEmail1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextEmail1ActionPerformed(evt);
-            }
-        });
 
         jLabelLogin1.setText("Login  :");
 
@@ -577,119 +621,236 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             }
         });
 
+        jPanelShippingAdress2.setBorder(javax.swing.BorderFactory.createTitledBorder("Shipping adress"));
+
+        jLabeNameReceiverAdressShipp2.setText("Last Name  :");
+
+        jLabelStreetShipp2.setText("Street   :");
+
+        jLabelZipCodeShipp2.setText("Zip Code  :");
+
+        jLabelCityShipp2.setText("City  :");
+
+        jTextZipCodeShipp2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextZipCodeShipp2ActionPerformed(evt);
+            }
+        });
+
+        jLabelNumStreetShipp2.setText("Num Street   :");
+
+        jLabelStreet2Shipp2.setText("Street2");
+
+        jLabelCountryShipp2.setText("Country");
+
+        jLabelIdAdressShipp2.setText("Id Adress Ship");
+
+        jButtonSendAdressShip1.setText("Create Adress Bill");
+        jButtonSendAdressShip1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSendAdressShip1ActionPerformed(evt);
+            }
+        });
+
+        jButtonSendAdressShip3.setText("Create Adress Ship");
+        jButtonSendAdressShip3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSendAdressShip3ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Uptade Adress Bill");
+
+        jButton2.setText("Update Adress Ship");
+
+        javax.swing.GroupLayout jPanelShippingAdress2Layout = new javax.swing.GroupLayout(jPanelShippingAdress2);
+        jPanelShippingAdress2.setLayout(jPanelShippingAdress2Layout);
+        jPanelShippingAdress2Layout.setHorizontalGroup(
+            jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelShippingAdress2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingAdress2Layout.createSequentialGroup()
+                        .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelCityShipp2)
+                            .addComponent(jLabelCountryShipp2)
+                            .addComponent(jLabelIdAdressShipp2))
+                        .addGap(84, 84, 84)
+                        .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextCountryShipp2)
+                            .addComponent(jTextIdAdressShipp2)
+                            .addComponent(jTextCityShipp2)))
+                    .addGroup(jPanelShippingAdress2Layout.createSequentialGroup()
+                        .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabelZipCodeShipp2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelStreet2Shipp2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabelStreetShipp2)
+                            .addComponent(jLabelNumStreetShipp2)
+                            .addComponent(jLabeNameReceiverAdressShipp2))
+                        .addGap(86, 86, 86)
+                        .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextNameReceiverAdressShipp2)
+                            .addComponent(jTextNumStreetShipp2)
+                            .addComponent(jTextStreetShipp2)
+                            .addComponent(jTextStreet2Shipp2)
+                            .addComponent(jTextZipCodeShipp2))))
+                .addGap(71, 71, 71))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingAdress2Layout.createSequentialGroup()
+                .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonSendAdressShip3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonSendAdressShip1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanelShippingAdress2Layout.setVerticalGroup(
+            jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelShippingAdress2Layout.createSequentialGroup()
+                .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabeNameReceiverAdressShipp2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextNameReceiverAdressShipp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelNumStreetShipp2)
+                    .addComponent(jTextNumStreetShipp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelStreetShipp2)
+                    .addComponent(jTextStreetShipp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextStreet2Shipp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelStreet2Shipp2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelZipCodeShipp2)
+                    .addComponent(jTextZipCodeShipp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelCityShipp2)
+                    .addComponent(jTextCityShipp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelCountryShipp2)
+                    .addComponent(jTextCountryShipp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelIdAdressShipp2)
+                    .addComponent(jTextIdAdressShipp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonSendAdressShip1)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelShippingAdress2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonSendAdressShip3)
+                    .addComponent(jButton2))
+                .addContainerGap())
+        );
+
+        jTextEmail1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextEmail1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelCustomerLayout = new javax.swing.GroupLayout(jPanelCustomer);
         jPanelCustomer.setLayout(jPanelCustomerLayout);
         jPanelCustomerLayout.setHorizontalGroup(
             jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCustomerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanelCustomerLayout.createSequentialGroup()
-                        .addComponent(jLabelLastName1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanelCustomerLayout.createSequentialGroup()
-                        .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCustomerLayout.createSequentialGroup()
-                                .addComponent(jLabelLogin1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCustomerLayout.createSequentialGroup()
+                        .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelLastName1)
+                            .addGroup(jPanelCustomerLayout.createSequentialGroup()
                                 .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelFirstName1))
+                                    .addComponent(jLabelFirstName1)
+                                    .addComponent(jLabelLogin1))
                                 .addGap(26, 26, 26)
                                 .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFirstName1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextLastName1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonSend, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(jTextEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFirstName1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanelCustomerLayout.createSequentialGroup()
-                                .addComponent(jLabelCompany1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextCompany1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelCustomerLayout.createSequentialGroup()
+                                .addComponent(jButtonAdressShipping1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBoxShip1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCustomerLayout.createSequentialGroup()
+                                .addGap(34, 34, 34)
                                 .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanelCustomerLayout.createSequentialGroup()
-                                        .addComponent(jLabelStatus1)
-                                        .addGap(27, 27, 27)
-                                        .addComponent(jComboBoxStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanelCustomerLayout.createSequentialGroup()
                                         .addComponent(jLabelPassword1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxShip1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxBill1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButtonAdressShipping1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
-                                    .addComponent(jButtonAdressBilling1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jTextPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanelCustomerLayout.createSequentialGroup()
+                                        .addComponent(jLabelStatus1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jComboBoxStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanelCustomerLayout.createSequentialGroup()
+                                .addComponent(jLabelCompany1)
+                                .addGap(33, 33, 33)
+                                .addComponent(jTextCompany1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCustomerLayout.createSequentialGroup()
+                        .addComponent(jButtonSend, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonAdressBilling1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxBill1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jPanelShippingAdress2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelCustomerLayout.setVerticalGroup(
             jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCustomerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelLogin1)
                     .addComponent(jLabelStatus1)
                     .addComponent(jComboBoxStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxShip1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAdressShipping1))
-                .addGap(20, 20, 20)
+                    .addComponent(jTextLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
                 .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelPassword1)
-                    .addComponent(jTextFirstName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelEmail1)
-                    .addComponent(jComboBoxBill1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonAdressBilling1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextCompany1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCompany1)
-                    .addComponent(jTextLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelFirstName1))
+                    .addComponent(jLabelFirstName1)
+                    .addComponent(jTextFirstName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelLastName1)
-                    .addComponent(jTextLastName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jButtonSend))
+                .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBoxShip1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonAdressShipping1))
+                    .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextLastName1)
+                        .addComponent(jLabelLastName1)))
+                .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelCustomerLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jComboBoxBill1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonAdressBilling1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanelCustomerLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jButtonSend)))
+                .addContainerGap(111, Short.MAX_VALUE))
+            .addGroup(jPanelCustomerLayout.createSequentialGroup()
+                .addComponent(jPanelShippingAdress2, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
-
-        jComboBoxCustomers1.setModel(initAdressBillComboBoxModel(customersVector));
-        jComboBoxCustomers1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jComboBoxCustomers1MouseEntered(evt);
-            }
-        });
-        jComboBoxCustomers1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxCustomers1ActionPerformed(evt);
-            }
-        });
-
-        jComboBoxSearchCustomer1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pseudo", "Email" }));
-
-        jLabelSearch1.setText("search by pseudo/email  :");
-
-        jButtonSearchCustomer1.setText("search");
-        jButtonSearchCustomer1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSearchCustomer1ActionPerformed(evt);
-            }
-        });
-
-        AddCustomer1.setText("AddCustomer");
-        AddCustomer1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddCustomer1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -697,40 +858,47 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBoxCustomers1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabelSearch1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jComboBoxSearchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxCustomers1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextSearchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonSearchCustomer1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(AddCustomer1)
-                        .addGap(55, 55, 55))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jComboBoxSearchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(jTextSearchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonSearchCustomer1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(AddCustomer1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabelSearch1)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jPanelCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addComponent(jLabelSearch1)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxCustomers1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelSearch1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBoxCustomers1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxSearchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextSearchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(23, 23, 23))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButtonSearchCustomer1)
-                            .addComponent(AddCustomer1))
-                        .addGap(29, 29, 29))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxSearchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextSearchCustomer1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonSearchCustomer1)
+                    .addComponent(AddCustomer1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
@@ -738,41 +906,30 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelCustomer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3))
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 856, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
-                .addComponent(jPanelCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jDesktopPane1.setLayer(jScrollPane3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jPanelCustomer, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        jTabbedPaneManageAccount.addTab("tab4", jDesktopPane1);
+        jTabbedPaneManageAccount.addTab("Manage", jDesktopPane1);
 
         javax.swing.GroupLayout jPanelAccountsLayout = new javax.swing.GroupLayout(jPanelAccounts);
         jPanelAccounts.setLayout(jPanelAccountsLayout);
         jPanelAccountsLayout.setHorizontalGroup(
             jPanelAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAccountsLayout.createSequentialGroup()
-                .addComponent(jTabbedPaneManageAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 830, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTabbedPaneManageAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanelAccountsLayout.setVerticalGroup(
             jPanelAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAccountsLayout.createSequentialGroup()
                 .addComponent(jTabbedPaneManageAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 689, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 112, Short.MAX_VALUE))
+                .addGap(0, 142, Short.MAX_VALUE))
         );
 
         add(jPanelAccounts, java.awt.BorderLayout.CENTER);
@@ -863,6 +1020,95 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         
         
     }//GEN-LAST:event_jButtonSendAdressShipActionPerformed
+private void selectLineTableCustomerActionPerformed(ListSelectionEvent evt) { 
+    
+    if (evt.getValueIsAdjusting())
+            return;
+            
+            ListSelectionModel lsm =   (ListSelectionModel) evt.getSource();
+    
+        if (lsm.isSelectionEmpty()) {
+            System.out.println("No rows selected");
+        }
+        else{            
+            int selectedRow = lsm.getMinSelectionIndex();           
+            Customer customer =   (Customer) customersVector.get(selectedRow);
+            jPanelCustomer.setVisible(true);
+            jTextEmail1.setText(customer.getEmailCustomer());            
+            jTextFirstName1.setText(customer.getFirstNameCustomer());            
+            jTextLogin1.setText(customer.getId());            
+            jTextLastName1.setText(customer.getLastNameCustomer());
+            jTextCompany1.setText(customer.getNameCompanyCustomer());
+            jComboBoxStatus1.setSelectedIndex(customer.getStatusCustomer());
+            
+            Adress adressShipping = new Adress();
+            adressShipList.clear();
+            adressBillList.clear();
+            adressShipList.addAll(customer.getListAddressShipping()) ;
+            adressBillList.addAll(customer.getListAddressBilling()) ;
+            jComboBoxShip1.setModel(initAdressShipComboBoxModel(adressShipList));
+            jComboBoxBill1.setModel(initAdressShipComboBoxModel(adressBillList));
+            
+        }
+}
+    
+    
+    
+    
+    
+    private void AddCustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCustomer1ActionPerformed
+        jPanelCustomer.setVisible(true);
+        jPanelShippingAdress2.setVisible(false);
+        
+        
+        jComboBoxShip1.setModel(initAdressShipComboBoxModel(adressShipList));
+        jComboBoxBill1.setModel(initAdressShipComboBoxModel(adressBillList));
+    }//GEN-LAST:event_AddCustomer1ActionPerformed
+
+    private void jButtonSearchCustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchCustomer1ActionPerformed
+        final String mname = "jButtonSearchOrdersActionPerformed";
+        Vector vOrders = new Vector();
+        Collection orders = new ArrayList();
+
+        if (jComboBoxSearchCustomer1.getSelectedIndex() == 0) {
+
+            Customer customer = null;
+            try {
+                customer = serviceCustomer.findCustomer(jTextSearchCustomer1.getText());//
+                orders.add(customer);
+
+            } catch (FinderException ex) {
+                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CheckException ex) {
+                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        if (jComboBoxSearchCustomer1.getSelectedIndex() == 1) {
+            Customer customer = null;
+            try {
+                customer = serviceCustomer.findCustomerByEmail("Email", jTextSearchCustomer1.getText());//
+                orders.add(customer);
+
+            } catch (ObjectNotFoundException ex) {
+                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        vOrders.addAll(orders);
+        jTableCustomers.setModel(initCustomersTableModel(vOrders));
+    }//GEN-LAST:event_jButtonSearchCustomer1ActionPerformed
+
+    private void jComboBoxCustomers1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCustomers1ActionPerformed
+        customersVector.clear();
+        customersVector.add((Customer)jComboBoxCustomers1.getSelectedItem());
+        jTableCustomers.setModel(initCustomersTableModel(customersVector));
+    }//GEN-LAST:event_jComboBoxCustomers1ActionPerformed
+
+    private void jComboBoxCustomers1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxCustomers1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxCustomers1MouseEntered
 
     private void jButtonAdressBilling1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdressBilling1ActionPerformed
         JDialog  jDialogAdAdressBill = getjDialogAddAdressBill();
@@ -906,7 +1152,6 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Cannot access the customer service", "Error", JOptionPane.ERROR_MESSAGE);
             Trace.throwing(_cname, mname, e);
         }
-
     }//GEN-LAST:event_jButtonSendActionPerformed
 
     private void jTextLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextLogin1ActionPerformed
@@ -938,60 +1183,48 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         } catch (FinderException ex) {
             Logger.getLogger(JPanelFormCustomers.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }//GEN-LAST:event_jTreeCustomersMouseClicked
 
-    private void jComboBoxCustomers1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxCustomers1MouseEntered
+    private void jTextZipCodeShipp2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextZipCodeShipp2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxCustomers1MouseEntered
+    }//GEN-LAST:event_jTextZipCodeShipp2ActionPerformed
 
-    private void jComboBoxCustomers1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCustomers1ActionPerformed
-       customersVector.clear();
-        customersVector.add((Customer)jComboBoxCustomers1.getSelectedItem());
-        jTableCustomers.setModel(initCustomersTableModel(customersVector));
-    }//GEN-LAST:event_jComboBoxCustomers1ActionPerformed
+    private void jButtonSendAdressShip1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendAdressShip1ActionPerformed
 
-    private void jButtonSearchCustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchCustomer1ActionPerformed
-       final String mname = "jButtonSearchOrdersActionPerformed";
-        Vector vOrders = new Vector();
-        Collection orders = new ArrayList();
-
-        if (jComboBoxSearchCustomer1.getSelectedIndex() == 0) {
-
-            Customer customer = null;
-            try {
-                customer = serviceCustomer.findCustomer(jTextSearchCustomer1.getText());//
-                orders.add(customer);
-
-            } catch (FinderException ex) {
-                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (CheckException ex) {
-                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+         final String mname = "jButtonCreateActionPerformed";
+        AdressService serviceAdress = new AdressService();
+        Adress adressShipping = new Adress();
+        try {
+            // Asks if we want to remove the customer
+            final int anwser = JOptionPane.showConfirmDialog(this, "Do you want to create adressShipping "
+                + adressShipping.getId(), "Delete", JOptionPane.YES_NO_OPTION);
+            if (anwser == JOptionPane.NO_OPTION) {
+                return;
+            }            
+            adressShipping =setChampsAdress(adressShipping);
+            
+            
+            adressShipping = serviceAdress.createAdress(adressShipping);
+            adressShipList.add(adressShipping);
+            // Create the customer
+            JOptionPane.showMessageDialog(this, "adressShipping number " + adressShipping.getId()
+                + " is creaeted", "info message", JOptionPane.INFORMATION_MESSAGE);
+            jComboBoxShip1.setModel(initAdressShipComboBoxModel(adressShipList));
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Cannot access the customer service", "Error", JOptionPane.ERROR_MESSAGE);
+            Trace.throwing(_cname, mname, e);
         }
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSendAdressShip1ActionPerformed
 
-        if (jComboBoxSearchCustomer1.getSelectedIndex() == 1) {
-            Customer customer = null;
-            try {
-                customer = serviceCustomer.findCustomerByNumEmail("Email", jTextSearchCustomer1.getText());//
-                orders.add(customer);
+    private void jButtonSendAdressShip3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendAdressShip3ActionPerformed
+     
+        
 
-            } catch (ObjectNotFoundException ex) {
-                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
-        }
-        vOrders.addAll(orders);
-        jTableCustomers.setModel(initCustomersTableModel(vOrders));
-    }//GEN-LAST:event_jButtonSearchCustomer1ActionPerformed
 
-    private void AddCustomer1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCustomer1ActionPerformed
-     jPanelCustomer.setVisible(true);
-        jComboBoxShip1.setModel(initAdressShipComboBoxModel(adressShipList));
-        jComboBoxBill1.setModel(initAdressShipComboBoxModel(adressBillList));
-
-    }//GEN-LAST:event_AddCustomer1ActionPerformed
+    }//GEN-LAST:event_jButtonSendAdressShip3ActionPerformed
    
     public void setChampsBillingAdress(Adress adress){
         jTextNameReceiverAdressBill1.setText(adress.getNameReceiverAdress());
@@ -1017,6 +1250,20 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jTextIdAdressBill1.setText("");
         
     }
+    
+    public Adress setChampsAdress(Adress adress ) {
+            adress.setNameReceiverAdress(jTextNameReceiverAdressShipp1.getText());
+            adress.setNumAdress(jTextNumStreetShipp1.getText());
+            adress.setNameStreetAdress(jTextStreetShipp1.getText());
+             adress.setNameStreet2Adress(jTextStreet2Shipp1.getText());
+            adress.setZipcodeAdress(jTextZipCodeShipp1.getText());
+            adress.setCityAdress(jTextCityShipp1.getText());
+            adress.setCountryAdress(jTextCountryShipp1.getText());
+            adress.setCustomerShipAdress(new Customer(jTextLogin1.getText()));
+           return adress;
+        
+    }
+    
     
      public void setChampsShippingAdress(Adress adress){
         jTextNameReceiverAdressShipp1.setText(adress.getNameReceiverAdress());
@@ -1155,6 +1402,31 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         return jComboBoxShip1;
     }
     
+    public DefaultComboBoxModel initStatusCustomersComboBoxModel(Collection statusCustomers) {
+        return new DefaultComboBoxModel(initStatusCustomersVector(statusCustomers));
+    }
+
+    private Vector initStatusCustomersVector(Collection statusCustomers) {
+        final String mname = "initStatusOrdersVector";
+        Vector v = new Vector();
+        v.addAll(statusCustomers);
+        return v;
+    }
+    
+    public Collection chargeComboBoxStatusCustomers (){
+        CustomerService serviceCustomer = new CustomerService();
+        Collection infoStatus =new ArrayList();   
+        try {
+            infoStatus =  serviceCustomer.findStatusCustomers();
+        } catch (ObjectNotFoundException ex) {
+            Logger.getLogger(JPanelFormCustomers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        statusCustomersVector.clear();
+        statusCustomersVector.addAll(infoStatus);
+        return infoStatus;
+        
+    }
+    
     
     public void chargeComboBoxCustomers (){
         CustomerService serviceCustomer = new CustomerService();
@@ -1176,12 +1448,16 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     protected final transient String _cname = this.getClass().getName();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddCustomer1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAdressBilling1;
     private javax.swing.JButton jButtonAdressShipping1;
     private javax.swing.JButton jButtonSearchCustomer1;
     private javax.swing.JButton jButtonSend;
     private javax.swing.JButton jButtonSendAdressBill;
     private javax.swing.JButton jButtonSendAdressShip;
+    private javax.swing.JButton jButtonSendAdressShip1;
+    private javax.swing.JButton jButtonSendAdressShip3;
     private javax.swing.JComboBox jComboBoxBill1;
     private javax.swing.JComboBox jComboBoxCustomers1;
     private javax.swing.JComboBox jComboBoxSearchCustomer1;
@@ -1191,63 +1467,78 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     private javax.swing.JDialog jDialogAddAdressBill;
     private javax.swing.JDialog jDialogAddAdressShip;
     private javax.swing.JLabel jLabeNameReceiverAdressShipp1;
+    private javax.swing.JLabel jLabeNameReceiverAdressShipp2;
     private javax.swing.JLabel jLabelCityBill1;
     private javax.swing.JLabel jLabelCityShipp1;
+    private javax.swing.JLabel jLabelCityShipp2;
     private javax.swing.JLabel jLabelCompany1;
     private javax.swing.JLabel jLabelCountryBill1;
     private javax.swing.JLabel jLabelCountryShipp1;
+    private javax.swing.JLabel jLabelCountryShipp2;
     private javax.swing.JLabel jLabelEmail1;
     private javax.swing.JLabel jLabelFirstName1;
     private javax.swing.JLabel jLabelIdAdressBill1;
     private javax.swing.JLabel jLabelIdAdressShipp1;
+    private javax.swing.JLabel jLabelIdAdressShipp2;
     private javax.swing.JLabel jLabelLastName1;
     private javax.swing.JLabel jLabelLogin1;
     private javax.swing.JLabel jLabelNameReceiverAdressBill1;
     private javax.swing.JLabel jLabelNumStreetBill1;
     private javax.swing.JLabel jLabelNumStreetShipp1;
+    private javax.swing.JLabel jLabelNumStreetShipp2;
     private javax.swing.JLabel jLabelPassword1;
     private javax.swing.JLabel jLabelSearch1;
     private javax.swing.JLabel jLabelStatus1;
     private javax.swing.JLabel jLabelStreet2Bill1;
     private javax.swing.JLabel jLabelStreet2Shipp1;
+    private javax.swing.JLabel jLabelStreet2Shipp2;
     private javax.swing.JLabel jLabelStreetBill1;
     private javax.swing.JLabel jLabelStreetShipp1;
+    private javax.swing.JLabel jLabelStreetShipp2;
     private javax.swing.JLabel jLabelZipCodeBill1;
     private javax.swing.JLabel jLabelZipCodeShipp1;
+    private javax.swing.JLabel jLabelZipCodeShipp2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelAccounts;
     private javax.swing.JPanel jPanelBillingAdress1;
     private javax.swing.JPanel jPanelCustomer;
     private javax.swing.JPanel jPanelShippingAdress1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel jPanelShippingAdress2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPaneTree1;
     private javax.swing.JTabbedPane jTabbedPaneManageAccount;
     private javax.swing.JTable jTableCustomers;
-    private javax.swing.JTable jTableCustomers1;
     private javax.swing.JTextField jTextCityBill1;
     private javax.swing.JTextField jTextCityShipp1;
+    private javax.swing.JTextField jTextCityShipp2;
     private javax.swing.JTextField jTextCompany1;
     private javax.swing.JTextField jTextCountryBill1;
     private javax.swing.JTextField jTextCountryShipp1;
+    private javax.swing.JTextField jTextCountryShipp2;
     private javax.swing.JTextField jTextEmail1;
     private javax.swing.JTextField jTextFirstName1;
     private javax.swing.JTextField jTextIdAdressBill1;
     private javax.swing.JTextField jTextIdAdressShipp1;
+    private javax.swing.JTextField jTextIdAdressShipp2;
     private javax.swing.JTextField jTextLastName1;
     private javax.swing.JTextField jTextLogin1;
     private javax.swing.JTextField jTextNameReceiverAdressBill1;
     private javax.swing.JTextField jTextNameReceiverAdressShipp1;
+    private javax.swing.JTextField jTextNameReceiverAdressShipp2;
     private javax.swing.JTextField jTextNumStreetBill1;
     private javax.swing.JTextField jTextNumStreetShipp1;
+    private javax.swing.JTextField jTextNumStreetShipp2;
     private javax.swing.JTextField jTextPassword1;
     private javax.swing.JTextField jTextSearchCustomer1;
     private javax.swing.JTextField jTextStreet2Bill1;
     private javax.swing.JTextField jTextStreet2Shipp1;
+    private javax.swing.JTextField jTextStreet2Shipp2;
     private javax.swing.JTextField jTextStreetBill1;
     private javax.swing.JTextField jTextStreetShipp1;
+    private javax.swing.JTextField jTextStreetShipp2;
     private javax.swing.JTextField jTextZipCodeBill1;
     private javax.swing.JTextField jTextZipCodeShipp1;
+    private javax.swing.JTextField jTextZipCodeShipp2;
     private javax.swing.JTree jTreeCustomers;
     // End of variables declaration//GEN-END:variables
 }

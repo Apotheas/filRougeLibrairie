@@ -75,13 +75,13 @@ public class InfoStatusDAO extends AbstractDataAccessObject{
         return sql;
     }
     
-    protected String getSelectAllStatusOrderSqlStatement() {
+    protected String getSelectAllStatusSqlStatement(String condition) {
         final String sql;
-        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE valueInfoStatus Between 0 and 9";
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE valueInfoStatus " +condition;
         return sql;
     }
     
-    public final Collection findAllStatusOrders() throws ObjectNotFoundException {
+    public final Collection findAllStatusByCondition(String condition) throws ObjectNotFoundException {
         final String mname = "selectAll";
         Trace.entering(getCname(), mname);
         ResultSet resultSet = null;
@@ -91,7 +91,7 @@ public class InfoStatusDAO extends AbstractDataAccessObject{
             Statement statement = connection.createStatement()) {
          
             // Select a Row
-            resultSet = statement.executeQuery(getSelectAllStatusOrderSqlStatement());
+            resultSet = statement.executeQuery(getSelectAllStatusSqlStatement(condition));
 
             while (resultSet.next()) {
                 // Set data to the collection
