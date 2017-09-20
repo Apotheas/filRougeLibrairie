@@ -12,27 +12,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author youssef
- */
-public class EditorDAO extends AbstractDataAccessObject{
-    
-    // ======================================
-    // =             Attributes             =
-    // ======================================
-    private static final String TABLE = "EDITOR";
+public class EditorDAO extends AbstractDataAccessObject {
 
+    private static final String TABLE = "EDITOR";
     private static final String COLUMNS = "IDEDITOR, NAMEEDITOR, STATUSEDITOR ";
     private static final String COLUMNS_PREP = " NAMEEDITOR, STATUSEDITOR, IDEDITOR";
     // Used to get a unique id with the UniqueIdGenerator
     private static final String COUNTER_NAME = "EDITOR";
-   
-    
-    
-    
-    
-    
+
     @Override
     protected String getCounterName() {
         return COUNTER_NAME;
@@ -70,45 +57,44 @@ public class EditorDAO extends AbstractDataAccessObject{
     protected String getSelectAllSqlStatement() {
         final String sql;
         sql = "SELECT " + COLUMNS + " FROM " + TABLE + " ORDER BY NAMEEDITOR";
-        return sql; 
+        return sql;
+    }  
+
+    @Override
+    protected String getSelectSqlStatementByChamp(String column, String champ) {
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " e " + " join Book b "
+                + "On e.IDEDITOR = b.IDEDITORBOOK "
+                + "WHERE " + column + " = '" + champ + "'";
+
+        return sql;
+    }
+
+    protected String getSelectAllSqlStatementByChamp(String column, String champ) {
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " e " + " join Book b "
+                + "On e.IDEDITOR = b.IDEDITORBOOK "
+                + "WHERE " + column + " = '" + champ + "'";
+
+        return sql;
     }
     
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Editor editor;
         editor = new Editor(resultSet.getString(1), resultSet.getString(2));
-        editor.setStatusEditor(resultSet.getInt(3));        
+        editor.setStatusEditor(resultSet.getInt(3));
         return editor;
-    }
-    @Override
-    protected String getSelectSqlStatementByChamp(String column, String champ){
-        final String sql;
-        sql = "SELECT " + COLUMNS+ " FROM " + TABLE  +" e "+" join Book b " +
-              "On e.IDEDITOR = b.IDEDITORBOOK "+
-              "WHERE "+  column + " = '"+ champ+"'";      
- 
-        
-        return sql;
-    }
-    protected String getSelectAllSqlStatementByChamp(String column, String champ){
-        final String sql;
-        sql = "SELECT " + COLUMNS+ " FROM " + TABLE  +" e "+" join Book b " +
-              "On e.IDEDITOR = b.IDEDITORBOOK "+
-              "WHERE "+  column + " = '"+ champ+"'";      
- 
-        
-        return sql;
     }
 
     @Override
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
-       int retour = 0;
+        int retour = 0;
         try {
 
             prestmt.setString(1, ((Editor) object).getNameEditor());
             prestmt.setInt(2, ((Editor) object).getStatusEditor());
             prestmt.setString(3, ((Editor) object).getIdEditor());
-            
 
             retour = prestmt.executeUpdate();
 
@@ -119,7 +105,5 @@ public class EditorDAO extends AbstractDataAccessObject{
         }
         return retour;
     }
-    
-    
-    
+
 }

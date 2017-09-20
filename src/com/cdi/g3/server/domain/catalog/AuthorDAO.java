@@ -6,8 +6,14 @@
 package com.cdi.g3.server.domain.catalog;
 
 import com.cdi.g3.common.exception.DataAccessException;
+import com.cdi.g3.common.exception.DuplicateKeyException;
+import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
+import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displaySqlException;
+import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.getConnection;
+import static com.cdi.g3.server.util.persistence.DataAccessConstants.DATA_ALREADY_EXIST;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,27 +21,28 @@ import java.sql.SQLException;
 
 
 public class AuthorDAO extends AbstractDataAccessObject {
-
-    // ======================================
-    // =             Attributes             =
-    // ======================================
+   
     private static final String TABLE = "AUTHOR";
     private static final String TABLE_BOOK = "BOOK";
     private static final String TABLE_AUTHORBOOK = "AUTHORBOOK";
-    
-
     private static final String COLUMNS = "IDAUTHOR, LASTNAMEAUTHOR, FIRSTNAMEAUTHOR, BIOGRAPHYAUTHOR, BIRTHDATEAUTHOR"
             + ", DIEDATEAUTHOR, COMMENTAUTHOR ";
     private static final String COLUMNS_PREP = " LASTNAMEAUTHOR, FIRSTNAMEAUTHOR, BIOGRAPHYAUTHOR, BIRTHDATEAUTHOR"
-            + ", DIEDATEAUTHOR, COMMENTAUTHOR, IDAUTHOR ";
-    // Used to get a unique id with the UniqueIdGenerator
+            + ", DIEDATEAUTHOR, COMMENTAUTHOR, IDAUTHOR ";    
     private static final String COUNTER_NAME = "AUTHOR";
+    
     
     @Override
     protected String getCounterName() {
         return COUNTER_NAME;
     }
-
+    
+    protected String getInsertSqlPreparedStatement(String isbn, String idAuthor){
+        final String sql;
+        sql = " INSERT INTO AUTHORBOOK (NUMISBNBOOKAB, IDAUTHORAB, IDAUTHORBOOK) VALUES("+isbn+","+idAuthor+",?)";
+             
+        return sql;
+    }
     @Override
     protected String getInsertSqlPreparedStatement() {
         final String sql;
@@ -81,12 +88,7 @@ public class AuthorDAO extends AbstractDataAccessObject {
                 "and "+column +" = '"+ champ+"'";
         
         return sql;
-    }
-    
-    
-        
- 
-        
+    }       
       
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
@@ -122,7 +124,9 @@ public class AuthorDAO extends AbstractDataAccessObject {
         }
         return retour;
     }
-    
+   
+  
+   
     
     
 

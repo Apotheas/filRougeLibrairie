@@ -16,59 +16,54 @@ import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.catalog.BookDAO;
 import com.cdi.g3.server.domain.catalog.Editor;
 import com.cdi.g3.server.domain.catalog.EditorDAO;
+import com.cdi.g3.server.domain.other.CodeTVA;
+import com.cdi.g3.server.domain.other.CodeTVADAO;
 import com.cdi.g3.server.service.AbstractService;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+public class CatalogService extends AbstractService {
 
-public class CatalogService extends AbstractService{
-    
     private static final BookDAO _bookDao = new BookDAO();
     private static final EditorDAO _editorDao = new EditorDAO();
-    private static final AuthorDAO _authorDao = new AuthorDAO(); 
-    
-    public Book findBook( final String bookId ) throws FinderException, CheckException {
-        final String mname = "findBook";
-        Trace.entering( _cname, mname, bookId );
+    private static final AuthorDAO _authorDao = new AuthorDAO();
+    private static final CodeTVADAO _codeTVADAO = new CodeTVADAO();
 
-        checkId( bookId );
-        // Finds the object
-        final Book book = (Book) _bookDao.findByPrimaryKey( bookId );
-        Trace.exiting( _cname, mname, book );
+    public Book findBook(final String bookId) throws FinderException, CheckException {
+        checkId(bookId);
+        final Book book = (Book) _bookDao.findByPrimaryKey(bookId);
         return book;
     }
-    
-    public Collection FindBooksByAuthor(String column, String champ )throws ObjectNotFoundException{
+    public Collection FindAllBooks() throws ObjectNotFoundException{
+        Collection listBook = _bookDao.findAll();
+        return listBook;
+    }
+    public Book FindBookByChamp(String column, String champ) throws ObjectNotFoundException {
+        Book book = (Book)_bookDao.findByChamp(column, champ);        
+        Editor editor = (Editor) _editorDao.findByPrimaryKey(book.getEditor().getId());
+        CodeTVA tva = (CodeTVA) _codeTVADAO.findByPrimaryKey(book.getCodeTVA().getId());
+        book.setEditor(editor);
+        book.setCodeTVA(tva);
         
-       Collection listBook = _bookDao.findAllByChamp(column, champ);
-       for (Iterator iterator = listBook.iterator() ; iterator.hasNext();){
-           Book book = (Book)iterator.next();
-           Editor editor = (Editor)  _editorDao.findByPrimaryKey(book.getEditor().getId());
-           book.setEditor(editor);
-       }
-       
+        return book;
+    }
+
+    public Collection FindBooksByChamp(String column, String champ) throws ObjectNotFoundException {
+        Collection listBook = _bookDao.findAllByChamp(column, champ);
         
         return listBook;
     }
-    public Collection FindBooksByEditor(String column, String champ )throws ObjectNotFoundException{
-        
-       Collection listBook = _bookDao.findAllByChamp(column, champ);    
-      
-        return listBook;
-    }
-    
-     public void createBook( final Book book ) throws FinderException, CheckException {
+
+    public void createBook(final Book book) throws FinderException, CheckException {
         final String mname = "findBook";
-        Trace.entering( _cname, mname, book );
-        
+        Trace.entering(_cname, mname, book);
         try {
             _bookDao.insert(book);
         } catch (DuplicateKeyException ex) {
             Logger.getLogger(CatalogService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
-     
+
 }

@@ -13,52 +13,45 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+public class BookDAO extends AbstractDataAccessObject {
 
-public class BookDAO extends AbstractDataAccessObject{
-    
-     // ======================================
-    // =             Attributes             =
-    // ======================================
-    private static final String TABLE = "BOOK"; 
+    private static final String TABLE = "BOOK";
     private static final String TABLE_EDITOR = "EDITOR";
-    private EditorDAO editorDAO = new  EditorDAO();
+    private EditorDAO editorDAO = new EditorDAO();
     private static final String TABLE_AUTHOR = "AUTHOR";
     private static final String TABLE_AUTHORBOOK = "AUTHORBOOK";
     private static final String COLUMNS = "NUMISBNBOOK, IDEDITORBOOK, TYPETVABOOK, TITREBOOK, UNITCOSTBOOK"
             + ", STOCKBOOK, STATUSBOOK, SUBTITREBOOK, SYNOPSISBOOK, PATHICONBOOK, WEIGHTBOOK, SIZELARGEBOOK"
             + ", SIZELONGBOOK, COMMENTBOOK";
-    private static final String COLUMNS_PREP= " IDEDITORBOOK, TYPETVABOOK, TITREBOOK, UNITCOSTBOOK"
+    private static final String COLUMNS_PREP = " IDEDITORBOOK, TYPETVABOOK, TITREBOOK, UNITCOSTBOOK"
             + ", STOCKBOOK, STATUSBOOK, SUBTITREBOOK, SYNOPSISBOOK, PATHICONBOOK, WEIGHTBOOK, SIZELARGEBOOK"
             + ", SIZELONGBOOK, COMMENTBOOK, NUMISBNBOOK ";
-    // Used to get a unique id with the UniqueIdGenerator
     private static final String COUNTER_NAME = "BOOK";
 
-     
-   @Override
+    @Override
     protected String getCounterName() {
         return COUNTER_NAME;
     }
-
     
     @Override
     protected String getInsertSqlPreparedStatement() {
         final String sql;
-        sql = "INSERT INTO " + TABLE + "(" +COLUMNS_PREP+ ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO " + TABLE + "(" + COLUMNS_PREP + ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         return sql;
     }
 
-   @Override
+    @Override
     protected String getDeleteSqlStatement(String id) {
         final String sql;
         sql = "DELETE FROM " + TABLE + " WHERE NUMISBNBOOK = '" + id + "'";
         return sql;
     }
 
-   @Override
+    @Override
     protected String getUpdateSqlPreparedStatement() {
-        final String sql;        
+        final String sql;
         sql = "UPDATE " + TABLE + " SET IDEDITORBOOK = ?, TYPETVABOOK = ?, TITREBOOK = ?"
-                + ", UNITCOSTBOOK = ?, STOCKBOOK = ?, STATUSBOOK = ?, SUBTITREBOOK = ?, SYNOPSISBOOK = ?" 
+                + ", UNITCOSTBOOK = ?, STOCKBOOK = ?, STATUSBOOK = ?, SUBTITREBOOK = ?, SYNOPSISBOOK = ?"
                 + ", PATHICONBOOK = ?, WEIGHTBOOK = ?, SIZELARGEBOOK = ?,SIZELONGBOOK = ?, COMMENTBOOK = ?"
                 + " WHERE NUMISBNBOOK = ?";
         return sql;
@@ -68,31 +61,43 @@ public class BookDAO extends AbstractDataAccessObject{
     protected String getSelectSqlStatement(String id) {
         final String sql;
         sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE NUMISBNBOOK = '" + id + "' ";
-        return sql; 
+        return sql;
     }
-    
+    @Override
+    protected String getSelectSqlStatementByChamp(String column, String champ) {
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " ," + TABLE_AUTHOR + " ," + TABLE_AUTHORBOOK + " , " + TABLE_EDITOR
+                + " WHERE  NUMISBNBOOK = NUMISBNBOOKAB "
+                + "and IDAUTHORAB = IDAUTHOR "
+                + " and IDEDITORBOOK = IDEDITOR "
+                + "and " + column + " = '" + champ + "'";
+
+        return sql;
+    }
+
     @Override
     protected String getSelectAllSqlStatement() {
         final String sql;
         sql = "SELECT " + COLUMNS + " FROM " + TABLE;
-        return sql; 
-    }
-    
-    @Override
-    protected String getSelectAllSqlStatementByChamp(String column, String champ){
-        final String sql;
-        sql = "SELECT " + COLUMNS + " FROM " + TABLE  +" ,"+TABLE_AUTHOR+" ,"+TABLE_AUTHORBOOK + " , "+ TABLE_EDITOR
-                + " WHERE  NUMISBNBOOK = NUMISBNBOOKAB " +
-                "and IDAUTHORAB = IDAUTHOR " +
-                " and IDEDITORBOOK = IDEDITOR "+
-                "and "+column +" = '"+ champ+"'";
-        
         return sql;
     }
+
+    @Override
+    protected String getSelectAllSqlStatementByChamp(String column, String champ) {
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " ," + TABLE_AUTHOR + " ," + TABLE_AUTHORBOOK + " , " + TABLE_EDITOR
+                + " WHERE  NUMISBNBOOK = NUMISBNBOOKAB "
+                + "and IDAUTHORAB = IDAUTHOR "
+                + " and IDEDITORBOOK = IDEDITOR "
+                + "and " + column + " = '" + champ + "'";
+
+        return sql;
+    }
+
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Book book;
-        book = new Book(resultSet.getString(1),new Editor(resultSet.getString(2)), new CodeTVA(resultSet.getString(3)),resultSet.getString(4), resultSet.getFloat(5),resultSet.getInt(6));        
+        book = new Book(resultSet.getString(1), new Editor(resultSet.getString(2)), new CodeTVA(resultSet.getString(3)), resultSet.getString(4), resultSet.getFloat(5), resultSet.getInt(6));
         book.setStatusBook(resultSet.getInt(7));
         book.setSubTitleBook(resultSet.getString(8));
         book.setSynopsisBook(resultSet.getString(9));
@@ -101,16 +106,15 @@ public class BookDAO extends AbstractDataAccessObject{
         book.setSizeLargeBook(resultSet.getFloat(12));
         book.setSizeLongBook(resultSet.getFloat(13));
         book.setCommentBook(resultSet.getString(14));
-       
-      
+
         return book;
     }
-    
-       @Override
+
+    @Override
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
         int retour = 0;
         try {
-            
+
             prestmt.setString(1, ((Book) object).getEditor().getId());
             prestmt.setString(2, ((Book) object).getCodeTva().getId());
             prestmt.setString(3, ((Book) object).getTitleBook());
@@ -125,7 +129,7 @@ public class BookDAO extends AbstractDataAccessObject{
             prestmt.setFloat(12, ((Book) object).getSizeLargeBook());
             prestmt.setString(13, ((Book) object).getCommentBook());
             prestmt.setString(14, ((Book) object).getNumISBNBook());
-            
+
             retour = prestmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -135,11 +139,5 @@ public class BookDAO extends AbstractDataAccessObject{
         }
         return retour;
     }
-    
-    
 
-    
-    
-    
-    
 }

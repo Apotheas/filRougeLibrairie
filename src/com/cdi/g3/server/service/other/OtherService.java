@@ -7,17 +7,30 @@ package com.cdi.g3.server.service.other;
 
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.CreateException;
+import com.cdi.g3.common.exception.DataAccessException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.exception.RemoveException;
 import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.common.logging.Trace;
+import com.cdi.g3.server.domain.catalog.Book;
+import com.cdi.g3.server.domain.catalog.BookDAO;
+import com.cdi.g3.server.domain.catalog.Editor;
 import com.cdi.g3.server.domain.other.CodeTVA;
 import com.cdi.g3.server.domain.other.CodeTVADAO;
 import com.cdi.g3.server.domain.other.KeyWord;
+import com.cdi.g3.server.domain.other.KeyWordBook;
 import com.cdi.g3.server.domain.other.KeyWordDAO;
 import com.cdi.g3.server.service.AbstractService;
+import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displaySqlException;
+import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.getConnection;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class OtherService extends AbstractService {
 
@@ -119,7 +132,7 @@ public class OtherService extends AbstractService {
     }
  
  // find Code TVA
-    public Collection findCodeTva() throws FinderException {
+    public Collection findCodeTva() throws ObjectNotFoundException  {
         final String mname = "findCodeTva";
         Trace.entering( _cname, mname );
 
@@ -157,7 +170,7 @@ public class OtherService extends AbstractService {
 //        Buisness Methodes KeyWord
 // ======================================
     private static final KeyWordDAO _daokeyWord = new KeyWordDAO();
-
+     private static final BookDAO _bookDao = new BookDAO();
     
  // CREATE CODE TVA  -----------------------------------------------------------------------
     public KeyWord createKeyWord(final KeyWord keyWord) throws CreateException, CheckException {
@@ -186,6 +199,73 @@ public class OtherService extends AbstractService {
     
     
  // FIND KeyWord -----------------------------------------------------------------------
+    
+      public Collection findKeyWordByChamp(String column, String champ) throws ObjectNotFoundException {
+        return _daokeyWord.findAllByChamp(column, champ);
+    }
+
+      public Collection FindKeywordByISBN (String column, String champ )throws ObjectNotFoundException{
+        
+       Collection listKeyWord = _daokeyWord.findAllByChamp(column, champ);       
+        return listKeyWord;
+    }
+      
+      
+      // select all by champs  ------------------------------------------------------------------------
+      
+     
+//      private final Collection selectAllByChamp(String column, String champ) throws ObjectNotFoundException {
+//        final String mname = "selectAll";
+//        Trace.entering(getCname(), mname);
+//
+//        
+//        ResultSet resultSet = null;
+//        final Collection objects = new ArrayList();
+//         // Gets a database connection
+//        try (Connection connection = getConnection(); 
+//            Statement statement = connection.createStatement()) {
+//        
+//            // Select a Row
+//            resultSet = statement.executeQuery(getSelectAllSqlStatementByChamp(column ,champ));
+//
+//            while (resultSet.next()) {
+//                // Set data to the collection
+//                objects.add(transformResultset2DomainObject(resultSet));
+//            }
+//
+//            if (objects.isEmpty()) {
+//                throw new ObjectNotFoundException();
+//            }
+//
+//        } catch (SQLException e) {
+//            // A Severe SQL Exception is caught
+//            displaySqlException(e);
+//            throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
+//        } finally {
+//            // Close
+//            try {
+//                if (resultSet != null) {
+//                    resultSet.close();
+//                }             
+//            } catch (SQLException e) {
+//                displaySqlException("Cannot close connection", e);
+//                throw new DataAccessException("Cannot close the database connection", e);
+//            }
+//        }
+//
+//        Trace.exiting(getCname(), mname, new Integer(objects.size()));
+//        return objects;
+//    }
+//    
+    
+    
+    //-----------------------------------------------------------------------------------------------------  
+      
+      
+      
+      
+      
+      
     
         public KeyWord findKeyWord( final String keyWordId ) throws FinderException, CheckException {
         final String mname = "findKeyWord";

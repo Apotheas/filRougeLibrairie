@@ -36,14 +36,12 @@ public class Book extends DomainObject implements Serializable {
     private  Collection listEvent = new ArrayList();
     private  Collection listAppreciation = new ArrayList();
     private  Collection listOrderLine = new ArrayList();
-
-    public Book() {
-    }
-
+    
+    //CONSTRUCTORS
+    public Book() {}
     public Book(final String id) {
         numISBNBook = id;
-    }
-    
+    }    
     public Book(final String id,final Editor editor,final CodeTVA codeTVA, final String title, final float unitCost, final int stock) {
         numISBNBook = id;
         setEditor(editor);
@@ -52,15 +50,14 @@ public class Book extends DomainObject implements Serializable {
         setUnitCostBook(unitCost);
         setStockBook(stock);
     }
-
-    // ======================================
-    // =           Business methods         =
-    // ======================================
-    /**
-     * This method checks the integrity of the object data.
-     *
-     * @throws CheckException if data is invalid
-     */
+    
+    //TOSTRING
+    @Override
+    public String toString() {
+        return titleBook ;
+    }
+    
+   //CONTROLS
     public void checkData() throws CheckException {
         if (getNumISBNBook() == null || "".equals(getNumISBNBook())) {
             throw new CheckException("Invalid ISBN number");
@@ -187,9 +184,7 @@ public class Book extends DomainObject implements Serializable {
 
     public void setEditor(Editor editor) {
         this.editor = editor;
-    }
-
-    
+    }    
     
     public void setCodeTva(CodeTVA codeTva) {
         this.codeTVA = codeTva;
@@ -249,12 +244,7 @@ public class Book extends DomainObject implements Serializable {
 
     public void setListKeyWord(Collection listKeyWord) {
         this.listKeyWord = listKeyWord;
-    }
-
-    @Override
-    public String toString() {
-        return titleBook ;
-    }
+    }   
 
     @Override
     public String getId() {

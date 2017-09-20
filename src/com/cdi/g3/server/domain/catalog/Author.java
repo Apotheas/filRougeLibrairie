@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-
 public class Author extends DomainObject implements Serializable {
 
     private String idAuthor;
@@ -22,38 +21,35 @@ public class Author extends DomainObject implements Serializable {
     private Date birthDateAuthor;
     private Date dieDateAuthor;
     private String commentAuthor;
-    
     private Collection listBook = new ArrayList();
     
-
-    public Author() {
-
-    }
-
+    
+    //CONSTRUCTORS
+    public Author() {}
+    
     public Author(String id, String lastNameAuthor) {
         idAuthor = id;
         setLastNameAuthor(lastNameAuthor);
-
     }
     
-    // ======================================
-    // =           Business methods         =
-    // ======================================
-    /**
-     * This method checks the integrity of the object data.
-     *
-     * @throws CheckException if data is invalid
-     */
+    //TO STRING
+    @Override
+    public String toString() {
+        return lastNameAuthor + " " + firstNameAuthor;
+    }
+
+    //CONTROLES
     public void checkData() throws CheckException {
-        if (getIdAuthor()== null || "".equals(getIdAuthor())) {
+        if (getIdAuthor() == null || "".equals(getIdAuthor())) {
             throw new CheckException("Invalid idAuthor");
         }
         if (getLastNameAuthor() == null || "".equals(getLastNameAuthor())) {
             throw new CheckException("Invalid LastName Author");
         }
-        
 
     }
+
+    //GETTERS AND SETTERS
     public String getIdAuthor() {
         return idAuthor;
     }
@@ -118,15 +114,6 @@ public class Author extends DomainObject implements Serializable {
         this.listBook = listBook;
     }
 
-    @Override
-    public String toString() {
-        return lastNameAuthor + " " + firstNameAuthor;
-    }
-    
-    
-    
-    
-    
     @Override
     public String getId() {
         return idAuthor;

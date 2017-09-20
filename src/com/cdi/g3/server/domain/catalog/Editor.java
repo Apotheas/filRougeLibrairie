@@ -1,4 +1,3 @@
-
 package com.cdi.g3.server.domain.catalog;
 
 import com.cdi.g3.server.domain.DomainObject;
@@ -6,32 +5,31 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
-public class Editor extends DomainObject implements Serializable{
-
+public class Editor extends DomainObject implements Serializable {
 
     private String idEditor;
     private String nameEditor;
     private int statusEditor;
-    
     private Collection listBook = new ArrayList();
     
-    
-    
-    
-    public Editor(){
-        
-    }
-    
-    public Editor(String id){
+    //CONSTRUCTORS
+    public Editor() {}
+    public Editor(String id) {
         idEditor = id;
     }
-   
-    public Editor(String id, String nameEditor){
+    public Editor(String id, String nameEditor) {
         idEditor = id;
         setNameEditor(nameEditor);
     }
+    
+    //TOSTRING
+    @Override
+    public String toString() {
+        return nameEditor;
+    }
 
+    
+    //GETTERS AND SETTERS 
     public String getIdEditor() {
         return idEditor;
     }
@@ -63,21 +61,12 @@ public class Editor extends DomainObject implements Serializable{
     public void setListBook(Collection listBook) {
         this.listBook = listBook;
     }
-
-    @Override
-    public String toString() {
-        return nameEditor ;
-    }
-    
-    
-    
-    
-    
     
     @Override
     public String getId() {
         return idEditor;
     }
+
     @Override
     public void setId(String idEditor) {
         this.idEditor = idEditor;

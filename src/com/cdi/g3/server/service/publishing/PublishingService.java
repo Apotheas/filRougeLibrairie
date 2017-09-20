@@ -7,6 +7,7 @@ package com.cdi.g3.server.service.publishing;
 
 import com.cdi.g3.client.ui.swing.HomePage;
 import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.exception.DuplicateKeyException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.server.domain.catalog.Author;
@@ -30,8 +31,14 @@ public class PublishingService extends AbstractService {
     EditorDAO _daoEditor = new EditorDAO();
 
     public Editor findEditorByChamp(String column, String champ) throws ObjectNotFoundException {
-
         return (Editor) _daoEditor.findByChamp(column, champ);
+    }
+    public void createEditor(Editor editor){
+        try {
+            _daoEditor.insert(editor);
+        } catch (DuplicateKeyException ex) {
+            Logger.getLogger(PublishingService.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public Collection findAllEditor() throws ObjectNotFoundException {
@@ -46,7 +53,13 @@ public class PublishingService extends AbstractService {
         }
         return null;
     }
-
+    public void createAuthor(Author author){
+        try {
+            _daoAuthor.insert(author);
+        } catch (DuplicateKeyException ex) {
+            Logger.getLogger(PublishingService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     public Author findAuthor(String column, String idAuthor) throws ObjectNotFoundException {
         return (Author) _daoAuthor.findByPrimaryKey(idAuthor);
     }

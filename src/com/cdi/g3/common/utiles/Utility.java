@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class Utility {
     
-    public static java.sql.Date formatStringToSQLDate(String strDate) throws Exception{
+    public  java.sql.Date formatStringToSQLDate(String strDate) throws Exception{
 
        Date utilDate = new Date(); //DateFormat
 
