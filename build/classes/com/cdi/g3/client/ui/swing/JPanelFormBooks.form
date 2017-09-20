@@ -172,7 +172,7 @@
                           <Component id="jPanelUpdate" max="32767" attributes="0"/>
                           <Component id="jPanelBook" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="58" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -188,7 +188,7 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="jPanelBook" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="17" max="32767" attributes="0"/>
                               <Component id="jPanelUpdate" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -290,11 +290,11 @@
                                   <Component id="jTextImageUrl" min="-2" pref="166" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                                   <Component id="jLabelTVA" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jLabelTVAText" pref="18" max="32767" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                   <Component id="jComboBoxTVA" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabelTVAText" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="156" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
@@ -321,7 +321,7 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jToggleButtonCreate" min="-2" pref="84" max="-2" attributes="0"/>
+                                      <Component id="jButtonCreate" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabelPrice" min="-2" max="-2" attributes="0"/>
@@ -334,7 +334,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -387,8 +387,8 @@
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jToggleButtonCreate" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jButtonClear" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jButtonCreate" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               </Group>
@@ -417,7 +417,6 @@
                                                   <Component id="jTextImageUrl" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Component id="jLabelTVAText" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="jComboBoxTVA" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
@@ -435,7 +434,10 @@
                                               </Group>
                                           </Group>
                                       </Group>
-                                      <Component id="jLabelTVA" min="-2" pref="30" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabelTVA" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxTVA" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace min="10" pref="14" max="32767" attributes="0"/>
                               </Group>
@@ -498,14 +500,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextPrice">
-                </Component>
-                <Component class="javax.swing.JToggleButton" name="jToggleButtonCreate">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Create"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButtonCreateActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabelSynopsis">
                   <Properties>
@@ -692,6 +686,14 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonClearActionPerformed"/>
                   </Events>
                 </Component>
+                <Component class="javax.swing.JButton" name="jButtonCreate">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Create"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCreateActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="jPanelUpdate">
@@ -714,8 +716,8 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jButtonSearchBook" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButtonUpdateBook" min="-2" pref="84" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                          <Component id="jButtonUpdate" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -726,8 +728,8 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jTextUpdateBook" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButtonSearchBook" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButtonUpdateBook" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jComboBoxUpdateBy" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="39" max="32767" attributes="0"/>
                       </Group>
@@ -748,11 +750,6 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSearchBookActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JToggleButton" name="jButtonUpdateBook">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Update "/>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBoxUpdateBy">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -770,6 +767,14 @@
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
+                </Component>
+                <Component class="javax.swing.JButton" name="jButtonUpdate">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Update"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonUpdateActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

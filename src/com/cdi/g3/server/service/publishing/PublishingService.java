@@ -20,7 +20,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author cdi314
@@ -33,7 +32,8 @@ public class PublishingService extends AbstractService {
     public Editor findEditorByChamp(String column, String champ) throws ObjectNotFoundException {
         return (Editor) _daoEditor.findByChamp(column, champ);
     }
-    public void createEditor(Editor editor){
+
+    public void createEditor(Editor editor) {
         try {
             _daoEditor.insert(editor);
         } catch (DuplicateKeyException ex) {
@@ -53,19 +53,28 @@ public class PublishingService extends AbstractService {
         }
         return null;
     }
-    public void createAuthor(Author author){
+    public void insertAuthorBook(String isbn, String idAuthor) throws DuplicateKeyException{
+         _daoAuthor.associateAuthorBook(isbn, idAuthor);
+        
+    }
+    public void createAuthor(Author author) {
         try {
             _daoAuthor.insert(author);
         } catch (DuplicateKeyException ex) {
             Logger.getLogger(PublishingService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public Author findAuthor(String column, String idAuthor) throws ObjectNotFoundException {
         return (Author) _daoAuthor.findByPrimaryKey(idAuthor);
     }
 
     public Collection findAuthorByChamp(String column, String champ) throws ObjectNotFoundException {
         return _daoAuthor.findAllByChamp(column, champ);
+    }
+
+    public Author findAuthorOByChamp(String column, String champ) throws ObjectNotFoundException {
+        return (Author) _daoAuthor.findByChamp(column, champ);
     }
 
     public Collection FindAllAuthor() throws ObjectNotFoundException {
@@ -83,7 +92,8 @@ public class PublishingService extends AbstractService {
             System.out.println(ex.getMessage() + " erreur update ");
         }
     }
-    public void updateEditor(Editor myEditor) throws  UpdateException, CheckException {
+
+    public void updateEditor(Editor myEditor) throws UpdateException, CheckException {
         if (myEditor == null) {
             throw new UpdateException("myEditor is null");
         }

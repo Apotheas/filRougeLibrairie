@@ -115,7 +115,7 @@ public class BookDAO extends AbstractDataAccessObject {
         int retour = 0;
         try {
 
-            prestmt.setString(1, ((Book) object).getEditor().getId());
+              prestmt.setString(1, ((Book) object).getEditor().getId());
             prestmt.setString(2, ((Book) object).getCodeTva().getId());
             prestmt.setString(3, ((Book) object).getTitleBook());
             prestmt.setFloat(4, ((Book) object).getUnitCostBook());

@@ -85,7 +85,7 @@ public class CodeTVA extends DomainObject implements Serializable {
 
     @Override
     public String toString() {
-        return "typeTva=" + typeTva + ", rateCodeTva=" + rateCodeTva;
+        return typeTva ;
     }
 
 }

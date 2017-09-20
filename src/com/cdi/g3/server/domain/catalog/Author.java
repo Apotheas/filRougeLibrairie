@@ -34,6 +34,18 @@ public class Author extends DomainObject implements Serializable {
     
     //TO STRING
     @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Author)){
+        return false;
+        }
+        
+        if(!this.getId().equals(((Author)obj).getId())){
+         return false;
+        } 
+        return true;
+    }
+
+    @Override
     public String toString() {
         return lastNameAuthor + " " + firstNameAuthor;
     }

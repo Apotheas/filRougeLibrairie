@@ -65,5 +65,9 @@ public class CatalogService extends AbstractService {
             Logger.getLogger(CatalogService.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void updateBook(final Book book) throws ObjectNotFoundException{
+        _bookDao.update(book);
+    }
 
 }

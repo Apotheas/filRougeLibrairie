@@ -37,9 +37,9 @@ public class AuthorDAO extends AbstractDataAccessObject {
         return COUNTER_NAME;
     }
     
-    protected String getInsertSqlPreparedStatement(String isbn, String idAuthor){
+    protected String getInsertAuthorBookSqlPrSt(String isbn, String idAuthor){
         final String sql;
-        sql = " INSERT INTO AUTHORBOOK (NUMISBNBOOKAB, IDAUTHORAB, IDAUTHORBOOK) VALUES("+isbn+","+idAuthor+",?)";
+        sql = " INSERT INTO AUTHORBOOK (IDAUTHORBOOK, NUMISBNBOOKAB, IDAUTHORAB) VALUES(?,?,?)";
              
         return sql;
     }
@@ -78,7 +78,16 @@ public class AuthorDAO extends AbstractDataAccessObject {
         sql = "SELECT " + COLUMNS + " FROM " + TABLE + " ORDER BY lastnameauthor";
         return sql;
     }
-    
+    @Override
+    protected String getSelectSqlStatementByChamp(String column, String champ){
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE  +" ,"+TABLE_BOOK+" ,"+TABLE_AUTHORBOOK+
+                " WHERE  NUMISBNBOOK = NUMISBNBOOKAB " +
+                "and IDAUTHORAB = IDAUTHOR " +                
+                "and "+column +" = '"+ champ+"'";
+        
+        return sql;
+    }   
     @Override
     protected String getSelectAllSqlStatementByChamp(String column, String champ){
         final String sql;
@@ -89,7 +98,35 @@ public class AuthorDAO extends AbstractDataAccessObject {
         
         return sql;
     }       
-      
+    
+    public final void associateAuthorBook(String ISBN, String idAuthor) throws DuplicateKeyException {
+
+       // Gets a database connection
+       try (Connection connection = getConnection();
+               PreparedStatement prstatement = connection.prepareStatement( getInsertAuthorBookSqlPrSt(ISBN, idAuthor))) {
+          // Sets the object Id if necessary
+
+           String idAuthorBook = this.getUniqueId("AUTHORBOOK");
+           // Inserts a Row      
+           prstatement.setString(1, idAuthorBook);
+           prstatement.setString(2, ISBN);
+           prstatement.setString(3, idAuthor);
+
+           prstatement.executeUpdate();
+//        executePreparedSt(prstatement, object);
+       } catch (SQLException e) {
+           // The data already exists in the database
+           if (e.getErrorCode() == DATA_ALREADY_EXIST) {
+               throw new DuplicateKeyException();
+           } else {
+               // A Severe SQL Exception is caught
+               displaySqlException(e);
+               throw new DataAccessException("Cannot insert data into the database", e);
+           }
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+   }
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Author author;
