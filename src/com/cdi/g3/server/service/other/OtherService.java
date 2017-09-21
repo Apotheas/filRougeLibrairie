@@ -37,13 +37,11 @@ public class OtherService extends AbstractService {
 //****************************************************************************//
 //***************************   CodeTVA   ************************************//
 //****************************************************************************//    
-    
 // ======================================
 //        Buisness Methodes CodeTVA 
 // ======================================
     private static final CodeTVADAO _daoCodeTVA = new CodeTVADAO();
 
-    
     // CREATE CODE TVA  -----------------------------------------------------------------------
     public CodeTVA createCodeTVA(final CodeTVA codeTVA) throws CreateException, CheckException {
         final String mname = "createCodeTva";
@@ -69,110 +67,112 @@ public class OtherService extends AbstractService {
 
     }
  // FINDCODETVA  -----------------------------------------------------------------------
-    
-        public CodeTVA findCodeTVA( final String codeTVAId ) throws FinderException, CheckException {
-        final String mname = "findCodeTva";
-        Trace.entering( _cname, mname, codeTVAId );
 
-        checkId( codeTVAId );
+    public CodeTVA findCodeTVA(final String codeTVAId) throws FinderException, CheckException {
+        final String mname = "findCodeTva";
+        Trace.entering(_cname, mname, codeTVAId);
+
+        checkId(codeTVAId);
         // Finds the object
-        final CodeTVA codeTVA = (CodeTVA) _daoCodeTVA.findByPrimaryKey( codeTVAId );
-        Trace.exiting( _cname, mname, codeTVA );
+        final CodeTVA codeTVA = (CodeTVA) _daoCodeTVA.findByPrimaryKey(codeTVAId);
+        Trace.exiting(_cname, mname, codeTVA);
         return codeTVA;
     }
- // DELETE CODETVA  -----------------------------------------------------------------------
-    public void deleteCodeTVA( final String codeTVAId ) throws RemoveException, CheckException {
-        final String mname = "deleteCodeTVA";
-        Trace.entering( _cname, mname, codeTVAId );
 
-        checkId( codeTVAId );
+    // DELETE CODETVA  -----------------------------------------------------------------------
+
+    public void deleteCodeTVA(final String codeTVAId) throws RemoveException, CheckException {
+        final String mname = "deleteCodeTVA";
+        Trace.entering(_cname, mname, codeTVAId);
+
+        checkId(codeTVAId);
 
         // Checks if the object exists
         try {
-            _daoCodeTVA.findByPrimaryKey( codeTVAId );
-        } catch ( FinderException e ) {
-            throw new RemoveException( "CodeTVA must exist to be deleted" );
+            _daoCodeTVA.findByPrimaryKey(codeTVAId);
+        } catch (FinderException e) {
+            throw new RemoveException("CodeTVA must exist to be deleted");
         }
 
         // Deletes the object
         try {
             _daoCodeTVA.remove(codeTVAId);
-        } catch ( ObjectNotFoundException e ) {
-            throw new RemoveException( "CodeTVA must exist to be deleted" );
+        } catch (ObjectNotFoundException e) {
+            throw new RemoveException("CodeTVA must exist to be deleted");
         }
     }
 // UPDATE CODETVA  -----------------------------------------------------------------------
-   public void updateCodeTVA(CodeTVA codeTVA  ) throws UpdateException, CheckException {
+
+    public void updateCodeTVA(CodeTVA codeTVA) throws UpdateException, CheckException {
         final String mname = "updateCodeTVA";
-        Trace.entering( _cname, mname, codeTVA );
+        Trace.entering(_cname, mname, codeTVA);
 
-        if ( codeTVA == null )
-            throw new UpdateException( "CodeTVA object is null" );
+        if (codeTVA == null) {
+            throw new UpdateException("CodeTVA object is null");
+        }
 
-        checkId( codeTVA.getId() );
+        checkId(codeTVA.getId());
 
-       final CodeTVA codeTVAFinded;
+        final CodeTVA codeTVAFinded;
 
         // Checks if the object exists
         try {
-            codeTVAFinded = (CodeTVA) _daoCodeTVA.findByPrimaryKey( codeTVA.getId() );
-        } catch ( FinderException e ) {
-            throw new UpdateException( "CodeTVA must exist to be updated" );
+            codeTVAFinded = (CodeTVA) _daoCodeTVA.findByPrimaryKey(codeTVA.getId());
+        } catch (FinderException e) {
+            throw new UpdateException("CodeTVA must exist to be updated");
         }
-        
+
         codeTVA.checkData();
-        codeTVA = setCodeTVA(codeTVA ,codeTVAFinded );
+        codeTVA = setCodeTVA(codeTVA, codeTVAFinded);
 
         // Updates the object
         try {
-            _daoCodeTVA.update( codeTVAFinded );
-        } catch ( ObjectNotFoundException e ) {
-            throw new UpdateException( "CodeTVA must exist to be updated" );
+            _daoCodeTVA.update(codeTVAFinded);
+        } catch (ObjectNotFoundException e) {
+            throw new UpdateException("CodeTVA must exist to be updated");
         }
     }
- 
- // find Code TVA
-    public Collection findCodeTva() throws ObjectNotFoundException  {
+
+    // find Code TVA
+    public Collection findCodeTva() throws ObjectNotFoundException {
         final String mname = "findCodeTva";
-        Trace.entering( _cname, mname );
+        Trace.entering(_cname, mname);
 
         // Finds all the objects
         final Collection codeTva = _daoCodeTVA.findAll();
-        
-        Trace.exiting( _cname, mname, new Integer( codeTva.size() ) );
+
+        Trace.exiting(_cname, mname, new Integer(codeTva.size()));
         return codeTva;
     }
 
- 
     // ======================================
     // = Private Methods codeTva
     // ======================================
-    private CodeTVA setCodeTVA (CodeTVA codeTVA, CodeTVA codeTVAFinded ){
+    private CodeTVA setCodeTVA(CodeTVA codeTVA, CodeTVA codeTVAFinded) {
         codeTVAFinded.setRateCodeTva(codeTVA.getRateCodeTva());
-         return codeTVAFinded ;
-     }
+        return codeTVAFinded;
+    }
+
     /**
      * This method returns a unique identifer generated by the system.
-     * 
+     *
      * @return a unique identifer
      */
     public final String getUniqueIdCodeTva() {
         return _daoCodeTVA.getUniqueId();
-              
+
     }
-    
+
 //****************************************************************************//
 //***************************   KeyWord   ************************************//
 //****************************************************************************//
-  
-    
 // ======================================
 //        Buisness Methodes KeyWord
 // ======================================
     private static final KeyWordDAO _daokeyWord = new KeyWordDAO();
-     private static final BookDAO _bookDao = new BookDAO();
-    
- // CREATE CODE TVA  -----------------------------------------------------------------------
+    private static final BookDAO _bookDao = new BookDAO();
+
+    // CREATE CODE TVA  -----------------------------------------------------------------------
     public KeyWord createKeyWord(final KeyWord keyWord) throws CreateException, CheckException {
         final String mname = "createKeyWord";
         Trace.entering(_cname, mname, keyWord);
@@ -196,24 +196,31 @@ public class OtherService extends AbstractService {
         throw new CreateException("keyWord object exist");
 
     }
-    
-    
+
  // FIND KeyWord -----------------------------------------------------------------------
-    
-      public Collection findKeyWordByChamp(String column, String champ) throws ObjectNotFoundException {
+    public Collection findKeyWordByChamp(String column, String champ) throws ObjectNotFoundException {
         return _daokeyWord.findAllByChamp(column, champ);
     }
 
-      public Collection FindKeywordByISBN (String column, String champ )throws ObjectNotFoundException{
-        
-       Collection listKeyWord = _daokeyWord.findAllByChamp(column, champ);       
+    public Collection FindKeywordByISBN(String column, String champ) throws ObjectNotFoundException {
+
+        Collection listKeyWord = _daokeyWord.findAllByChamp(column, champ);
         return listKeyWord;
     }
-      
-      
+
+    //*********** Find books by keywords ***************************************************************************************
+
+    public Collection findBooksByKeyword(String Column, String champ) throws ObjectNotFoundException {
+        Collection listBook = _bookDao.selectBooksByKeyWord(Column, champ);
+        return listBook;
+    }
+
+    public KeyWordBook insertisbnBookByKeyword(String isbn, String keyword) throws ObjectNotFoundException {
+
+        return null;
+    }
+
       // select all by champs  ------------------------------------------------------------------------
-      
-     
 //      private final Collection selectAllByChamp(String column, String champ) throws ObjectNotFoundException {
 //        final String mname = "selectAll";
 //        Trace.entering(getCname(), mname);
@@ -256,111 +263,94 @@ public class OtherService extends AbstractService {
 //        Trace.exiting(getCname(), mname, new Integer(objects.size()));
 //        return objects;
 //    }
-//    
-    
-    
     //-----------------------------------------------------------------------------------------------------  
-      
-      
-      
-      
-      
-      
-    
-        public KeyWord findKeyWord( final String keyWordId ) throws FinderException, CheckException {
+    public KeyWord findKeyWord(final String keyWordId) throws FinderException, CheckException {
         final String mname = "findKeyWord";
-        Trace.entering( _cname, mname, keyWordId );
+        Trace.entering(_cname, mname, keyWordId);
 
-        checkId( keyWordId );
+        checkId(keyWordId);
         // Finds the object
-        final KeyWord keyWord = (KeyWord) _daokeyWord.findByPrimaryKey( keyWordId );
-        Trace.exiting( _cname, mname, keyWord );
+        final KeyWord keyWord = (KeyWord) _daokeyWord.findByPrimaryKey(keyWordId);
+        Trace.exiting(_cname, mname, keyWord);
         return keyWord;
     }
-        
-        
- // DELETE KeyWord  -----------------------------------------------------------------------
-    public void deleteKeyWord( final String keyWordId ) throws RemoveException, CheckException {
-        final String mname = "deleteKeyWord";
-        Trace.entering( _cname, mname, keyWordId );
 
-        checkId( keyWordId );
+    // DELETE KeyWord  -----------------------------------------------------------------------
+    public void deleteKeyWord(final String keyWordId) throws RemoveException, CheckException {
+        final String mname = "deleteKeyWord";
+        Trace.entering(_cname, mname, keyWordId);
+
+        checkId(keyWordId);
 
         // Checks if the object exists
         try {
-            _daokeyWord.findByPrimaryKey( keyWordId );
-        } catch ( FinderException e ) {
-            throw new RemoveException( "KeyWord must exist to be deleted" );
+            _daokeyWord.findByPrimaryKey(keyWordId);
+        } catch (FinderException e) {
+            throw new RemoveException("KeyWord must exist to be deleted");
         }
 
         // Deletes the object
         try {
             _daokeyWord.remove(keyWordId);
-        } catch ( ObjectNotFoundException e ) {
-            throw new RemoveException( "KeyWord must exist to be deleted" );
+        } catch (ObjectNotFoundException e) {
+            throw new RemoveException("KeyWord must exist to be deleted");
         }
     }
-    
-    
+
 // UPDATE KeyWord  -----------------------------------------------------------------------
-   public void updateKeyWord(KeyWord keyWord  ) throws UpdateException, CheckException {
-        final String mname = "updateKeyWord";
-        Trace.entering( _cname, mname, keyWord );
-
-        if ( keyWord == null )
-            throw new UpdateException( "KeyWord object is null" );
-
-        checkId( keyWord.getId() );
-
-       final KeyWord keyWordFinded;
-
-        // Checks if the object exists
-        try {
-            keyWordFinded = (KeyWord) _daokeyWord.findByPrimaryKey( keyWord.getId() );
-        } catch ( FinderException e ) {
-            throw new UpdateException( "keyWord must exist to be updated" );
-        }
-        
-        keyWord.checkData();
-        keyWord = setKeyWord(keyWord,keyWordFinded);
+//   public void updateKeyWord(KeyWord myKeyWord) throws  UpdateException, CheckException {
+//        if (myKeyWord == null) {
+//            throw new UpdateException("myKeyWord is null");
+//        }
+//        checkId(myKeyWord.getId());
+//        try {
+//            _daokeyWord.update(myKeyWord);
+//        } catch (ObjectNotFoundException ex) {
+//            System.out.println(ex.getMessage() + " erreur update " + ex.getMessage());
+//        }
+    public void updateKeyWord(KeyWord keyWord) throws UpdateException, CheckException {
+              
 
         // Updates the object 
         try {
-            _daokeyWord.update( keyWordFinded );
-        } catch ( ObjectNotFoundException e ) {
-            throw new UpdateException( "keyWord must exist to be updated" );
+            _daokeyWord.update(keyWord);
+        } catch (ObjectNotFoundException e) {
+            throw new UpdateException("keyWord must exist to be updated");
         }
     }
- 
-   
- // find KeyWord -----------------------------------------------------------------------
+
+    // find KeyWord -----------------------------------------------------------------------
     public Collection findKeyWord() throws FinderException {
         final String mname = "findKeyWord";
-        Trace.entering( _cname, mname );
+        Trace.entering(_cname, mname);
 
         // Finds all the objects
         final Collection keyWord = _daokeyWord.findAll();
-        
-        Trace.exiting( _cname, mname, new Integer( keyWord.size() ) );
+
+        Trace.exiting(_cname, mname, new Integer(keyWord.size()));
         return keyWord;
     }
 
+    KeyWord keyWordBook = new KeyWord();
+
+    // ** ASSOCIATE ISBN WITH kEYwORD  **************************
+    //****************//***********//********************
     // ======================================
     // = Private Methods KeyWord
     // ======================================
-     private KeyWord setKeyWord (KeyWord keyWord, KeyWord KeyWordFinded ){ 
+    private KeyWord setKeyWord(KeyWord keyWord, KeyWord KeyWordFinded) {
         KeyWordFinded.setNameKeyWord(keyWord.getNameKeyWord());
-         return KeyWordFinded;
-     }
+        return KeyWordFinded;
+    }
+
     /**
      * This method returns a unique identifer generated by the system.
-     * 
+     *
      * @return a unique identifer
      */
+
     public final String getUniqueIdKeyWord() {
         return _daokeyWord.getUniqueId();
     }
 
 }
-   
-    
