@@ -198,7 +198,7 @@ INSERT INTO EMPLOYERIGHT
 /*==============================================================*/
 INSERT INTO Employe (
 		 loginEmploye,
-		 idEMPLOYERIGHT,
+		 idEMPLOYERIGHTEMP,
 		 firstNameEmploye,
 		 lastNameEmploye,
 		 emailEmploye,
@@ -302,10 +302,13 @@ INSERT INTO InfoStatus
 
 VALUES  ('processing',1),
         ('shipping',2) ,
-		('received',3) ,
-        ('canceled',4) 
-	  
- 
+	('received',3) ,
+        ('canceled',4) ,
+	('customerInactif',10),  
+        ('customerActif',11),
+        ('blacklist',12),
+        ('inactif',20),
+        ('actif',21)
 
 
 /*==============================================================*/
