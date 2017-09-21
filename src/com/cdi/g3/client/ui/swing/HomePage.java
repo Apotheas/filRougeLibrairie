@@ -5,6 +5,10 @@
  */
 package com.cdi.g3.client.ui.swing;
 
+import com.cdi.g3.common.exception.ObjectNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Apotheas
@@ -14,7 +18,7 @@ public class HomePage extends javax.swing.JFrame {
     /**
      * Creates new form HomePage
      */
-    public HomePage() {
+    public HomePage() throws ObjectNotFoundException  {
         initComponents();
         JPanelFormOrders panelOrders = new JPanelFormOrders();
         JPanelFormBooks panelBooks = new JPanelFormBooks();
@@ -280,7 +284,11 @@ public class HomePage extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomePage().setVisible(true);
+                try {
+                    new HomePage().setVisible(true);
+                } catch (ObjectNotFoundException ex) {
+                   
+                }
             }
         });
     }
