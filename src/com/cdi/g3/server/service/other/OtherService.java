@@ -215,10 +215,14 @@ public class OtherService extends AbstractService {
         return listBook;
     }
 
-    public KeyWordBook insertisbnBookByKeyword(String isbn, String keyword) throws ObjectNotFoundException {
-
-        return null;
-    }
+      public KeyWordBook  insertisbnBookByKeyword (String column , String champs )throws ObjectNotFoundException{ 
+          KeyWordBook keyWordBook = new KeyWordBook();
+        
+      //
+          
+          return keyWordBook ;
+      }
+    
 
       // select all by champs  ------------------------------------------------------------------------
 //      private final Collection selectAllByChamp(String column, String champ) throws ObjectNotFoundException {

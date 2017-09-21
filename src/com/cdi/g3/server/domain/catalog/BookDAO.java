@@ -6,15 +6,23 @@
 package com.cdi.g3.server.domain.catalog;
 
 import com.cdi.g3.common.exception.DataAccessException;
+import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.other.CodeTVA;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class BookDAO extends AbstractDataAccessObject {
 
+    private static final String TABLE_KEYWORD = "KEYWORD";
+    private static final String TABLE_KEYWORDBOOK = "KEYWORDBOOK";
     private static final String TABLE = "BOOK";
     private static final String TABLE_EDITOR = "EDITOR";
     private EditorDAO editorDAO = new EditorDAO();
@@ -32,7 +40,7 @@ public class BookDAO extends AbstractDataAccessObject {
     protected String getCounterName() {
         return COUNTER_NAME;
     }
-    
+
     @Override
     protected String getInsertSqlPreparedStatement() {
         final String sql;
@@ -63,6 +71,7 @@ public class BookDAO extends AbstractDataAccessObject {
         sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE NUMISBNBOOK = '" + id + "' ";
         return sql;
     }
+
     @Override
     protected String getSelectSqlStatementByChamp(String column, String champ) {
         final String sql;
@@ -93,6 +102,58 @@ public class BookDAO extends AbstractDataAccessObject {
 
         return sql;
     }
+    protected String getBooksByKeyword(String column, String champ){
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE  +" ,"+TABLE_KEYWORD+ " ,"+ TABLE_KEYWORDBOOK +
+                " WHERE  NUMISBNBOOK = NUMISBNBOOKKB " +
+                "and NAMEKEYWORDKB = NAMEKEYWORD " +                
+                "and "+column +" = '"+ champ+ "'" ;
+        
+        return sql;
+    }
+    
+    public Collection selectBooksByKeyWord(String column, String champ) throws ObjectNotFoundException {
+        final String mname = "selectAll";
+        Trace.entering(getCname(), mname);
+
+        
+        ResultSet resultSet = null;
+        final Collection objects = new ArrayList();
+         // Gets a database connection
+        try (Connection connection = getConnection(); 
+            Statement statement = connection.createStatement()) {
+        
+            // Select a Row
+            resultSet = statement.executeQuery(getBooksByKeyword( column, champ));
+
+            while (resultSet.next()) {
+                // Set data to the collection
+                objects.add(transformResultset2DomainObject(resultSet));
+            }
+
+            if (objects.isEmpty()) {
+                throw new ObjectNotFoundException();
+            }
+
+        } catch (SQLException e) {
+            // A Severe SQL Exception is caught
+            displaySqlException(e);
+            throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
+        } finally {
+            // Close
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }             
+            } catch (SQLException e) {
+                displaySqlException("Cannot close connection", e);
+                throw new DataAccessException("Cannot close the database connection", e);
+            }
+        }
+
+        Trace.exiting(getCname(), mname, new Integer(objects.size()));
+        return objects;
+    }
 
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
@@ -115,7 +176,7 @@ public class BookDAO extends AbstractDataAccessObject {
         int retour = 0;
         try {
 
-              prestmt.setString(1, ((Book) object).getEditor().getId());
+            prestmt.setString(1, ((Book) object).getEditor().getId());
             prestmt.setString(2, ((Book) object).getCodeTva().getId());
             prestmt.setString(3, ((Book) object).getTitleBook());
             prestmt.setFloat(4, ((Book) object).getUnitCostBook());
