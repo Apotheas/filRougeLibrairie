@@ -27,6 +27,51 @@ public class Utility {
        return sqlDate;  
 
    }
+   public boolean regexTel(String text){
     
+        return text.matches( "(0|0033)[1-9][0-9]{8}");
+    
+    }
+    
+    public boolean regexEmail(String text){
+        return text.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+    }
+    public boolean regexNom(String text){
+        if(text.isEmpty()){
+            return false;
+        }else
+        return text.matches("[a-zA-Z]*");
+    }
+    
+    public boolean regexDate(String text){
+        return text.matches("\\d{4}-\\d{2}-\\d{2}");
+    }
+    public boolean regexIsbn(String text){
+        return text.matches("(\\d{13})|(\\d{10})");
+    }
+    public boolean regexCp(String text){
+        return text.matches("((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}");
+    }
+    public boolean regexAdresse(String text){
+        return text.matches("[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
+    } 
+     public boolean regexFloat(String text){
+        return text.matches("");
+    }
+     
+    public static float formatFloatToFloatPrecision (float number, int precesion){
+       String strPrecesion = "1";
+       for (int i=0 ;i <precesion ; i++ )
+           strPrecesion+="0";        
+       precesion = Integer.parseInt(strPrecesion);
+       
+       int intNumber =  (int) (precesion *number);
+       float floatNumber = (float) intNumber;
+       
+       return  floatNumber/ precesion;
+       
+       
+   }
     
 }

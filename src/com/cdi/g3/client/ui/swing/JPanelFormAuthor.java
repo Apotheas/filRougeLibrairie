@@ -34,11 +34,11 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JPanelFormAuthor extends javax.swing.JPanel {
 
-    private DefaultTableModel tabModel = new DefaultTableModel();
-    private PublishingService publishingService = new PublishingService();
-    private CatalogService catalogService = new CatalogService();
-    private Vector authorList = new Vector();
-    private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    private final DefaultTableModel tabModel = new DefaultTableModel();
+    private final PublishingService publishingService = new PublishingService();
+    private final CatalogService catalogService = new CatalogService();
+    private final Vector authorList = new Vector();
+    private final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
     public JPanelFormAuthor() {
         initComponents();
@@ -59,6 +59,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
             tabModel.removeRow(i);
         }
     }
+
     private void clearField() {
         jTextBiography.setText(" ");
         jTextBirthDate.setText(" ");
@@ -68,7 +69,6 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
         jTextLastName.setText(" ");
         jTextSearchAuthor.setText(" ");
     }
-    
 
     //________________Authors COMBOBOX MODEL________________//
     private DefaultComboBoxModel initAuthorsModel() {
@@ -383,7 +383,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
     private void jButtonSearchAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchAuthorActionPerformed
         clearTab();
         Collection<Author> listAuthor = new ArrayList();
-        
+
         //DATABASE TO TEXTFIELD
         try {
 
@@ -397,13 +397,13 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
                 if (author.getDieDateAuthor() != null) {
                     jTextDeathDate.setText(df.format(author.getDieDateAuthor()));
                 } else {
-                    jTextDeathDate.setText(" ");
-                }                
+                    jTextDeathDate.setText("");
+                }
             }
         } catch (ObjectNotFoundException ex) {
             JOptionPane.showMessageDialog(this, "this Author isnt in Database");
         }
-        
+
         //DATABASE TO TABLEAU
         try {
             Vector bookAttributes = null;
@@ -432,43 +432,85 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
 
     private void jButtonUpdateAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateAuthorActionPerformed
         Utility utils = new Utility();
-        try {
-            Author myAuthor = ((Author) jComboBoxSelectedAuthor.getSelectedItem());
-            myAuthor.setLastNameAuthor(jTextLastName.getText());
-            myAuthor.setFirstNameAuthor(jTextFirstName.getText());
-            myAuthor.setCommentAuthor(jTextComment.getText());
-            myAuthor.setBiographyAuthor(jTextBiography.getText());
+        boolean verifiedAuthor = true;
+        verifiedAuthor = controls();
+        if (verifiedAuthor) {
             try {
-                myAuthor.setBirthDateAuthor(utils.formatStringToSQLDate(jTextBirthDate.getText()));
-                myAuthor.setDieDateAuthor(utils.formatStringToSQLDate(jTextDeathDate.getText()));
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Erreur of sql date formatting");
-            }           
+                Author myAuthor = ((Author) jComboBoxSelectedAuthor.getSelectedItem());
+                myAuthor.setLastNameAuthor(jTextLastName.getText());
+                myAuthor.setFirstNameAuthor(jTextFirstName.getText());
+                myAuthor.setCommentAuthor(jTextComment.getText());
+                myAuthor.setBiographyAuthor(jTextBiography.getText());
+                try {
+                    if(!jTextBirthDate.getText().equals("")){
+                        myAuthor.setBirthDateAuthor(utils.formatStringToSQLDate(jTextBirthDate.getText()));
+                    }
+                    if (!jTextDeathDate.getText().equals("")){
+                         myAuthor.setDieDateAuthor(utils.formatStringToSQLDate(jTextDeathDate.getText()));
+                    }
+                   
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Erreur of sql date formatting");
+                }
 
-            int retour = JOptionPane.showConfirmDialog(this,
-                    "Etes-Vous Sure de vouloir modifier l'autheur ? ",
-                    "Update",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                int retour = JOptionPane.showConfirmDialog(this,
+                        "Etes-Vous Sure de vouloir modifier l'autheur ? ",
+                        "Update",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
-            if (retour == JOptionPane.CLOSED_OPTION || retour == JOptionPane.NO_OPTION) {
-                clearTab();
-                clearField();
-            } else {
-                publishingService.updateAuthor(myAuthor);
-                JOptionPane.showMessageDialog(this, " Update Successfull !");
-                clearTab();
-                clearField();
+                if (retour == JOptionPane.CLOSED_OPTION || retour == JOptionPane.NO_OPTION) {
+                    clearTab();
+                    clearField();
+                } else {
+                    publishingService.updateAuthor(myAuthor);
+                    JOptionPane.showMessageDialog(this, " Update Successfull !");
+                    clearTab();
+                    clearField();
+                }
+            } catch (ObjectNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "Author not found ");
+            } catch (UpdateException ex) {
+                JOptionPane.showMessageDialog(this, "Error Updating Author to database");
+            } catch (CheckException ex) {
+                JOptionPane.showMessageDialog(this, "Error didnt pass the check control");
             }
-        } catch (ObjectNotFoundException ex) {
-            JOptionPane.showMessageDialog(this, "Author not found ");
-        } catch (UpdateException ex) {
-            JOptionPane.showMessageDialog(this, "Error Updating Author to database");
-        } catch (CheckException ex) {
-            JOptionPane.showMessageDialog(this, "Error didnt pass the check control");
-        } 
+        }
+
 
     }//GEN-LAST:event_jButtonUpdateAuthorActionPerformed
-    
+    private boolean controls() {
+        Utility utils = new Utility();
+        if (!utils.regexNom(jTextLastName.getText())) {
+            if (jTextLastName.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "AUTHOR's Name is mandatory ", "Warning", JOptionPane.ERROR_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "AUTHOR's Name is invalid ", "warning", JOptionPane.ERROR_MESSAGE);
+            }
+
+            return false;
+        }
+        if (!jTextFirstName.getText().isEmpty()) {
+            if (!utils.regexNom(jTextFirstName.getText())) {
+                JOptionPane.showMessageDialog(this, "First name Author invalid ", "warning", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        if (!jTextBirthDate.getText().isEmpty()) {
+            if (!utils.regexDate(jTextBirthDate.getText())) {
+                JOptionPane.showMessageDialog(this, "birthDate invalid! format : YYYY-MM-DD ", "warning", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        if (!jTextDeathDate.getText().isEmpty()) {
+            if (!utils.regexDate(jTextDeathDate.getText())) {
+                JOptionPane.showMessageDialog(this, "DeathDate invalid! format : YYYY-MM-DD ", "warning", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+
+        return true;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSearchAuthor;
     private javax.swing.JButton jButtonUpdateAuthor;
