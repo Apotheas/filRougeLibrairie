@@ -81,12 +81,12 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabelFirstName" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                              <Component id="jTextFirstName" min="-2" pref="138" max="-2" attributes="0"/>
+                              <Component id="jTextLogo" min="-2" pref="138" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabelLastName" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jTextLastName" min="-2" pref="138" max="-2" attributes="0"/>
+                              <Component id="jTextTelephone" min="-2" pref="138" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -95,8 +95,8 @@
                               </Group>
                               <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jTextEmail" alignment="0" pref="138" max="32767" attributes="0"/>
-                                  <Component id="jTextLogin" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jTextName" alignment="0" pref="138" max="32767" attributes="0"/>
+                                  <Component id="jTextSiret" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -109,8 +109,8 @@
                               </Group>
                               <EmptySpace pref="148" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jTextCompany" min="-2" pref="151" max="-2" attributes="0"/>
-                                  <Component id="jTextPassword" min="-2" pref="121" max="-2" attributes="0"/>
+                                  <Component id="jTextMail" min="-2" pref="151" max="-2" attributes="0"/>
+                                  <Component id="jTextFax" min="-2" pref="121" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                           </Group>
@@ -128,17 +128,17 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextSiret" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFax" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextName" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelCompany" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextCompany" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextMail" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -149,13 +149,13 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jTextFirstName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextLogo" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabelFirstName" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabelLastName" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextLastName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextTelephone" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -175,11 +175,11 @@
                 <Property name="text" type="java.lang.String" value="Siret"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextFirstName">
+            <Component class="javax.swing.JTextField" name="jTextLogo">
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextPassword">
+            <Component class="javax.swing.JTextField" name="jTextFax">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextPasswordActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFaxActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelPassword">
@@ -187,9 +187,9 @@
                 <Property name="text" type="java.lang.String" value="Fax  :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextLogin">
+            <Component class="javax.swing.JTextField" name="jTextSiret">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextLoginActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextSiretActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelFirstName">
@@ -202,11 +202,11 @@
                 <Property name="text" type="java.lang.String" value="Telephone :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextLastName">
+            <Component class="javax.swing.JTextField" name="jTextTelephone">
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextEmail">
+            <Component class="javax.swing.JTextField" name="jTextName">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextEmailActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextNameActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelCompany">
@@ -214,9 +214,9 @@
                 <Property name="text" type="java.lang.String" value="Mail  : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextCompany">
+            <Component class="javax.swing.JTextField" name="jTextMail">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextCompanyActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextMailActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonUpdate">
