@@ -224,49 +224,7 @@ public class OtherService extends AbstractService {
           return keyWordBook ;
       }
 
-      // select all by champs  ------------------------------------------------------------------------
-//      private final Collection selectAllByChamp(String column, String champ) throws ObjectNotFoundException {
-//        final String mname = "selectAll";
-//        Trace.entering(getCname(), mname);
-//
-//        
-//        ResultSet resultSet = null;
-//        final Collection objects = new ArrayList();
-//         // Gets a database connection
-//        try (Connection connection = getConnection(); 
-//            Statement statement = connection.createStatement()) {
-//        
-//            // Select a Row
-//            resultSet = statement.executeQuery(getSelectAllSqlStatementByChamp(column ,champ));
-//
-//            while (resultSet.next()) {
-//                // Set data to the collection
-//                objects.add(transformResultset2DomainObject(resultSet));
-//            }
-//
-//            if (objects.isEmpty()) {
-//                throw new ObjectNotFoundException();
-//            }
-//
-//        } catch (SQLException e) {
-//            // A Severe SQL Exception is caught
-//            displaySqlException(e);
-//            throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
-//        } finally {
-//            // Close
-//            try {
-//                if (resultSet != null) {
-//                    resultSet.close();
-//                }             
-//            } catch (SQLException e) {
-//                displaySqlException("Cannot close connection", e);
-//                throw new DataAccessException("Cannot close the database connection", e);
-//            }
-//        }
-//
-//        Trace.exiting(getCname(), mname, new Integer(objects.size()));
-//        return objects;
-//    }
+  
     //-----------------------------------------------------------------------------------------------------  
     public KeyWord findKeyWord(final String keyWordId) throws FinderException, CheckException {
         final String mname = "findKeyWord";
@@ -346,16 +304,7 @@ public class OtherService extends AbstractService {
         }
     }
 
-        public void updateKeyWordKB (KeyWord keyWordkb) throws UpdateException, CheckException {
-              
-
-        // Updates the object 
-        try {
-            _daokeyWord.update(keyWordkb);
-        } catch (ObjectNotFoundException e) {
-            throw new UpdateException("keyWord must exist to be updated");
-        }
-    }
+    
 
 
     // find KeyWord -----------------------------------------------------------------------

@@ -66,6 +66,8 @@ public class KeyWordDAO extends AbstractDataAccessObject {
         return sql;
     }
 
+    
+    
     @Override
     protected String getSelectSqlStatement(String id) {
         final String sql;
@@ -151,7 +153,8 @@ public class KeyWordDAO extends AbstractDataAccessObject {
 String getUpdateKeyWordBookSqlStatement(String ISBN, String keyWord) {
         final String sql;
         sql = "Update INTO KEYWORDBOOK (IDKEYWORDBOOK,NUMISBNBOOKKB, NAMEKEYWORDKB) values (?,?,?)"
-                + " where namekeyWordKB = '" + keyWord + "'";
+                + " where namekeyWordKB = '" + keyWord + "'"
+                 ;
 
         return sql;
     }
