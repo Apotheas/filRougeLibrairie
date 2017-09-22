@@ -702,7 +702,7 @@ public class JPanelFormEmploye extends JDesktopPane {
         jTextFirstName.setText(employe.getFirstNameEmploye());
         jTextLastName.setText(employe.getLastNameEmploye());
         jComboBoxRights.setSelectedItem(employe.getEmployeRight().getTypeEmployeRight());
-        jComboBoxStatus.setSelectedItem(employe.getInfoStatus().getNameInfoStatus());
+        jComboBoxStatus.setSelectedItem(employe.getInfoStatus().getId());
     }
     
     private void clearField(){

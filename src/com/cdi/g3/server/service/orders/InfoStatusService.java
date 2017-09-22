@@ -84,7 +84,15 @@ public class InfoStatusService extends AbstractService {
 //    
 //    }
     
-    
+     public Collection findStatusEmploye() throws ObjectNotFoundException {
+         final String mname = "findStatus";
+        Trace.entering(_cname, mname);
+        // Finds all the objects
+        final Collection status = _daoInfoStatus.findAllStatusByCondition("Between 20 and 29");
+
+        Trace.exiting(_cname, mname, new Integer(status.size()));
+        return status;
+     }
     
     public void deleteInfoStatus(final String infoStatusId) throws RemoveException, CheckException {
         final String mname = "deleteInfoStatus";
