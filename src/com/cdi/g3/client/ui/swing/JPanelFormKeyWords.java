@@ -10,6 +10,7 @@ import com.cdi.g3.common.exception.CreateException;
 import com.cdi.g3.common.exception.DuplicateKeyException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.common.exception.RemoveException;
 import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.server.domain.catalog.Author;
 import com.cdi.g3.server.domain.catalog.Book;
@@ -36,7 +37,7 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
     KeyWord keyWord = new KeyWord();
     Book book = new Book();
     KeyWordDAO _daokeywordBook = new KeyWordDAO();
-    CatalogService catalogueService = new CatalogService() ;
+    CatalogService catalogueService = new CatalogService();
 
     /**
      * Creates new form JPanelFormKeyWords
@@ -65,7 +66,7 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
 
     private void clearField() {
         jTextF_KeyWord.setText(" ");
-       
+
     }
 
 // INIT KEYWORD MODEL 
@@ -199,16 +200,21 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
             }
         });
 
-        jButtonDeleteInsert.setText("Delete");
+        jButtonDeleteInsert.setText("Remove");
         jButtonDeleteInsert.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonDeleteInsertActionPerformed(evt);
             }
         });
 
-        jButtonDelete.setText("Delete ");
+        jButtonDelete.setText("Delete Keyword ");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
 
-        jButton_Update.setText("Update");
+        jButton_Update.setText("Update Keyword");
         jButton_Update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_UpdateActionPerformed(evt);
@@ -223,22 +229,21 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabelSelectedKeyWord)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanelManageEventsLayout.createSequentialGroup()
-                        .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(95, 95, 95)
+                        .addComponent(jButtonDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton_Update))
                     .addComponent(jComboBoxSelectedKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
-                        .addComponent(jLabelInsert)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
+                .addComponent(jLabelInsert)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanelManageEventsLayout.createSequentialGroup()
                         .addComponent(jButtonAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonDeleteInsert)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonDeleteInsert))
+                    .addComponent(jTextInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageEventsLayout.createSequentialGroup()
                 .addComponent(jScrollPaneManageEvents, javax.swing.GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE)
@@ -253,12 +258,17 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
                     .addComponent(jComboBoxSelectedKeyWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelInsert)
                     .addComponent(jTextInsert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAdd)
-                    .addComponent(jButtonDeleteInsert)
-                    .addComponent(jButtonDelete)
-                    .addComponent(jButton_Update))
+                .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelManageEventsLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonDelete)
+                            .addComponent(jButton_Update)))
+                    .addGroup(jPanelManageEventsLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelManageEventsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonAdd)
+                            .addComponent(jButtonDeleteInsert))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPaneManageEvents, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
                 .addContainerGap())
@@ -303,12 +313,19 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
+      
+        // ajouter un test pour verifier le keyword s'il existe ou pas et 
+        //afficher un meswage d'erreur   
+        
+        
+        
         try {
             // TODO add your handling code here:
 
             keyWord.setNameKeyWord(jTextF_KeyWord.getText());
 
             otherService.createKeyWord(keyWord);
+            JOptionPane.showMessageDialog(this, "key word created with success ");
         } catch (CreateException ex) {
             Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CheckException ex) {
@@ -318,9 +335,13 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonCreateActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
-
+// RAJOUTER UNE CONDITION POUR PAS AJOUTER LE MEME KEYWORD 
         clearTab();
+        
+// ajouter un test pour verifier le keyword s'il existe ou pas et 
+        //afficher un meswage d'erreur   
 
+        
         try {
             Vector v = null;
             for (Iterator itarator = otherService.findBooksByKeyword("NAMEKEYWORD", jTextF_KeyWord.getText()).iterator(); itarator.hasNext();) {
@@ -331,10 +352,12 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
                 v.add(book.getStockBook());
                 v.add(book.getUnitCostBook() + " €");
                 tabModel.addRow(v);
+                
             }
 
         } catch (ObjectNotFoundException ex) {
-            JOptionPane.showMessageDialog(this, "No books for this KeyWord on Database");
+            
+            JOptionPane.showMessageDialog(this, "No Books or   for this KeyWord on Database");
         }
 
     }//GEN-LAST:event_jButtonSearchActionPerformed
@@ -351,22 +374,24 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
 
-       // il faut redefninir la methode dans sevice  ET AJOUTER UNE CONDITION 
-
-        if( book.getNumISBNBook() == jTextInsert.getText()) {
-        
+        // il faut redefninir la methode dans sevice  ET AJOUTER UNE CONDITION 
+        //  if (!book.getNumISBNBook().equals(jTextInsert.getText())) {
         try {
-            _daokeywordBook.associateBookKeyWord(jTextInsert.getText(), jTextF_KeyWord.getText());
-        } catch (DuplicateKeyException ex) {
-            Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex); 
-        }
-        }else {
-     
-            JOptionPane.showMessageDialog(this, " ISBN BOOK is Not Exist in DataBase ");
-        }
-      
-      
 
+            //         catalogueService.FindBookByChamp(book.getNumISBNBook(),jTextF_KeyWord.getText());
+            _daokeywordBook.associateBookKeyWord(jTextInsert.getText(), jTextF_KeyWord.getText());
+            JOptionPane.showMessageDialog(this, "ISBN BOOK IS ADDED WITH SUCCESS ");
+
+        } catch (DuplicateKeyException ex) {
+            Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
+           // JOptionPane.showMessageDialog(this, " Must create book only ");
+            //       } catch (ObjectNotFoundException ex) {
+            //          Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //   } else {
+        //        JOptionPane.showMessageDialog(this, " YOU CAN'T ASSOCIARTE THIS ISBN BECAUSE IT'S ALRADY ASSOCIATE WITH A BOOK ");
+        //    }
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jButton_ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ClearActionPerformed
@@ -392,6 +417,12 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
                 clearField();
             } else {
                 otherService.updateKeyWord(myKeyWord);
+                try {
+                    _daokeywordBook.updateKeyWordIntoKeyWordBook(jTextInsert.getText(), jTextF_KeyWord.getText());
+                } catch (DuplicateKeyException ex) {
+                    Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 JOptionPane.showMessageDialog(this, " Update Successfull !");
                 clearTab();
                 clearField();
@@ -407,7 +438,28 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
     private void jButtonDeleteInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteInsertActionPerformed
         // TODO add your handling code here:
 
+      //  otherService.deleteKeyWordKB(keyWord.getNameKeyWord())   ;
+
     }//GEN-LAST:event_jButtonDeleteInsertActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        try {
+            // TODO add your handling code here: 
+            otherService.deleteKeyWord(jTextF_KeyWord.getText());
+            JOptionPane.showMessageDialog(this, "Keyword Deleted with success ");
+            
+            
+            KeyWord myKeyword = ((KeyWord) jComboBoxSelectedKeyWord.getSelectedItem());
+            
+            
+        } catch (RemoveException ex) {
+            Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (CheckException ex) {
+            Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

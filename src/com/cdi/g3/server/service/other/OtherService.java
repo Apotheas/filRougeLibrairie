@@ -163,9 +163,12 @@ public class OtherService extends AbstractService {
 
     }
 
-//****************************************************************************//
-//***************************   KeyWord   ************************************//
-//****************************************************************************//
+//**********************************************************************************************************************//
+//**********************************************************************************************************************//
+                //***************************   KeyWord   ************************************//
+                //****************************************************************************//
+//**********************************************************************************************************************//
+//**********************************************************************************************************************//
 // ======================================
 //        Buisness Methodes KeyWord
 // ======================================
@@ -217,12 +220,9 @@ public class OtherService extends AbstractService {
 
       public KeyWordBook  insertisbnBookByKeyword (String column , String champs )throws ObjectNotFoundException{ 
           KeyWordBook keyWordBook = new KeyWordBook();
-        
       //
-          
           return keyWordBook ;
       }
-    
 
       // select all by champs  ------------------------------------------------------------------------
 //      private final Collection selectAllByChamp(String column, String champ) throws ObjectNotFoundException {
@@ -301,6 +301,29 @@ public class OtherService extends AbstractService {
         }
     }
 
+    // Delete Keyword KB ****************************************************************************
+
+        public void deleteKeyWordKB(final String keyWordId) throws RemoveException, CheckException {
+        final String mname = "deleteKeyWord";
+        Trace.entering(_cname, mname, keyWordId);
+
+        checkId(keyWordId);
+
+        // Checks if the object exists
+        try {
+            _daokeyWord.findByPrimaryKey(keyWordId);
+        } catch (FinderException e) {
+            throw new RemoveException("KeyWord must exist to be deleted");
+        }
+
+        // Deletes the object
+        try {
+            _daokeyWord.remove(keyWordId);
+        } catch (ObjectNotFoundException e) {
+            throw new RemoveException("KeyWord must exist to be deleted");
+        }
+    }
+
 // UPDATE KeyWord  -----------------------------------------------------------------------
 //   public void updateKeyWord(KeyWord myKeyWord) throws  UpdateException, CheckException {
 //        if (myKeyWord == null) {
@@ -323,6 +346,18 @@ public class OtherService extends AbstractService {
         }
     }
 
+        public void updateKeyWordKB (KeyWord keyWordkb) throws UpdateException, CheckException {
+              
+
+        // Updates the object 
+        try {
+            _daokeyWord.update(keyWordkb);
+        } catch (ObjectNotFoundException e) {
+            throw new UpdateException("keyWord must exist to be updated");
+        }
+    }
+
+
     // find KeyWord -----------------------------------------------------------------------
     public Collection findKeyWord() throws FinderException {
         final String mname = "findKeyWord";
@@ -337,11 +372,20 @@ public class OtherService extends AbstractService {
 
     KeyWord keyWordBook = new KeyWord();
 
+    
+
+
     // ** ASSOCIATE ISBN WITH kEYwORD  **************************
     //****************//***********//********************
-    // ======================================
+   
+    
+
+// ======================================
     // = Private Methods KeyWord
     // ======================================
+  
+    
+    
     private KeyWord setKeyWord(KeyWord keyWord, KeyWord KeyWordFinded) {
         KeyWordFinded.setNameKeyWord(keyWord.getNameKeyWord());
         return KeyWordFinded;
