@@ -168,7 +168,7 @@ public class Employe extends DomainObject implements Serializable{
 
     @Override
     public String toString() {
-        return  loginEmploye +"  "+  employeRight  ;
+        return  loginEmploye   ;
     }
 }
     

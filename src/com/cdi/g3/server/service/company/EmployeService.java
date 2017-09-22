@@ -38,7 +38,7 @@ public class EmployeService extends AbstractService {
     // ======================================
     private static final EmployeDAO _daoEmploye = new EmployeDAO();
     private static final EmployeRightDAO _daoEmployeRight = new EmployeRightDAO();
-    private static final InfoStatusDAO _daoInfoStatus = new InfoStatusDAO();
+    private static final InfoStatusDAO _infoStatusDAO = new InfoStatusDAO();
   
     // ======================================
     // = Constructors =
@@ -154,7 +154,15 @@ public class EmployeService extends AbstractService {
      public Collection FindAllEmploye()throws ObjectNotFoundException{
         return _daoEmploye.findAll();
     }
-  
+  public Collection findStatusEmploye() throws ObjectNotFoundException {
+         final String mname = "findStatus";
+        Trace.entering(_cname, mname);
+        // Finds all the objects
+        final Collection status = _infoStatusDAO.findAllStatusByCondition("Between 20 and 29");
+
+        Trace.exiting(_cname, mname, new Integer(status.size()));
+        return status;
+     }
    
 
     
@@ -186,20 +194,12 @@ public class EmployeService extends AbstractService {
     }
       public Collection FindEmployeByRight(String column, String champ) throws ObjectNotFoundException {
         Collection listEmploye = _daoEmploye.findAllByChamp(column, champ);
-        for (Iterator iterator = listEmploye.iterator(); iterator.hasNext();) {
-            Employe employe = (Employe) iterator.next();
-            
-            EmployeRight employeRight = (EmployeRight) _daoEmployeRight.findByPrimaryKey(employe.getEmployeRight().getId());       
-            
-               
-            employe.setEmployeRight(employeRight);
-         
-        }
+       
         return listEmploye;
     }
       
        public Collection FindEmployeByStatus(String column, String champ) throws ObjectNotFoundException {
-        Collection listEmploye = _daoEmploye.findAllByChamp(column, champ);
+       Collection listEmploye = _daoEmploye.findAllByStatus(column, champ);
         
         return listEmploye;
     }

@@ -6,14 +6,21 @@
 package com.cdi.g3.server.domain.company;
 
 import com.cdi.g3.common.exception.DataAccessException;
+import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.company.Employe;
 import com.cdi.g3.server.domain.orders.InfoStatus;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
 import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displaySqlException;
+import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.getConnection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -63,9 +70,18 @@ public class EmployeDAO extends AbstractDataAccessObject {
     protected String getSelectAllSqlStatementByChamp(String column, String champ) {
         final String sql;
 
-        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " ," + TABLE_EMPLOYERIGHT + " , " + TABLE_INFOSTATUS
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " ," + TABLE_EMPLOYERIGHT 
                 + " WHERE  IDEMPLOYERIGHTEMP = IDEMPLOYERIGHT "
-                + " and STATUSEMPLOYE = VALUEINFOSTATUS "
+                
+                + "and " + column + " = '" + champ + "'";
+        return sql;
+    }
+     protected String getSelectAllSqlStatementByStatus(String column, String champ) {
+        final String sql;
+
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " ," + TABLE_INFOSTATUS 
+                + " WHERE  STATUSEMPLOYE = NAMEINFOSTATUS "
+                
                 + "and " + column + " = '" + champ + "'";
         return sql;
     }
@@ -99,7 +115,51 @@ public class EmployeDAO extends AbstractDataAccessObject {
     protected String getCounterName() {
         return COUNTER_NAME;
     }
+  public Collection findAllByStatus(String column, String champ) throws ObjectNotFoundException {
+        final String mname = "selectAll";
+        Trace.entering(getCname(), mname);
 
+        
+        ResultSet resultSet = null;
+        final Collection objects = new ArrayList();
+         // Gets a database connection
+        try (Connection connection = getConnection(); 
+            Statement statement = connection.createStatement()) {
+        
+            // Select a Row
+            resultSet = statement.executeQuery(getSelectAllSqlStatementByStatus(column ,champ));
+
+            while (resultSet.next()) {
+                // Set data to the collection
+                objects.add(transformResultset2DomainObject(resultSet));
+            }
+
+            if (objects.isEmpty()) {
+                throw new ObjectNotFoundException();
+            }
+
+        } catch (SQLException e) {
+            // A Severe SQL Exception is caught
+            displaySqlException(e);
+            throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
+        } finally {
+            // Close
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }             
+            } catch (SQLException e) {
+                displaySqlException("Cannot close connection", e);
+                throw new DataAccessException("Cannot close the database connection", e);
+            }
+        }
+
+        Trace.exiting(getCname(), mname, new Integer(objects.size()));
+        return objects;
+    }
+    
+    
+    
     @Override
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
         int retour = 0;

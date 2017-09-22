@@ -10,8 +10,6 @@ import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.common.logging.Trace;
-import com.cdi.g3.server.domain.catalog.Book;
-import com.cdi.g3.server.domain.catalog.Editor;
 import com.cdi.g3.server.domain.company.Employe;
 import com.cdi.g3.server.domain.company.EmployeRight;
 import com.cdi.g3.server.domain.customers.Appreciation;
@@ -418,7 +416,7 @@ public class JPanelFormEmploye extends JDesktopPane {
             jTextLogin.setText(employe.getId());
             jTextEmail.setText(String.valueOf(employe.getEmailEmploye()));
             jTextFirstName.setText(employe.getFirstNameEmploye());
-            jTextLastName.setText(employe.getFirstNameEmploye());
+            jTextLastName.setText(employe.getLastNameEmploye());
             jTextPassword.setText(employe.getPasswordEmploye());
             jTextEmail.setText(employe.getEmailEmploye());
             
@@ -468,13 +466,13 @@ public class JPanelFormEmploye extends JDesktopPane {
                 EmployeRight employeRight = (EmployeRight) iteratorA.next();
                 tnEmployeRight = new DefaultMutableTreeNode(employeRight);
                 root.add(tnEmployeRight);
-
-                for (Iterator iteratorB = employeService.FindEmployeByRight("idEmployeRightEmp", employeRight.getId()).iterator(); iteratorB.hasNext();) {
+                
+                  for (Iterator iteratorB = employeService.FindEmployeByRight("idEmployeRight", employeRight.getId()).iterator(); iteratorB.hasNext();) {
                     Employe employe = (Employe) iteratorB.next();
                     tnEmploye = new DefaultMutableTreeNode(employe);
                     tnEmployeRight.add(tnEmploye);
-                  
                 }
+             
 
             }
         } catch (ObjectNotFoundException ex) {
@@ -503,13 +501,13 @@ public class JPanelFormEmploye extends JDesktopPane {
                 InfoStatus infoStatus = (InfoStatus) iteratorA.next();
                 tnInfoStatus = new DefaultMutableTreeNode(infoStatus);
                 root.add(tnInfoStatus);
-                
-                    for (Iterator iteratorB = employeService.FindEmployeByStatus("nameInfoStatus", infoStatus.getId()).iterator(); iteratorB.hasNext();) {
-                        Employe employe = (Employe) iteratorB.next();
-                        tnEmploye = new DefaultMutableTreeNode(employe);
-                        tnInfoStatus.add(tnEmploye);
-                    }
-                
+                  
+                for (Iterator iteratorB = employeService.FindEmployeByStatus("nameInfoStatus", infoStatus.getId()).iterator(); iteratorB.hasNext();) {
+                    Employe employe = (Employe) iteratorB.next();
+                    tnEmploye = new DefaultMutableTreeNode(employe);
+                    tnInfoStatus.add(tnEmploye);
+                }
+                  
             }
         } catch (ObjectNotFoundException ex) {
             
