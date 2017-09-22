@@ -2,6 +2,7 @@
 package com.cdi.g3.server.domain.customers;
 
 import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.utiles.Utility;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.orders.Orders;
 import java.io.Serializable;
@@ -35,10 +36,13 @@ public final class Customer extends DomainObject implements Serializable {
     // =            Constructors            =
     // ======================================
     public Customer() {
+        statusCustomer = 10;
+        
     }
 
     public Customer(final String id) {
         setId(id);
+        statusCustomer = 10;
     }
 
     public Customer(final String id, final String lastNameCustomer, final String firstNameCustomer, 
@@ -48,6 +52,7 @@ public final class Customer extends DomainObject implements Serializable {
         setLastNameCustomer(lastNameCustomer);
         setEmailCustomer(emailCustomer);
         setPasswordCustomer(passwordCustomer);
+        statusCustomer = 10;
     }
     
     public Customer(final String lastNameCustomer, final String firstNameCustomer, 
@@ -56,6 +61,7 @@ public final class Customer extends DomainObject implements Serializable {
         setLastNameCustomer(lastNameCustomer);
         setEmailCustomer(emailCustomer);
         setPasswordCustomer(passwordCustomer);
+        statusCustomer = 10;
     }
 
     // ======================================
@@ -69,12 +75,15 @@ public final class Customer extends DomainObject implements Serializable {
     public void checkData() throws CheckException {
         if (getLoginCustomer() == null || "".equals(getLoginCustomer()))
             throw new CheckException("Invalid customer login");
-        if (getEmailCustomer() == null || "".equals(getEmailCustomer()))
+        if (getEmailCustomer() == null || "".equals(getEmailCustomer())|| ! Utility.regexEmail(getEmailCustomer()))
             throw new CheckException("Invalid customer email");
-        if (getLastNameCustomer() == null || "".equals(getLastNameCustomer()))
+        if (getLastNameCustomer() == null || "".equals(getLastNameCustomer())|| ! Utility.regexNom(getLastNameCustomer()))
             throw new CheckException("Invalid customer last name");
-        if (getFirstNameCustomer() == null || "".equals(getFirstNameCustomer()))
+        if (getFirstNameCustomer() == null || "".equals(getFirstNameCustomer())|| !Utility.regexNom(getFirstNameCustomer()))
             throw new CheckException("Invalid customer first name");
+        if (getPasswordCustomer() == null || "".equals(getPasswordCustomer()))
+            throw new CheckException("Invalid password");
+        
     }
     
     public void matchPassword(String password) throws CheckException {

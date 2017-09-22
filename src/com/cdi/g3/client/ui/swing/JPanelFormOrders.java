@@ -18,16 +18,13 @@ import com.cdi.g3.server.domain.orders.InfoStatus;
 import com.cdi.g3.server.domain.orders.OrderLine;
 import com.cdi.g3.server.domain.orders.Orders;
 import com.cdi.g3.server.domain.other.CodeTVA;
-import com.cdi.g3.server.service.catalog.CatalogService;
 import com.cdi.g3.server.service.customers.CustomerService;
 import com.cdi.g3.server.service.orders.OrderService;
 import com.cdi.g3.server.service.other.OtherService;
 import java.text.DateFormat;
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -35,7 +32,9 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -46,13 +45,15 @@ import javax.swing.table.DefaultTableModel;
 public class JPanelFormOrders extends JDesktopPane {
 //    CatalogService bookService = new CatalogService();
 
+    final CustomerService customerService = new CustomerService();
+    JPanelFormCustomers jPanalCustomer = new JPanelFormCustomers();
+
     OrderService serviceOrder = new OrderService();
     OtherService otherService = new OtherService();
     BookDAO _daoBook = new BookDAO();
-    JPanelFormCustomers jPanalCustomer = new JPanelFormCustomers();
     Vector cartShopingData = new Vector();
-    Vector vectorJTableOrders = new Vector();
-
+    Vector<Orders> Ordersvector = new Vector();
+    Vector<OrderLine> OrderLinesvector = new Vector();
     Collection books;
 
     /**
@@ -60,6 +61,18 @@ public class JPanelFormOrders extends JDesktopPane {
      */
     public JPanelFormOrders() {
         initComponents();
+        chargeComboBoxStatusOrders();
+        chargeComboBoxBooks();
+        chargeTableOrders();
+        jPanalCustomer.chargeComboBoxCustomers();
+        jTextIdAdressShipp.setEnabled(true);
+        jTextIdAdressBill.setEnabled(false);
+
+        jTableOrders.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent evt) {
+                selectLineTableOrdersActionPerformed(evt);
+            }
+        });
 
     }
 
@@ -81,15 +94,19 @@ public class JPanelFormOrders extends JDesktopPane {
         jPanelCart = new javax.swing.JPanel();
         jScrollPaneCart = new javax.swing.JScrollPane();
         jTableOrders = new javax.swing.JTable();
-        jButtonSetStatus = new javax.swing.JButton();
         jComboBoxSearchOrdersBycolumn = new javax.swing.JComboBox();
         jPanelOrdersWaiting = new javax.swing.JPanel();
         jScrollPaneOrdersWaiting = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
+        jTableOrdersLine = new javax.swing.JTable();
+        jButtonUpdateOrder = new javax.swing.JButton();
         jPanelNew = new javax.swing.JPanel();
         jPanelCartN = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTableShoppingCart = new javax.swing.JTable();
+        jLbelTotalTCCView = new javax.swing.JLabel();
+        jLabelTotalTCC = new javax.swing.JLabel();
+        jLabelTotalHT = new javax.swing.JLabel();
+        jLabelTotalHTView = new javax.swing.JLabel();
         jTextAddBook = new javax.swing.JTextField();
         jButtonAddBook = new javax.swing.JButton();
         jLabelQuantity = new javax.swing.JLabel();
@@ -99,8 +116,6 @@ public class JPanelFormOrders extends JDesktopPane {
         jPanelShipping = new javax.swing.JPanel();
         jLabelLastNameShipp = new javax.swing.JLabel();
         jTextNameReceiverAdressShipp = new javax.swing.JTextField();
-        jLabelIdAdressShipp = new javax.swing.JLabel();
-        jTextIdAdressShipp = new javax.swing.JTextField();
         jLabelStreetShipp = new javax.swing.JLabel();
         jLabelZipShipp = new javax.swing.JLabel();
         jLabelCityShipp = new javax.swing.JLabel();
@@ -113,15 +128,15 @@ public class JPanelFormOrders extends JDesktopPane {
         jLabelNumAdressShip = new javax.swing.JLabel();
         jLabelCountryShip = new javax.swing.JLabel();
         jTextCountryShipp = new javax.swing.JTextField();
+        jTextIdAdressShipp = new javax.swing.JTextField();
+        jLabelIdAdressShipp = new javax.swing.JLabel();
         jPanelBilling = new javax.swing.JPanel();
         jLabelZipBill = new javax.swing.JLabel();
         jTextCityBill = new javax.swing.JTextField();
         jLabelLastNameBill = new javax.swing.JLabel();
-        jTextIdAdressBill = new javax.swing.JTextField();
         jTextNameReceiverAdressBill = new javax.swing.JTextField();
         jTextZipCodeBill = new javax.swing.JTextField();
         jLabelStreetBill = new javax.swing.JLabel();
-        jLabelIdAdressBill = new javax.swing.JLabel();
         jTextStreetBill = new javax.swing.JTextField();
         jLabelCityBill = new javax.swing.JLabel();
         jTextStreet2Bill = new javax.swing.JTextField();
@@ -130,6 +145,8 @@ public class JPanelFormOrders extends JDesktopPane {
         jLabelNumAdressBill = new javax.swing.JLabel();
         jTextCountryBill = new javax.swing.JTextField();
         jLabelCoutryAdressBill = new javax.swing.JLabel();
+        jTextIdAdressBill = new javax.swing.JTextField();
+        jLabelIdAdressBill = new javax.swing.JLabel();
         jPanelCheckout = new javax.swing.JPanel();
         jButtonProceed = new javax.swing.JButton();
         jLabelHolderName = new javax.swing.JLabel();
@@ -152,7 +169,8 @@ public class JPanelFormOrders extends JDesktopPane {
         jComboBoxAdressShipping = new javax.swing.JComboBox();
         jComboBoxAdressBilling = new javax.swing.JComboBox();
         jRadioButtonSame = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        jLabelDiscount = new javax.swing.JLabel();
+        jTextDiscount = new javax.swing.JTextField();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -165,11 +183,6 @@ public class JPanelFormOrders extends JDesktopPane {
         });
 
         jComboBoxOrderStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Shipped", "Item 2", "Item 3", "Item 4" }));
-        jComboBoxOrderStatus.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBoxOrderStatusItemStateChanged(evt);
-            }
-        });
         jComboBoxOrderStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxOrderStatusActionPerformed(evt);
@@ -183,7 +196,7 @@ public class JPanelFormOrders extends JDesktopPane {
             }
         });
 
-        jPanelCart.setBorder(javax.swing.BorderFactory.createTitledBorder("Shopping Cart"));
+        jPanelCart.setBorder(javax.swing.BorderFactory.createTitledBorder("Orders"));
 
         jTableOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -210,21 +223,14 @@ public class JPanelFormOrders extends JDesktopPane {
         jPanelCart.setLayout(jPanelCartLayout);
         jPanelCartLayout.setHorizontalGroup(
             jPanelCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneCart, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
+            .addComponent(jScrollPaneCart)
         );
         jPanelCartLayout.setVerticalGroup(
             jPanelCartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneCart, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+            .addComponent(jScrollPaneCart, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
         );
 
-        jButtonSetStatus.setText("Set");
-        jButtonSetStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonSetStatusActionPerformed(evt);
-            }
-        });
-
-        jComboBoxSearchOrdersBycolumn.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Number Order", "InternNum Order", "Login Customer", "Status Order" }));
+        jComboBoxSearchOrdersBycolumn.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Number Order", "InternNum Order", "Login Customer" }));
 
         javax.swing.GroupLayout jPanelSearchOrderLayout = new javax.swing.GroupLayout(jPanelSearchOrder);
         jPanelSearchOrder.setLayout(jPanelSearchOrderLayout);
@@ -233,28 +239,24 @@ public class JPanelFormOrders extends JDesktopPane {
             .addGroup(jPanelSearchOrderLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelSearchOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelSearchOrderLayout.createSequentialGroup()
-                        .addComponent(jPanelCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(jPanelSearchOrderLayout.createSequentialGroup()
-                        .addComponent(jComboBoxSearchOrdersBycolumn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(jTextSearchOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(jButtonSearchOrders)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jComboBoxOrderStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonSetStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))))
+                        .addGap(281, 281, 281)
+                        .addComponent(jComboBoxSearchOrdersBycolumn, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextSearchOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButtonSearchOrders)
+                        .addGap(0, 332, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanelSearchOrderLayout.setVerticalGroup(
             jPanelSearchOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelSearchOrderLayout.createSequentialGroup()
-                .addGap(88, 88, 88)
+                .addContainerGap()
                 .addGroup(jPanelSearchOrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSearchOrders)
-                    .addComponent(jButtonSetStatus)
                     .addComponent(jComboBoxSearchOrdersBycolumn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxOrderStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextSearchOrders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -263,9 +265,9 @@ public class JPanelFormOrders extends JDesktopPane {
                 .addGap(17, 17, 17))
         );
 
-        jPanelOrdersWaiting.setBorder(javax.swing.BorderFactory.createTitledBorder("Orders waiting for Traitment"));
+        jPanelOrdersWaiting.setBorder(javax.swing.BorderFactory.createTitledBorder("Orders Lines"));
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        jTableOrdersLine.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -276,7 +278,7 @@ public class JPanelFormOrders extends JDesktopPane {
                 "Order ID ", "User", "Adresse", "Date"
             }
         ));
-        jScrollPaneOrdersWaiting.setViewportView(jTable6);
+        jScrollPaneOrdersWaiting.setViewportView(jTableOrdersLine);
 
         javax.swing.GroupLayout jPanelOrdersWaitingLayout = new javax.swing.GroupLayout(jPanelOrdersWaiting);
         jPanelOrdersWaiting.setLayout(jPanelOrdersWaitingLayout);
@@ -295,6 +297,8 @@ public class JPanelFormOrders extends JDesktopPane {
                 .addContainerGap())
         );
 
+        jButtonUpdateOrder.setText("Update Order");
+
         javax.swing.GroupLayout jPanelManageLayout = new javax.swing.GroupLayout(jPanelManage);
         jPanelManage.setLayout(jPanelManageLayout);
         jPanelManageLayout.setHorizontalGroup(
@@ -302,18 +306,23 @@ public class JPanelFormOrders extends JDesktopPane {
             .addGroup(jPanelManageLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelSearchOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelOrdersWaiting, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(244, 244, 244))
+                    .addComponent(jPanelOrdersWaiting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelSearchOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonUpdateOrder)
+                .addGap(23, 23, 23))
         );
         jPanelManageLayout.setVerticalGroup(
             jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelManageLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanelSearchOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonUpdateOrder)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanelOrdersWaiting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(510, Short.MAX_VALUE))
         );
 
         jTabbedPaneOrders.addTab("Manage", jPanelManage);
@@ -343,18 +352,43 @@ public class JPanelFormOrders extends JDesktopPane {
         });
         jScrollPane5.setViewportView(jTableShoppingCart);
 
+        jLbelTotalTCCView.setText("99.99 €");
+
+        jLabelTotalTCC.setText("Total  TTC  :");
+
+        jLabelTotalHT.setText("Total HT");
+
         javax.swing.GroupLayout jPanelCartNLayout = new javax.swing.GroupLayout(jPanelCartN);
         jPanelCartN.setLayout(jPanelCartNLayout);
         jPanelCartNLayout.setHorizontalGroup(
             jPanelCartNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane5)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCartNLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanelCartNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelCartNLayout.createSequentialGroup()
+                        .addComponent(jLabelTotalTCC)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLbelTotalTCCView, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelCartNLayout.createSequentialGroup()
+                        .addComponent(jLabelTotalHT)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelTotalHTView, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanelCartNLayout.setVerticalGroup(
             jPanelCartNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCartNLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+            .addGroup(jPanelCartNLayout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelCartNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelTotalHT)
+                    .addComponent(jLabelTotalHTView, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(jPanelCartNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTotalTCC)
+                    .addComponent(jLbelTotalTCCView))
+                .addContainerGap())
         );
 
         jButtonAddBook.setText("Add");
@@ -374,8 +408,6 @@ public class JPanelFormOrders extends JDesktopPane {
 
         jLabelLastNameShipp.setText("Last Name  :");
 
-        jLabelIdAdressShipp.setText("IdAdressShip");
-
         jLabelStreetShipp.setText("Street   :");
 
         jLabelZipShipp.setText("Zip Code  :");
@@ -394,6 +426,8 @@ public class JPanelFormOrders extends JDesktopPane {
 
         jLabelCountryShip.setText("Country");
 
+        jLabelIdAdressShipp.setText("IdAdressShip");
+
         javax.swing.GroupLayout jPanelShippingLayout = new javax.swing.GroupLayout(jPanelShipping);
         jPanelShipping.setLayout(jPanelShippingLayout);
         jPanelShippingLayout.setHorizontalGroup(
@@ -402,58 +436,53 @@ public class JPanelFormOrders extends JDesktopPane {
                 .addContainerGap()
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingLayout.createSequentialGroup()
-                        .addComponent(jLabelIdAdressShipp)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(jTextIdAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingLayout.createSequentialGroup()
                         .addComponent(jLabelLastNameShipp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextNameReceiverAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingLayout.createSequentialGroup()
-                        .addComponent(jLabelZipShipp)
+                    .addGroup(jPanelShippingLayout.createSequentialGroup()
+                        .addComponent(jLabelNumAdressShip)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextZipCodeShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingLayout.createSequentialGroup()
+                        .addComponent(jTextNumStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelShippingLayout.createSequentialGroup()
+                        .addComponent(jLabelStreetShipp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelShippingLayout.createSequentialGroup()
                         .addComponent(jLabelStreet2Ship)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextStreet2Shipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingLayout.createSequentialGroup()
-                        .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelStreetShipp)
-                            .addComponent(jLabelNumAdressShip))
+                    .addGroup(jPanelShippingLayout.createSequentialGroup()
+                        .addComponent(jLabelZipShipp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextNumStreetShipp)
-                            .addComponent(jTextStreetShipp, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingLayout.createSequentialGroup()
-                        .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelCityShipp)
-                            .addComponent(jLabelCountryShip))
+                        .addComponent(jTextZipCodeShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelShippingLayout.createSequentialGroup()
+                        .addComponent(jLabelCityShipp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextCityShipp, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                            .addComponent(jTextCountryShipp))))
-                .addContainerGap())
+                        .addComponent(jTextCityShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelShippingLayout.createSequentialGroup()
+                        .addComponent(jLabelCountryShip)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextCountryShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelShippingLayout.createSequentialGroup()
+                        .addComponent(jLabelIdAdressShipp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addComponent(jTextIdAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanelShippingLayout.setVerticalGroup(
             jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelShippingLayout.createSequentialGroup()
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextIdAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelIdAdressShipp))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextNameReceiverAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelLastNameShipp))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextNumStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNumAdressShip))
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelStreetShipp))
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextStreet2Shipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelStreet2Ship))
@@ -467,8 +496,13 @@ public class JPanelFormOrders extends JDesktopPane {
                     .addComponent(jLabelCityShipp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelCountryShip)
-                    .addComponent(jTextCountryShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTextCountryShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelCountryShip))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelShippingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextIdAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelIdAdressShipp))
+                .addContainerGap())
         );
 
         jPanelBilling.setBorder(javax.swing.BorderFactory.createTitledBorder("Billing Adress"));
@@ -485,8 +519,6 @@ public class JPanelFormOrders extends JDesktopPane {
 
         jLabelStreetBill.setText("Street   :");
 
-        jLabelIdAdressBill.setText("IdAdressBill");
-
         jLabelCityBill.setText("City  :");
 
         jLabelStreet2AdressBill.setText("Steet2");
@@ -495,52 +527,47 @@ public class JPanelFormOrders extends JDesktopPane {
 
         jLabelCoutryAdressBill.setText("Country");
 
+        jLabelIdAdressBill.setText("IdAdressBill");
+
         javax.swing.GroupLayout jPanelBillingLayout = new javax.swing.GroupLayout(jPanelBilling);
         jPanelBilling.setLayout(jPanelBillingLayout);
         jPanelBillingLayout.setHorizontalGroup(
             jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBillingLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelBillingLayout.createSequentialGroup()
+                        .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelLastNameBill)
+                            .addComponent(jLabelStreetBill)
+                            .addComponent(jLabelStreet2AdressBill)
+                            .addComponent(jLabelNumAdressBill))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                        .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextStreet2Bill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextNameReceiverAdressBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextNumStreetBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextStreetBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelBillingLayout.createSequentialGroup()
                         .addComponent(jLabelZipBill)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jTextZipCodeBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelBillingLayout.createSequentialGroup()
-                        .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelIdAdressBill)
-                            .addComponent(jLabelLastNameBill)
-                            .addComponent(jLabelStreetBill)
-                            .addComponent(jLabelStreet2AdressBill)
-                            .addComponent(jLabelNumAdressBill))
-                        .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanelBillingLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextNumStreetBill)
-                                    .addComponent(jTextNameReceiverAdressBill, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                                    .addComponent(jTextIdAdressBill, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                                    .addComponent(jTextStreetBill, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                                .addComponent(jTextStreet2Bill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingLayout.createSequentialGroup()
-                        .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelCityBill)
-                            .addComponent(jLabelCoutryAdressBill))
+                        .addComponent(jLabelCityBill)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextCountryBill)
-                            .addComponent(jTextCityBill, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(jTextCityBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelBillingLayout.createSequentialGroup()
+                        .addComponent(jLabelCoutryAdressBill)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextCountryBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelBillingLayout.createSequentialGroup()
+                        .addComponent(jLabelIdAdressBill)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextIdAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanelBillingLayout.setVerticalGroup(
             jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBillingLayout.createSequentialGroup()
-                .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelIdAdressBill)
-                    .addComponent(jTextIdAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextNameReceiverAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelLastNameBill))
@@ -548,30 +575,31 @@ public class JPanelFormOrders extends JDesktopPane {
                 .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextNumStreetBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNumAdressBill))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextStreetBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelStreetBill))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelStreetBill)
+                    .addComponent(jTextStreetBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
                 .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextStreet2Bill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelStreet2AdressBill))
-                .addGap(7, 7, 7)
-                .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelBillingLayout.createSequentialGroup()
-                        .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelZipBill)
-                            .addComponent(jTextZipCodeBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextCityBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelBillingLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabelCityBill)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextZipCodeBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelZipBill))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextCityBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelCityBill))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextCountryBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCoutryAdressBill))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelBillingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextIdAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelIdAdressBill))
+                .addContainerGap())
         );
 
         jPanelCheckout.setBorder(javax.swing.BorderFactory.createTitledBorder("Checkout"));
@@ -600,88 +628,67 @@ public class JPanelFormOrders extends JDesktopPane {
         jPanelCheckoutLayout.setHorizontalGroup(
             jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCheckoutLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCheckoutLayout.createSequentialGroup()
-                        .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCheckoutLayout.createSequentialGroup()
-                                .addComponent(jLabelHolderName)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextHolderName))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCheckoutLayout.createSequentialGroup()
-                                .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelCard)
-                                    .addComponent(jLabelExpDate)
-                                    .addComponent(jLabelCCV))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextCard)
-                                    .addComponent(jTextExpDate)
-                                    .addGroup(jPanelCheckoutLayout.createSequentialGroup()
-                                        .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabelTotalView)
-                                            .addComponent(jTextCCV, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addGap(16, 16, 16))
-                    .addGroup(jPanelCheckoutLayout.createSequentialGroup()
-                        .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelTotal)
-                            .addGroup(jPanelCheckoutLayout.createSequentialGroup()
-                                .addComponent(jTextOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextOrderDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCheckoutLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonProceed)
+                .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextHolderName, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextCard, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextExpDate, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelCheckoutLayout.createSequentialGroup()
+                        .addComponent(jLabelTotal)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelTotalView)
+                        .addGap(147, 147, 147)))
                 .addContainerGap())
+            .addGroup(jPanelCheckoutLayout.createSequentialGroup()
+                .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jTextOrderDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(jTextOrderId, javax.swing.GroupLayout.Alignment.LEADING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCheckoutLayout.createSequentialGroup()
+                        .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelExpDate)
+                            .addComponent(jLabelCCV)
+                            .addComponent(jLabelCard)
+                            .addComponent(jLabelHolderName))
+                        .addGap(34, 34, 34)
+                        .addComponent(jTextCCV, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(161, 161, 161))
+                    .addComponent(jButtonProceed, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
         jPanelCheckoutLayout.setVerticalGroup(
             jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCheckoutLayout.createSequentialGroup()
-                .addGap(13, 13, 13)
                 .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelHolderName)
-                    .addComponent(jTextHolderName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jTextHolderName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelHolderName))
+                .addGap(16, 16, 16)
                 .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCard)
                     .addComponent(jTextCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelExpDate)
-                    .addComponent(jTextExpDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextExpDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelExpDate))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCCV)
                     .addComponent(jTextCCV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTotal)
-                    .addComponent(jLabelTotalView))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonProceed)
-                .addGap(5, 5, 5)
+                    .addComponent(jLabelTotalView)
+                    .addComponent(jTextOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanelCheckoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextOrderDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTextOrderDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonProceed)))
         );
 
         jComboBoxCustomer.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxCustomerActionPerformed(evt);
-            }
-        });
-
-        jComboBoxBook.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jComboBoxBookMouseEntered(evt);
-            }
-        });
-        jComboBoxBook.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxBookActionPerformed(evt);
             }
         });
 
@@ -706,108 +713,105 @@ public class JPanelFormOrders extends JDesktopPane {
         });
 
         jRadioButtonSame.setText("Same as Shipping");
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonSame.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jRadioButtonSameActionPerformed(evt);
             }
         });
+
+        jLabelDiscount.setText("Discount");
 
         javax.swing.GroupLayout jPanelNewLayout = new javax.swing.GroupLayout(jPanelNew);
         jPanelNew.setLayout(jPanelNewLayout);
         jPanelNewLayout.setHorizontalGroup(
             jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelNewLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelCartN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelNewLayout.createSequentialGroup()
-                        .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap(316, Short.MAX_VALUE)
+                        .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelNewLayout.createSequentialGroup()
-                                .addGap(0, 315, Short.MAX_VALUE)
                                 .addComponent(jComboBoxCreteriaSearchBook, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextAddBook, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(73, 73, 73)
                                 .addComponent(jLabelComboBoxBooks)
-                                .addGap(39, 39, 39)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBoxBook, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabelQuantity)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonAddBook))
-                                .addGap(86, 86, 86)
-                                .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jButtonDeleteLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButtonClearCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(jPanelNewLayout.createSequentialGroup()
-                                .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanelShipping, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanelNewLayout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(jComboBoxAdressShipping, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(31, 31, 31)
-                                .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanelNewLayout.createSequentialGroup()
-                                        .addComponent(jComboBoxAdressBilling, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jRadioButtonSame)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(jPanelNewLayout.createSequentialGroup()
-                                        .addComponent(jPanelBilling, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jPanelCheckout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addContainerGap())
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(jLabelDiscount)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButtonAddBook))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButtonDeleteLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonClearCart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanelNewLayout.createSequentialGroup()
                         .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanelShipping, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelNewLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
                                 .addComponent(jLabelComboBoxCustmers)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBoxCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton1))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanelNewLayout.createSequentialGroup()
+                        .addComponent(jComboBoxAdressShipping, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButtonSame)
+                        .addGap(67, 67, 67)
+                        .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanelBilling, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxAdressBilling, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanelCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 72, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addComponent(jPanelCartN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelNewLayout.setVerticalGroup(
             jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelNewLayout.createSequentialGroup()
                 .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextAddBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBoxCreteriaSearchBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelNewLayout.createSequentialGroup()
                         .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelQuantity)
                             .addComponent(jTextQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonClearCart)
                             .addComponent(jComboBoxBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelComboBoxBooks))
+                            .addComponent(jLabelComboBoxBooks)
+                            .addComponent(jLabelDiscount)
+                            .addComponent(jTextDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonAddBook)
-                            .addComponent(jButtonDeleteLine))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelCartN, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                            .addComponent(jButtonDeleteLine)
+                            .addComponent(jButtonAddBook, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextAddBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxCreteriaSearchBook, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(13, 13, 13)
+                .addComponent(jPanelCartN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelComboBoxCustmers)
                     .addComponent(jComboBoxCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxAdressShipping, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxAdressBilling, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButtonSame))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanelCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanelBilling, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanelShipping, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelNewLayout.createSequentialGroup()
+                        .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBoxAdressShipping, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioButtonSame)
+                            .addComponent(jComboBoxAdressBilling, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanelNewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanelShipping, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanelBilling, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanelCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(671, Short.MAX_VALUE))
         );
 
         jTabbedPaneOrders.addTab("New", jPanelNew);
@@ -821,23 +825,13 @@ public class JPanelFormOrders extends JDesktopPane {
 
     private void jButtonAddBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddBookActionPerformed
         final String mname = "jButtonAddBookActionPerformed";
-        final CustomerService customerService = new CustomerService();
-        JPanelFormCustomers jPanalCustomer = new JPanelFormCustomers();
-        try {
-//            if (jComboBoxCustomer.equals(null)) {
-            final Collection customers = customerService.findCustomers();
-            jComboBoxCustomer.setModel(jPanalCustomer.initCustomersComboBoxModel(customers));
-//            }
-        } catch (FinderException ex) {
-            Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         Vector rowCartShopping = new Vector();
         Book book = (Book) jComboBoxBook.getSelectedItem();
-
         rowCartShopping.add(0, book.getId());
         rowCartShopping.add(1, jTextQuantity.getText());
         rowCartShopping.add(2, book.getUnitCostBook());
+        rowCartShopping.add(3, jTextDiscount.getText());
 
 //        jTableShoppingCart.setValueAt( (String) book.getId(),0, 0);
 //        jTableShoppingCart.setValueAt(Integer.getInteger(jTextQuantity.getText()),0, 1);
@@ -853,19 +847,30 @@ public class JPanelFormOrders extends JDesktopPane {
 //        jTableShoppingCart.setValueAt((Float)codeTVA.getRateCodeTva(),0, 3);            
 
         float prixHT = (Integer.parseInt(jTextQuantity.getText())) * book.getUnitCostBook();
+        if ((jTextDiscount.getText() != null) && (Integer.parseInt(jTextDiscount.getText()) != 0)) {
+            prixHT = prixHT - ((prixHT * Integer.parseInt(jTextDiscount.getText())) / 100);
+
+        }
+
         float prixTCC = prixHT + (prixHT * codeTVA.getRateCodeTva()) / 100;
 //      jTableShoppingCart.setValueAt(prixHT,0, 4);
 //      jTableShoppingCart.setValueAt(prixTCC,0, 5);
 
-        rowCartShopping.add(3, codeTVA.getRateCodeTva());
-        rowCartShopping.add(4, prixHT);
-        rowCartShopping.add(5, prixTCC);
+        rowCartShopping.add(4, Utility.formatFloatToFloatPrecision(codeTVA.getRateCodeTva(), 2));
+        rowCartShopping.add(5, Utility.formatFloatToFloatPrecision(prixHT, 2));
+        rowCartShopping.add(6, Utility.formatFloatToFloatPrecision(prixTCC, 2));
         cartShopingData.add(rowCartShopping);
-
         jTableShoppingCart.setModel(initCartShopingTableModel(cartShopingData));
-        jComboBoxBook.setModel(initBooksComboBoxModel(books));
+        float totalHT = 0;
+        float totalTCC = 0;
+        for (Iterator iterator = cartShopingData.iterator(); iterator.hasNext();) {
+            Vector vectorCart = (Vector) iterator.next();
+            totalHT += (float) vectorCart.elementAt(5);
+            totalTCC = totalTCC + (float) vectorCart.elementAt(6);
+        }
+        jLbelTotalTCCView.setText(String.valueOf(Utility.formatFloatToFloatPrecision(totalTCC, 2)) + " €");
+        jLabelTotalHTView.setText(String.valueOf(Utility.formatFloatToFloatPrecision(totalHT, 2)) + " €");
 
-// TODO add your handling code here:
     }//GEN-LAST:event_jButtonAddBookActionPerformed
 
     private void jTextZipCodeShippActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextZipCodeShippActionPerformed
@@ -894,9 +899,11 @@ public class JPanelFormOrders extends JDesktopPane {
                 int quantity = Integer.parseInt((String) vectorRowCartShoping.elementAt(1));
                 float unitCost = ((Float) vectorRowCartShoping.elementAt(2));
                 float rateTVA = ((Float) vectorRowCartShoping.elementAt(3));
+                float discount = ((Float) vectorRowCartShoping.elementAt(4));
 
                 orderLine = new OrderLine(new Book((String) vectorRowCartShoping.elementAt(0)),
                         quantity, unitCost, rateTVA);
+                orderLine.setDiscountOrderLine(discount);
                 orderLines.add(orderLine);
 
             }
@@ -934,27 +941,12 @@ public class JPanelFormOrders extends JDesktopPane {
             jTextOrderId.setText(result.getId());
             jTextOrderDate.setText(DateFormat.getDateInstance().format(result.getDateOrder()));
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) {            
             JOptionPane.showMessageDialog(this, "Cannot access the order service", "Error", JOptionPane.ERROR_MESSAGE);
             Trace.throwing(_cname, mname, e);
         }
     }//GEN-LAST:event_jButtonProceedActionPerformed
 
-    private void jComboBoxBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBookActionPerformed
-
-        try {
-            books = _daoBook.findAll();
-            jComboBoxBook.setModel(initBooksComboBoxModel(books));
-        } catch (ObjectNotFoundException ex) {
-            Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-        }  // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxBookActionPerformed
-
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBoxCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCustomerActionPerformed
         Customer customer = (Customer) jComboBoxCustomer.getSelectedItem();
@@ -993,17 +985,6 @@ public class JPanelFormOrders extends JDesktopPane {
 
     }//GEN-LAST:event_jComboBoxAdressShippingActionPerformed
 
-    private void jComboBoxBookMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxBookMouseEntered
-        BookDAO _daoBook = new BookDAO();
-        try {
-            Collection books;
-            books = _daoBook.findAll();
-            jComboBoxBook.setModel(initBooksComboBoxModel(books));
-        } catch (ObjectNotFoundException ex) {
-            Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jComboBoxBookMouseEntered
-
     private void jButtonSearchOrdersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchOrdersActionPerformed
         final String mname = "jButtonSearchOrdersActionPerformed";
         Vector vOrders = new Vector();
@@ -1017,10 +998,13 @@ public class JPanelFormOrders extends JDesktopPane {
                 orders.add(order);
 
             } catch (FinderException ex) {
-                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "orders id not found", "Warning", JOptionPane.WARNING_MESSAGE);
             } catch (CheckException ex) {
-                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Warning", JOptionPane.WARNING_MESSAGE);
+            }catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Cannot access the order service", "Error", JOptionPane.ERROR_MESSAGE);
+            Trace.throwing(_cname, mname, e);
+        }
 
         }
 
@@ -1031,8 +1015,11 @@ public class JPanelFormOrders extends JDesktopPane {
                 orders.add(order);
 
             } catch (ObjectNotFoundException ex) {
-                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                JOptionPane.showMessageDialog(this, "orders id not found", "Warning", JOptionPane.WARNING_MESSAGE);
+            }catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Cannot access the order service", "Error", JOptionPane.ERROR_MESSAGE);
+            Trace.throwing(_cname, mname, e);
+        }
 
         }
 
@@ -1042,52 +1029,127 @@ public class JPanelFormOrders extends JDesktopPane {
                 orders = serviceOrder.findOrdersByCustomer("LoginCustomer", jTextSearchOrders.getText());
 
             } catch (ObjectNotFoundException ex) {
-                Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                JOptionPane.showMessageDialog(this, "orders id not found", "Warning", JOptionPane.WARNING_MESSAGE);
+            }catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Cannot access the order service", "Error", JOptionPane.ERROR_MESSAGE);
+            Trace.throwing(_cname, mname, e);
+        }
         }
         vOrders.addAll(orders);
         jTableOrders.setModel(initOrdersTableModel(vOrders));
 
     }//GEN-LAST:event_jButtonSearchOrdersActionPerformed
 
-    private void jButtonSetStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSetStatusActionPerformed
-        final String mname = "jButtonSetStatusActionPerformed";
-        Vector vOrders = new Vector();
+    private void selectLineTableOrdersActionPerformed(ListSelectionEvent evt) {
+        final String mname = "selectLineTableOrdersActionPerformed";
 
-        Collection orders = null;
-        final InfoStatus statusOrders = (InfoStatus) jComboBoxOrderStatus.getSelectedItem();
-        try {
-            orders = serviceOrder.findOrdersByStatus("NAMEINFOSTATUSORDER", statusOrders.getId());
-
-        } catch (ObjectNotFoundException ex) {
-            Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+        if (evt.getValueIsAdjusting()) {
+            return;
         }
-        vOrders.addAll(orders);
-        jTableOrders.setModel(initOrdersTableModel(vOrders));
 
-    }//GEN-LAST:event_jButtonSetStatusActionPerformed
+        ListSelectionModel lsm = (ListSelectionModel) evt.getSource();
+
+        if (lsm.isSelectionEmpty()) {
+            System.out.println("No rows selected");
+        } else {
+            int selectedRow = lsm.getMinSelectionIndex();
+            Orders order = (Orders) Ordersvector.get(selectedRow);
+            OrderLinesvector.clear();
+            OrderLinesvector.addAll(order.getListOrderLines());
+            jTableOrdersLine.setModel(initOrdersLineTableModel(OrderLinesvector));
+        }
+    }
+
+    private void jRadioButtonSameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonSameActionPerformed
+        final String mname = "jRadioButtonSameActionPerformed";
+        jPanalCustomer.setChampsBillingAdress((Adress) jComboBoxAdressShipping.getSelectedItem());
+    }//GEN-LAST:event_jRadioButtonSameActionPerformed
 
     private void jComboBoxOrderStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxOrderStatusActionPerformed
-        Collection infoStatus = null;
+        final String mname = "jButtonSetStatusActionPerformed";
+        Vector vOrders = new Vector();
+        Collection orders = null;
         try {
-            infoStatus = serviceOrder.findStatusOrders();
-        } catch (ObjectNotFoundException ex) {
-            Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+            if (jComboBoxOrderStatus.getSelectedItem() instanceof InfoStatus) {
+                final InfoStatus statusOrders = (InfoStatus) jComboBoxOrderStatus.getSelectedItem();
+                orders = serviceOrder.findOrdersByStatus("NAMEINFOSTATUSORDER", statusOrders.getId());
+            } else {
+                orders = serviceOrder.findOrders();
+            }
+        if(orders != null) {
+        vOrders.addAll(orders);
+        jTableOrders.setModel(initOrdersTableModel(vOrders)); 
         }
-        jComboBoxOrderStatus.setModel(initStatusOrdersComboBoxModel(infoStatus));
+        
+        } catch (ObjectNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "orders id not found", "Warning", JOptionPane.WARNING_MESSAGE);
+        
+        } catch (FinderException ex) {
+            JOptionPane.showMessageDialog(this, "orders id not found", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Cannot access the order service", "Error", JOptionPane.ERROR_MESSAGE);
+            Trace.throwing(_cname, mname, e);
+        }
+
     }//GEN-LAST:event_jComboBoxOrderStatusActionPerformed
 
-    private void jComboBoxOrderStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxOrderStatusItemStateChanged
-        Collection infoStatus = null;
+    // Charger le ComboBox Books 
+    public void chargeComboBoxBooks() {
+        final String mname = "chargeComboBoxBooks";
+        try {
+            books = _daoBook.findAll();
+            jComboBoxBook.setModel(initBooksComboBoxModel(books));
+        } catch (ObjectNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, "Books id not found", "Warning", JOptionPane.WARNING_MESSAGE);
+        }catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Cannot access the book service", "Error", JOptionPane.ERROR_MESSAGE);
+            Trace.throwing(_cname, mname, e);
+        }
+    }
+
+    // Charger le ComboBox Status Orders 
+    public void chargeTableOrders() {
+        final String mname = "chargeTableOrders";
+        OrderService serviceOrder = new OrderService();
+        Collection orders = new ArrayList();
+
+        try {
+            orders = serviceOrder.findOrders();
+            Ordersvector.clear();
+            Ordersvector.addAll(orders);
+        jTableOrders.setModel(initOrdersTableModel(orders));
+        } catch (FinderException ex) {
+           JOptionPane.showMessageDialog(this, "Orders id not found", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Cannot access the order service", "Error", JOptionPane.ERROR_MESSAGE);
+            Trace.throwing(_cname, mname, e);
+        }
+        
+
+    }
+
+    // Charger le ComboBox Status Orders 
+    public void chargeComboBoxStatusOrders() {
+         final String mname = "chargeComboBoxStatusOrders";
+        OrderService serviceOrder = new OrderService();
+        Collection infoStatus = new ArrayList();
         try {
             infoStatus = serviceOrder.findStatusOrders();
+            jComboBoxOrderStatus.setModel(initStatusOrdersComboBoxModel(infoStatus));
         } catch (ObjectNotFoundException ex) {
-            Logger.getLogger(JPanelFormOrders.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(this, "Status id not found", "Warning", JOptionPane.WARNING_MESSAGE);
         }
-        jComboBoxOrderStatus.setModel(initStatusOrdersComboBoxModel(infoStatus));
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Cannot access the order service for status", "Error", JOptionPane.ERROR_MESSAGE);
+            Trace.throwing(_cname, mname, e);
+        }
+        
 
-    }//GEN-LAST:event_jComboBoxOrderStatusItemStateChanged
+    }
 
+    //Model ComboBox Books
     public DefaultComboBoxModel initBooksComboBoxModel(Collection books) {
         return new DefaultComboBoxModel(initBooksVector(books));
     }
@@ -1099,6 +1161,7 @@ public class JPanelFormOrders extends JDesktopPane {
         return v;
     }
 
+      //Model ComboBox Orders
     public DefaultComboBoxModel initStatusOrdersComboBoxModel(Collection statusOrders) {
         return new DefaultComboBoxModel(initStatusOrdersVector(statusOrders));
     }
@@ -1106,28 +1169,60 @@ public class JPanelFormOrders extends JDesktopPane {
     private Vector initStatusOrdersVector(Collection statusOrders) {
         final String mname = "initStatusOrdersVector";
         Vector v = new Vector();
+        v.add("AllOrders");
         v.addAll(statusOrders);
         return v;
     }
 
+    //Model OrdersLine Table
+    public DefaultTableModel initOrdersLineTableModel(Collection v) {
+        return new DefaultTableModel(initVectorOrdersLineTableData(v), initVectorOrdersLineColumnNamesTable());
+    }
+
+    private Vector initVectorOrdersLineTableData(Collection v) {
+        Vector rowDada = new Vector();
+        for (OrderLine orderLine : (Collection<OrderLine>) v) {
+            Vector colData = null;
+            colData = new Vector();
+            colData.add(orderLine);
+            rowDada.add(orderLine.getVector());
+        }
+        return rowDada;
+
+    }
+
+    private Vector initVectorOrdersLineColumnNamesTable() {
+        Vector<String> columnNames = new Vector();
+        columnNames.add("Num orderLine");
+        columnNames.add("Num order");
+        columnNames.add("ISBN");
+        columnNames.add("Quantity");
+        columnNames.add("UnitCost");
+        columnNames.add("Discount");
+        columnNames.add("Rate TVA");
+        columnNames.add("Appreciation");
+        return columnNames;
+    }
+
+    //Model Orders Table
+
     public DefaultTableModel initOrdersTableModel(Collection v) {
-        return new DefaultTableModel(initVectorOrdersTableData(v), initVectorColumnNamesTable());
+        return new DefaultTableModel(initVectorOrdersTableData(v), initVectorOrdersColumnNamesTable());
     }
 
     private Vector initVectorOrdersTableData(Collection v) {
-        vectorJTableOrders.clear();
-
+        Vector rowDada = new Vector();
         for (Orders order : (Collection<Orders>) v) {
             Vector colData = null;
             colData = new Vector();
             colData.add(order);
-            vectorJTableOrders.add(order.getVector());
+            rowDada.add(order.getVector());
         }
-        return vectorJTableOrders;
+        return rowDada;
 
     }
 
-    private Vector initVectorColumnNamesTable() {
+    private Vector initVectorOrdersColumnNamesTable() {
         Vector<String> columnNames = new Vector();
         columnNames.add("Num order");
         columnNames.add("Num intern order");
@@ -1142,6 +1237,7 @@ public class JPanelFormOrders extends JDesktopPane {
         return columnNames;
     }
 
+    //Model Cart Shopping Table
     public DefaultTableModel initCartShopingTableModel(Vector v) {
         return new DefaultTableModel(initVectorCartShopingTableData(v), initVectorCartShopingColumnNamesTable());
     }
@@ -1157,6 +1253,7 @@ public class JPanelFormOrders extends JDesktopPane {
         columnNames.add("ISBN");
         columnNames.add("QUANTITY");
         columnNames.add("UNIT COST");
+        columnNames.add("DISCOUNT");
         columnNames.add("TVA");
         columnNames.add("PRIX HT");
         columnNames.add("PRIX TTC");
@@ -1165,13 +1262,12 @@ public class JPanelFormOrders extends JDesktopPane {
 
     protected final transient String _cname = this.getClass().getName();
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAddBook;
     private javax.swing.JButton jButtonClearCart;
     private javax.swing.JButton jButtonDeleteLine;
     private javax.swing.JButton jButtonProceed;
     private javax.swing.JButton jButtonSearchOrders;
-    private javax.swing.JButton jButtonSetStatus;
+    private javax.swing.JButton jButtonUpdateOrder;
     private javax.swing.JComboBox jComboBoxAdressBilling;
     private javax.swing.JComboBox jComboBoxAdressShipping;
     private javax.swing.JComboBox jComboBoxBook;
@@ -1187,6 +1283,7 @@ public class JPanelFormOrders extends JDesktopPane {
     private javax.swing.JLabel jLabelComboBoxCustmers;
     private javax.swing.JLabel jLabelCountryShip;
     private javax.swing.JLabel jLabelCoutryAdressBill;
+    private javax.swing.JLabel jLabelDiscount;
     private javax.swing.JLabel jLabelExpDate;
     private javax.swing.JLabel jLabelHolderName;
     private javax.swing.JLabel jLabelIdAdressBill;
@@ -1201,9 +1298,13 @@ public class JPanelFormOrders extends JDesktopPane {
     private javax.swing.JLabel jLabelStreetBill;
     private javax.swing.JLabel jLabelStreetShipp;
     private javax.swing.JLabel jLabelTotal;
+    private javax.swing.JLabel jLabelTotalHT;
+    private javax.swing.JLabel jLabelTotalHTView;
+    private javax.swing.JLabel jLabelTotalTCC;
     private javax.swing.JLabel jLabelTotalView;
     private javax.swing.JLabel jLabelZipBill;
     private javax.swing.JLabel jLabelZipShipp;
+    private javax.swing.JLabel jLbelTotalTCCView;
     private javax.swing.JPanel jPanelBilling;
     private javax.swing.JPanel jPanelCart;
     private javax.swing.JPanel jPanelCartN;
@@ -1218,8 +1319,8 @@ public class JPanelFormOrders extends JDesktopPane {
     private javax.swing.JScrollPane jScrollPaneCart;
     private javax.swing.JScrollPane jScrollPaneOrdersWaiting;
     private javax.swing.JTabbedPane jTabbedPaneOrders;
-    private javax.swing.JTable jTable6;
     private javax.swing.JTable jTableOrders;
+    private javax.swing.JTable jTableOrdersLine;
     private javax.swing.JTable jTableShoppingCart;
     private javax.swing.JTextField jTextAddBook;
     private javax.swing.JTextField jTextCCV;
@@ -1228,6 +1329,7 @@ public class JPanelFormOrders extends JDesktopPane {
     private javax.swing.JTextField jTextCityShipp;
     private javax.swing.JTextField jTextCountryBill;
     private javax.swing.JTextField jTextCountryShipp;
+    private javax.swing.JTextField jTextDiscount;
     private javax.swing.JTextField jTextExpDate;
     private javax.swing.JTextField jTextHolderName;
     private javax.swing.JTextField jTextIdAdressBill;

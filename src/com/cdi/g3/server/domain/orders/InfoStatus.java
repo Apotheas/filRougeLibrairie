@@ -8,8 +8,6 @@ package com.cdi.g3.server.domain.orders;
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  *
@@ -23,8 +21,6 @@ public class InfoStatus extends DomainObject implements Serializable{
     private String nameInfoStatus;
     private int valueInfoStatus;
     
-    private final Collection  listEmploye = new ArrayList();
-    
     // ======================================
     // =            Constructors            =
     // ======================================
@@ -32,26 +28,20 @@ public class InfoStatus extends DomainObject implements Serializable{
     }
 
     public InfoStatus(final String id) {
-     setId(id);
+       nameInfoStatus = id;
     } 
     
      public InfoStatus(final String id, int valueInfoStatus) {
-        setId(id);
-        setValueInfoStatus(valueInfoStatus);
+       nameInfoStatus = id;
+       setValueInfoStatus(valueInfoStatus);
     } 
-     
-     
-    InfoStatus(InfoStatus infoStatus) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     // ======================================
     // =           Business methods         =
     // ======================================
 
     public void checkData() throws CheckException {
-       if (getId() == null || "".equals(getId()))
-            throw new CheckException("Invalid InfoStatus id");
-        
+        if (nameInfoStatus == null || "".equals(nameInfoStatus))
+            throw new CheckException("Invalid nameInfoStatus");
         
     }
 
@@ -72,30 +62,14 @@ public class InfoStatus extends DomainObject implements Serializable{
         return valueInfoStatus;
     }
 
-    public String getNameInfoStatus() {
-        return nameInfoStatus;
-    }
-
-    public void setNameInfoStatus(String nameInfoStatus) {
-        this.nameInfoStatus = nameInfoStatus;
-    }
-
     public void setValueInfoStatus(int valueInfoStatus) {
         this.valueInfoStatus = valueInfoStatus;
-    }
-    
-       public Collection getListEmploye() {
-        return listEmploye;
     }
 
     @Override
     public String toString() {
-        return  String.valueOf(nameInfoStatus) ;
+        return nameInfoStatus;
     }
- 
-  
-  
-
     
     
     
