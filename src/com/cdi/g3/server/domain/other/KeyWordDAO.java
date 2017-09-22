@@ -121,7 +121,7 @@ public class KeyWordDAO extends AbstractDataAccessObject {
 
         // Gets a database connection
         try (Connection connection = getConnection();
-                PreparedStatement prstatement = connection.prepareStatement(getInsertKeyWordBookSqlStatement(ISBN, keyWord))) {
+             PreparedStatement prstatement = connection.prepareStatement(getInsertKeyWordBookSqlStatement(ISBN, keyWord))) {
            // Sets the object Id if necessary
 
             String idKeyWordBookKB = this.getUniqueId("KEYWORDBOOK");
@@ -145,16 +145,18 @@ public class KeyWordDAO extends AbstractDataAccessObject {
             e.printStackTrace();
         }
     }
-
+// update **************************************************************************************************
 ////********//////////*************////////////***********////////////************///////////
 ////********//////////*************////////////***********////////////************///////////
 String getUpdateKeyWordBookSqlStatement(String ISBN, String keyWord) {
         final String sql;
-        sql = "Update INTO KEYWORDBOOK (IDKEYWORDBOOK,NUMISBNBOOKKB, NAMEKEYWORDKB) values (?,?,?)";
+        sql = "Update INTO KEYWORDBOOK (IDKEYWORDBOOK,NUMISBNBOOKKB, NAMEKEYWORDKB) values (?,?,?)"
+                + " where namekeyWordKB = '" + keyWord + "'";
+
         return sql;
     }
 
-    public final void updateBookKeyWord(String ISBN, String keyWord) throws DuplicateKeyException {
+    public final void updateKeyWordIntoKeyWordBook(String ISBN, String keyWord) throws DuplicateKeyException {
 
         // Gets a database connection
         try (Connection connection = getConnection();
@@ -182,8 +184,5 @@ String getUpdateKeyWordBookSqlStatement(String ISBN, String keyWord) {
             e.printStackTrace();
         }
     }
-
-
-
 
 }
