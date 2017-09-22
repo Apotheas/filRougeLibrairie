@@ -224,15 +224,15 @@ commentCustomer,
 statusCustomer) 
 
 VALUES 
-('Bob01','Bob',	'Marley','bob.marley@yahoo.fr',	'bobmarley01','','',''),
+('Bob01','Bob',	'Marley','bob.marley@yahoo.fr',	'bobmarley01','','',11),
 	  ------------------------------------------	
-('zidane02','Zinedine','Zidane','zinedine.zidane@yahoo.fr','zinedinezidane02','','',''),
+('zidane02','Zinedine','Zidane','zinedine.zidane@yahoo.fr','zinedinezidane02','','',11),
 	------------------------------------------	
-('marc03','Marc','Lewis','marc.lewis@yahoo.fr','marclewis03','','',''),
+('marc03','Marc','Lewis','marc.lewis@yahoo.fr','marclewis03','','',11),
 	------------------------------------------	
-('Nicole04','Nicole','Kidman','nicole.kidman@yahoo.fr','nicolekidman04','','',''),
+('Nicole04','Nicole','Kidman','nicole.kidman@yahoo.fr','nicolekidman04','','',11),
 	------------------------------------------	
-('Angelina05','ANgelina','jolie','angelina.jolie@yahoo.fr','angelinajolie05','Hollywood','','')
+('Angelina05','ANgelina','jolie','angelina.jolie@yahoo.fr','angelinajolie05','Hollywood','',11)
 
 
 /*==============================================================*/

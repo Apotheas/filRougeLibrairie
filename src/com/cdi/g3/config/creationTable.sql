@@ -138,7 +138,7 @@ create table EMPLOYE
    LASTNAMEEMPLOYE      varchar(50)                    not null,
    EMAILEMPLOYE         varchar(50)                    not null,
    PASSWORDEMPLOYE      varchar(50)                    not null,
-   STATUSEMPLOYE        integer                        null,
+   STATUSEMPLOYE        varchar(50)                     null,
    constraint PK_EMPLOYE primary key (LOGINEMPLOYE)
 );
 
