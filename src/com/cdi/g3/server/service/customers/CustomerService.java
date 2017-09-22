@@ -102,7 +102,7 @@ public final class CustomerService extends AbstractService {
         return customer;
     }
 
-    public Customer findCustomer(final String customerId) throws FinderException, CheckException {
+    public Customer findCustomer(final String customerId) throws ObjectNotFoundException, CheckException {
         final String mname = "findCustomer";
         Trace.entering(_cname, mname, customerId);
 
@@ -110,21 +110,21 @@ public final class CustomerService extends AbstractService {
         // Finds the object
         final Customer customer = (Customer) _daoCustomer.findByPrimaryKey(customerId);       
         
-//        // RetreCollectionives the data for all the customer adress shipping//        
-//         try {
-//            final Collection  listAddressShipping = serviceAdress.getDaoAdress().findAllByChamp("loginCustomerShipAdress", customer.getLoginCustomer());
-//            customer.setlistAddressShipping(listAddressShipping);
-//         } 
-//           catch( ObjectNotFoundException e) {}
-////        }        
-//        
-//        // Retreives the data for all the customer adress billing
-//        try {
-//        final Collection listAddressBilling;
-//        listAddressBilling = serviceAdress.getDaoAdress().findAllByChamp("loginCustomerBillAdress", customer.getLoginCustomer());
-//        customer.setlistAddressBilling(listAddressBilling);
-//          } 
-//           catch( ObjectNotFoundException e) {}          
+        // RetreCollectionives the data for all the customer adress shipping//        
+         try {
+            final Collection  listAddressShipping = serviceAdress.getDaoAdress().findAllByChamp("loginCustomerShipAdress", customer.getLoginCustomer());
+            customer.setlistAddressShipping(listAddressShipping);
+         } 
+           catch( ObjectNotFoundException e) {}
+//        }        
+        
+        // Retreives the data for all the customer adress billing
+        try {
+        final Collection listAddressBilling;
+        listAddressBilling = serviceAdress.getDaoAdress().findAllByChamp("loginCustomerBillAdress", customer.getLoginCustomer());
+        customer.setlistAddressBilling(listAddressBilling);
+          } 
+           catch( ObjectNotFoundException e) {}          
         
         Trace.exiting(_cname, mname, customer);
         return customer;        

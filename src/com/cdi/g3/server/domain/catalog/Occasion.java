@@ -96,7 +96,7 @@ public class Occasion extends DomainObject implements Serializable{
 
     @Override
     public String toString() {
-        return "Occasion = "+ nameOccasion ;
+        return  nameOccasion ;
     }
     
     

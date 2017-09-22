@@ -188,9 +188,9 @@ INSERT INTO OccasionBook (
 INSERT INTO EMPLOYERIGHT 
 			(IDEMPLOYERIGHT,
 			TYPEEMPLOYERIGHT )	
-		VALUES  ('1',11) ,
-				('2',22) , 
-				('3',33)
+		VALUES  ('Admin',1) ,
+				('Moderator',2) , 
+				('Neutral',3)
 
 
 /*==============================================================*/
@@ -198,16 +198,16 @@ INSERT INTO EMPLOYERIGHT
 /*==============================================================*/
 INSERT INTO Employe (
 		 loginEmploye,
-		 idEMPLOYERIGHT,
+		 idEMPLOYERIGHTEMP,
 		 firstNameEmploye,
 		 lastNameEmploye,
 		 emailEmploye,
 		 passwordEmploye ,
 		 statusEmploye) 
 
-VALUES  ('employe01',1,'George','michel', 'george.michel@compagny.com','georgePassword','') , 
-        ('employe02',2,'Nina','Marie', 'nina.marie@compagny.com','ninaPassword','') ,
-		('employe03',3,'marion','dupont','marion.dupont@compagny.com','marionPassword','')  
+VALUES  ('employe01','Admin','George','michel', 'george.michel@compagny.com','georgePassword','actif') , 
+        ('employe02','Moderator','Nina','Marie', 'nina.marie@compagny.com','ninaPassword','actif') ,
+		('employe03','Neutral','marion','dupont','marion.dupont@compagny.com','marionPassword','inactif')  
 
 
 /*==============================================================*/
@@ -302,10 +302,13 @@ INSERT INTO InfoStatus
 
 VALUES  ('processing',1),
         ('shipping',2) ,
-		('received',3) ,
-        ('canceled',4) 
-	  
- 
+	('received',3) ,
+        ('canceled',4) ,
+	('customerInactif',10),  
+        ('customerActif',11),
+        ('customerBlacklist',12),
+        ('inactif',20),
+        ('actif',21)
 
 
 /*==============================================================*/
@@ -490,8 +493,9 @@ INSERT INTO COUNTER
                 ('KEYWORDBOOK',5),
                 ('OCCASIONBOOK',5),
                 ('ORDERLINE',12),
-                ('ORDERS',5),
+                ('ORDERS',2589),
                 ('PACKAGESHIPPER',3),
                 ('SUBTHEME',8),
-                ('SUBTHEMEBOOK',10)
+                ('SUBTHEMEBOOK',10),
+                ('NUMCOMMANDE',456558)
                 

@@ -68,7 +68,7 @@ public class InfoStatus extends DomainObject implements Serializable{
 
     @Override
     public String toString() {
-        return nameInfoStatus + "valueInfoStatus = " + valueInfoStatus ;
+        return nameInfoStatus;
     }
     
     

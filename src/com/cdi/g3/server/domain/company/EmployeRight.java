@@ -48,6 +48,10 @@ public final class EmployeRight extends DomainObject implements Serializable{
        
     }
 
+    EmployeRight(EmployeRight employeRight) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     // ======================================
     // =           Business methods         =
     // ======================================
@@ -79,6 +83,10 @@ public final class EmployeRight extends DomainObject implements Serializable{
         this.idEmployeRight = idEmployeRight;
     }
 
+    public void setIdEmployeRight(String idEmployeRight) {
+        this.idEmployeRight = idEmployeRight;
+    }
+
     public String getTypeEmployeRight() {
         return typeEmployeRight;
     }
@@ -91,11 +99,11 @@ public final class EmployeRight extends DomainObject implements Serializable{
        public Collection getListEmploye() {
         return listEmploye;
     }
-    
+   
  
     @Override
     public String toString() {
-        return  idEmployeRight +"  "+  typeEmployeRight  ;
+        return  idEmployeRight  ;
     }
 }
     

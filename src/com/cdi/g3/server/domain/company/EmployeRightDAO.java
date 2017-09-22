@@ -61,8 +61,12 @@ public class EmployeRightDAO extends AbstractDataAccessObject{
     }
 
     protected String getSelectAllSqlStatement() {
+        
+        
         final String sql;
         sql = "SELECT " + COLUMNS + " FROM " + TABLE;
+        
+       
         return sql;
     }
 
@@ -71,9 +75,13 @@ public class EmployeRightDAO extends AbstractDataAccessObject{
         final EmployeRight employeright;
         employeright = new EmployeRight(resultSet.getString(1), resultSet.getString(2));
      
-      
+        
         return employeright;
+        
+        
     }
+    
+    
 
 	protected String getCounterName() {
 		return COUNTER_NAME;

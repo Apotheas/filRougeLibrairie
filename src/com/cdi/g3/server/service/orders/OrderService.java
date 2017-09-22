@@ -177,8 +177,14 @@ public class OrderService extends AbstractService {
         }
     }
     
-    public Collection findOrdersByCustomer(String column, String champ) throws ObjectNotFoundException {
-        return  _orderDAO.findAllByChamp(column, champ);
+    public Collection findOrdersByCustomer(String column, String champ) throws ObjectNotFoundException {       
+         final String mname = "findOrdersByCustomer";
+        final Collection orders = _orderDAO.findAllByChamp(column, champ);
+        
+        Trace.exiting(_cname, mname, new Integer(orders.size()));
+        return setOrderLine(orders);
+        
+        
     }
     
     
@@ -188,17 +194,31 @@ public class OrderService extends AbstractService {
 
     
     public Collection findOrdersByStatus(String column, String champ) throws ObjectNotFoundException {
-         return  _orderDAO.getOrdersByStatus(column,champ);
+        
+        final String mname = "findOrdersByStatus";
+        final Collection orders = _orderDAO.getOrdersByStatus(column,champ);
+        Trace.exiting(_cname, mname, new Integer(orders.size()));
+       
+//        return orders;
+        
+        return setOrderLine(orders);
+    
     }
+    
+    
+    
+    
+    
     
     public Collection findOrders() throws FinderException {
         final String mname = "findOrderss";
         Trace.entering(_cname, mname);
         // Finds all the objects
-        final Collection orders = _orderDAO.findAll();
-
+        final Collection orders = _orderDAO.findAll();        
         Trace.exiting(_cname, mname, new Integer(orders.size()));
-        return orders;
+        
+//         return orders;
+        return setOrderLine(orders);
     }
     
     
@@ -211,6 +231,17 @@ public class OrderService extends AbstractService {
         Trace.exiting(_cname, mname, new Integer(status.size()));
         return status;
      }
+     
+     private Collection setOrderLine(Collection orders) throws ObjectNotFoundException{
+        for ( Iterator iterator = orders.iterator();  iterator.hasNext(); ){
+            Orders order = (Orders) iterator.next();
+        final Collection listOrderLines = _orderLineDAO.findAllByChamp("idOrder", order.getId());
+        order.setListOrderLines(listOrderLines);
+        }
+        return orders;
+        
+         
+    }
     
     
     /**

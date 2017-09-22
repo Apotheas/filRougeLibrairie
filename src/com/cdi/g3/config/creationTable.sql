@@ -133,7 +133,7 @@ create table EMPLOYERIGHT
 create table EMPLOYE 
 (
    LOGINEMPLOYE         varchar(50)                    not null,
-   IDEMPLOYERIGHT       varchar(10)                    not null,
+   IDEMPLOYERIGHTEMP       varchar(10)                    not null,
    FIRSTNAMEEMPLOYE     varchar(50)                    null,
    LASTNAMEEMPLOYE      varchar(50)                    not null,
    EMAILEMPLOYE         varchar(50)                    not null,

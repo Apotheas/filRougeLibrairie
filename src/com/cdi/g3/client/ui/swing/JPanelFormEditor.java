@@ -8,6 +8,7 @@ package com.cdi.g3.client.ui.swing;
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.exception.UpdateException;
+import com.cdi.g3.common.utiles.Utility;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.catalog.Editor;
 import com.cdi.g3.server.service.catalog.CatalogService;
@@ -15,18 +16,16 @@ import com.cdi.g3.server.service.publishing.PublishingService;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class JPanelFormEditor extends javax.swing.JPanel {
 
-    private DefaultTableModel myModel = new DefaultTableModel();
-    private PublishingService publishingService = new PublishingService();
-    private CatalogService catalogService = new CatalogService();
-    private Vector editorList = new Vector();
+    private final DefaultTableModel myModel = new DefaultTableModel();
+    private final  PublishingService publishingService = new PublishingService();
+    private final CatalogService catalogService = new CatalogService();
+    private final Vector editorList = new Vector();
 
     public JPanelFormEditor() {
         initComponents();
@@ -50,7 +49,7 @@ public class JPanelFormEditor extends javax.swing.JPanel {
         jTextName.setText(" ");
 
     }
-    
+
     //___________EDITORS COMBOBOX MODEL_____________________//
     private DefaultComboBoxModel initEditorModel() {
         return new DefaultComboBoxModel(initEditorsVector());
@@ -67,7 +66,7 @@ public class JPanelFormEditor extends javax.swing.JPanel {
         return editorList;
     }
     //______________________________________________________//
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -265,28 +264,33 @@ public class JPanelFormEditor extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBoxSelectedEditorActionPerformed
 
     private void jButtonUpdateEdithorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateEdithorActionPerformed
-        try {
-            Editor myEditor = ((Editor) jComboBoxSelectedEditor.getSelectedItem());
-            myEditor.setNameEditor(jTextName.getText());
+        boolean verifiedEditor = true;
+        verifiedEditor = controls();
+        if (verifiedEditor) {
+            try {
+                Editor myEditor = ((Editor) jComboBoxSelectedEditor.getSelectedItem());
+                myEditor.setNameEditor(jTextName.getText());
 
-            int retour = JOptionPane.showConfirmDialog(this,
-                    "Etes-Vous Sure de vouloir modifier l'Editeur ? ",
-                    "Update",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-            if (retour == JOptionPane.CLOSED_OPTION || retour == JOptionPane.NO_OPTION) {
-                clearTab();
-                clearField();
-            } else {
-                publishingService.updateEditor(myEditor);
-                JOptionPane.showMessageDialog(this, " Update Successfull !");
-                clearTab();
-                clearField();
+                int retour = JOptionPane.showConfirmDialog(this,
+                        "Etes-Vous Sure de vouloir modifier l'Editeur ? ",
+                        "Update",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (retour == JOptionPane.CLOSED_OPTION || retour == JOptionPane.NO_OPTION) {
+                    clearTab();
+                    clearField();
+                } else {
+                    publishingService.updateEditor(myEditor);
+                    JOptionPane.showMessageDialog(this, " Update Successfull !");
+                    clearTab();
+                    clearField();
+                }
+            } catch (UpdateException ex) {
+                JOptionPane.showMessageDialog(this, " Error updating editor !");
+            } catch (CheckException ex) {
+                JOptionPane.showMessageDialog(this, " Editor didnt pass check control !");
             }
-        } catch (UpdateException ex) {
-            JOptionPane.showMessageDialog(this, " Error updating editor !");
-        } catch (CheckException ex) {
-            JOptionPane.showMessageDialog(this, " Editor didnt pass check control !");
         }
+
     }//GEN-LAST:event_jButtonUpdateEdithorActionPerformed
 
     private void jTextSearchEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextSearchEditorActionPerformed
@@ -296,17 +300,17 @@ public class JPanelFormEditor extends javax.swing.JPanel {
     private void jButtonSearchEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchEditorActionPerformed
         clearTab();
         clearField();
-        
+
         //DATABASE TO TEXTFIELD
         Editor myEditor = new Editor();
         try {
-            myEditor = publishingService.findEditorByChamp("NAMEEDITOR", jTextSearchEditor.getText());
+            myEditor = publishingService.findEditor("NAMEEDITOR", jTextSearchEditor.getText());
             jTextName.setText(myEditor.getNameEditor());
 
         } catch (ObjectNotFoundException ex) {
             JOptionPane.showMessageDialog(this, " this Editor isnt in Database ");
         }
-        
+
         //DATABASE TO TABLEAU
         try {
             Vector bookAttributes = null;
@@ -329,7 +333,22 @@ public class JPanelFormEditor extends javax.swing.JPanel {
     private void jTextNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextNameActionPerformed
+    private boolean controls() {
 
+        Utility utils = new Utility();
+        if (!utils.regexNom(jTextName.getText())) {
+            if (jTextName.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "EDITOR's Name is mandatory ", "Warning", JOptionPane.ERROR_MESSAGE);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "EDITOR's Name is invalid ", "warning", JOptionPane.ERROR_MESSAGE);
+            }
+            return false;
+        }
+
+        return true;
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSearchEditor;

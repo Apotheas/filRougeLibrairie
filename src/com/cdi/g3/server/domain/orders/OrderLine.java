@@ -10,6 +10,7 @@ import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.customers.Appreciation;
 import java.io.Serializable;
+import java.util.Vector;
 
 /**
  *
@@ -150,7 +151,24 @@ public class OrderLine extends DomainObject implements Serializable{
     public void setAppreciation(Appreciation appreciation) {
         this.appreciation = appreciation;
     }
-
+    
+    public Vector getVector() {
+        Vector v = new Vector();
+        v.add(this);        
+        v.add(this.getOrder().getId());
+         v.add(this.getBook().getId());
+        v.add(this.getQuantityOrderLine());
+        v.add(this.getUnitCostOrderLine());
+        v.add(this.getDiscountOrderLine());
+        v.add(this.getRateTvaOrderLine());
+        v.add(this.getAppreciation().getId());        
+        return v;
+    }
+    
+    
+    
+    
+    
    
 
     @Override

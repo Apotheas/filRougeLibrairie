@@ -109,7 +109,7 @@ alter table OCCASIONBOOK
 /* Table: EMPLOYE                                               */
 /*==============================================================*/
 alter table EMPLOYE
-   add constraint FK_EMPLOYE_OWN_RIGHTEMP foreign key (IDEMPLOYERIGHT)
+   add constraint FK_EMPLOYE_OWN_RIGHTEMP foreign key (IDEMPLOYERIGHTEMP)
       references EMPLOYERIGHT (IDEMPLOYERIGHT)
       on update Cascade
       on delete Cascade;

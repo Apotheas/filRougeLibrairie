@@ -32,7 +32,9 @@ public class PublishingService extends AbstractService {
     public Editor findEditorByChamp(String column, String champ) throws ObjectNotFoundException {
         return (Editor) _daoEditor.findByChamp(column, champ);
     }
-
+     public Editor findEditor(String column, String champ) throws ObjectNotFoundException {
+        return (Editor) _daoEditor.selectEditorByChamp(column, champ);
+    }
     public void createEditor(Editor editor) {
         try {
             _daoEditor.insert(editor);

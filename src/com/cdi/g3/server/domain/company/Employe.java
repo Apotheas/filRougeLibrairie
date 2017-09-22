@@ -7,6 +7,7 @@ package com.cdi.g3.server.domain.company;
 
 import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
+import com.cdi.g3.server.domain.orders.InfoStatus;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,12 +25,12 @@ public class Employe extends DomainObject implements Serializable{
    
     
     private String loginEmploye;
-    private String idEmployeRight;
+    private EmployeRight employeRight;
     private String firstNameEmploye;
     private String lastNameEmploye;
     private String emailEmploye;
     private String passwordEmploye;
-    private String statusEmploye;
+    private InfoStatus infoStatus;
    
     private final Collection  listAppreciation = new ArrayList();
  
@@ -45,15 +46,16 @@ public class Employe extends DomainObject implements Serializable{
         setId(id);
     }
 
-    public Employe(final String id, final String idEmployeRight, final String firstNameEmploye
+    public Employe(final String id, final EmployeRight employeRight, final String firstNameEmploye
             ,final String lastNameEmploye, final String emailEmploye,
-            final String passwordEmploye, final String statusEmploye) {
+            final String passwordEmploye) {
         setId(id);
-        setIdEmployeRight(idEmployeRight);
+        setEmployeRight(employeRight);
         setFirstNameEmploye(firstNameEmploye);
         setLastNameEmploye(lastNameEmploye);
         setEmailEmploye(emailEmploye);
         setPasswordEmploye(passwordEmploye);
+       
         
        
     }
@@ -69,8 +71,8 @@ public class Employe extends DomainObject implements Serializable{
     public void checkData() throws CheckException {
         if (getId() == null || "".equals(getId()))
             throw new CheckException("Invalid company siret");
-        if (getIdEmployeRight() == null || "".equals(getIdEmployeRight()))
-            throw new CheckException("Invalid company  idEmployeRight");
+        if (getEmployeRight() == null || "".equals(getEmployeRight()))
+            throw new CheckException("Invalid company  employeRight");
         if (getFirstNameEmploye() == null || "".equals(getFirstNameEmploye()))
             throw new CheckException("Invalid company first name");
          if (getLastNameEmploye() == null || "".equals(getLastNameEmploye()))
@@ -102,13 +104,15 @@ public class Employe extends DomainObject implements Serializable{
         this.loginEmploye = loginEmploye;
     }
 
-    public String getIdEmployeRight() {
-        return idEmployeRight;
+    public EmployeRight getEmployeRight() {
+        return employeRight;
     }
 
-    public void setIdEmployeRight(String idEmployeRight) {
-        this.idEmployeRight = idEmployeRight;
+    public void setEmployeRight(EmployeRight employeRight) {
+        this.employeRight = employeRight;
     }
+
+    
 
     public String getFirstNameEmploye() {
         return firstNameEmploye;
@@ -142,13 +146,17 @@ public class Employe extends DomainObject implements Serializable{
         this.passwordEmploye = passwordEmploye;
     }
 
-    public String getStatusEmploye() {
-        return statusEmploye;
+   
+
+    public InfoStatus getInfoStatus() {
+        return infoStatus;
     }
 
-    public void setStatusEmploye(String statusEmploye) {
-        this.statusEmploye = statusEmploye;
+    public void setInfoStatus(InfoStatus infoStatus) {
+        this.infoStatus = infoStatus;
     }
+
+   
 
   
   
@@ -160,7 +168,7 @@ public class Employe extends DomainObject implements Serializable{
 
     @Override
     public String toString() {
-        return  loginEmploye +"  "+  idEmployeRight  ;
+        return  loginEmploye   ;
     }
 }
     

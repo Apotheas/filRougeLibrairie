@@ -9,9 +9,10 @@ public final class CreditCard extends DomainObject {
     // ======================================
     
     private String idCreditCard;
-    private String _creditCardNumber;
-    private String _creditCardType;
-    private String _creditCardExpiryDate;
+    private String creditCardNumber;
+    private String creditCardType;
+    private String creditCardExpiryDate;
+    private String creditCardCCV;
 
     // ======================================
     // =         Getters and Setters        =
@@ -28,26 +29,36 @@ public final class CreditCard extends DomainObject {
     
     
     public String getCreditCardNumber() {
-        return _creditCardNumber;
+        return creditCardNumber;
     }
 
     public void setCreditCardNumber(final String creditCardNumber) {
-        _creditCardNumber = creditCardNumber;
+        this.creditCardNumber = creditCardNumber;
     }
 
     public String getCreditCardType() {
-        return _creditCardType;
+        return creditCardType;
     }
 
     public void setCreditCardType(final String creditCardType) {
-        _creditCardType = creditCardType;
+        this.creditCardType = creditCardType;
     }
 
     public String getCreditCardExpiryDate() {
-        return _creditCardExpiryDate;
+        return creditCardExpiryDate;
     }
 
     public void setCreditCardExpiryDate(final String creditCardExpiryDate) {
-        _creditCardExpiryDate = creditCardExpiryDate;
+        this.creditCardExpiryDate = creditCardExpiryDate;
     }
+
+    public String getCreditCardCCV() {
+        return creditCardCCV;
+    }
+
+    public void setCreditCardCCV(String creditCardCCV) {
+        this.creditCardCCV = creditCardCCV;
+    }
+    
+    
 }

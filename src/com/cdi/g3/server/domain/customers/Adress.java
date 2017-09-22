@@ -1,6 +1,7 @@
 package com.cdi.g3.server.domain.customers;
 
 import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.utiles.Utility;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.domain.company.Company;
 import java.io.Serializable;
@@ -37,7 +38,7 @@ public final class Adress extends DomainObject implements Serializable {
             throw new CheckException("Invalid loginCustomerBillAdress , must be insert ");
         }
 
-        if (nameReceiverAdress == null || "".equals(nameReceiverAdress)) {
+        if (nameReceiverAdress == null ||"".equals(nameReceiverAdress)) {
             throw new CheckException("Invalid nameReceiverAdress, must be insert");
         }
 
@@ -49,7 +50,7 @@ public final class Adress extends DomainObject implements Serializable {
             throw new CheckException("Invalid nameStreetAdress , must be insert");
         }
 
-        if (zipcodeAdress == null || "".equals(zipcodeAdress)) {
+        if (zipcodeAdress == null || "".equals(zipcodeAdress)|| !Utility.regexCp(zipcodeAdress)) {
             throw new CheckException("Invalid zipcodeAdress  , must be insert");
         }
 
@@ -224,8 +225,7 @@ public final class Adress extends DomainObject implements Serializable {
     @Override
     public String toString() {
         return this.idAdress + " "
-                + customerShipAdress + " "
-                + customerBillAdress;
+                + nameReceiverAdress ;
 
     }
 }
