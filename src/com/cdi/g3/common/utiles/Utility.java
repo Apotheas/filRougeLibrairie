@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class Utility {
     
-    public  java.sql.Date formatStringToSQLDate(String strDate) throws Exception{
+    public  static java.sql.Date formatStringToSQLDate(String strDate) throws Exception{
 
        Date utilDate = new Date(); //DateFormat
 
@@ -27,36 +27,36 @@ public class Utility {
        return sqlDate;  
 
    }
-   public boolean regexTel(String text){
+   public static  boolean regexTel(String text){
     
         return text.matches( "(0|0033)[1-9][0-9]{8}");
     
     }
     
-    public boolean regexEmail(String text){
+    public static  boolean regexEmail(String text){
         return text.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 		+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
     }
-    public boolean regexNom(String text){
+    public static  boolean regexNom(String text){
         if(text.isEmpty()){
             return false;
         }else
         return text.matches("[a-zA-Z]*");
     }
     
-    public boolean regexDate(String text){
+    public static  boolean regexDate(String text){
         return text.matches("\\d{4}-\\d{2}-\\d{2}");
     }
-    public boolean regexIsbn(String text){
+    public static  boolean regexIsbn(String text){
         return text.matches("(\\d{13})|(\\d{10})");
     }
-    public boolean regexCp(String text){
+    public static  boolean regexCp(String text){
         return text.matches("((0[1-9])|([1-8][0-9])|(9[0-8])|(2A)|(2B))[0-9]{3}");
     }
-    public boolean regexAdresse(String text){
+    public static  boolean regexAdresse(String text){
         return text.matches("[0-9]{1,3}(?:(?:[,. ]){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)+");
     } 
-     public boolean regexFloat(String text){
+     public static  boolean regexFloat(String text){
         return text.matches("");
     }
      
