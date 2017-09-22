@@ -497,5 +497,5 @@ INSERT INTO COUNTER
                 ('PACKAGESHIPPER',3),
                 ('SUBTHEME',8),
                 ('SUBTHEMEBOOK',10),
-                ('NUMCOMMANDE',456558),
+                ('NUMCOMMANDE',456558)
                 
