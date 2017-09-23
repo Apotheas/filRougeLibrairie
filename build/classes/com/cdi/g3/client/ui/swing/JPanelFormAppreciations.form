@@ -11,7 +11,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-49,0,0,3,-102"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-49,0,0,3,-100"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -114,7 +114,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPaneShowAppreciations" alignment="0" pref="890" max="32767" attributes="0"/>
+                      <Component id="jScrollPaneShowAppreciations" alignment="0" pref="892" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -222,7 +222,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPaneAppreciationsWaiting" pref="900" max="32767" attributes="0"/>
+                      <Component id="jScrollPaneAppreciationsWaiting" pref="902" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -256,7 +256,6 @@
                         <Column editable="true" title="Appreciation" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="rowSelectionAllowed" type="boolean" value="true"/>
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableWaitingMouseClicked"/>
@@ -324,8 +323,8 @@
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jScrollPaneAppreciation" min="-2" pref="414" max="-2" attributes="0"/>
-                      <EmptySpace pref="26" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="419" max="-2" attributes="0"/>
+                      <EmptySpace pref="23" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -333,9 +332,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jScrollPaneAppreciation" min="-2" pref="120" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jScrollPane2" alignment="1" min="-2" pref="113" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabelAppreciationStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jComboBoxStatus" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -343,17 +342,19 @@
                                   <Component id="jLabelAppreciation" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabelDate" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextDate" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
-                                  <Component id="jLabelCustomerLogin" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabelLogin" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jTextDate" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                                      <Component id="jLabelCustomerLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelLogin" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabelIp" max="32767" attributes="0"/>
-                                      <Component id="jTextIp" max="32767" attributes="0"/>
+                                      <Component id="jLabelIp" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jTextIp" min="-2" pref="16" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jLabelDate1" alignment="1" min="-2" pref="16" max="-2" attributes="0"/>
                                   <Component id="jTextModerator" alignment="1" min="-2" pref="16" max="-2" attributes="0"/>
@@ -399,21 +400,6 @@
                 <Property name="text" type="java.lang.String" value="Appreciation :"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JScrollPane" name="jScrollPaneAppreciation">
-              <AuxValues>
-                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-              </AuxValues>
-
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-              <SubComponents>
-                <Component class="javax.swing.JTextArea" name="jTextAppreciation">
-                  <Properties>
-                    <Property name="columns" type="int" value="20"/>
-                    <Property name="rows" type="int" value="5"/>
-                  </Properties>
-                </Component>
-              </SubComponents>
-            </Container>
             <Component class="javax.swing.JLabel" name="jLabelCustomerLogin">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Customer Login  :"/>
@@ -442,6 +428,17 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jTextModerator">
             </Component>
+            <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+              <AuxValues>
+                <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+              </AuxValues>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <SubComponents>
+                <Component class="javax.swing.JTextPane" name="jTextComment">
+                </Component>
+              </SubComponents>
+            </Container>
           </SubComponents>
         </Container>
       </SubComponents>

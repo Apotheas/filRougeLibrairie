@@ -7,6 +7,7 @@ import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.exception.RemoveException;
 import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.common.logging.Trace;
+import com.cdi.g3.server.domain.company.Employe;
 import com.cdi.g3.server.domain.customers.Adress;
 import com.cdi.g3.server.domain.customers.AdressDAO;
 import com.cdi.g3.server.domain.customers.Appreciation;
@@ -209,6 +210,10 @@ public final class CustomerService extends AbstractService {
         Trace.exiting(_cname, mname, new Integer(status.size()));
         return status;
      }
+    
+    public Customer findCustomerByLogins(String login, String password) throws ObjectNotFoundException{
+           return (Customer)_daoCustomer.selectByLogins(login, password);
+       }
     
     
     
