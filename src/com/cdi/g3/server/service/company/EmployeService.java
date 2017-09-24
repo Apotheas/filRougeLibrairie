@@ -203,5 +203,8 @@ public class EmployeService extends AbstractService {
         
         return listEmploye;
     }
+       public Employe findEmployeByLogins(String login, String password) throws ObjectNotFoundException{
+           return (Employe)_daoEmploye.selectByLogins(login, password);
+       }
     }
 

@@ -92,7 +92,7 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
     private Vector initSeLectedVector(Vector queryList) {
 
         return queryList;
-        
+
     }
 
     //______________________________________________________//
@@ -122,8 +122,6 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
 
     private void intTabSearch(Collection queryList) throws ObjectNotFoundException {
         refreshTabSearch();
-        
-        
 
         Vector rowAttributes = null;
 
@@ -137,7 +135,7 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
             rowAttributes.add(comment.getCommentAppreciate());
             rowAttributes.add(comment.getRatingAppreciate());
             rowAttributes.add(comment.getId());
-            comments.add(comment);
+            oldComments.add(comment);
             tabModelSearch.addRow(rowAttributes);
         }
         jTableView.setModel(tabModelSearch);
@@ -168,8 +166,6 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
         jButtonSetStatus = new javax.swing.JButton();
         jLabelAppreciationStatus = new javax.swing.JLabel();
         jLabelAppreciation = new javax.swing.JLabel();
-        jScrollPaneAppreciation = new javax.swing.JScrollPane();
-        jTextAppreciation = new javax.swing.JTextArea();
         jLabelCustomerLogin = new javax.swing.JLabel();
         jLabelLogin = new javax.swing.JLabel();
         jLabelDate = new javax.swing.JLabel();
@@ -178,6 +174,8 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
         jTextIp = new javax.swing.JLabel();
         jLabelDate1 = new javax.swing.JLabel();
         jTextModerator = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextComment = new javax.swing.JTextPane();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -214,7 +212,7 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
         jPanelSearchAppreciation.setLayout(jPanelSearchAppreciationLayout);
         jPanelSearchAppreciationLayout.setHorizontalGroup(
             jPanelSearchAppreciationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneShowAppreciations, javax.swing.GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE)
+            .addComponent(jScrollPaneShowAppreciations, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE)
         );
         jPanelSearchAppreciationLayout.setVerticalGroup(
             jPanelSearchAppreciationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,7 +316,6 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
                 "idAppreciate", "ISBN ", "loginCustomer", "Appreciation"
             }
         ));
-        jTableWaiting.setRowSelectionAllowed(true);
         jTableWaiting.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableWaitingMouseClicked(evt);
@@ -332,7 +329,7 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
             jPanelTraitmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTraitmentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPaneAppreciationsWaiting, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+                .addComponent(jScrollPaneAppreciationsWaiting, javax.swing.GroupLayout.DEFAULT_SIZE, 902, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanelTraitmentLayout.setVerticalGroup(
@@ -360,10 +357,6 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
 
         jLabelAppreciation.setText("Appreciation :");
 
-        jTextAppreciation.setColumns(20);
-        jTextAppreciation.setRows(5);
-        jScrollPaneAppreciation.setViewportView(jTextAppreciation);
-
         jLabelCustomerLogin.setText("Customer Login  :");
 
         jLabelDate.setText("Date  :");
@@ -371,6 +364,8 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
         jLabelIp.setText("Customer IP   :");
 
         jLabelDate1.setText("Moderator  :");
+
+        jScrollPane2.setViewportView(jTextComment);
 
         javax.swing.GroupLayout jPanelManagerLayout = new javax.swing.GroupLayout(jPanelManager);
         jPanelManager.setLayout(jPanelManagerLayout);
@@ -408,32 +403,33 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextModerator, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPaneAppreciation, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanelManagerLayout.setVerticalGroup(
             jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelManagerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPaneAppreciation, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelManagerLayout.createSequentialGroup()
+                .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelManagerLayout.createSequentialGroup()
                         .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelAppreciationStatus)
                             .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonSetStatus)
                             .addComponent(jLabelAppreciation))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelDate)
-                            .addComponent(jTextDate, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelCustomerLogin)
-                            .addComponent(jLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelDate, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextDate, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelCustomerLogin)
+                                .addComponent(jLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(38, 38, 38)
                         .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabelIp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextIp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabelIp)
+                                .addComponent(jTextIp, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabelDate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextModerator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -462,12 +458,12 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonSetStatusActionPerformed
 
     private void jComboBoxSearchByMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxSearchByMouseClicked
-       
+
 
     }//GEN-LAST:event_jComboBoxSearchByMouseClicked
 
     private void jComboBoxSelectedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxSelectedMouseClicked
-         
+
     }//GEN-LAST:event_jComboBoxSelectedMouseClicked
 
     private void jComboBoxSearchByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSearchByActionPerformed
@@ -490,16 +486,18 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
             EmployeService employeService = new EmployeService();
             Vector modoList = new Vector();
             try {
-                for (Iterator it = employeService.FindEmployeByRight("TYPEEMPLOYERIGHT","11").iterator(); it.hasNext();) {
+                for (Iterator it = employeService.FindEmployeByRight("IDEMPLOYERIGHT", "MODERATOR").iterator(); it.hasNext();) {
                     Employe employe = (Employe) it.next();
+
                     modoList.add(employe);
+
                 }
             } catch (ObjectNotFoundException ex) {
                 JOptionPane.showMessageDialog(this, " NO MODERATORS FOUND ");
             } catch (FinderException ex) {
                 Logger.getLogger(JPanelFormAppreciations.class.getName()).log(Level.SEVERE, null, ex);
             }
-            initSelectedModel(modoList);
+            jComboBoxSelected.setModel(initSelectedModel(modoList));
         }
         if (jComboBoxSearchBy.getSelectedItem().equals("Customer")) {
             CustomerService customerService = new CustomerService();
@@ -520,14 +518,14 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBoxSearchByActionPerformed
 
     private void jComboBoxSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSelectedActionPerformed
-         if (jComboBoxSearchBy.getSelectedItem().equals("Title")){
-              Book book = (Book)jComboBoxSelected.getSelectedItem();
-              try {
-                  intTabSearch(appreciationService2.FindAppreciationByChamp("TITREBOOK", book.getTitleBook()));
-              } catch (ObjectNotFoundException ex) {
-                  JOptionPane.showMessageDialog(this, "NO COMMENT FOUND FOR THIS BOOK");
-              }
-          }
+        if (jComboBoxSearchBy.getSelectedItem().equals("Title")) {
+            Book book = (Book) jComboBoxSelected.getSelectedItem();
+            try {
+                intTabSearch(appreciationService2.FindAppreciationByChamp("TITREBOOK", book.getTitleBook()));
+            } catch (ObjectNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "NO COMMENT FOUND FOR THIS BOOK");
+            }
+        }
     }//GEN-LAST:event_jComboBoxSelectedActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -554,14 +552,14 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
         } else {
             int selectedRow = lsm.getMinSelectionIndex();
             Appreciation comment = (Appreciation) comments.get(selectedRow);
-            jTextAppreciation.setText(comment.getCommentAppreciate());
+            jTextComment.setText(comment.getCommentAppreciate());
             jLabelLogin.setText(comment.getLoginCustomerAppreciate().getLoginCustomer());
             jTextDate.setText(comment.getDateAppreciate());
             jTextIp.setText(comment.getId());
-            jTextModerator.setText(comment.getLoginEmployeAppreciate().getLoginEmploye());
 
         }
     }
+
     private void selectLineSearch(ListSelectionEvent evt) {
 
         ListSelectionModel lsm = (ListSelectionModel) evt.getSource();
@@ -570,16 +568,24 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
             System.out.println("No rows selected");
         } else {
             int selectedRow = lsm.getMinSelectionIndex();
-            Appreciation comment = (Appreciation) comments.get(selectedRow);
-            jTextAppreciation.setText(comment.getCommentAppreciate());
+            Appreciation comment = (Appreciation) oldComments.get(selectedRow);
+            jTextComment.setText(comment.getCommentAppreciate());
             jLabelLogin.setText(comment.getLoginCustomerAppreciate().getLoginCustomer());
             jTextDate.setText(comment.getDateAppreciate());
             jTextIp.setText(comment.getId());
-            jTextModerator.setText(comment.getLoginEmployeAppreciate().toString());
+            jTextModerator.setText(comment.getLoginEmployeAppreciate().getLoginEmploye());
+            if (comment.getModerateAppreciate().equalsIgnoreCase("1")) {
+                jComboBoxStatus.getModel().setSelectedItem("Approuved");
+
+            } else if (comment.getModerateAppreciate().equalsIgnoreCase("2")) {
+                jComboBoxStatus.getModel().setSelectedItem("Rejected");
+
+            } else {
+                jComboBoxStatus.getModel().setSelectedItem("Untreated");
+            }
 
         }
     }
-    
 
     private void refreshTabWaiting() throws ObjectNotFoundException {
         comments.removeAllElements();
@@ -589,13 +595,14 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
         }
         intTabWaiting();
     }
+
     private void refreshTabSearch() throws ObjectNotFoundException {
-        oldComments.removeAllElements();
+        
         int lignes = tabModelSearch.getRowCount();
         for (int i = lignes - 1; i >= 0; i--) {
             tabModelSearch.removeRow(i);
         }
-      
+        oldComments.removeAllElements();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -619,12 +626,12 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
     private javax.swing.JPanel jPanelSearchAppreciation;
     private javax.swing.JPanel jPanelSearchBook;
     private javax.swing.JPanel jPanelTraitment;
-    private javax.swing.JScrollPane jScrollPaneAppreciation;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPaneAppreciationsWaiting;
     private javax.swing.JScrollPane jScrollPaneShowAppreciations;
     private javax.swing.JTable jTableView;
     private javax.swing.JTable jTableWaiting;
-    private javax.swing.JTextArea jTextAppreciation;
+    private javax.swing.JTextPane jTextComment;
     private javax.swing.JLabel jTextDate;
     private javax.swing.JLabel jTextIp;
     private javax.swing.JLabel jTextModerator;

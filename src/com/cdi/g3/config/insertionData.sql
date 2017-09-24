@@ -69,16 +69,16 @@ INSERT INTO Book (
         SIZELONGBOOK,          
         COMMENTBOOK)
 VALUES 
-('2253092533','1','reduced','Le pi�ge',8.10,15,1, null ,'L auteur � succ�s Linda Conrads n a pas quitt� sa maison depuis onze ans. Hant�e par la mort de sa soeur et le visage de son assassin, qu elle a surpris juste avant qu il ne prenne la fuite, elle vit d�sormais recluse.','http://www.gibertjoseph.com/le-piege-8950921.html',null,null,null,'interessant'),
-('2253092770','1','reduced', 'Da Vinci Code',5.90,11,1, null ,'Robert Langdon, un �minent sp�cialiste de symbologie de Harvard, est convoqu� d urgence au Louvre. On a d�couvert un message cod� sur le cadavre du conservateur en chef, retrouv� assassin� au milieu de la Grande Galerie.','http://www.gibertjoseph.com/da-vinci-code-8869292.html',null,null,null,'long et ennuyeux'),
+('2253092533','1','reduced','Le piege',8.10,15,1, null ,'L auteur � succ�s Linda Conrads n a pas quitt� sa maison depuis onze ans. Hant�e par la mort de sa soeur et le visage de son assassin, qu elle a surpris juste avant qu il ne prenne la fuite, elle vit d�sormais recluse.','http://www.gibertjoseph.com/le-piege-8950921.html',null,null,null,'interessant'),
+('2253092770','2','reduced', 'Da Vinci Code',5.90,11,1, null ,'Robert Langdon, un �minent sp�cialiste de symbologie de Harvard, est convoqu� d urgence au Louvre. On a d�couvert un message cod� sur le cadavre du conservateur en chef, retrouv� assassin� au milieu de la Grande Galerie.','http://www.gibertjoseph.com/da-vinci-code-8869292.html',null,null,null,'long et ennuyeux'),
 ('2265116491','3','reduced', 'Comme de long �chos',19.90,7,2, null,' Partout, les monstres sont chez eux... � Vincent Dussart est s�r de son coup. Ce break impos� par sa femme va prendre fin aujourd hui. Il n a rien laiss� au hasard. Comme toujours. Confiant, il p�n�tre dans la maison .','http://www.gibertjoseph.com/comme-de-longs-echos-8822343.html',null,null,null,null),
 ('2743640707','4','reduced', 'Les Proies',9.00,34,1, null ,'Pendant la Guerre de S�cession, un soldat yankee bless� est recueilli dans un pensionnat de jeunes filles du Sud. L intrusion d un homme bouleverse ce milieu f�minin corset� et repli� sur lui-m�me. Objet de tous les fantasmes','http://www.gibertjoseph.com/les-proies-8762857.html',null,null,null,'Magnifique livre , je conseille !'),
-('2330081545','6','reduced','Le d�tective de Freud',9.80,19,1, null,'Paris, 1911. � l issue du congr�s de l Association Psychanalytique Internationale, le jeune docteur Du Barrail est charg� par Sigmund Freud en personne d enqu�ter sur la mort myst�rieuse d un de leurs confr�res, retrouv�.','http://www.gibertjoseph.com/le-detective-de-freud-8762609.html',null,null,null,'Chef d oeuvre'),
-('2290147001','4','reduced','Laisse moi t aimer',7.40,63,1, null,null,'http://www.gibertjoseph.com/laisse-moi-t-aimer-8403762.html',null,null,null,null),
-('2290140961','2','reduced', 'Les ladies de Lantern Street',4.52,25,2, 'La femme mystere' ,null,'http://www.gibertjoseph.com/les-ladies-de-lantern-street-la-femme-mystere-8403758.html',null,null,null,'Top!'),
-('2290139998','7','reduced', 'Le jeu de la tentation',7.95,24,1, null,'Trouver l amour ? En ce qui la concerne, Kate Seymour y a renonc� depuis une �ternit�. Ironie du sort, elle a h�rit� d un don infaillible : d�tecter l alchimie entre deux �tres. Alors, faisant contre mauvaise fortune','http://www.gibertjoseph.com/le-jeu-de-la-tentation-8403757.html',null,null,null,null),
-('2811222510','2','reduced', 'Wild heart',7.20,19,2, null,'Alors que Menzoberazzan go�te � un semblant de paix, lib�r�e de ses hordes de d�mons, l Outreterre panse ses plaies. Le barbare du Valbise et son compagnon halfelin, seulement d�sireux de profiter de leur nouvelle','http://www.gibertjoseph.com/le-detective-de-freud-8762609.html',null,null,null,'Incroyable'),
-('2290139963','3','reduced', 'Gareth',4.07,39,1, null,'GarethGrace Burrowes (Auteur) Depuis neuf ans, Gareth Alexander se conduit en libertin. Pour satisfaire la derni�re volont� d une amie, il est contraint d apprendre � Felicity Worthington, comment diriger une maison close. Mais il ren�cle de plus','http://www.gibertjoseph.com/gareth-8392808.html',null,null,null,'Pas terrible')
+('2330081545','5','reduced','Le detective de Freud',9.80,19,1, null,'Paris, 1911. � l issue du congr�s de l Association Psychanalytique Internationale, le jeune docteur Du Barrail est charg� par Sigmund Freud en personne d enqu�ter sur la mort myst�rieuse d un de leurs confr�res, retrouv�.','http://www.gibertjoseph.com/le-detective-de-freud-8762609.html',null,null,null,'Chef d oeuvre'),
+('2290147001','6','reduced','Laisse moi t aimer',7.40,63,1, null,null,'http://www.gibertjoseph.com/laisse-moi-t-aimer-8403762.html',null,null,null,null),
+('2290140961','7','reduced', 'Les ladies de Lantern Street',4.52,25,2, 'La femme mystere' ,null,'http://www.gibertjoseph.com/les-ladies-de-lantern-street-la-femme-mystere-8403758.html',null,null,null,'Top!'),
+('2290139998','8','reduced', 'Le jeu de la tentation',7.95,24,1, null,'Trouver l amour ? En ce qui la concerne, Kate Seymour y a renonc� depuis une �ternit�. Ironie du sort, elle a h�rit� d un don infaillible : d�tecter l alchimie entre deux �tres. Alors, faisant contre mauvaise fortune','http://www.gibertjoseph.com/le-jeu-de-la-tentation-8403757.html',null,null,null,null),
+('2811222510','9','reduced', 'Wild heart',7.20,19,2, null,'Alors que Menzoberazzan go�te � un semblant de paix, lib�r�e de ses hordes de d�mons, l Outreterre panse ses plaies. Le barbare du Valbise et son compagnon halfelin, seulement d�sireux de profiter de leur nouvelle','http://www.gibertjoseph.com/le-detective-de-freud-8762609.html',null,null,null,'Incroyable'),
+('2290139963','10','reduced', 'Gareth',4.07,39,1, null,'GarethGrace Burrowes (Auteur) Depuis neuf ans, Gareth Alexander se conduit en libertin. Pour satisfaire la derni�re volont� d une amie, il est contraint d apprendre � Felicity Worthington, comment diriger une maison close. Mais il ren�cle de plus','http://www.gibertjoseph.com/gareth-8392808.html',null,null,null,'Pas terrible')
 
 
 
@@ -467,18 +467,18 @@ INSERT INTO Appreciation
 		DATEmoderateAPPRECIATE
 		) 
 
-VALUES ('1','Bob01','1' ,'2330081545','2017-01-11','VERY GOOD (APPRECIATION 1)',5,'5.135.158.101','employe01', 1, '2017-01-15' ),		 
+VALUES ('1','Bob01','1' ,'2330081545','2017-01-11','Moving. . . powerful. . .The kind of book that makes you feel like youve lived several times over.',5,'5.135.158.101','employe02', 1, '2017-01-15' ),		 
 	------------------------------------------	
-	 ('2','zidane02','3' ,'2290140961','2017-02-12' ,'VERY GOOD  (APPRECIATION2)',4,'5.135.158.101','employe02' , 1, '2017-02-15'), 
+	 ('2','zidane02','3' ,'2290140961','2017-02-12' ,'Stirring. . . humane and impassioned . . . beautiful and rich.',4,'12.130.206.44','employe02' , 1, '2017-02-15'), 
 	-----------------------------------------	
-	 ('3','marc03','11' ,'2290140961','2017-03-13','GOOD  (APPRECIATION 3)',3,'5.135.158.101','employe01' , 1, '2017-03-15' ), 
-	 ('4','marc03','10' ,'2290147001','2017-03-13','GOOD  (APPRECIATION 3)',3,'5.135.158.101',null , 0, null ), 
+	 ('3','marc03','11' ,'2290140961','2017-03-13','A fiercely unforgettable novel…a love story with characters so heartbreaking and compelling ',3,'104.13.125.62','employe02' , 1, '2017-03-15' ), 
+	 ('4','marc03','10' ,'2290147001','2017-03-13',' expected to love this book. I loved God of Small Things and several of my all-time favourite books are by Indian authors. ',3,'168.181.48.54',null , 0, null ), 
 	------------------------------------------
-        ('5','Nicole04','12' ,'2290139998','2017-04-14','BUFFFFF   (APPRECIATION 4)', 2,'5.135.158.101','employe01', 1, '2017-04-15'  ), 
-	 ('6','Nicole04','6' ,'2253092770','2017-04-14','BUFFFFF   (APPRECIATION 4)', 2,'5.135.158.101',null, 0, NULL  ),
+        ('5','Nicole04','12' ,'2290139998','2017-04-14','Essentially this is a book without a plot and if you realise that going in, you’ll probably struggle less with it than I did. ', 2,'173.49.240.22','employe02', 1, '2017-04-15'  ), 
+	 ('6','Nicole04','6' ,'2253092770','2017-04-14','this is the work of a dextrous, truly gifted, truly extraordinary writer. every single scene crackles on the page, coming to life fully.', 2,'188.24.236.80',null, 0, NULL  ),
 ------------------------------------------
-	 ('7','Angelina05','4' ,'2811222510','2017-05-15','NULLLL !!! (APPRECIATION 5)', 1,'5.135.158.101' ,null, 0, null  ),
-	 ('8','Angelina05','4' ,'2811222510','2017-05-15','NULLLL !!! (APPRECIATION 5)', 1,'5.135.158.101',null, 0, null  )
+	 ('7','Angelina05','4' ,'2811222510','2017-05-15','A rambling wonderful book with imagery and emotions liberally sprinkled throughout.', 1,'93.113.244.206' ,null, 0, null  )
+	
 
 
 INSERT INTO COUNTER 

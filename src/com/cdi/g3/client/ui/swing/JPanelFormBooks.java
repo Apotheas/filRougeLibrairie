@@ -810,6 +810,7 @@ public class JPanelFormBooks extends javax.swing.JPanel {
         jTextStock.setText(String.valueOf(book.getStockBook()));
         Editor editor = (Editor) publishingService.findEditorByChamp("numisbnbook", book.getId());
         jTextEditor.setText(editor.getNameEditor());
+       jComboBoxTVA.getModel().setSelectedItem("reduced");
         jComboBoxTVA.setSelectedItem(book.getCodeTva().getTypeTva());
         jComboBoxAuthors.setModel(initAuthorsModel());
         jButtonUpdate.setVisible(true);

@@ -313,35 +313,42 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
-      
-        // ajouter un test pour verifier le keyword s'il existe ou pas et 
-        //afficher un meswage d'erreur   
-        
-        
-        
+
         try {
-            // TODO add your handling code here:
+            // ajouter un test pour verifier le keyword s'il existe ou pas et
+            //afficher un meswage d'erreur
 
-            keyWord.setNameKeyWord(jTextF_KeyWord.getText());
+            KeyWord keyword = otherService.findKeyWord(jTextF_KeyWord.getText());
+            JOptionPane.showMessageDialog(this, "key word already exist");
+        } catch (FinderException | CheckException ex) {
+            int retour = JOptionPane.showConfirmDialog(this,
+                    "KEYWORD NOT IN DATABASE, DO YOU WANT TO CREATE IT ? ",
+                    "New KeyWord",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            if (retour == JOptionPane.YES_OPTION) {
+                
+                try {
+                    // TODO add your handling code here:
 
-            otherService.createKeyWord(keyWord);
-            JOptionPane.showMessageDialog(this, "key word created with success ");
-        } catch (CreateException ex) {
-            Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (CheckException ex) {
-            Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
+                    keyWord.setNameKeyWord(jTextF_KeyWord.getText());
+
+                    otherService.createKeyWord(keyWord);
+                    JOptionPane.showMessageDialog(this, "key word created with success ");
+                } catch (CreateException | CheckException ex2) {
+                    JOptionPane.showMessageDialog(this, "CreateException | CheckException ");
+                }
+            }
         }
+
 
     }//GEN-LAST:event_jButtonCreateActionPerformed
 
     private void jButtonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchActionPerformed
 // RAJOUTER UNE CONDITION POUR PAS AJOUTER LE MEME KEYWORD 
         clearTab();
-        
+
 // ajouter un test pour verifier le keyword s'il existe ou pas et 
         //afficher un meswage d'erreur   
-
-        
         try {
             Vector v = null;
             for (Iterator itarator = otherService.findBooksByKeyword("NAMEKEYWORD", jTextF_KeyWord.getText()).iterator(); itarator.hasNext();) {
@@ -352,11 +359,11 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
                 v.add(book.getStockBook());
                 v.add(book.getUnitCostBook() + " €");
                 tabModel.addRow(v);
-                
+
             }
 
         } catch (ObjectNotFoundException ex) {
-            
+
             JOptionPane.showMessageDialog(this, "No Books or   for this KeyWord on Database");
         }
 
@@ -384,7 +391,7 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
 
         } catch (DuplicateKeyException ex) {
             Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
-           // JOptionPane.showMessageDialog(this, " Must create book only ");
+            // JOptionPane.showMessageDialog(this, " Must create book only ");
             //       } catch (ObjectNotFoundException ex) {
             //          Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -402,11 +409,13 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton_ClearActionPerformed
 
     private void jButton_UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_UpdateActionPerformed
-        // TODO add your handling code here:
-
+        KeyWord keyword = (KeyWord)jComboBoxSelectedKeyWord.getSelectedItem();
         try {
-            KeyWord myKeyWord = ((KeyWord) jComboBoxSelectedKeyWord.getSelectedItem());
-            myKeyWord.setNameKeyWord(jTextF_KeyWord.getText());
+             keyword = otherService.findKeyWord(keyword.getNameKeyWord());
+        } catch (FinderException | CheckException ex) {
+            Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {         
 
             int retour = JOptionPane.showConfirmDialog(this,
                     "Etes-Vous Sure de vouloir modifier le KeyWord ? ",
@@ -415,8 +424,9 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
             if (retour == JOptionPane.CLOSED_OPTION || retour == JOptionPane.NO_OPTION) {
                 clearTab();
                 clearField();
+                keyword.setNameKeyWord(jTextF_KeyWord.getText());
             } else {
-                otherService.updateKeyWord(myKeyWord);
+                otherService.updateKeyWord(keyword);
                 try {
                     _daokeywordBook.updateKeyWordIntoKeyWordBook(jTextInsert.getText(), jTextF_KeyWord.getText());
                 } catch (DuplicateKeyException ex) {
@@ -447,11 +457,9 @@ public class JPanelFormKeyWords extends javax.swing.JPanel {
             // TODO add your handling code here: 
             otherService.deleteKeyWord(jTextF_KeyWord.getText());
             JOptionPane.showMessageDialog(this, "Keyword Deleted with success ");
-            
-            
+
             KeyWord myKeyword = ((KeyWord) jComboBoxSelectedKeyWord.getSelectedItem());
-            
-            
+
         } catch (RemoveException ex) {
             Logger.getLogger(JPanelFormKeyWords.class.getName()).log(Level.SEVERE, null, ex);
 
