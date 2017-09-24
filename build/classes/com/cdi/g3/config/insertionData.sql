@@ -416,6 +416,7 @@ INSERT INTO Orders(
         PaymentSystemOrder,
         ipOrder,
         datePackageShipperOrder
+
         )
         VALUES
         ('1','processing','2','Bob01','2','201','2017-08-09','cb','5.135.158.101',null),
