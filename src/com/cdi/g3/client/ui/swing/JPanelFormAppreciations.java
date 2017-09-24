@@ -5,8 +5,12 @@
  */
 package com.cdi.g3.client.ui.swing;
 
+import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
+import com.cdi.g3.common.exception.UpdateException;
+import com.cdi.g3.common.utiles.Utility;
+
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.company.Employe;
 import com.cdi.g3.server.domain.customers.Appreciation;
@@ -15,16 +19,25 @@ import com.cdi.g3.server.service.catalog.CatalogService;
 import com.cdi.g3.server.service.company.EmployeService;
 import com.cdi.g3.server.service.customers.AppreciationService;
 import com.cdi.g3.server.service.customers.CustomerService;
-import com.cdi.g3.server.service.other.AppreciationService2;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -38,24 +51,21 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
 
     private DefaultTableModel tabModelWait = new DefaultTableModel();
     private DefaultTableModel tabModelSearch = new DefaultTableModel();
-    private AppreciationService2 appreciationService = new AppreciationService2();
-    private AppreciationService appreciationService2 = new AppreciationService();
-    private final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    private EmployeService employeService = new EmployeService();
+    private CustomerService customerService = new CustomerService();
+    private CatalogService catalogService = new CatalogService();
+    private AppreciationService appreciationService = new AppreciationService();
     private Vector comments = new Vector();
     private Vector oldComments = new Vector();
+    Utility utils = new Utility();
 
     public JPanelFormAppreciations() throws ObjectNotFoundException {
         initComponents();
+        initColumnWaiting();
+        initTabWaiting();
+        initColumnSearch();
+        jComboBoxStatus.setModel(initStatusByModel());
         jComboBoxSearchBy.setModel(initSearchByModel());
-        intTabWaiting();
-        tabModelSearch.addColumn("DATE");
-        tabModelSearch.addColumn("MODERATOR");
-        tabModelSearch.addColumn("ISBN");
-        tabModelSearch.addColumn("CUSTOMER");
-        tabModelSearch.addColumn("COMMENT");
-        tabModelSearch.addColumn("RATE /5");
-        tabModelSearch.addColumn("IP CUSTOMER");
-
         jTableWaiting.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent evt) {
                 selectLineWaiting(evt);
@@ -79,7 +89,19 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
         searchList.add("Title");
         searchList.add("Customer");
         searchList.add("Moderator");
+        return searchList;
+    }
 
+    //______________________________________________________//
+    //______APPRECIATIONS-STATUS COMBOBOX MODEL____________//
+    private DefaultComboBoxModel initStatusByModel() {
+        return new DefaultComboBoxModel(initStatusVector());
+    }
+
+    private Vector initStatusVector() {
+        Vector searchList = new Vector();
+        searchList.add("Approved");
+        searchList.add("Refused");
         return searchList;
     }
 
@@ -90,56 +112,73 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
     }
 
     private Vector initSeLectedVector(Vector queryList) {
-
         return queryList;
-
     }
 
     //______________________________________________________//
-    private void intTabWaiting() throws ObjectNotFoundException {
+    //___________WAITING TABLEAU MODEL_______________________//
+    private void initColumnWaiting() {
         tabModelWait.addColumn("DATE");
-        tabModelWait.addColumn("ISBN");
+        tabModelWait.addColumn("TITLE");
         tabModelWait.addColumn("CUSTOMER");
         tabModelWait.addColumn("COMMENT");
         tabModelWait.addColumn("RATE /5");
         tabModelWait.addColumn("IP CUSTOMER");
-        Vector rowAttributes = null;
+    }
 
-        for (Iterator it = appreciationService.findWaitingAppreciate().iterator(); it.hasNext();) {
-            Appreciation comment = (Appreciation) it.next();
-            rowAttributes = new Vector();
-            rowAttributes.add(comment.getDateAppreciate());
-            rowAttributes.add(comment.getNumIsbnBookAppreciate());
-            rowAttributes.add(comment.getLoginCustomerAppreciate().getLoginCustomer());
-            rowAttributes.add(comment.getCommentAppreciate());
-            rowAttributes.add(comment.getRatingAppreciate());
-            rowAttributes.add(comment.getId());
-            comments.add(comment);
-            tabModelWait.addRow(rowAttributes);
-        }
+    private void initTabWaiting() throws ObjectNotFoundException {
+        toTab(appreciationService.findWaitingAppreciate(), comments, tabModelWait, 1);
         jTableWaiting.setModel(tabModelWait);
     }
 
-    private void intTabSearch(Collection queryList) throws ObjectNotFoundException {
+    //______________________________________________________//
+    //___________SEARCH TABLEAU MODEL_______________________//
+    private void initColumnSearch() {
+        tabModelSearch.addColumn("STATUS");
+        tabModelSearch.addColumn("DATE");
+        tabModelSearch.addColumn("MODERATOR");
+        tabModelSearch.addColumn("TITLE");
+        tabModelSearch.addColumn("CUSTOMER");
+        tabModelSearch.addColumn("COMMENT");
+        tabModelSearch.addColumn("RATE /5");
+        tabModelSearch.addColumn("IP CUSTOMER");
+    }
+
+    private void initTabSearch(Collection queryList) throws ObjectNotFoundException {
         refreshTabSearch();
+        toTab(queryList, oldComments, tabModelSearch, 2);
+        jTableView.setModel(tabModelSearch);
 
+    }
+
+    //______________________________________________________//
+    private void toTab(Collection queryList, Vector list, DefaultTableModel model, int type) throws ObjectNotFoundException {
         Vector rowAttributes = null;
-
         for (Iterator it = queryList.iterator(); it.hasNext();) {
             Appreciation comment = (Appreciation) it.next();
             rowAttributes = new Vector();
+            if (type == 2) {
+                if (comment.getStatusAppreciate() == 40) {
+                    rowAttributes.add("Approved");
+                } else if (comment.getStatusAppreciate() == 41) {
+                    rowAttributes.add("Refused");
+                } else {
+                    rowAttributes.add("Untreated");
+                }
+            }
             rowAttributes.add(comment.getDateAppreciate());
-            rowAttributes.add(comment.getLoginEmployeAppreciate().getLoginEmploye());
-            rowAttributes.add(comment.getNumIsbnBookAppreciate());
+            if (type == 2) {
+                rowAttributes.add(comment.getLoginEmployeAppreciate().getLoginEmploye());
+            }
+            Book book = catalogService.FindBookByChamp("NUMISBNBOOK", comment.getNumIsbnBookAppreciate());
+            rowAttributes.add(book.getTitleBook());
             rowAttributes.add(comment.getLoginCustomerAppreciate().getLoginCustomer());
             rowAttributes.add(comment.getCommentAppreciate());
             rowAttributes.add(comment.getRatingAppreciate());
             rowAttributes.add(comment.getId());
-            oldComments.add(comment);
-            tabModelSearch.addRow(rowAttributes);
+            list.add(comment);
+            model.addRow(rowAttributes);
         }
-        jTableView.setModel(tabModelSearch);
-
     }
 
     @SuppressWarnings("unchecked")
@@ -149,8 +188,6 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
         jPanelBackgroundAppreciation = new javax.swing.JPanel();
         jPanelSearchBook = new javax.swing.JPanel();
         jLabelTitleISBN = new javax.swing.JLabel();
-        jTextTitleISBN = new javax.swing.JTextField();
-        jButtonSearchBook = new javax.swing.JButton();
         jPanelSearchAppreciation = new javax.swing.JPanel();
         jScrollPaneShowAppreciations = new javax.swing.JScrollPane();
         jTableView = new javax.swing.JTable();
@@ -176,6 +213,8 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
         jTextModerator = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextComment = new javax.swing.JTextPane();
+        jLabel1 = new javax.swing.JLabel();
+        jTextid = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -185,39 +224,22 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
 
         jLabelTitleISBN.setText("Search by  : ");
 
-        jTextTitleISBN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextTitleISBNActionPerformed(evt);
-            }
-        });
-
-        jButtonSearchBook.setText("Search");
-
         jPanelSearchAppreciation.setBorder(javax.swing.BorderFactory.createTitledBorder("Appreciations"));
 
-        jTableView.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "idAppreciate", "loginCustomer", "Appreciation", "Rate", "Status", "Moderator"
-            }
-        ));
+        jTableView.setAutoCreateRowSorter(true);
+        jTableView.setModel(tabModelSearch);
         jScrollPaneShowAppreciations.setViewportView(jTableView);
 
         javax.swing.GroupLayout jPanelSearchAppreciationLayout = new javax.swing.GroupLayout(jPanelSearchAppreciation);
         jPanelSearchAppreciation.setLayout(jPanelSearchAppreciationLayout);
         jPanelSearchAppreciationLayout.setHorizontalGroup(
             jPanelSearchAppreciationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneShowAppreciations, javax.swing.GroupLayout.DEFAULT_SIZE, 892, Short.MAX_VALUE)
+            .addComponent(jScrollPaneShowAppreciations, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
         );
         jPanelSearchAppreciationLayout.setVerticalGroup(
             jPanelSearchAppreciationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelSearchAppreciationLayout.createSequentialGroup()
-                .addComponent(jScrollPaneShowAppreciations, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addComponent(jScrollPaneShowAppreciations, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -268,16 +290,12 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jComboBoxSearchBy, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(jComboBoxSelected, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(54, 54, 54)
-                .addComponent(jTextTitleISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonSearchBook)
-                .addGap(69, 69, 69)
+                .addComponent(jComboBoxSelected, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(18, 18, 18)
+                .addGap(75, 75, 75)
                 .addComponent(jButtonClear)
-                .addGap(25, 25, 25))
+                .addGap(37, 37, 37))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelSearchBookLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanelSearchAppreciation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -289,8 +307,6 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
                 .addGap(23, 23, 23)
                 .addGroup(jPanelSearchBookLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelTitleISBN)
-                    .addComponent(jTextTitleISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonSearchBook)
                     .addComponent(jButtonClear)
                     .addComponent(jComboBoxSearchBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
@@ -329,7 +345,7 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
             jPanelTraitmentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTraitmentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPaneAppreciationsWaiting, javax.swing.GroupLayout.DEFAULT_SIZE, 902, Short.MAX_VALUE)
+                .addComponent(jScrollPaneAppreciationsWaiting, javax.swing.GroupLayout.DEFAULT_SIZE, 974, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanelTraitmentLayout.setVerticalGroup(
@@ -367,6 +383,8 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(jTextComment);
 
+        jLabel1.setText("Comment id :");
+
         javax.swing.GroupLayout jPanelManagerLayout = new javax.swing.GroupLayout(jPanelManager);
         jPanelManager.setLayout(jPanelManagerLayout);
         jPanelManagerLayout.setHorizontalGroup(
@@ -374,14 +392,6 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
             .addGroup(jPanelManagerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelManagerLayout.createSequentialGroup()
-                        .addComponent(jLabelAppreciationStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonSetStatus)
-                        .addGap(51, 51, 51)
-                        .addComponent(jLabelAppreciation))
                     .addGroup(jPanelManagerLayout.createSequentialGroup()
                         .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelManagerLayout.createSequentialGroup()
@@ -392,27 +402,39 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
                                 .addComponent(jLabelCustomerLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(36, 36, 36)
+                        .addGap(30, 30, 30)
                         .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelManagerLayout.createSequentialGroup()
-                                .addComponent(jLabelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextDate, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelManagerLayout.createSequentialGroup()
                                 .addComponent(jLabelDate1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextModerator, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                                .addComponent(jTextModerator, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelManagerLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextid, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelManagerLayout.createSequentialGroup()
+                                .addComponent(jLabelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextDate, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanelManagerLayout.createSequentialGroup()
+                        .addComponent(jLabelAppreciationStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonSetStatus)
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabelAppreciation)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         jPanelManagerLayout.setVerticalGroup(
             jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelManagerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelManagerLayout.createSequentialGroup()
+                    .addGroup(jPanelManagerLayout.createSequentialGroup()
                         .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelAppreciationStatus)
                             .addComponent(jComboBoxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -425,14 +447,22 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
                                 .addComponent(jTextDate, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabelCustomerLogin)
                                 .addComponent(jLabelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(38, 38, 38)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jTextid, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
                         .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabelIp)
-                                .addComponent(jTextIp, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabelDate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextModerator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                            .addGroup(jPanelManagerLayout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabelIp)
+                                    .addComponent(jTextIp, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanelManagerLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanelManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelDate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextModerator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelBackgroundAppreciation.add(jPanelManager, java.awt.BorderLayout.PAGE_END);
@@ -440,21 +470,48 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
         add(jPanelBackgroundAppreciation, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextTitleISBNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTitleISBNActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextTitleISBNActionPerformed
-
     private void jTableWaitingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableWaitingMouseClicked
 
 
     }//GEN-LAST:event_jTableWaitingMouseClicked
 
     private void jButtonSetStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSetStatusActionPerformed
-        try {
-            refreshTabWaiting();
-        } catch (ObjectNotFoundException ex) {
-            JOptionPane.showMessageDialog(this, "NO MORE COMMENTS TO MODERATE ");
+        LoginPage loggs = new LoginPage();
+        
+        if ("Moderator".equals(loggs.getEmployeLoged().getEmployeRight().toString())) {
+
+            Appreciation comment = null;
+            try {
+                comment = appreciationService.findAppreciation(jTextid.getText());
+            } catch (FinderException ex) {
+                Logger.getLogger(JPanelFormAppreciations.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (CheckException ex) {
+                Logger.getLogger(JPanelFormAppreciations.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (jComboBoxStatus.getSelectedItem().equals("Approved")) {
+                comment.setStatusAppreciate(40);
+            } else {
+                comment.setStatusAppreciate(41);
+            }
+            comment.setLoginEmployeAppreciate(loggs.getEmployeLoged());
+            comment.setModerateAppreciate("1");
+
+            try {
+                appreciationService.updateAppreciation(comment);
+                JOptionPane.showMessageDialog(this, "Commment ID : " + comment.getId() + " moderate successfully ! ");
+            } catch (ObjectNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "ERROR MODERATING COMMENT");
+            }
+            try {
+                refreshTabWaiting();
+            } catch (ObjectNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "NO MORE COMMENTS TO MODERATE ");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Your are not a moderator !");
         }
+
     }//GEN-LAST:event_jButtonSetStatusActionPerformed
 
     private void jComboBoxSearchByMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxSearchByMouseClicked
@@ -467,70 +524,102 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBoxSelectedMouseClicked
 
     private void jComboBoxSearchByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSearchByActionPerformed
-        if (jComboBoxSearchBy.getSelectedItem().equals("Title")) {
-            CatalogService catalogService = new CatalogService();
-            Vector bookList = new Vector();
-            try {
-                for (Iterator it = catalogService.FindAllBooks().iterator(); it.hasNext();) {
-                    Book book = (Book) it.next();
-                    bookList.add(book);
 
-                }
-            } catch (ObjectNotFoundException ex) {
-                JOptionPane.showMessageDialog(this, " NO BOOKS FOUND ");
-            }
-
-            jComboBoxSelected.setModel(initSelectedModel(bookList));
+        try {
+            initComboToCombo("Title", catalogService.FindAllBooks(), Book.class);
+        } catch (ObjectNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, " NO BOOKS FOUND ");
         }
-        if (jComboBoxSearchBy.getSelectedItem().equals("Moderator")) {
-            EmployeService employeService = new EmployeService();
-            Vector modoList = new Vector();
-            try {
-                for (Iterator it = employeService.FindEmployeByRight("IDEMPLOYERIGHT", "MODERATOR").iterator(); it.hasNext();) {
-                    Employe employe = (Employe) it.next();
 
-                    modoList.add(employe);
-
-                }
-            } catch (ObjectNotFoundException ex) {
-                JOptionPane.showMessageDialog(this, " NO MODERATORS FOUND ");
-            } catch (FinderException ex) {
-                Logger.getLogger(JPanelFormAppreciations.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            jComboBoxSelected.setModel(initSelectedModel(modoList));
+        try {
+            initComboToCombo("Moderator", employeService.FindEmployeByRight("IDEMPLOYERIGHT", "MODERATOR"), Employe.class);
+        } catch (ObjectNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, " NO MODERATORS FOUND ");
         }
-        if (jComboBoxSearchBy.getSelectedItem().equals("Customer")) {
-            CustomerService customerService = new CustomerService();
-            Vector customerList = new Vector();
-            try {
-                for (Iterator it = customerService.findCustomers().iterator(); it.hasNext();) {
-                    Customer customer = (Customer) it.next();
-                    customerList.add(customer);
-                }
-            } catch (ObjectNotFoundException ex) {
-                JOptionPane.showMessageDialog(this, " NO Customers FOUNDS ");
-            } catch (FinderException ex) {
-                Logger.getLogger(JPanelFormAppreciations.class.getName()).log(Level.SEVERE, null, ex);
-            }
 
-            jComboBoxSelected.setModel(initSelectedModel(customerList));
+        try {
+            initComboToCombo("Customer", customerService.findCustomers(), Customer.class);
+        } catch (ObjectNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, " NO MODERATORS FOUND ");
+        } catch (FinderException ex) {
+            Logger.getLogger(JPanelFormAppreciations.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }//GEN-LAST:event_jComboBoxSearchByActionPerformed
+    public void initComboToCombo(String holder, Collection queryList, Class obj) {
+        if (jComboBoxSearchBy.getSelectedItem().equals(holder)) {
+            Vector list = new Vector();
+            for (Iterator it = queryList.iterator(); it.hasNext();) {
+                list.add(obj.cast(it.next()));
+            }
+            jComboBoxSelected.setModel(initSelectedModel(list));
+        }
+    }
+
+    public JPanelFormAppreciations(JButton jButton1, JButton jButtonClear, JButton jButtonSearchBook, JButton jButtonSetStatus, JComboBox<String> jComboBoxSearchBy, JComboBox<String> jComboBoxSelected, JComboBox<String> jComboBoxStatus, JLabel jLabelAppreciation, JLabel jLabelAppreciationStatus, JLabel jLabelCustomerLogin, JLabel jLabelDate, JLabel jLabelDate1, JLabel jLabelIp, JLabel jLabelLogin, JLabel jLabelTitleISBN, JPanel jPanelBackgroundAppreciation, JPanel jPanelManager, JPanel jPanelSearchAppreciation, JPanel jPanelSearchBook, JPanel jPanelTraitment, JScrollPane jScrollPane2, JScrollPane jScrollPaneAppreciationsWaiting, JScrollPane jScrollPaneShowAppreciations, JTable jTableView, JTable jTableWaiting, JTextPane jTextComment, JLabel jTextDate, JLabel jTextIp, JLabel jTextModerator, JTextField jTextTitleISBN) {
+        this.jButton1 = jButton1;
+        this.jButtonClear = jButtonClear;
+
+        this.jButtonSetStatus = jButtonSetStatus;
+        this.jComboBoxSearchBy = jComboBoxSearchBy;
+        this.jComboBoxSelected = jComboBoxSelected;
+        this.jComboBoxStatus = jComboBoxStatus;
+        this.jLabelAppreciation = jLabelAppreciation;
+        this.jLabelAppreciationStatus = jLabelAppreciationStatus;
+        this.jLabelCustomerLogin = jLabelCustomerLogin;
+        this.jLabelDate = jLabelDate;
+        this.jLabelDate1 = jLabelDate1;
+        this.jLabelIp = jLabelIp;
+        this.jLabelLogin = jLabelLogin;
+        this.jLabelTitleISBN = jLabelTitleISBN;
+        this.jPanelBackgroundAppreciation = jPanelBackgroundAppreciation;
+        this.jPanelManager = jPanelManager;
+        this.jPanelSearchAppreciation = jPanelSearchAppreciation;
+        this.jPanelSearchBook = jPanelSearchBook;
+        this.jPanelTraitment = jPanelTraitment;
+        this.jScrollPane2 = jScrollPane2;
+        this.jScrollPaneAppreciationsWaiting = jScrollPaneAppreciationsWaiting;
+        this.jScrollPaneShowAppreciations = jScrollPaneShowAppreciations;
+        this.jTableView = jTableView;
+        this.jTableWaiting = jTableWaiting;
+        this.jTextComment = jTextComment;
+        this.jTextDate = jTextDate;
+        this.jTextIp = jTextIp;
+        this.jTextModerator = jTextModerator;
+
+    }
 
     private void jComboBoxSelectedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSelectedActionPerformed
         if (jComboBoxSearchBy.getSelectedItem().equals("Title")) {
             Book book = (Book) jComboBoxSelected.getSelectedItem();
             try {
-                intTabSearch(appreciationService2.FindAppreciationByChamp("TITREBOOK", book.getTitleBook()));
+                initTabSearch(appreciationService.FindAppreciationByChamp("TITREBOOK", book.getTitleBook()));
             } catch (ObjectNotFoundException ex) {
                 JOptionPane.showMessageDialog(this, "NO COMMENT FOUND FOR THIS BOOK");
             }
         }
+        if (jComboBoxSearchBy.getSelectedItem().equals("Customer")) {
+            Customer customer = (Customer) jComboBoxSelected.getSelectedItem();
+            try {
+                initTabSearch(appreciationService.FindAppreciationByChamp("LOGINCUSTOMERAPPRECIATE", customer.getLoginCustomer()));
+            } catch (ObjectNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "NO COMMENT FOUND FOR THIS CUSTOMER");
+            }
+        }
+        if (jComboBoxSearchBy.getSelectedItem().equals("Moderator")) {
+            Employe employe = (Employe) jComboBoxSelected.getSelectedItem();
+            try {
+                initTabSearch(appreciationService.FindAppreciationByEmployee("LOGINEMPLOYEAPPRECIATE", employe.getLoginEmploye()));
+            } catch (ObjectNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, "NO COMMENT FOUND FOR THIS EMPLOYE");
+            }
+        }
+
     }//GEN-LAST:event_jComboBoxSelectedActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            intTabSearch(appreciationService2.findAppreciation());
+            initTabSearch(appreciationService.findAppreciation());
         } catch (FinderException ex) {
             JOptionPane.showMessageDialog(this, "DATABASE ERROR NO APPRECIATIONS FOUND FOR ANY BOOKS");
         }
@@ -546,16 +635,12 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
     private void selectLineWaiting(ListSelectionEvent evt) {
 
         ListSelectionModel lsm = (ListSelectionModel) evt.getSource();
-
         if (lsm.isSelectionEmpty()) {
             System.out.println("No rows selected");
         } else {
             int selectedRow = lsm.getMinSelectionIndex();
             Appreciation comment = (Appreciation) comments.get(selectedRow);
-            jTextComment.setText(comment.getCommentAppreciate());
-            jLabelLogin.setText(comment.getLoginCustomerAppreciate().getLoginCustomer());
-            jTextDate.setText(comment.getDateAppreciate());
-            jTextIp.setText(comment.getId());
+            toField(comment);
 
         }
     }
@@ -563,28 +648,33 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
     private void selectLineSearch(ListSelectionEvent evt) {
 
         ListSelectionModel lsm = (ListSelectionModel) evt.getSource();
-
         if (lsm.isSelectionEmpty()) {
             System.out.println("No rows selected");
         } else {
             int selectedRow = lsm.getMinSelectionIndex();
             Appreciation comment = (Appreciation) oldComments.get(selectedRow);
-            jTextComment.setText(comment.getCommentAppreciate());
-            jLabelLogin.setText(comment.getLoginCustomerAppreciate().getLoginCustomer());
-            jTextDate.setText(comment.getDateAppreciate());
-            jTextIp.setText(comment.getId());
-            jTextModerator.setText(comment.getLoginEmployeAppreciate().getLoginEmploye());
-            if (comment.getModerateAppreciate().equalsIgnoreCase("1")) {
-                jComboBoxStatus.getModel().setSelectedItem("Approuved");
-
-            } else if (comment.getModerateAppreciate().equalsIgnoreCase("2")) {
-                jComboBoxStatus.getModel().setSelectedItem("Rejected");
-
-            } else {
-                jComboBoxStatus.getModel().setSelectedItem("Untreated");
-            }
-
+            toField(comment);
         }
+    }
+
+    private void toField(Appreciation comment) {
+        jTextComment.setText(comment.getCommentAppreciate());
+        jLabelLogin.setText(comment.getLoginCustomerAppreciate().getLoginCustomer());
+        jTextDate.setText(comment.getDateAppreciate());
+        jTextIp.setText(comment.getIpAppreciate());
+        jTextModerator.setText(comment.getLoginEmployeAppreciate().getLoginEmploye());
+        jTextid.setText(comment.getIdAppreciate());
+
+        if (comment.getStatusAppreciate() == 40) {
+            jComboBoxStatus.getModel().setSelectedItem("Approved");
+
+        } else if (comment.getStatusAppreciate() == 41) {
+            jComboBoxStatus.getModel().setSelectedItem("Rejected");
+
+        } else {
+            jComboBoxStatus.getModel().setSelectedItem("Untreated");
+        }
+
     }
 
     private void refreshTabWaiting() throws ObjectNotFoundException {
@@ -593,11 +683,10 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
         for (int i = lignes - 1; i >= 0; i--) {
             tabModelWait.removeRow(i);
         }
-        intTabWaiting();
+        initTabWaiting();
     }
 
     private void refreshTabSearch() throws ObjectNotFoundException {
-        
         int lignes = tabModelSearch.getRowCount();
         for (int i = lignes - 1; i >= 0; i--) {
             tabModelSearch.removeRow(i);
@@ -605,14 +694,15 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
         oldComments.removeAllElements();
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonClear;
-    private javax.swing.JButton jButtonSearchBook;
     private javax.swing.JButton jButtonSetStatus;
     private javax.swing.JComboBox<String> jComboBoxSearchBy;
     private javax.swing.JComboBox<String> jComboBoxSelected;
     private javax.swing.JComboBox<String> jComboBoxStatus;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelAppreciation;
     private javax.swing.JLabel jLabelAppreciationStatus;
     private javax.swing.JLabel jLabelCustomerLogin;
@@ -635,6 +725,6 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
     private javax.swing.JLabel jTextDate;
     private javax.swing.JLabel jTextIp;
     private javax.swing.JLabel jTextModerator;
-    private javax.swing.JTextField jTextTitleISBN;
+    private javax.swing.JLabel jTextid;
     // End of variables declaration//GEN-END:variables
 }

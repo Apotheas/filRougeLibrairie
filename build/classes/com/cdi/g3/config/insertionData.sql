@@ -120,7 +120,7 @@ Values
 INSERT INTO SubTheme (
             IDSUBTHEME,
             NAMESUBTHEME,
-            NAMETHEME)
+            NAMETHEMESB)
 
 Values 
             ('1','Americain','Amour'),
@@ -308,7 +308,9 @@ VALUES  ('processing',1),
         ('customerActif',11),
         ('customerBlacklist',12),
         ('inactif',20),
-        ('actif',21)
+        ('actif',21),
+        ('Approved',40),
+        ('Refused',41)
 
 
 /*==============================================================*/
@@ -464,20 +466,21 @@ INSERT INTO Appreciation
 		IPAPPRECIATE,
                 loginEmployeAppreciate,
 		moderateAPPRECIATE,
-		DATEmoderateAPPRECIATE
+		DATEmoderateAPPRECIATE,
+                STATUSAPPRECIATE
 		) 
 
-VALUES ('1','Bob01','1' ,'2330081545','2017-01-11','Moving. . . powerful. . .The kind of book that makes you feel like youve lived several times over.',5,'5.135.158.101','employe02', 1, '2017-01-15' ),		 
+VALUES ('1','Bob01','1' ,'2330081545','2017-01-11','Moving. . . powerful. . .The kind of book that makes you feel like youve lived several times over.',5,'5.135.158.101','employe02', 1, '2017-01-15',40 ),		 
 	------------------------------------------	
-	 ('2','zidane02','3' ,'2290140961','2017-02-12' ,'Stirring. . . humane and impassioned . . . beautiful and rich.',4,'12.130.206.44','employe02' , 1, '2017-02-15'), 
+	 ('2','zidane02','3' ,'2290140961','2017-02-12' ,'Stirring. . . humane and impassioned . . . beautiful and rich.',4,'12.130.206.44','employe02' , 1, '2017-02-15',40 ), 
 	-----------------------------------------	
-	 ('3','marc03','11' ,'2290140961','2017-03-13','A fiercely unforgettable novel…a love story with characters so heartbreaking and compelling ',3,'104.13.125.62','employe02' , 1, '2017-03-15' ), 
-	 ('4','marc03','10' ,'2290147001','2017-03-13',' expected to love this book. I loved God of Small Things and several of my all-time favourite books are by Indian authors. ',3,'168.181.48.54',null , 0, null ), 
+	 ('3','marc03','11' ,'2290140961','2017-03-13','A fiercely unforgettable novel…a love story with characters so heartbreaking and compelling ',3,'104.13.125.62','employe02' , 1, '2017-03-15' ,40 ), 
+	 ('4','marc03','10' ,'2290147001','2017-03-13',' expected to love this book. I loved God of Small Things and several of my all-time favourite books are by Indian authors. ',3,'168.181.48.54',null , 0, null ,null), 
 	------------------------------------------
-        ('5','Nicole04','12' ,'2290139998','2017-04-14','Essentially this is a book without a plot and if you realise that going in, you’ll probably struggle less with it than I did. ', 2,'173.49.240.22','employe02', 1, '2017-04-15'  ), 
-	 ('6','Nicole04','6' ,'2253092770','2017-04-14','this is the work of a dextrous, truly gifted, truly extraordinary writer. every single scene crackles on the page, coming to life fully.', 2,'188.24.236.80',null, 0, NULL  ),
+        ('5','Nicole04','12' ,'2290139998','2017-04-14','FUUUCKKK I WONT BOUGHT ANY MORE BOOKS FROM YOUR FUCKING STORE !! FUCK ALL OF YOU FUCKING ASSHOLES !! ', 2,'173.49.240.22','employe02', 1, '2017-04-15' ,41  ), 
+	 ('6','Nicole04','6' ,'2253092770','2017-04-14','this is the work of a dextrous, truly gifted, truly extraordinary writer. every single scene crackles on the page, coming to life fully.', 2,'188.24.236.80',null, 0, NULL ,null ),
 ------------------------------------------
-	 ('7','Angelina05','4' ,'2811222510','2017-05-15','A rambling wonderful book with imagery and emotions liberally sprinkled throughout.', 1,'93.113.244.206' ,null, 0, null  )
+	 ('7','Angelina05','4' ,'2811222510','2017-05-15','A rambling wonderful book with imagery and emotions liberally sprinkled throughout.', 1,'93.113.244.206' ,null, 0, null,null  )
 	
 
 

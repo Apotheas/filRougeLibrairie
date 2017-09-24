@@ -33,6 +33,7 @@ public class Appreciation extends DomainObject implements Serializable{
     private String ipAppreciate;
     private String moderateAppreciate;
     private String dateModerateAppreciate;
+    private int statusAppreciate;
    
 
     
@@ -46,9 +47,7 @@ public class Appreciation extends DomainObject implements Serializable{
             throw new CheckException("Invalid loginCustomerBillAdress , must be insert ");
         }
 
-        if (idOrderlineAppreciate == null || "".equals(idOrderlineAppreciate)) {
-            throw new CheckException("Invalid idOrderlineAppreciate, must be insert");
-        }
+      
 
         if (commentAppreciate == null || "".equals(commentAppreciate)) {
             throw new CheckException("Invalid commentAppreciate, must be insert");
@@ -205,6 +204,15 @@ public class Appreciation extends DomainObject implements Serializable{
     public void setDateModerateAppreciate(String dateModerateAppreciate) {
         this.dateModerateAppreciate = dateModerateAppreciate;
     }
+
+    public int getStatusAppreciate() {
+        return statusAppreciate;
+    }
+
+    public void setStatusAppreciate(int statusAppreciate) {
+        this.statusAppreciate = statusAppreciate;
+    }
+    
 
     @Override
     public String toString() {

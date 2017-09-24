@@ -29,13 +29,13 @@ import java.util.Collection;
 public class AppreciationDAO extends AbstractDataAccessObject {
 
     private static final String TABLE = "Appreciation";
-    private static final String COLUMNS = "idAppreciate, loginEmployeAppreciate, loginCustomerAppreciate,"
-            + " idOrderlineAppreciate, numIsbnBookAppreciate, commentAppreciate, ratingAppreciate, dateAppreciate,"
-            + "ipAppreciate, moderateAppreciate, dateModerateAppreciate ";
+    private static final String COLUMNS = "idAppreciate, loginCustomerAppreciate,"
+            + " idOrderlineAppreciate, numIsbnBookAppreciate,  dateAppreciate, ipAppreciate, commentAppreciate,"
+            + " ratingAppreciate,loginEmployeAppreciate, moderateAppreciate, dateModerateAppreciate, statusappreciate ";
 
-    private static final String COLUMNS_PREP = "loginEmployeAppreciate, loginCustomerAppreciate,"
-            + " idOrderlineAppreciate, numIsbnBookAppreciate, commentAppreciate, ratingAppreciate, dateAppreciate,"
-            + " ipAppreciate, moderateAppreciate, dateModerateAppreciate, idAppreciate";
+    private static final String COLUMNS_PREP = " loginCustomerAppreciate,"
+            + " idOrderlineAppreciate, numIsbnBookAppreciate,  dateAppreciate, ipAppreciate, commentAppreciate,"
+            + " ratingAppreciate, loginEmployeAppreciate, moderateAppreciate, dateModerateAppreciate, statusappreciate, idAppreciate";
 
     // Used to get a unique id with the UniqueIdGenerator
     private static final String COUNTER_NAME = "Appreciation";
@@ -43,7 +43,7 @@ public class AppreciationDAO extends AbstractDataAccessObject {
     @Override
     protected String getInsertSqlPreparedStatement() {
         final String sql;
-        sql = "INSERT INTO " + TABLE + "(" + COLUMNS_PREP + ") VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        sql = "INSERT INTO " + TABLE + "(" + COLUMNS_PREP + ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         return sql;
     }
 
@@ -57,9 +57,9 @@ public class AppreciationDAO extends AbstractDataAccessObject {
     @Override
     protected String getUpdateSqlPreparedStatement() {
         final String sql;
-        sql = "UPDATE " + TABLE + " SET loginEmployeAppreciate = ?, loginCustomerAppreciate = ?, idOrderlineAppreciate = ?,"
-                + " numIsbnBookAppreciate = ?, commentAppreciate = ?, ratingAppreciate = ?, dateAppreciate = ?, ipAppreciate = ?,"
-                + " moderateAppreciate = ?, dateModerateAppreciate = ? WHERE idAppreciate = ?";
+        sql = "UPDATE " + TABLE + " SET loginCustomerAppreciate = ?, idOrderlineAppreciate = ?, NumIsbnBookAppreciate = ?,"
+                + " dateAppreciate = ?, ipAppreciate = ?, commentAppreciate = ?, ratingAppreciate = ?, loginEmployeAppreciate = ?,"
+                + " moderateAppreciate = ?, dateModerateAppreciate = ? , statusappreciate = ? WHERE idAppreciate = ?";
         return sql;
     }
 
@@ -79,20 +79,21 @@ public class AppreciationDAO extends AbstractDataAccessObject {
 
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
-        final Appreciation adress;
-        adress = new Appreciation(resultSet.getString(1));
-        adress.setLoginEmployeAppreciate(new Employe(resultSet.getString(2)));
-        adress.setLoginCustomerAppreciate(new Customer(resultSet.getString(3)));
-        adress.setIdOrderlineAppreciate(resultSet.getString(4));
-        adress.setNumIsbnBookAppreciate(resultSet.getString(5));
-        adress.setCommentAppreciate(resultSet.getString(6));
-        adress.setRatingAppreciate(resultSet.getString(7));
-        adress.setDateAppreciate(resultSet.getString(8));
-        adress.setIdAppreciate(resultSet.getString(9));
-        adress.setModerateAppreciate(resultSet.getString(10));
-        adress.setDateModerateAppreciate(resultSet.getString(11));
-
-        return adress;
+        final Appreciation appreciation;
+        appreciation = new Appreciation();
+        appreciation.setIdAppreciate(resultSet.getString(1));        
+        appreciation.setLoginCustomerAppreciate(new Customer(resultSet.getString(2)));
+        appreciation.setIdOrderlineAppreciate(resultSet.getString(3));
+        appreciation.setNumIsbnBookAppreciate(resultSet.getString(4));
+        appreciation.setDateAppreciate(resultSet.getString(5));
+         appreciation.setIpAppreciate(resultSet.getString(6));
+        appreciation.setCommentAppreciate(resultSet.getString(7));
+        appreciation.setRatingAppreciate(resultSet.getString(8));     
+        appreciation.setLoginEmployeAppreciate(new Employe(resultSet.getString(9)));
+        appreciation.setModerateAppreciate(resultSet.getString(10));
+        appreciation.setDateModerateAppreciate(resultSet.getString(11));
+        appreciation.setStatusAppreciate(resultSet.getInt(12));
+        return appreciation;
     }
 
     @Override
@@ -116,17 +117,19 @@ public class AppreciationDAO extends AbstractDataAccessObject {
         int retour = 0;
         try {
 
-            prestmt.setString(1, ((Appreciation) object).getLoginEmployeAppreciate().getId());
-            prestmt.setString(2, ((Appreciation) object).getLoginCustomerAppreciate().getId());
-            prestmt.setString(3, ((Appreciation) object).getIdOrderlineAppreciate());
-            prestmt.setString(4, ((Appreciation) object).getNumIsbnBookAppreciate());
-            prestmt.setString(5, ((Appreciation) object).getCommentAppreciate());
-            prestmt.setString(6, ((Appreciation) object).getRatingAppreciate());
-            prestmt.setString(7, ((Appreciation) object).getDateAppreciate());
-            prestmt.setString(8, ((Appreciation) object).getIdAppreciate());
+            
+            prestmt.setString(1, ((Appreciation) object).getLoginCustomerAppreciate().getId());
+            prestmt.setString(2, ((Appreciation) object).getIdOrderlineAppreciate());
+            prestmt.setString(3, ((Appreciation) object).getNumIsbnBookAppreciate());           
+            prestmt.setString(4, ((Appreciation) object).getDateAppreciate());
+            prestmt.setString(5, ((Appreciation) object).getIpAppreciate());
+            prestmt.setString(6, ((Appreciation) object).getCommentAppreciate());
+            prestmt.setString(7, ((Appreciation) object).getRatingAppreciate());
+            prestmt.setString(8, ((Appreciation) object).getLoginEmployeAppreciate().getId());
             prestmt.setString(9, ((Appreciation) object).getModerateAppreciate());
             prestmt.setString(10, ((Appreciation) object).getDateModerateAppreciate());
-            prestmt.setString(11, ((Appreciation) object).getId());
+            prestmt.setInt(11, ((Appreciation) object).getStatusAppreciate());
+            prestmt.setString(12, ((Appreciation) object).getIdAppreciate());
 
             retour = prestmt.executeUpdate();
 

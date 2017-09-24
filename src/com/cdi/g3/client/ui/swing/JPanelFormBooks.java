@@ -13,8 +13,11 @@ import com.cdi.g3.common.utiles.Utility;
 import com.cdi.g3.server.domain.catalog.Author;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.catalog.Editor;
+import com.cdi.g3.server.domain.catalog.SubTheme;
+import com.cdi.g3.server.domain.catalog.Theme;
 import com.cdi.g3.server.domain.other.CodeTVA;
 import com.cdi.g3.server.service.catalog.CatalogService;
+import com.cdi.g3.server.service.catalog.ThemeService;
 import com.cdi.g3.server.service.other.OtherService;
 import com.cdi.g3.server.service.publishing.PublishingService;
 import java.util.ArrayList;
@@ -37,6 +40,7 @@ public class JPanelFormBooks extends javax.swing.JPanel {
 
     private DefaultTableModel tabModel = new DefaultTableModel();
     private PublishingService publishingService = new PublishingService();
+    private ThemeService themeService = new ThemeService();
     private CatalogService catalogService = new CatalogService();
     private OtherService otherService = new OtherService();
     private Vector tvaList = new Vector();
@@ -45,13 +49,7 @@ public class JPanelFormBooks extends javax.swing.JPanel {
 
     public JPanelFormBooks() {
         initComponents();
-        tabModel.addColumn("ISBN");
-        tabModel.addColumn("AUTHOR");
-        tabModel.addColumn("EDITOR");
-        tabModel.addColumn("TITLE");
-        tabModel.addColumn("SUB-TITLE");
-        tabModel.addColumn("STOCK");
-        tabModel.addColumn("COST");
+        initColumnTab();
         jTree.setModel(initAuthorTreeModel());
         jTable.setModel(tabModel);
         jComboBoxTreeView.setModel(initTreeViewModel());
@@ -60,6 +58,16 @@ public class JPanelFormBooks extends javax.swing.JPanel {
         jComboBoxUpdateBy.setModel(initUpdateByModel());
         jButtonUpdate.setVisible(false);
         tabViewAll();
+    }
+
+    private void initColumnTab() {
+        tabModel.addColumn("ISBN");
+        tabModel.addColumn("AUTHOR");
+        tabModel.addColumn("EDITOR");
+        tabModel.addColumn("TITLE");
+        tabModel.addColumn("SUB-TITLE");
+        tabModel.addColumn("STOCK");
+        tabModel.addColumn("COST");
     }
 
     //___________SEARCH-BY COMBOBOX MODEL_______________//
@@ -203,16 +211,50 @@ public class JPanelFormBooks extends javax.swing.JPanel {
         return root;
     }
     //______________________________________________________//
+    //______________________________________________________//
+    //________________JTREE Theme MODELS____________________//
+    private DefaultTreeModel initTreeThemeModel() {
+
+        return new DefaultTreeModel(initByThemeTree());
+    }
+
+    private DefaultMutableTreeNode initByThemeTree() {
+
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Themes");
+        DefaultMutableTreeNode tnTheme = null;
+        DefaultMutableTreeNode tnSubTheme = null;
+        DefaultMutableTreeNode tnBook = null;
+        for (Iterator iteratorA = themeService.findAllThemes().iterator(); iteratorA.hasNext();) {
+            Theme theme = (Theme) iteratorA.next();
+            tnTheme = new DefaultMutableTreeNode(theme);
+            root.add(tnTheme);
+            try {
+                for (Iterator iteratorB = themeService.findAllSubForATheme("NAMETHEMESB", theme.getNameTheme()).iterator(); iteratorB.hasNext();) {
+                    SubTheme sub = (SubTheme) iteratorB.next();
+                    tnSubTheme = new DefaultMutableTreeNode(sub);
+                    tnTheme.add(tnSubTheme);
+
+                    for (Iterator iteratorC = catalogService.FindBooksBySub(sub.getNameSubTheme(), theme.getNameTheme()).iterator(); iteratorC.hasNext();) {
+                        Book book = (Book) iteratorC.next();
+                        tnBook = new DefaultMutableTreeNode(book);
+                        tnSubTheme.add(tnBook);
+                    }
+
+                }
+            } catch (ObjectNotFoundException ex) {
+
+            }
+        }
+
+        return root;
+    }
+    //______________________________________________________//
 
     private void clearTab() {
         int lignes = tabModel.getRowCount();
         for (int i = lignes - 1; i >= 0; i--) {
             tabModel.removeRow(i);
         }
-    }
-
-    private void synchTree() {
-        jComboBoxTreeView.setModel(initTreeViewModel());
     }
 
     /**
@@ -810,7 +852,7 @@ public class JPanelFormBooks extends javax.swing.JPanel {
         jTextStock.setText(String.valueOf(book.getStockBook()));
         Editor editor = (Editor) publishingService.findEditorByChamp("numisbnbook", book.getId());
         jTextEditor.setText(editor.getNameEditor());
-       jComboBoxTVA.getModel().setSelectedItem("reduced");
+        jComboBoxTVA.getModel().setSelectedItem("reduced");
         jComboBoxTVA.setSelectedItem(book.getCodeTva().getTypeTva());
         jComboBoxAuthors.setModel(initAuthorsModel());
         jButtonUpdate.setVisible(true);
@@ -828,6 +870,7 @@ public class JPanelFormBooks extends javax.swing.JPanel {
         if (jComboBoxSearchBy.getSelectedItem().equals("ISBN")) {
             searchTableauSettings("NUMISBNBOOK", jTextSearch.getText());
         }
+       
 
 
     }//GEN-LAST:event_jButtonSearchActionPerformed
@@ -877,6 +920,9 @@ public class JPanelFormBooks extends javax.swing.JPanel {
         }
         if (jComboBoxTreeView.getSelectedItem().equals("Editors")) {
             jTree.setModel(initEditorTreeModel());
+        }
+         if (jComboBoxTreeView.getSelectedItem().equals("Themes")) {
+            jTree.setModel(initTreeThemeModel());
         }
     }//GEN-LAST:event_jComboBoxTreeViewActionPerformed
 
@@ -1150,12 +1196,12 @@ public class JPanelFormBooks extends javax.swing.JPanel {
         if (jTextLongSize.getText().isEmpty()) {
             jTextLongSize.setText("0.0");
         }
-        if (jTextStock.getText().isEmpty()){
-             JOptionPane.showMessageDialog(this, "Cannot Update or create A null Stock  ", "warning", JOptionPane.ERROR_MESSAGE);
+        if (jTextStock.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Cannot Update or create A null Stock  ", "warning", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-        if (jTextPrice.getText().isEmpty()){
-             JOptionPane.showMessageDialog(this, "PRICE CANNOT BE NULL ! THIS IS NOT A CHARITY STORE ", "warning", JOptionPane.ERROR_MESSAGE);
+        if (jTextPrice.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "PRICE CANNOT BE NULL ! THIS IS NOT A CHARITY STORE ", "warning", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;

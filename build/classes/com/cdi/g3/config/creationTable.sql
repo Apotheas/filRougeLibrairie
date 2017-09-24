@@ -82,7 +82,7 @@ create table THEME
 create table SUBTHEME 
 (  IDSUBTHEME			varchar(10)            not null,
    NAMESUBTHEME         varchar(50)                    not null,
-   NAMETHEME            varchar(50)                    not null,
+   NAMETHEMESB            varchar(50)                    not null,
    constraint PK_SUBTHEME primary key (IDSUBTHEME)
 );
 
@@ -310,7 +310,8 @@ create table APPRECIATION
    
    LOGINEMPLOYEAPPRECIATE varchar(50)                   null,
    moderateAPPRECIATE	bit				null,
-   DATEmoderateAPPRECIATE		date		null
+   DATEmoderateAPPRECIATE		date		null,
+   STATUSAPPRECIATE        integer                        null
    constraint PK_APPRECIATION primary key (IDAPPRECIATE)
 );
 

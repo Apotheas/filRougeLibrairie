@@ -17,6 +17,7 @@ import com.cdi.g3.server.domain.company.EmployeDAO;
 import com.cdi.g3.server.domain.customers.Appreciation;
 import com.cdi.g3.server.domain.customers.AppreciationDAO;
 import com.cdi.g3.server.domain.customers.Customer;
+import com.cdi.g3.server.domain.orders.OrdersDAO;
 
 import com.cdi.g3.server.service.AbstractService;
 import java.util.Collection;
@@ -34,6 +35,7 @@ public class AppreciationService extends AbstractService {
     // ======================================
     private static final AppreciationDAO _daoAppreciation = new AppreciationDAO();
     private static final EmployeDAO _daoEmploye = new EmployeDAO();
+    
 
     // ======================================
     // = Constructors =
@@ -71,10 +73,14 @@ public class AppreciationService extends AbstractService {
         
         return _daoAppreciation.findAllByChamp(column, champ);
         
+     
         
         
         
-        
+    }
+      
+    public Collection findWaitingAppreciate() throws ObjectNotFoundException{
+        return _daoAppreciation.selectAllNonModerate();
     }
 
     public Appreciation findAppreciation( final String appreciationId ) throws FinderException, CheckException {
@@ -109,34 +115,9 @@ public class AppreciationService extends AbstractService {
         }
     }
 
-    public void updateAppreciation(Appreciation appreciation  ) throws UpdateException, CheckException {
-        final String mname = "updateAppreciation";
-        Trace.entering( _cname, mname, appreciation );
-
-        if ( appreciation == null )
-            throw new UpdateException( "Appreciation object is null" );
-
-        checkId( appreciation.getId() );
-
-       final Appreciation appreciationFinded;
-
-        // Checks if the object exists
-        try {
-            appreciationFinded = (Appreciation) _daoAppreciation.findByPrimaryKey( appreciation.getId() );
-        } catch ( FinderException e ) {
-            throw new UpdateException( "Appreciation must exist to be updated" );
-        }
-        
-        appreciation.checkData();
-        appreciation = setAppreciation(appreciation, appreciationFinded );
-        
-
-        // Updates the object
-        try {
-            _daoAppreciation.update( appreciationFinded );
-        } catch ( ObjectNotFoundException e ) {
-            throw new UpdateException( "Appreciation must exist to be updated" );
-        }
+    public void updateAppreciation(Appreciation appreciation  ) throws ObjectNotFoundException {
+             
+            _daoAppreciation.update( appreciation);
     }
 
     public Collection findAppreciation() throws FinderException {

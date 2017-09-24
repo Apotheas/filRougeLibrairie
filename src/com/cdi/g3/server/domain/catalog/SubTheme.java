@@ -12,7 +12,7 @@ public class SubTheme extends DomainObject implements Serializable{
 
    private String  idSubTheme ; 
    private String  nameSubTheme ; 
-   private String  nameTheme ; 
+   private String  nameThemeSB ; 
    private Collection listSubTheme = new ArrayList () ; 
    
 
@@ -26,7 +26,7 @@ public class SubTheme extends DomainObject implements Serializable{
             throw new CheckException("Invalid nameSubTheme, must be insert");
         }
 
-        if (nameTheme == null || "".equals(nameTheme)) {
+        if (nameThemeSB == null || "".equals(nameThemeSB)) {
             throw new CheckException("Invalid nameTheme, must be insert");
         }
 
@@ -37,14 +37,14 @@ public class SubTheme extends DomainObject implements Serializable{
     public SubTheme() {
     }
 
-    public SubTheme(String nameSubTheme) {
-        this.nameSubTheme = nameSubTheme;
+    public SubTheme(String idSubTheme) {
+        this.idSubTheme = idSubTheme;
     }
 
     public SubTheme(String idSubTheme, String nameSubTheme, String nameTheme) {
         this.idSubTheme = idSubTheme;
         this.nameSubTheme = nameSubTheme;
-        this.nameTheme = nameTheme;
+        this.nameThemeSB = nameTheme;
     }
  
     // ======================================
@@ -80,11 +80,11 @@ public class SubTheme extends DomainObject implements Serializable{
     }
 
     public String getNameTheme() {
-        return nameTheme;
+        return nameThemeSB;
     }
 
     public void setNameTheme(String nameTheme) {
-        this.nameTheme = nameTheme;
+        this.nameThemeSB = nameTheme;
     }
 
     public Collection getListSubTheme() {
@@ -97,9 +97,7 @@ public class SubTheme extends DomainObject implements Serializable{
 
     @Override
     public String toString() {
-        return "idSubTheme=" + idSubTheme +
-               ", nameSubTheme=" + nameSubTheme +
-               ", nameTheme=" + nameTheme ;
+        return  nameSubTheme ;
     }
     
     
