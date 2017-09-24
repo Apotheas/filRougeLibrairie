@@ -88,9 +88,16 @@ public class AdressDAO extends AbstractDataAccessObject {
         final Adress adress;
         adress = new Adress(resultSet.getString(1));
 
-        adress.setCustomerShipAdress(new Customer(resultSet.getString(2)));
-
-        adress.setCustomerBillAdress(new Customer(resultSet.getString(3)));
+        if (resultSet.getString(2) != null) {
+            adress.setCustomerShipAdress(new Customer(resultSet.getString(2)));
+        } else {
+            adress.setCustomerShipAdress(null);
+        }
+        if (resultSet.getString(3) != null) {
+            adress.setCustomerBillAdress(new Customer(resultSet.getString(3)));
+        } else {
+            adress.setCustomerBillAdress(null);
+        }
         adress.setNameReceiverAdress(resultSet.getString(4));
         adress.setTypeStreetAdress(resultSet.getString(5));
         adress.setNumAdress(resultSet.getString(6));
@@ -99,8 +106,11 @@ public class AdressDAO extends AbstractDataAccessObject {
         adress.setZipcodeAdress(resultSet.getString(9));
         adress.setCityAdress(resultSet.getString(10));
         adress.setCountryAdress(resultSet.getString(11));
+        if (resultSet.getString(12) != null) {
         adress.setNameCompanyReceiverAdress(new Company(resultSet.getString(12)));
-
+        } else {
+            adress.setNameCompanyReceiverAdress(null);
+        }
         return adress;
     }
 
