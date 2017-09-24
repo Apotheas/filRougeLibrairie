@@ -71,7 +71,7 @@ public class InfoStatusDAO extends AbstractDataAccessObject{
     @Override
     protected String getSelectAllSqlStatement() {
         final String sql;
-        sql = "SELECT " + COLUMNS + " FROM " + TABLE;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + "ORDER BY valueInfoStatus";
         return sql;
     }
     
@@ -122,11 +122,8 @@ public class InfoStatusDAO extends AbstractDataAccessObject{
         Trace.exiting(getCname(), mname, new Integer(objects.size()));
         return objects;
     
-    
     }
 
-    
-    
 
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {

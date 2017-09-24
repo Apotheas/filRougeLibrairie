@@ -10,6 +10,7 @@ import com.cdi.g3.common.exception.CreateException;
 import com.cdi.g3.common.exception.FinderException;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.exception.RemoveException;
+import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.catalog.BookDAO;
@@ -23,8 +24,11 @@ import com.cdi.g3.server.domain.orders.OrderLine;
 import com.cdi.g3.server.domain.orders.OrderLineDAO;
 import com.cdi.g3.server.domain.orders.Orders;
 import com.cdi.g3.server.domain.orders.OrdersDAO;
+import com.cdi.g3.server.domain.orders.PachageShipper;
+import com.cdi.g3.server.domain.orders.PachageShipperDAO;
 import com.cdi.g3.server.service.AbstractService;
 import com.cdi.g3.server.service.customers.AdressService;
+import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -44,6 +48,8 @@ public class OrderService extends AbstractService {
     private static final AdressDAO _adresskDAO = new AdressDAO();
     private static final AdressService _adressService = new AdressService();
     private static final InfoStatusDAO _infoStatusDAO = new InfoStatusDAO();
+    public static  final PachageShipperDAO  _pachageShipperDAO = new PachageShipperDAO();
+
 
     // ======================================
     // =           Business methods         =
@@ -93,7 +99,7 @@ public class OrderService extends AbstractService {
         return order.getId();
     }
     
-    public Orders createOrder(final Orders order) throws CreateException, CheckException {
+    public Orders createOrder(final Orders order) throws FinderException, CheckException,CreateException {
         final String mname = "createOrder";
         Trace.entering(_cname, mname, order);
         
@@ -113,7 +119,7 @@ public class OrderService extends AbstractService {
         try {
             _customerDAO.findByPrimaryKey(order.getCustomer().getId());
         } catch (FinderException e) {
-            throw new CreateException("Customer must exist to create an order");
+            throw new FinderException("Customer must exist to create an order");
         }
         
         String numCommande = getUniqueId("NUMCOMMANDE");
@@ -139,19 +145,15 @@ public class OrderService extends AbstractService {
         Customer customer = (Customer) _customerDAO.findByPrimaryKey(order.getCustomer().getId());
         order.setCustomer(customer);
         
-        // Retreives the data for the AdressBilling and sets it
-       
+        // Retreives the data for the AdressBilling and sets it       
+        Adress adressBilling = (Adress) _adresskDAO.findByPrimaryKey(order.getAdressBilling().getId());
+        order.setAdressBilling(adressBilling);
         
-//        Adress adressBilling = (Adress) _adresskDAO.findByPrimaryKey(order.getAdressBilling().getId());
-//        order.setAdressBilling(adressBilling);
-//        
-//        // Retreives the data for the AdressShipping and sets it
-//        Adress adressShipping = (Adress) _adresskDAO.findByPrimaryKey(order.getAdressShipping().getId());
-//        order.setAdressShipping(adressShipping);
-
-
-
+         //Retreives the data for the AdressShipping and sets it
+        Adress adressShipping = (Adress) _adresskDAO.findByPrimaryKey(order.getAdressShipping().getId());
+        order.setAdressShipping(adressShipping);
 //         Retreives the data for all the order lines
+        
         final Collection listOrderLines = _orderLineDAO.findAllByChamp("idOrder", orderId);
         order.setListOrderLines(listOrderLines);
         return order;
@@ -226,7 +228,7 @@ public class OrderService extends AbstractService {
          final String mname = "findStatus";
         Trace.entering(_cname, mname);
         // Finds all the objects
-        final Collection status = _infoStatusDAO.findAllStatusByCondition("Between 0 and 9");
+        final Collection status = _infoStatusDAO.findAllStatusByCondition("Between 0 and 9 ORDER BY valueInfoStatus");
 
         Trace.exiting(_cname, mname, new Integer(status.size()));
         return status;
@@ -239,9 +241,59 @@ public class OrderService extends AbstractService {
         order.setListOrderLines(listOrderLines);
         }
         return orders;
-        
-         
+                 
     }
+     
+     
+     public Collection findPackagesShipper() throws FinderException {
+        final String mname = "findPackagesShipper";
+        Trace.entering(_cname, mname);
+        // Finds all the objects
+        final Collection packagesShippers = _pachageShipperDAO.findAll();        
+        Trace.exiting(_cname, mname, new Integer(packagesShippers.size()));
+        return packagesShippers;
+    }
+     
+      
+     
+     public PachageShipper findPackagesShipper(String idPachageShipper) throws FinderException {
+        final String mname = "findPackagesShipper";
+        Trace.entering(_cname, mname);
+        // Finds all the objects
+        final PachageShipper packageShipper =  (PachageShipper)_pachageShipperDAO.findByPrimaryKey(idPachageShipper);        
+        Trace.exiting(_cname, mname, packageShipper);
+        return packageShipper;
+    }
+     
+     
+     public void updateOrder(Orders order) throws UpdateException, CheckException {
+        final String mname = "updateOrder";
+        Trace.entering(_cname, mname, order);
+
+        if (order == null) {
+            throw new UpdateException("order object is null");
+        }
+        checkId(order.getId());
+        // Checks if the object exists
+        try {
+            
+           _customerDAO.findByPrimaryKey(order.getCustomer().getId());
+        } catch (FinderException e) {
+            throw new UpdateException("oreder must exist to be updated");
+        }
+
+        order.checkData();
+//        customer = setCustomer(customer, customerFinded);
+
+        // Updates the object
+        try {
+            _orderDAO.update(order);
+        } catch (ObjectNotFoundException e) {
+            throw new UpdateException("Order must exist to be updated");
+        }
+    }
+     
+     
     
     
     /**

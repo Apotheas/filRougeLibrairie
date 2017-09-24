@@ -115,8 +115,7 @@ public class OrdersDAO extends AbstractDataAccessObject {
         sql = "SELECT " + COLUMNS+ " FROM " + TABLE  +" ord "+" join InfoStatus infs " +
               "On ord.NAMEINFOSTATUSORDER = infs.NAMEINFOSTATUS "+
               " WHERE "+  column + " = '"+ champ+"'";
-        System.out.println(sql);
-         
+        
         ResultSet resultSet = null;
         final Collection objects = new ArrayList();
          // Gets a database connection
@@ -162,10 +161,12 @@ public class OrdersDAO extends AbstractDataAccessObject {
 
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
-        final Orders order;
+        final Orders order;       
         order = new Orders(resultSet.getString(1), new Adress(resultSet.getString(2)),
                 new Customer(resultSet.getString(3)), resultSet.getDate(4), new InfoStatus(resultSet.getString(5)));
-        order.setAdressShipping(new Adress(resultSet.getString(6)));
+        
+        order.setAdressBilling(new Adress(resultSet.getString(6)));
+        
         order.setPachageShipper(new PachageShipper(resultSet.getString(7)));
         order.setInternalNumOrder(resultSet.getString(8));
         order.setPaymentSystemOrder(resultSet.getString(9));

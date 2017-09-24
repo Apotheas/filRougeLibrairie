@@ -21,12 +21,12 @@ public class PachageShipperDAO extends AbstractDataAccessObject{
     // ======================================
     // =             Attributes             =
     // ======================================
-    private static final String TABLE = "PachageShipper";  
+    private static final String TABLE = "PACKAGESHIPPER";  
     
     private static final String COLUMNS = "IDPACKAGESHIPPER, NAMESHIPPER, COSTPACKAGESHIPPER";
     private static final String COLUMNS_PREP = "NAMESHIPPER, COSTPACKAGESHIPPER, IDPACKAGESHIPPER";
     // Used to get a unique id with the UniqueIdGenerator
-    private static final String COUNTER_NAME = "PachageShipper";
+    private static final String COUNTER_NAME = "PACKAGESHIPPER";
     
     
     

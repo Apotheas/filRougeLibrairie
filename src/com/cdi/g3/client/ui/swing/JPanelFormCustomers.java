@@ -40,8 +40,8 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
     //public class JPanelFormCustomers extends  JDesktopPane{
     CustomerService serviceCustomer = new CustomerService();
-    DefaultTableModel myModelAdressShip = new DefaultTableModel();
-    DefaultTableModel myModelAdressBill = new DefaultTableModel();
+    DefaultComboBoxModel myModelAdressShip = new DefaultComboBoxModel();
+    DefaultComboBoxModel myModelAdressBill = new DefaultComboBoxModel();
     DefaultTableModel myModelCustomers = new DefaultTableModel();
     Vector adressBillList = new Vector();
     Vector adressShipList = new Vector();
@@ -54,13 +54,18 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         return jDialogAddAdressShip;
     }
 
-    public DefaultTableModel getMyModelAdressBill() {
-        return myModelAdressBill;
+    public DefaultComboBoxModel getMyModelAdress(Collection adresses) {
+       return   initAdressShipComboBoxModel(adresses);
     }
 
     public JDialog getjDialogAddAdressShip() {
         return jDialogAddAdressBill;
     }
+
+    public Vector getCustomersVector() {
+        return customersVector;
+    }
+    
 
     /**
      * Creates new form Accounts
@@ -77,11 +82,11 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         });
 
         jPanelShippingAdress1.setVisible(false);
-        jPanelBillingAdress1.setVisible(false);        
+        jPanelBillingAdress.setVisible(false);        
         jPanelCustomer.setVisible(false);
         jPanelAdress.setVisible(false);
         jPanelShippingAdress1.setVisible(false);
-        jPanelBillingAdress1.setVisible(false);
+        jPanelBillingAdress.setVisible(false);
         
 //        this.jTableCustomers.getColumn("lOGIN").(false);
         
@@ -111,39 +116,39 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jDialogAddAdressShip = new javax.swing.JDialog();
         jPanelShippingAdress1 = new javax.swing.JPanel();
         jLabeNameReceiverAdressShipp1 = new javax.swing.JLabel();
-        jTextNameReceiverAdressShipp1 = new javax.swing.JTextField();
+        jTextNameReceiverAdressShipp = new javax.swing.JTextField();
         jLabelStreetShipp1 = new javax.swing.JLabel();
         jLabelZipCodeShipp1 = new javax.swing.JLabel();
         jLabelCityShipp1 = new javax.swing.JLabel();
-        jTextStreetShipp1 = new javax.swing.JTextField();
-        jTextCityShipp1 = new javax.swing.JTextField();
-        jTextZipCodeShipp1 = new javax.swing.JTextField();
-        jTextNumStreetShipp1 = new javax.swing.JTextField();
+        jTextStreetShipp = new javax.swing.JTextField();
+        jTextCityShipp = new javax.swing.JTextField();
+        jTextZipCodeShipp = new javax.swing.JTextField();
+        jTextNumStreetShipp = new javax.swing.JTextField();
         jLabelNumStreetShipp1 = new javax.swing.JLabel();
-        jTextStreet2Shipp1 = new javax.swing.JTextField();
+        jTextStreet2Shipp = new javax.swing.JTextField();
         jLabelStreet2Shipp1 = new javax.swing.JLabel();
-        jTextCountryShipp1 = new javax.swing.JTextField();
+        jTextCountryShipp = new javax.swing.JTextField();
         jLabelCountryShipp1 = new javax.swing.JLabel();
-        jTextIdAdressShipp1 = new javax.swing.JTextField();
+        jTextIdAdressShipp = new javax.swing.JTextField();
         jLabelIdAdressShipp1 = new javax.swing.JLabel();
         jButtonSendAdressShip = new javax.swing.JButton();
         jDialogAddAdressBill = new javax.swing.JDialog();
-        jPanelBillingAdress1 = new javax.swing.JPanel();
+        jPanelBillingAdress = new javax.swing.JPanel();
         jLabelZipCodeBill1 = new javax.swing.JLabel();
-        jTextCityBill1 = new javax.swing.JTextField();
+        jTextCityBill = new javax.swing.JTextField();
         jLabelNameReceiverAdressBill1 = new javax.swing.JLabel();
-        jTextIdAdressBill1 = new javax.swing.JTextField();
-        jTextNameReceiverAdressBill1 = new javax.swing.JTextField();
-        jTextZipCodeBill1 = new javax.swing.JTextField();
+        jTextIdAdressBill = new javax.swing.JTextField();
+        jTextNameReceiverAdressBill = new javax.swing.JTextField();
+        jTextZipCodeBill = new javax.swing.JTextField();
         jLabelStreetBill1 = new javax.swing.JLabel();
         jLabelIdAdressBill1 = new javax.swing.JLabel();
-        jTextStreetBill1 = new javax.swing.JTextField();
+        jTextStreetBill = new javax.swing.JTextField();
         jLabelCityBill1 = new javax.swing.JLabel();
-        jTextNumStreetBill1 = new javax.swing.JTextField();
+        jTextNumStreetBill = new javax.swing.JTextField();
         jLabelNumStreetBill1 = new javax.swing.JLabel();
-        jTextCountryBill1 = new javax.swing.JTextField();
+        jTextCountryBill = new javax.swing.JTextField();
         jLabelCountryBill1 = new javax.swing.JLabel();
-        jTextStreet2Bill1 = new javax.swing.JTextField();
+        jTextStreet2Bill = new javax.swing.JTextField();
         jLabelStreet2Bill1 = new javax.swing.JLabel();
         jButtonSendAdressBill = new javax.swing.JButton();
         buttonGroupAdress = new javax.swing.ButtonGroup();
@@ -217,9 +222,9 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
         jLabelCityShipp1.setText("City  :");
 
-        jTextZipCodeShipp1.addActionListener(new java.awt.event.ActionListener() {
+        jTextZipCodeShipp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextZipCodeShipp1ActionPerformed(evt);
+                jTextZipCodeShippActionPerformed(evt);
             }
         });
 
@@ -248,23 +253,23 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
                     .addGroup(jPanelShippingAdress1Layout.createSequentialGroup()
                         .addComponent(jLabeNameReceiverAdressShipp1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextNameReceiverAdressShipp1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextNameReceiverAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelShippingAdress1Layout.createSequentialGroup()
                         .addComponent(jLabelNumStreetShipp1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextNumStreetShipp1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextNumStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelShippingAdress1Layout.createSequentialGroup()
                         .addComponent(jLabelStreetShipp1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextStreetShipp1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingAdress1Layout.createSequentialGroup()
                         .addGroup(jPanelShippingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabelZipCodeShipp1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabelStreet2Shipp1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanelShippingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextStreet2Shipp1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                            .addComponent(jTextZipCodeShipp1)))
+                            .addComponent(jTextStreet2Shipp, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                            .addComponent(jTextZipCodeShipp)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelShippingAdress1Layout.createSequentialGroup()
                         .addGroup(jPanelShippingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelCityShipp1)
@@ -272,10 +277,10 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
                             .addComponent(jLabelIdAdressShipp1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                         .addGroup(jPanelShippingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextIdAdressShipp1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextIdAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanelShippingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextCountryShipp1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                                .addComponent(jTextCityShipp1))))
+                                .addComponent(jTextCountryShipp, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                                .addComponent(jTextCityShipp))))
                     .addGroup(jPanelShippingAdress1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonSendAdressShip))))
@@ -285,34 +290,34 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             .addGroup(jPanelShippingAdress1Layout.createSequentialGroup()
                 .addGroup(jPanelShippingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabeNameReceiverAdressShipp1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextNameReceiverAdressShipp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextNameReceiverAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(jPanelShippingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNumStreetShipp1)
-                    .addComponent(jTextNumStreetShipp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextNumStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(jPanelShippingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelStreetShipp1)
-                    .addComponent(jTextStreetShipp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextStreetShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelShippingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextStreet2Shipp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextStreet2Shipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelStreet2Shipp1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelShippingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextZipCodeShipp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextZipCodeShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelZipCodeShipp1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelShippingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelCityShipp1)
-                    .addComponent(jTextCityShipp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextCityShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelShippingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextCountryShipp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextCountryShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCountryShipp1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelShippingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextIdAdressShipp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextIdAdressShipp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelIdAdressShipp1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonSendAdressShip)
@@ -321,15 +326,15 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
 
         jDialogAddAdressShip.getContentPane().add(jPanelShippingAdress1, java.awt.BorderLayout.CENTER);
 
-        jPanelBillingAdress1.setBorder(javax.swing.BorderFactory.createTitledBorder("Billing adress"));
+        jPanelBillingAdress.setBorder(javax.swing.BorderFactory.createTitledBorder("Billing adress"));
 
         jLabelZipCodeBill1.setText("Zip Code  :");
 
         jLabelNameReceiverAdressBill1.setText("Last Name  :");
 
-        jTextZipCodeBill1.addActionListener(new java.awt.event.ActionListener() {
+        jTextZipCodeBill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextZipCodeBill1ActionPerformed(evt);
+                jTextZipCodeBillActionPerformed(evt);
             }
         });
 
@@ -352,88 +357,88 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanelBillingAdress1Layout = new javax.swing.GroupLayout(jPanelBillingAdress1);
-        jPanelBillingAdress1.setLayout(jPanelBillingAdress1Layout);
-        jPanelBillingAdress1Layout.setHorizontalGroup(
-            jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelBillingAdress1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelBillingAdressLayout = new javax.swing.GroupLayout(jPanelBillingAdress);
+        jPanelBillingAdress.setLayout(jPanelBillingAdressLayout);
+        jPanelBillingAdressLayout.setHorizontalGroup(
+            jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBillingAdressLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingAdress1Layout.createSequentialGroup()
-                        .addGroup(jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingAdressLayout.createSequentialGroup()
+                        .addGroup(jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelNameReceiverAdressBill1)
                             .addComponent(jLabelNumStreetBill1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextNumStreetBill1)
-                            .addComponent(jTextNameReceiverAdressBill1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
-                    .addGroup(jPanelBillingAdress1Layout.createSequentialGroup()
-                        .addGroup(jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextNumStreetBill)
+                            .addComponent(jTextNameReceiverAdressBill, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
+                    .addGroup(jPanelBillingAdressLayout.createSequentialGroup()
+                        .addGroup(jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelIdAdressBill1)
                             .addComponent(jLabelCountryBill1)
                             .addComponent(jLabelCityBill1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                        .addGroup(jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextCountryBill1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextCityBill1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextIdAdressBill1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingAdress1Layout.createSequentialGroup()
+                        .addGroup(jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextCountryBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextCityBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextIdAdressBill, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingAdressLayout.createSequentialGroup()
                         .addComponent(jLabelStreetBill1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextStreetBill1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingAdress1Layout.createSequentialGroup()
+                        .addComponent(jTextStreetBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingAdressLayout.createSequentialGroup()
                         .addComponent(jLabelStreet2Bill1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextStreet2Bill1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingAdress1Layout.createSequentialGroup()
+                        .addComponent(jTextStreet2Bill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingAdressLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButtonSendAdressBill))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingAdress1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBillingAdressLayout.createSequentialGroup()
                         .addComponent(jLabelZipCodeBill1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextZipCodeBill1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextZipCodeBill, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
-        jPanelBillingAdress1Layout.setVerticalGroup(
-            jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelBillingAdress1Layout.createSequentialGroup()
-                .addGroup(jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanelBillingAdressLayout.setVerticalGroup(
+            jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBillingAdressLayout.createSequentialGroup()
+                .addGroup(jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelNameReceiverAdressBill1)
-                    .addComponent(jTextNameReceiverAdressBill1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextNameReceiverAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextNumStreetBill1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextNumStreetBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNumStreetBill1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(11, 11, 11)
-                .addGroup(jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextStreetBill1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextStreetBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelStreetBill1))
                 .addGap(9, 9, 9)
-                .addGroup(jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextStreet2Bill1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextStreet2Bill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelStreet2Bill1))
                 .addGap(7, 7, 7)
-                .addGroup(jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextZipCodeBill1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextZipCodeBill, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelZipCodeBill1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextCityBill1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextCityBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCityBill1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextCountryBill1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextCountryBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCountryBill1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelBillingAdress1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextIdAdressBill1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelBillingAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextIdAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelIdAdressBill1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonSendAdressBill)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jDialogAddAdressBill.getContentPane().add(jPanelBillingAdress1, java.awt.BorderLayout.CENTER);
+        jDialogAddAdressBill.getContentPane().add(jPanelBillingAdress, java.awt.BorderLayout.CENTER);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -636,7 +641,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jPanelCustomerLayout.setVerticalGroup(
             jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCustomerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelLogin1)
                     .addComponent(jLabelStatus1)
@@ -674,7 +679,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
                             .addComponent(jComboBoxBill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonAdressBilling))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanelCustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jRadioButtonShip)
                             .addComponent(jRadioButtonBill))
                         .addContainerGap())))
@@ -737,23 +742,12 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         jPanelAdressLayout.setHorizontalGroup(
             jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAdressLayout.createSequentialGroup()
-                .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonUpdateAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonUptateAdressShip)
                     .addGroup(jPanelAdressLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanelAdressLayout.createSequentialGroup()
-                                    .addComponent(jLabelZipCodeShipp2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                                    .addComponent(jTextZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanelAdressLayout.createSequentialGroup()
-                                    .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabelCountryShipp2)
-                                        .addComponent(jLabelIdAdressShipp2))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jTextIdAdress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                                        .addComponent(jTextCountry, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanelAdressLayout.createSequentialGroup()
                                 .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelStreet2Shipp2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -764,9 +758,19 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
                                     .addComponent(jTextNameReceiverAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jTextStreet2, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                                        .addComponent(jTextNumStreet))))))
-                    .addComponent(jButtonUpdateAdressBill, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonUptateAdressShip))
+                                        .addComponent(jTextNumStreet))))
+                            .addGroup(jPanelAdressLayout.createSequentialGroup()
+                                .addComponent(jLabelZipCodeShipp2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelAdressLayout.createSequentialGroup()
+                                .addComponent(jLabelCountryShipp2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTextCountry, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAdressLayout.createSequentialGroup()
+                        .addComponent(jLabelIdAdressShipp2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextIdAdress, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelAdressLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
@@ -787,40 +791,40 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAdressLayout.createSequentialGroup()
                 .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelAdressLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextNameReceiverAdress)
-                            .addComponent(jLabeNameReceiverAdressShipp2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAdressLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabelStreetShipp2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelNumStreetShipp2)
-                    .addComponent(jTextStreet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextNumStreet, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabelStreet2Shipp2)
-                        .addComponent(jTextStreet2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabelCityShipp2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelZipCodeShipp2)
-                    .addComponent(jTextCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextNameReceiverAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabeNameReceiverAdressShipp2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelAdressLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabelStreetShipp2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelAdressLayout.createSequentialGroup()
+                        .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextNumStreet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelNumStreetShipp2)
+                            .addComponent(jTextStreet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextStreet2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelStreet2Shipp2)
+                            .addComponent(jLabelCityShipp2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelZipCodeShipp2))
+                    .addGroup(jPanelAdressLayout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(11, 11, 11)
                 .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextCountry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCountryShipp2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(13, 13, 13)
                 .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextIdAdress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelIdAdressShipp2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonUpdateAdressBill)
                     .addComponent(jButtonCreateAdressBill))
@@ -828,7 +832,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
                 .addGroup(jPanelAdressLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonCreateAdressShip)
                     .addComponent(jButtonUptateAdressShip))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -963,13 +967,13 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void jTextZipCodeShipp1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextZipCodeShipp1ActionPerformed
+    private void jTextZipCodeShippActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextZipCodeShippActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextZipCodeShipp1ActionPerformed
+    }//GEN-LAST:event_jTextZipCodeShippActionPerformed
 
-    private void jTextZipCodeBill1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextZipCodeBill1ActionPerformed
+    private void jTextZipCodeBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextZipCodeBillActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextZipCodeBill1ActionPerformed
+    }//GEN-LAST:event_jTextZipCodeBillActionPerformed
 
     private void jButtonSendAdressBillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendAdressBillActionPerformed
 
@@ -982,13 +986,13 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             if (anwser == JOptionPane.NO_OPTION) {
                 return;
             }
-            adressBlling.setNameReceiverAdress(jTextNameReceiverAdressBill1.getText());
-            adressBlling.setNumAdress(jTextNumStreetBill1.getText());
-            adressBlling.setNameStreetAdress(jTextStreetBill1.getText());
-            adressBlling.setNameStreet2Adress(jTextStreet2Bill1.getText());
-            adressBlling.setZipcodeAdress(jTextZipCodeBill1.getText());
-            adressBlling.setCityAdress(jTextCityBill1.getText());
-            adressBlling.setCountryAdress(jTextCountryBill1.getText());
+            adressBlling.setNameReceiverAdress(jTextNameReceiverAdressBill.getText());
+            adressBlling.setNumAdress(jTextNumStreetBill.getText());
+            adressBlling.setNameStreetAdress(jTextStreetBill.getText());
+            adressBlling.setNameStreet2Adress(jTextStreet2Bill.getText());
+            adressBlling.setZipcodeAdress(jTextZipCodeBill.getText());
+            adressBlling.setCityAdress(jTextCityBill.getText());
+            adressBlling.setCountryAdress(jTextCountryBill.getText());
             adressBlling.setCustomerBillAdress(new Customer(jTextLogin.getText()));
             adressBlling = serviceAdress.createAdress(adressBlling);
             adressBillList.add(adressBlling);
@@ -1016,13 +1020,13 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
             if (anwser == JOptionPane.NO_OPTION) {
                 return;
             }
-            adressShipping.setNameReceiverAdress(jTextNameReceiverAdressShipp1.getText());
-            adressShipping.setNumAdress(jTextNumStreetShipp1.getText());
-            adressShipping.setNameStreetAdress(jTextStreetShipp1.getText());
-            adressShipping.setNameStreet2Adress(jTextStreet2Shipp1.getText());
-            adressShipping.setZipcodeAdress(jTextZipCodeShipp1.getText());
-            adressShipping.setCityAdress(jTextCityShipp1.getText());
-            adressShipping.setCountryAdress(jTextCountryShipp1.getText());
+            adressShipping.setNameReceiverAdress(jTextNameReceiverAdressShipp.getText());
+            adressShipping.setNumAdress(jTextNumStreetShipp.getText());
+            adressShipping.setNameStreetAdress(jTextStreetShipp.getText());
+            adressShipping.setNameStreet2Adress(jTextStreet2Shipp.getText());
+            adressShipping.setZipcodeAdress(jTextZipCodeShipp.getText());
+            adressShipping.setCityAdress(jTextCityShipp.getText());
+            adressShipping.setCountryAdress(jTextCountryShipp.getText());
             adressShipping.setCustomerShipAdress(new Customer(jTextLogin.getText()));
             adressShipping = serviceAdress.createAdress(adressShipping);
             adressShipList.add(adressShipping);
@@ -1204,7 +1208,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         clearBillingAdress();
         JDialog jDialogAdAdressBill = getjDialogAddAdressBill();
         jDialogAddAdressBill.setVisible(true);
-        jPanelBillingAdress1.setVisible(true);
+        jPanelBillingAdress.setVisible(true);
     }//GEN-LAST:event_jButtonAdressBillingActionPerformed
 
     private void jButtonAdressShippingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdressShippingActionPerformed
@@ -1478,26 +1482,26 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonUpdateCustomerActionPerformed
 
     public void setChampsBillingAdress(Adress adress) {
-        jTextNameReceiverAdressBill1.setText(adress.getNameReceiverAdress());
-        jTextNumStreetBill1.setText(adress.getNumAdress());
-        jTextStreetBill1.setText(adress.getNameStreetAdress());
-        jTextStreet2Bill1.setText(adress.getNameStreet2Adress());
-        jTextZipCodeBill1.setText(adress.getZipcodeAdress());
-        jTextCityBill1.setText(adress.getCityAdress());
-        jTextCountryBill1.setText(adress.getCountryAdress());
-        jTextIdAdressBill1.setText(adress.getId());
+        jTextNameReceiverAdressBill.setText(adress.getNameReceiverAdress());
+        jTextNumStreetBill.setText(adress.getNumAdress());
+        jTextStreetBill.setText(adress.getNameStreetAdress());
+        jTextStreet2Bill.setText(adress.getNameStreet2Adress());
+        jTextZipCodeBill.setText(adress.getZipcodeAdress());
+        jTextCityBill.setText(adress.getCityAdress());
+        jTextCountryBill.setText(adress.getCountryAdress());
+        jTextIdAdressBill.setText(adress.getId());
 
     }
 
     public void clearBillingAdress() {
-        jTextNameReceiverAdressBill1.setText("");
-        jTextNumStreetBill1.setText("");
-        jTextStreetBill1.setText("");
-        jTextStreet2Bill1.setText("");
-        jTextZipCodeBill1.setText("");
-        jTextCityBill1.setText("");
-        jTextCountryBill1.setText("");
-        jTextIdAdressBill1.setText("");
+        jTextNameReceiverAdressBill.setText("");
+        jTextNumStreetBill.setText("");
+        jTextStreetBill.setText("");
+        jTextStreet2Bill.setText("");
+        jTextZipCodeBill.setText("");
+        jTextCityBill.setText("");
+        jTextCountryBill.setText("");
+        jTextIdAdressBill.setText("");
     }
 
     public void clearAdress() {
@@ -1552,26 +1556,26 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     }
 
     public void setChampsShippingAdress(Adress adress) {
-        jTextNameReceiverAdressShipp1.setText(adress.getNameReceiverAdress());
-        jTextNumStreetShipp1.setText(adress.getNumAdress());
-        jTextStreetShipp1.setText(adress.getNameStreetAdress());
-        jTextStreet2Shipp1.setText(adress.getNameStreet2Adress());
-        jTextZipCodeShipp1.setText(adress.getZipcodeAdress());
-        jTextCityShipp1.setText(adress.getCityAdress());
-        jTextCountryShipp1.setText(adress.getCountryAdress());
-        jTextIdAdressShipp1.setText(adress.getId());
+        jTextNameReceiverAdressShipp.setText(adress.getNameReceiverAdress());
+        jTextNumStreetShipp.setText(adress.getNumAdress());
+        jTextStreetShipp.setText(adress.getNameStreetAdress());
+        jTextStreet2Shipp.setText(adress.getNameStreet2Adress());
+        jTextZipCodeShipp.setText(adress.getZipcodeAdress());
+        jTextCityShipp.setText(adress.getCityAdress());
+        jTextCountryShipp.setText(adress.getCountryAdress());
+        jTextIdAdressShipp.setText(adress.getId());
 
     }
 
     public void clearShippingAdress() {
-        jTextNameReceiverAdressShipp1.setText("");
-        jTextNumStreetShipp1.setText("");
-        jTextStreetShipp1.setText("");
-        jTextStreet2Bill1.setText("");
-        jTextZipCodeShipp1.setText("");
-        jTextCityShipp1.setText("");
-        jTextCountryShipp1.setText("");
-        jTextIdAdressShipp1.setText("");
+        jTextNameReceiverAdressShipp.setText("");
+        jTextNumStreetShipp.setText("");
+        jTextStreetShipp.setText("");
+        jTextStreet2Bill.setText("");
+        jTextZipCodeShipp.setText("");
+        jTextCityShipp.setText("");
+        jTextCountryShipp.setText("");
+        jTextIdAdressShipp.setText("");
 
     }
 
@@ -1746,7 +1750,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
         }
 
     }
-            public void chargeComboBoxAdressShipping( String login) {
+        public void chargeComboBoxAdressShipping( String login) {
         final String mname = "chargeComboBoxAdressShipping";
         AdressService serviceAdress = new AdressService();
         Collection adresses = null;
@@ -1835,7 +1839,7 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelAccounts;
     private javax.swing.JPanel jPanelAdress;
-    private javax.swing.JPanel jPanelBillingAdress1;
+    private javax.swing.JPanel jPanelBillingAdress;
     private javax.swing.JPanel jPanelCustomer;
     private javax.swing.JPanel jPanelShippingAdress1;
     private javax.swing.JRadioButton jRadioButtonBill;
@@ -1845,36 +1849,36 @@ public class JPanelFormCustomers extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPaneManageAccount;
     private javax.swing.JTable jTableCustomers;
     private javax.swing.JTextField jTextCity;
-    private javax.swing.JTextField jTextCityBill1;
-    private javax.swing.JTextField jTextCityShipp1;
+    private javax.swing.JTextField jTextCityBill;
+    private javax.swing.JTextField jTextCityShipp;
     private javax.swing.JTextField jTextCompany;
     private javax.swing.JTextField jTextCountry;
-    private javax.swing.JTextField jTextCountryBill1;
-    private javax.swing.JTextField jTextCountryShipp1;
+    private javax.swing.JTextField jTextCountryBill;
+    private javax.swing.JTextField jTextCountryShipp;
     private javax.swing.JTextField jTextEmail;
     private javax.swing.JTextField jTextFirstName;
     private javax.swing.JTextField jTextIdAdress;
-    private javax.swing.JTextField jTextIdAdressBill1;
-    private javax.swing.JTextField jTextIdAdressShipp1;
+    private javax.swing.JTextField jTextIdAdressBill;
+    private javax.swing.JTextField jTextIdAdressShipp;
     private javax.swing.JTextField jTextLastName;
     private javax.swing.JTextField jTextLogin;
     private javax.swing.JTextField jTextNameReceiverAdress;
-    private javax.swing.JTextField jTextNameReceiverAdressBill1;
-    private javax.swing.JTextField jTextNameReceiverAdressShipp1;
+    private javax.swing.JTextField jTextNameReceiverAdressBill;
+    private javax.swing.JTextField jTextNameReceiverAdressShipp;
     private javax.swing.JTextField jTextNumStreet;
-    private javax.swing.JTextField jTextNumStreetBill1;
-    private javax.swing.JTextField jTextNumStreetShipp1;
+    private javax.swing.JTextField jTextNumStreetBill;
+    private javax.swing.JTextField jTextNumStreetShipp;
     private javax.swing.JTextField jTextPassword;
     private javax.swing.JTextField jTextSearchCustomer;
     private javax.swing.JTextField jTextStreet;
     private javax.swing.JTextField jTextStreet2;
-    private javax.swing.JTextField jTextStreet2Bill1;
-    private javax.swing.JTextField jTextStreet2Shipp1;
-    private javax.swing.JTextField jTextStreetBill1;
-    private javax.swing.JTextField jTextStreetShipp1;
+    private javax.swing.JTextField jTextStreet2Bill;
+    private javax.swing.JTextField jTextStreet2Shipp;
+    private javax.swing.JTextField jTextStreetBill;
+    private javax.swing.JTextField jTextStreetShipp;
     private javax.swing.JTextField jTextZipCode;
-    private javax.swing.JTextField jTextZipCodeBill1;
-    private javax.swing.JTextField jTextZipCodeShipp1;
+    private javax.swing.JTextField jTextZipCodeBill;
+    private javax.swing.JTextField jTextZipCodeShipp;
     private javax.swing.JTree jTreeCustomers;
     // End of variables declaration//GEN-END:variables
 }
