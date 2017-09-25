@@ -168,14 +168,14 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
         jScrollPaneShowAppreciations = new javax.swing.JScrollPane();
         jTableView = new javax.swing.JTable();
         jButtonClear = new javax.swing.JButton();
-        jComboBoxSearchBy = new javax.swing.JComboBox<>();
+        jComboBoxSearchBy = new javax.swing.JComboBox<String>();
         jButton1 = new javax.swing.JButton();
-        jComboBoxSelected = new javax.swing.JComboBox<>();
+        jComboBoxSelected = new javax.swing.JComboBox<String>();
         jPanelTraitment = new javax.swing.JPanel();
         jScrollPaneAppreciationsWaiting = new javax.swing.JScrollPane();
         jTableWaiting = new javax.swing.JTable();
         jPanelManager = new javax.swing.JPanel();
-        jComboBoxStatus = new javax.swing.JComboBox<>();
+        jComboBoxStatus = new javax.swing.JComboBox<String>();
         jButtonSetStatus = new javax.swing.JButton();
         jLabelAppreciationStatus = new javax.swing.JLabel();
         jLabelAppreciation = new javax.swing.JLabel();
@@ -226,7 +226,12 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
             }
         });
 
-        jComboBoxSearchBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSearchBy.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSearchBy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxSearchByActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("View All");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -321,7 +326,7 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
 
         jPanelManager.setBorder(javax.swing.BorderFactory.createTitledBorder("Apreciations Management"));
 
-        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Approved", " ", "Item 3", "Item 4" }));
+        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Approved", " ", "Item 3", "Item 4" }));
 
         jButtonSetStatus.setText("Set");
         jButtonSetStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -546,6 +551,27 @@ public class JPanelFormAppreciations extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "DATABASE ERROR NO APPRECIATIONS FOUND FOR ANY BOOKS");
         }
     }//GEN-LAST:event_jButtonClearActionPerformed
+
+    private void jComboBoxSearchByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSearchByActionPerformed
+        try {
+            initComboToCombo("Title", catalogService.FindAllBooks(), Book.class);
+        } catch (ObjectNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, " NO BOOKS FOUND ");
+        }
+          try {
+            initComboToCombo("Moderator", employeService.FindEmployeByRight("IDEMPLOYERIGHT", "MODERATOR"), Employe.class);
+        } catch (ObjectNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, " NO MODERATORS FOUNDS ");
+        }
+          try {
+            initComboToCombo("Customer",customerService.findCustomers(), Customer.class);
+        } catch (ObjectNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, " NO MODERATORS FOUNDS ");
+        } catch (FinderException ex) {
+            Logger.getLogger(JPanelFormAppreciations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
+    }//GEN-LAST:event_jComboBoxSearchByActionPerformed
     private void initTabListener(){
          jTableWaiting.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent evt) {
