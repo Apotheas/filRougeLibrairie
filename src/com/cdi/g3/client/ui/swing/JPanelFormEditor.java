@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.cdi.g3.client.ui.swing;
 
 import com.cdi.g3.common.exception.CheckException;
@@ -23,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 public class JPanelFormEditor extends javax.swing.JPanel {
 
     private final DefaultTableModel myModel = new DefaultTableModel();
-    private final  PublishingService publishingService = new PublishingService();
+    private final PublishingService publishingService = new PublishingService();
     private final CatalogService catalogService = new CatalogService();
     private final Vector editorList = new Vector();
 
@@ -56,7 +51,6 @@ public class JPanelFormEditor extends javax.swing.JPanel {
     }
 
     private Vector initEditorsVector() {
-
         try {
             Collection v = publishingService.findAllEditor();
             editorList.addAll(v);
@@ -99,7 +93,7 @@ public class JPanelFormEditor extends javax.swing.JPanel {
             }
         });
 
-        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Active", " ", "Item 3", "Item 4" }));
+        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Active", "Unactive" }));
 
         javax.swing.GroupLayout jPanelInfosEditorsLayout = new javax.swing.GroupLayout(jPanelInfosEditors);
         jPanelInfosEditors.setLayout(jPanelInfosEditorsLayout);
@@ -254,15 +248,12 @@ public class JPanelFormEditor extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
     private void jComboBoxSelectedEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSelectedEditorActionPerformed
         clearTab();
         Editor myEditor = ((Editor) jComboBoxSelectedEditor.getSelectedItem());
         jTextSearchEditor.setText(myEditor.getNameEditor());
         jButtonSearchEditor.doClick();
-
     }//GEN-LAST:event_jComboBoxSelectedEditorActionPerformed
-
     private void jButtonUpdateEdithorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateEdithorActionPerformed
         boolean verifiedEditor = true;
         verifiedEditor = controls();
@@ -270,7 +261,6 @@ public class JPanelFormEditor extends javax.swing.JPanel {
             try {
                 Editor myEditor = ((Editor) jComboBoxSelectedEditor.getSelectedItem());
                 myEditor.setNameEditor(jTextName.getText());
-
                 int retour = JOptionPane.showConfirmDialog(this,
                         "Etes-Vous Sure de vouloir modifier l'Editeur ? ",
                         "Update",
@@ -290,28 +280,20 @@ public class JPanelFormEditor extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, " Editor didnt pass check control !");
             }
         }
-
     }//GEN-LAST:event_jButtonUpdateEdithorActionPerformed
-
     private void jTextSearchEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextSearchEditorActionPerformed
 
     }//GEN-LAST:event_jTextSearchEditorActionPerformed
-
     private void jButtonSearchEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchEditorActionPerformed
         clearTab();
         clearField();
-
-        //DATABASE TO TEXTFIELD
         Editor myEditor = new Editor();
         try {
             myEditor = publishingService.findEditor("NAMEEDITOR", jTextSearchEditor.getText());
             jTextName.setText(myEditor.getNameEditor());
-
         } catch (ObjectNotFoundException ex) {
             JOptionPane.showMessageDialog(this, " this Editor isnt in Database ");
         }
-
-        //DATABASE TO TABLEAU
         try {
             Vector bookAttributes = null;
             for (Iterator itarator = catalogService.FindBooksByChamp("NAMEEDITOR", jTextSearchEditor.getText()).iterator(); itarator.hasNext();) {
@@ -327,27 +309,21 @@ public class JPanelFormEditor extends javax.swing.JPanel {
         } catch (ObjectNotFoundException ex) {
             JOptionPane.showMessageDialog(this, " No books for this Editor on Database ");
         }
-
     }//GEN-LAST:event_jButtonSearchEditorActionPerformed
-
     private void jTextNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextNameActionPerformed
     private boolean controls() {
-
         Utility utils = new Utility();
         if (!utils.regexNom(jTextName.getText())) {
             if (jTextName.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "EDITOR's Name is mandatory ", "Warning", JOptionPane.ERROR_MESSAGE);
-
             } else {
                 JOptionPane.showMessageDialog(this, "EDITOR's Name is invalid ", "warning", JOptionPane.ERROR_MESSAGE);
             }
             return false;
         }
-
         return true;
-
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

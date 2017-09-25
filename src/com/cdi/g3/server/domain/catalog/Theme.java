@@ -60,7 +60,7 @@ public class Theme extends DomainObject implements Serializable{
 
     @Override
     public String toString() {
-        return "Theme = " + nameTheme ;
+        return nameTheme ;
     }
      
 }

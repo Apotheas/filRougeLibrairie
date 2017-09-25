@@ -59,7 +59,7 @@ alter table KEYWORDBOOK
 /* Table: SUBTHEME                                              */
 /*==============================================================*/
 alter table SUBTHEME
-   add constraint FK_SUBTHEME_BEGETS_THEME foreign key (NAMETHEME)
+   add constraint FK_SUBTHEME_BEGETS_THEME foreign key (NAMETHEMESB)
       references THEME (NAMETHEME)
       on update Cascade
       on delete Cascade;

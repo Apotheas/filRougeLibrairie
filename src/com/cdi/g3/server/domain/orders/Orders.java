@@ -179,7 +179,7 @@ public class Orders extends DomainObject implements Serializable{
 
     @Override
     public String toString() {
-        return idOrders + " " + customer + " " + internalNumOrder;
+        return idOrders + " " + customer + " " + internalNumOrder +" "+ adressBilling;
     }
     
      public Vector getVector() {

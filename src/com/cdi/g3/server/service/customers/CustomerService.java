@@ -7,7 +7,6 @@ import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.exception.RemoveException;
 import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.common.logging.Trace;
-import com.cdi.g3.server.domain.company.Employe;
 import com.cdi.g3.server.domain.customers.Adress;
 import com.cdi.g3.server.domain.customers.AdressDAO;
 import com.cdi.g3.server.domain.customers.Appreciation;
@@ -205,19 +204,15 @@ public final class CustomerService extends AbstractService {
          final String mname = "findStatus";
         Trace.entering(_cname, mname);
         // Finds all the objects
-        final Collection status = _infoStatusDAO.findAllStatusByCondition("Between 10 and 19");
+        final Collection status = _infoStatusDAO.findAllStatusByCondition("Between 10 and 19 order by valueInfoStatus");
 
         Trace.exiting(_cname, mname, new Integer(status.size()));
         return status;
      }
-    
     public Customer findCustomerByLogins(String login, String password) throws ObjectNotFoundException{
-           return (Customer)_daoCustomer.selectByLogins(login, password);
-       }
-    
-    
-    
-    
+          return (Customer)_daoCustomer.selectByLogins(login, password);
+
+      }
 
     // ======================================
     // = Private Methods =

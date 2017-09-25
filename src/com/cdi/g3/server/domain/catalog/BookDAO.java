@@ -20,7 +20,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class BookDAO extends AbstractDataAccessObject {
-
+    private static final String TABLE_SUBTHEMEBOOK = "SUBTHEMEBOOK";
+    private static final String TABLE_SUBTHEME = "SUBTHEME";
+    private static final String TABLE_THEME = "THEME";
     private static final String TABLE_KEYWORD = "KEYWORD";
     private static final String TABLE_KEYWORDBOOK = "KEYWORDBOOK";
     private static final String TABLE = "BOOK";
@@ -111,7 +113,53 @@ public class BookDAO extends AbstractDataAccessObject {
         
         return sql;
     }
-    
+    protected String getSelectBookByTitreSqlStatement(String titre) {
+       final String sql;
+       sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE TITREBOOK like  '%" + titre + "%'";
+       return sql;
+   }
+   public Collection selectBooksByTitre(String titre) throws ObjectNotFoundException {
+       final String mname = "selectAll";
+       Trace.entering(getCname(), mname);
+
+       
+       ResultSet resultSet = null;
+       final Collection objects = new ArrayList();
+        // Gets a database connection
+       try (Connection connection = getConnection();
+           Statement statement = connection.createStatement()) {
+       
+           // Select a Row
+           resultSet = statement.executeQuery(getSelectBookByTitreSqlStatement( titre));
+
+           while (resultSet.next()) {
+               // Set data to the collection
+               objects.add(transformResultset2DomainObject(resultSet));
+           }
+
+           if (objects.isEmpty()) {
+               throw new ObjectNotFoundException();
+           }
+
+       } catch (SQLException e) {
+           // A Severe SQL Exception is caught
+           displaySqlException(e);
+           throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
+       } finally {
+           // Close
+           try {
+               if (resultSet != null) {
+                   resultSet.close();
+               }            
+           } catch (SQLException e) {
+               displaySqlException("Cannot close connection", e);
+               throw new DataAccessException("Cannot close the database connection", e);
+           }
+       }
+
+       Trace.exiting(getCname(), mname, new Integer(objects.size()));
+       return objects;
+   }
     public Collection selectBooksByKeyWord(String column, String champ) throws ObjectNotFoundException {
         final String mname = "selectAll";
         Trace.entering(getCname(), mname);
@@ -154,7 +202,113 @@ public class BookDAO extends AbstractDataAccessObject {
         Trace.exiting(getCname(), mname, new Integer(objects.size()));
         return objects;
     }
+   
 
+     protected String getBooksBySubTheme(String champ, String champ1){
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE  +" ,"+TABLE_SUBTHEMEBOOK+ " ,"+ TABLE_SUBTHEME + " ,"+ TABLE_THEME +
+                " WHERE  NUMISBNBOOK = NUMISBNBOOKSB " +
+                "and IDSUBTHEMESB = IDSUBTHEME " +
+                "and NAMETHEME = NAMETHEMESB " +     
+                "and NAMESUBTHEME = '"+ champ+ "'" +
+                " and NAMETHEMESB = '"+ champ1+ "'" ;
+        
+        return sql;
+    }
+     protected String getBooksByTheme( String theme){
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE  +" ,"+TABLE_SUBTHEMEBOOK+ " ,"+ TABLE_SUBTHEME + 
+                " WHERE  NUMISBNBOOK = NUMISBNBOOKSB " +
+                "and IDSUBTHEMESB = IDSUBTHEME " +                          
+                " and NAMETHEMESB = '"+ theme + "'" ;
+        
+        return sql;
+    }
+     
+     public Collection selectBooksByTheme( String theme) throws ObjectNotFoundException {
+        final String mname = "selectAll";
+        Trace.entering(getCname(), mname);
+
+        
+        ResultSet resultSet = null;
+        final Collection objects = new ArrayList();
+         // Gets a database connection
+        try (Connection connection = getConnection(); 
+            Statement statement = connection.createStatement()) {
+        
+            // Select a Row
+            resultSet = statement.executeQuery( getBooksByTheme(theme));
+
+            while (resultSet.next()) {
+                // Set data to the collection
+                objects.add(transformResultset2DomainObject(resultSet));
+            }
+
+            if (objects.isEmpty()) {
+                throw new ObjectNotFoundException();
+            }
+
+        } catch (SQLException e) {
+            // A Severe SQL Exception is caught
+            displaySqlException(e);
+            throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
+        } finally {
+            // Close
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }             
+            } catch (SQLException e) {
+                displaySqlException("Cannot close connection", e);
+                throw new DataAccessException("Cannot close the database connection", e);
+            }
+        }
+
+        Trace.exiting(getCname(), mname, new Integer(objects.size()));
+        return objects;
+    }
+      public Collection selectBooksBySub(String column, String champ) throws ObjectNotFoundException {
+        final String mname = "selectAll";
+        Trace.entering(getCname(), mname);
+
+        
+        ResultSet resultSet = null;
+        final Collection objects = new ArrayList();
+         // Gets a database connection
+        try (Connection connection = getConnection(); 
+            Statement statement = connection.createStatement()) {
+        
+            // Select a Row
+            resultSet = statement.executeQuery(getBooksBySubTheme(column, champ));
+
+            while (resultSet.next()) {
+                // Set data to the collection
+                objects.add(transformResultset2DomainObject(resultSet));
+            }
+
+            if (objects.isEmpty()) {
+                throw new ObjectNotFoundException();
+            }
+
+        } catch (SQLException e) {
+            // A Severe SQL Exception is caught
+            displaySqlException(e);
+            throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
+        } finally {
+            // Close
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }             
+            } catch (SQLException e) {
+                displaySqlException("Cannot close connection", e);
+                throw new DataAccessException("Cannot close the database connection", e);
+            }
+        }
+
+        Trace.exiting(getCname(), mname, new Integer(objects.size()));
+        return objects;
+    }
     @Override
     protected DomainObject transformResultset2DomainObject(ResultSet resultSet) throws SQLException {
         final Book book;

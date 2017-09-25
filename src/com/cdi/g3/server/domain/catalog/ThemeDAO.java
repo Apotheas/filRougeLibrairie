@@ -61,6 +61,12 @@ public class ThemeDAO extends AbstractDataAccessObject {
         sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE NAMETHEME = '" + id + "' ";
         return sql;
     }
+     @Override
+    protected String getSelectSqlStatementByChamp(String column, String champ) {
+        final String sql;
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE " + column + " = '" + champ + "' ";
+        return sql;
+    }
 
     @Override
     protected String getSelectAllSqlStatement() {

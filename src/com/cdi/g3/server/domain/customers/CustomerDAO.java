@@ -6,8 +6,6 @@ import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.server.domain.DomainObject;
 import com.cdi.g3.server.util.persistence.AbstractDataAccessObject;
-import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.displaySqlException;
-import static com.cdi.g3.server.util.persistence.AbstractDataAccessObject.getConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
@@ -84,12 +82,50 @@ public final class CustomerDAO extends AbstractDataAccessObject {
         System.out.println(sql);
         return sql;
     }
+   
+    
     protected String getSelectLoginCheck(String login, String password) {
-        final String sql;
-        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE LOGINCUSTOMER = '" + login + "' "
-                + "AND  PASSWORDCUSTOMER = '" + password + "' ";
-        return sql;
-    }
+
+       final String sql;
+       sql = "SELECT " + COLUMNS + " FROM " + TABLE + " WHERE LOGINCUSTOMER = '" + login + "' "
+               + "AND  PASSWORDCUSTOMER = '" + password + "' ";
+       return sql;
+
+   }    
+    public DomainObject selectByLogins(String login, String password) throws ObjectNotFoundException {
+       final String mname = "select";
+       Trace.entering(getCname(), mname, login);
+       ResultSet resultSet = null;
+       DomainObject object;
+       // Gets a database connection
+       try (Connection connection = getConnection();
+               Statement statement = connection.createStatement()) {
+           // Select a Row
+           resultSet = statement.executeQuery(getSelectLoginCheck(login, password));
+           if (!resultSet.next()) {
+               throw new ObjectNotFoundException();
+           }
+           // Set data to current object
+           object = transformResultset2DomainObject(resultSet);
+       } catch (SQLException e) {
+           // A Severe SQL Exception is caught
+           displaySqlException(e);
+           throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
+       } finally {
+           // Close
+           try {
+               if (resultSet != null) {
+                   resultSet.close();
+               }
+           } catch (SQLException e) {
+               displaySqlException("Cannot close connection", e);
+               throw new DataAccessException("Cannot close the database connection", e);
+           }
+       }
+       Trace.exiting(getCname(), mname, object);
+       return object;
+   }
+
 
   
     protected DomainObject transformResultset2DomainObject(final ResultSet resultSet) throws SQLException {
@@ -146,44 +182,7 @@ public final class CustomerDAO extends AbstractDataAccessObject {
         }
         return retour;
     }
-    
-    public DomainObject selectByLogins(String login, String password) throws ObjectNotFoundException {
-        final String mname = "select";
-        Trace.entering(getCname(), mname, login);
-
-        ResultSet resultSet = null;
-        DomainObject object;
-        // Gets a database connection
-        try (Connection connection = getConnection();
-                Statement statement = connection.createStatement()) {
-            // Select a Row
-            resultSet = statement.executeQuery(getSelectLoginCheck(login, password));
-            if (!resultSet.next()) {
-                throw new ObjectNotFoundException();
-            }
-
-            // Set data to current object
-            object = transformResultset2DomainObject(resultSet);
-
-        } catch (SQLException e) {
-            // A Severe SQL Exception is caught
-            displaySqlException(e);
-            throw new DataAccessException("Cannot get data from the database: " + e.getMessage(), e);
-        } finally {
-            // Close
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-            } catch (SQLException e) {
-                displaySqlException("Cannot close connection", e);
-                throw new DataAccessException("Cannot close the database connection", e);
-            }
-        }
-
-        Trace.exiting(getCname(), mname, object);
-        return object;
-    }
+     
         
         
 }

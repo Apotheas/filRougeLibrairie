@@ -23,8 +23,8 @@ import javax.swing.JPasswordField;
  */
 public class LoginPage extends javax.swing.JFrame {
 
-    private Employe employeLoged;
-    private Customer customerLoged;
+    private static Employe employeLoged ;
+    private static Customer customerLoged;
     private CustomerService customerService = new CustomerService();
     private EmployeService employeService = new EmployeService();
 
@@ -47,6 +47,7 @@ public class LoginPage extends javax.swing.JFrame {
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPasswordField.setBackground(new java.awt.Color(255, 255, 255));
         jPasswordField.setText("Password");
@@ -132,9 +133,8 @@ public class LoginPage extends javax.swing.JFrame {
         boolean logged = false;
         try {
 
-            employeLoged = employeService.findEmployeByLogins(jTextUsername.getText(), password);
+            setEmployeLoged(employeService.findEmployeByLogins(jTextUsername.getText(), password));
             connection += 1;
-            JOptionPane.showMessageDialog(this, "WELCOME " + employeLoged.getLoginEmploye());
             HomePage homePage = new HomePage();
             this.setVisible(false);
             homePage.setVisible(true);
@@ -145,8 +145,7 @@ public class LoginPage extends javax.swing.JFrame {
         if (connection == 0) {
             try {
 
-                customerLoged = customerService.findCustomerByLogins(jTextUsername.getText(), password);
-                JOptionPane.showMessageDialog(this, "WELCOME " + customerLoged.getLoginCustomer());
+                setCustomerLoged(customerService.findCustomerByLogins(jTextUsername.getText(), password));
                 HomePageCustomer homePage = new HomePageCustomer();
                 this.setVisible(false);
                 homePage.setVisible(true);
@@ -154,11 +153,11 @@ public class LoginPage extends javax.swing.JFrame {
             } catch (ObjectNotFoundException ex) {
                 logged = false;
             }
-            
+
         }
         if (!logged) {
-                JOptionPane.showMessageDialog(this, "Username or password Invalid");
-            }
+            JOptionPane.showMessageDialog(this, "Username or password Invalid");
+        }
     }//GEN-LAST:event_jButtonSignInActionPerformed
 
     /**
