@@ -109,7 +109,6 @@ public class JPanelFormThemes extends javax.swing.JPanel {
 
     //________________JTREE Author MODELS___________________//
     private DefaultTreeModel initAuthorTreeModel() {
-
         return new DefaultTreeModel(initByAuthorTree());
     }
 
@@ -118,7 +117,6 @@ public class JPanelFormThemes extends javax.swing.JPanel {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Authors");
         DefaultMutableTreeNode tnAuthors = null;
         DefaultMutableTreeNode tnBook = null;
-
         try {
             for (Iterator iteratorA = publishingService.FindAllAuthor().iterator(); iteratorA.hasNext();) {
                 Author author = (Author) iteratorA.next();
@@ -136,7 +134,6 @@ public class JPanelFormThemes extends javax.swing.JPanel {
         } catch (ObjectNotFoundException ex) {
 
         }
-
         return root;
     }
     //______________________________________________________//
@@ -170,7 +167,6 @@ public class JPanelFormThemes extends javax.swing.JPanel {
         } catch (ObjectNotFoundException ex) {
             Logger.getLogger(JPanelFormBooks.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return root;
     }
 
@@ -182,7 +178,6 @@ public class JPanelFormThemes extends javax.swing.JPanel {
     }
 
     private DefaultMutableTreeNode initByThemeTree() {
-
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Themes");
         DefaultMutableTreeNode tnTheme = null;
         DefaultMutableTreeNode tnSubTheme = null;
@@ -196,24 +191,19 @@ public class JPanelFormThemes extends javax.swing.JPanel {
                     SubTheme sub = (SubTheme) iteratorB.next();
                     tnSubTheme = new DefaultMutableTreeNode(sub);
                     tnTheme.add(tnSubTheme);
-
                     for (Iterator iteratorC = catalogService.FindBooksBySub(sub.getNameSubTheme(), theme.getNameTheme()).iterator(); iteratorC.hasNext();) {
                         Book book = (Book) iteratorC.next();
                         tnBook = new DefaultMutableTreeNode(book);
                         tnSubTheme.add(tnBook);
                     }
-
                 }
             } catch (ObjectNotFoundException ex) {
-
             }
         }
-
         return root;
     }
     //______________________________________________________//
     private void selectLineWaiting(ListSelectionEvent evt) {
-
         ListSelectionModel lsm = (ListSelectionModel) evt.getSource();
         if (lsm.isSelectionEmpty()) {
             System.out.println("No rows selected");
@@ -223,6 +213,7 @@ public class JPanelFormThemes extends javax.swing.JPanel {
             jTextInsert.setText(book.getTitleBook());
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -303,7 +294,7 @@ public class JPanelFormThemes extends javax.swing.JPanel {
         );
 
         jPanelThemes.add(jPanelNewTheme);
-        jPanelNewTheme.setBounds(0, 469, 350, 80);
+        jPanelNewTheme.setBounds(20, 480, 350, 80);
 
         jPanelManage.setBorder(javax.swing.BorderFactory.createTitledBorder("Manage"));
 
@@ -387,24 +378,23 @@ public class JPanelFormThemes extends javax.swing.JPanel {
                                 .addComponent(jLabelSelectedSubTheme)
                                 .addGap(18, 18, 18)
                                 .addComponent(jComboBoxSelectedSubTheme, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 481, Short.MAX_VALUE)
                         .addGroup(jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelManageLayout.createSequentialGroup()
-                                .addGap(336, 336, 336)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageLayout.createSequentialGroup()
                                 .addComponent(jButtonAdd)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonDeleteInsert)
                                 .addGap(38, 38, 38))
-                            .addGroup(jPanelManageLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelManageLayout.createSequentialGroup()
                                 .addComponent(jLabelInsert)
                                 .addGap(18, 18, 18)
                                 .addComponent(jTextInsert, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBoxTreeView, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE))
-                .addGap(17, 17, 17))
+                .addGroup(jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxTreeView, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanelManageLayout.setVerticalGroup(
             jPanelManageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -438,7 +428,7 @@ public class JPanelFormThemes extends javax.swing.JPanel {
         );
 
         jPanelThemes.add(jPanelManage);
-        jPanelManage.setBounds(0, 0, 950, 463);
+        jPanelManage.setBounds(0, 0, 1150, 463);
 
         jPanelNewSubTheme.setBorder(javax.swing.BorderFactory.createTitledBorder("New SubTheme"));
 
@@ -492,32 +482,42 @@ public class JPanelFormThemes extends javax.swing.JPanel {
         );
 
         jPanelThemes.add(jPanelNewSubTheme);
-        jPanelNewSubTheme.setBounds(360, 470, 590, 80);
+        jPanelNewSubTheme.setBounds(560, 480, 590, 80);
 
         add(jPanelThemes, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
     private void jTextThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextThemeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextThemeActionPerformed
-
     private void jButtonDeleteInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteInsertActionPerformed
-       
+        if (jTextInsert.getSelectedText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Title is mandatory ", "Warning", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                Book book = (Book) catalogService.FindBookByChamp("TITREBOOK", jTextInsert.getText());
+                SubTheme sub = (SubTheme) jComboBoxSelectedSubTheme.getSelectedItem();
+                try {
+                    themeService.deleteBookFromSub(book.getId(), sub.getIdSubTheme());
+                    JOptionPane.showMessageDialog(this, " Book delete with success from :  " + sub.getNameSubTheme());
+                } catch (DuplicateKeyException ex) {
+                    JOptionPane.showMessageDialog(this, " This book wasnt on selected subtheme ");
+                }
+            } catch (ObjectNotFoundException ex) {
+                JOptionPane.showMessageDialog(this, " Book Not in Database ");
+            }
+        }
     }//GEN-LAST:event_jButtonDeleteInsertActionPerformed
-
     private void jTextSubThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextSubThemeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextSubThemeActionPerformed
-
     private void jComboBoxSelectedThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSelectedThemeActionPerformed
         clearTab();
         jComboBoxSelectedSubTheme.setModel(initSubThemeModel());
         Theme theme = (Theme) jComboBoxSelectedTheme.getSelectedItem();
         initTableauThemeSettings(theme.getNameTheme());
-         
+
     }//GEN-LAST:event_jComboBoxSelectedThemeActionPerformed
     private void initColumnTab() {
-
         tableModel.addColumn("ISBN");
         tableModel.addColumn("AUTHOR");
         tableModel.addColumn("EDITOR");
@@ -528,7 +528,6 @@ public class JPanelFormThemes extends javax.swing.JPanel {
     }
 
     private void clearTab() {
-       
         int lignes = tableModel.getRowCount();
         for (int i = lignes - 1; i >= 0; i--) {
             tableModel.removeRow(i);
@@ -541,7 +540,6 @@ public class JPanelFormThemes extends javax.swing.JPanel {
         try {
             for (Iterator itarator = catalogService.FindBooksByTheme(theme).iterator(); itarator.hasNext();) {
                 Book book = (Book) itarator.next();
-
                 bookAttributes = new Vector();
                 bookAttributes.add(book.getNumISBNBook());
                 for (Iterator it = publishingService.findAuthorByISBN("NUMISBNBOOK", book.getNumISBNBook()).iterator(); it.hasNext();) {
@@ -580,7 +578,7 @@ public class JPanelFormThemes extends javax.swing.JPanel {
                 bookAttributes.add(book.getStockBook());
                 bookAttributes.add(book.getUnitCostBook() + " €");
                 tableModel.addRow(bookAttributes);
-                 bookList.add(book);
+                bookList.add(book);
             }
         } catch (ObjectNotFoundException ex) {
             JOptionPane.showMessageDialog(this, "BOOK NOT FOUND");
@@ -588,11 +586,11 @@ public class JPanelFormThemes extends javax.swing.JPanel {
     }
     private void jComboBoxSelectedSubThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSelectedSubThemeActionPerformed
         clearTab();
-        SubTheme sub = (SubTheme) jComboBoxSelectedSubTheme.getSelectedItem();
-        subTableauSubSettings(sub.getNameSubTheme(), sub.getNameTheme());
-
-        jTableView.setModel(tableModel);;
-
+        if (jComboBoxSelectedSubTheme.getSelectedItem() instanceof SubTheme) {
+            SubTheme sub = (SubTheme) jComboBoxSelectedSubTheme.getSelectedItem();
+            subTableauSubSettings(sub.getNameSubTheme(), sub.getNameTheme());
+            jTableView.setModel(tableModel);;
+        }
     }//GEN-LAST:event_jComboBoxSelectedSubThemeActionPerformed
 
     private void jButtonCreateThemeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateThemeActionPerformed
@@ -632,7 +630,6 @@ public class JPanelFormThemes extends javax.swing.JPanel {
         boolean verifiedInsert = true;
         verifiedInsert = controlInsert();
         SubTheme sub = (SubTheme) jComboBoxSelectedSubTheme.getSelectedItem();
-
         if (verifiedInsert) {
             Book book = null;
             try {
@@ -640,7 +637,6 @@ public class JPanelFormThemes extends javax.swing.JPanel {
             } catch (ObjectNotFoundException ex) {
                 JOptionPane.showMessageDialog(this, "THIS TITLE DONT BELONG TO AN ISBN");
             }
-
             try {
                 themeService.insertBookToSub(book.getNumISBNBook(), sub.getIdSubTheme());
                 JOptionPane.showMessageDialog(this, "Book Add with success to : " + sub.getNameSubTheme());
@@ -657,15 +653,12 @@ public class JPanelFormThemes extends javax.swing.JPanel {
         if (jComboBoxTreeView.getSelectedItem().equals("Editors")) {
             jTree.setModel(initEditorTreeModel());
         }
-
         if (jComboBoxTreeView.getSelectedItem().equals("Themes")) {
             jTree.setModel(initTreeThemeModel());
         }
     }//GEN-LAST:event_jComboBoxTreeViewActionPerformed
-
     private void jTreeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTreeMouseClicked
         DefaultMutableTreeNode tn = (DefaultMutableTreeNode) jTree.getLastSelectedPathComponent();
-
         if (tn != null) {
             if (tn.getUserObject() instanceof Book) {
                 Book book = ((Book) tn.getUserObject());
@@ -680,7 +673,6 @@ public class JPanelFormThemes extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Title  is mandatory ", "Warning", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
-
         }
         Book book = null;
         try {
@@ -689,6 +681,7 @@ public class JPanelFormThemes extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "THIS TITLE DONT BELONG TO AN EXISTING ISBN");
             return false;
         }
+
         SubTheme sub = (SubTheme) jComboBoxSelectedSubTheme.getSelectedItem();
         if (themeService.verifIfBookSubExist(sub.getIdSubTheme(), book.getNumISBNBook())) {
         } else {
@@ -703,7 +696,6 @@ public class JPanelFormThemes extends javax.swing.JPanel {
         if (!utils.regexNom(jTextTheme.getText())) {
             if (jTextTheme.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Theme name is mandatory ", "Warning", JOptionPane.ERROR_MESSAGE);
-
             } else {
                 JOptionPane.showMessageDialog(this, "Theme name is invalid ", "warning", JOptionPane.ERROR_MESSAGE);
             }
@@ -714,7 +706,6 @@ public class JPanelFormThemes extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Theme name already exist ", "warning", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
         return true;
     }
 
@@ -723,7 +714,6 @@ public class JPanelFormThemes extends javax.swing.JPanel {
         if (!utils.regexNom(jTextSubTheme.getText())) {
             if (jTextSubTheme.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "SubTheme name is mandatory ", "Warning", JOptionPane.ERROR_MESSAGE);
-
             } else {
                 JOptionPane.showMessageDialog(this, "SubTheme name is invalid ", "warning", JOptionPane.ERROR_MESSAGE);
             }

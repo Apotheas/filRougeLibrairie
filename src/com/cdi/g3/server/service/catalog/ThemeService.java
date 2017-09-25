@@ -71,8 +71,10 @@ public class ThemeService {
        return false;
     }
     
-    public void insertBookToSub(String ISBN, String Sub) throws DuplicateKeyException{
-        _SubDAO.associateSubBook(ISBN, Sub);
+    public void insertBookToSub(String ISBN, String idSub) throws DuplicateKeyException{
+        _SubDAO.associateSubBook(ISBN, idSub);
     }
-   
+    public void deleteBookFromSub(String ISBN, String idSub) throws DuplicateKeyException{
+        _SubDAO.DeleteBookFromSub(ISBN, idSub);
+    }
 }

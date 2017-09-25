@@ -13,13 +13,10 @@ import com.cdi.g3.server.domain.catalog.Author;
 import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.service.catalog.CatalogService;
 import com.cdi.g3.server.service.publishing.PublishingService;
-
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -42,7 +39,6 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
 
     public JPanelFormAuthor() {
         initComponents();
-
         tabModel.addColumn("ISBN");
         tabModel.addColumn("TITLE");
         tabModel.addColumn("SUB-TITLE");
@@ -383,10 +379,7 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
     private void jButtonSearchAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSearchAuthorActionPerformed
         clearTab();
         Collection<Author> listAuthor = new ArrayList();
-
-        //DATABASE TO TEXTFIELD
         try {
-
             listAuthor = publishingService.findAuthorByChamp("lastnameAuthor", jTextSearchAuthor.getText());
             for (Author author : listAuthor) {
                 jTextLastName.setText(author.getLastNameAuthor());
@@ -403,8 +396,6 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
         } catch (ObjectNotFoundException ex) {
             JOptionPane.showMessageDialog(this, "this Author isnt in Database");
         }
-
-        //DATABASE TO TABLEAU
         try {
             Vector bookAttributes = null;
             for (Iterator itarator = catalogService.FindBooksByChamp("lastNameAuthor", jTextSearchAuthor.getText()).iterator(); itarator.hasNext();) {
@@ -422,12 +413,10 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "No books for this Author in Database");
         }
     }//GEN-LAST:event_jButtonSearchAuthorActionPerformed
-
     private void jComboBoxSelectedAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSelectedAuthorActionPerformed
         Author myAuthor = ((Author) jComboBoxSelectedAuthor.getSelectedItem());
         jTextSearchAuthor.setText(myAuthor.getLastNameAuthor());
         jButtonSearchAuthor.doClick();
-
     }//GEN-LAST:event_jComboBoxSelectedAuthorActionPerformed
 
     private void jButtonUpdateAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateAuthorActionPerformed
@@ -442,13 +431,13 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
                 myAuthor.setCommentAuthor(jTextComment.getText());
                 myAuthor.setBiographyAuthor(jTextBiography.getText());
                 try {
-                    if(!jTextBirthDate.getText().equals("")){
+                    if (!jTextBirthDate.getText().equals("")) {
                         myAuthor.setBirthDateAuthor(utils.formatStringToSQLDate(jTextBirthDate.getText()));
                     }
-                    if (!jTextDeathDate.getText().equals("")){
-                         myAuthor.setDieDateAuthor(utils.formatStringToSQLDate(jTextDeathDate.getText()));
+                    if (!jTextDeathDate.getText().equals("")) {
+                        myAuthor.setDieDateAuthor(utils.formatStringToSQLDate(jTextDeathDate.getText()));
                     }
-                   
+
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Erreur of sql date formatting");
                 }
@@ -483,11 +472,9 @@ public class JPanelFormAuthor extends javax.swing.JPanel {
         if (!utils.regexNom(jTextLastName.getText())) {
             if (jTextLastName.getText().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "AUTHOR's Name is mandatory ", "Warning", JOptionPane.ERROR_MESSAGE);
-
             } else {
                 JOptionPane.showMessageDialog(this, "AUTHOR's Name is invalid ", "warning", JOptionPane.ERROR_MESSAGE);
             }
-
             return false;
         }
         if (!jTextFirstName.getText().isEmpty()) {
