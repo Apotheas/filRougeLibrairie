@@ -12,6 +12,7 @@ import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.exception.RemoveException;
 import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.common.logging.Trace;
+import com.cdi.g3.server.domain.catalog.BookDAO;
 import com.cdi.g3.server.domain.catalog.OccasionDAO;
 import com.cdi.g3.server.domain.catalog.Occasion;
 import com.cdi.g3.server.service.AbstractService;
@@ -30,7 +31,7 @@ public class OccasionService extends AbstractService {
     // = Attributes =
     // ======================================
     private static final OccasionDAO _daoOccasion = new OccasionDAO();
-    
+    private static final   BookDAO  _bookDao = new BookDAO();
   
     // ======================================
     // = Constructors =
@@ -85,7 +86,11 @@ public class OccasionService extends AbstractService {
 //    }
     
     
-    
+     public Collection FindBooksByChamp(String column, String champ) throws ObjectNotFoundException {
+        Collection listBook = _bookDao.findAllByChamp(column, champ);
+        
+        return listBook;
+    }
     public void deleteOccasion(final String occasionId) throws RemoveException, CheckException {
         final String mname = "deleteOccasion";
         Trace.entering(_cname, mname, occasionId);

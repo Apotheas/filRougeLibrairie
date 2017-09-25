@@ -125,6 +125,7 @@ public class CompanyService extends AbstractService{
     }
 
     public Collection findCompany() throws FinderException {
+        
         final String mname = "findCompany";
         Trace.entering( _cname, mname );
 

@@ -6,8 +6,12 @@
 package com.cdi.g3.client.ui.swing;
 
 import com.cdi.g3.common.exception.CheckException;
+import com.cdi.g3.common.exception.FinderException;
+import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.exception.UpdateException;
 import com.cdi.g3.server.domain.company.Company;
+import com.cdi.g3.server.domain.company.Company;
+import com.cdi.g3.server.service.company.CompanyService;
 import com.cdi.g3.server.service.company.CompanyService;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -26,17 +30,35 @@ public class JPanelFormCompany extends javax.swing.JPanel {
     
     
     public JPanelFormCompany() {
-        initComponents();
-       Company company = new Company();
-        jTextSiret.setText(company.getId());
-        jTextName.setText(company.getNameCompany());
-        jTextLogo.setText(company.getLogoCompany());
-        jTextMail.setText(company.getMailCompany());
-        jTextTelephone.setText(company.getTelephoneCompany());
-        jTextFax.setText(company.getFaxCompany());
-        
+    
+         initComponents();
+         Company company = new Company();
          
-    }
+         
+   
+        
+       
+            
+            
+            try {
+                CompanyService companyService = new CompanyService();
+             try {
+                 company = companyService.findCompany(jTextSiret.getText());
+             } catch (CheckException ex) {
+                 Logger.getLogger(JPanelFormCompany.class.getName()).log(Level.SEVERE, null, ex);
+             }
+            } catch (FinderException ex) {
+                JOptionPane.showMessageDialog(this, "Erreur employe introuvable");
+            } 
+    
+         jTextSiret.setText(company.getId());
+         jTextName.setText(company.getNameCompany());
+         jTextLogo.setText(company.getLogoCompany());
+         jTextMail.setText(company.getMailCompany());
+         jTextTelephone.setText(company.getTelephoneCompany());
+         jTextFax.setText(company.getFaxCompany());
+    }  
+    
   
   
     @SuppressWarnings("unchecked")
@@ -73,6 +95,7 @@ public class JPanelFormCompany extends javax.swing.JPanel {
 
         jLabelPassword.setText("Fax  :");
 
+        jTextSiret.setText("33458219400018");
         jTextSiret.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextSiretActionPerformed(evt);
@@ -129,19 +152,19 @@ public class JPanelFormCompany extends javax.swing.JPanel {
                             .addComponent(jTextSiret))))
                 .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelAccountLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                        .addGap(39, 39, 39)
                         .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelCompany)
                             .addComponent(jLabelPassword))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
-                        .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextMail, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFax, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(47, 47, 47))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFax, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                            .addComponent(jTextMail))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAccountLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
                         .addComponent(jButtonUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(95, 95, 95))))
+                        .addGap(168, 168, 168))))
         );
         jPanelAccountLayout.setVerticalGroup(
             jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,21 +181,21 @@ public class JPanelFormCompany extends javax.swing.JPanel {
                     .addComponent(jTextName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCompany)
                     .addComponent(jTextMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelFirstName))
                 .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelAccountLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonUpdate)
-                        .addGap(340, 340, 340))
-                    .addGroup(jPanelAccountLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelFirstName))
                         .addGap(22, 22, 22)
                         .addGroup(jPanelAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelLastName)
                             .addComponent(jTextTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelAccountLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addComponent(jButtonUpdate)
+                        .addGap(49, 49, 49))))
         );
 
         javax.swing.GroupLayout jPanelAccountsLayout = new javax.swing.GroupLayout(jPanelAccounts);
@@ -188,7 +211,7 @@ public class JPanelFormCompany extends javax.swing.JPanel {
             jPanelAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelAccountsLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jPanelAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(422, Short.MAX_VALUE))
         );
 
@@ -196,7 +219,7 @@ public class JPanelFormCompany extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 754, Short.MAX_VALUE)
+            .addGap(0, 773, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
@@ -213,7 +236,14 @@ public class JPanelFormCompany extends javax.swing.JPanel {
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+ 
+    
+    
+    
+    
+    
+    
+    
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
         try {
             Company company  = new Company();       
@@ -240,8 +270,8 @@ public class JPanelFormCompany extends javax.swing.JPanel {
             }else{
             companyService.updateCompany(company);            
             JOptionPane.showMessageDialog(this, " Update Successfull !" );
-            clearTab();
-            clearField();
+           
+            
             }   
         } catch (UpdateException ex) {
             Logger.getLogger(JPanelFormCompany.class.getName()).log(Level.SEVERE, null, ex);

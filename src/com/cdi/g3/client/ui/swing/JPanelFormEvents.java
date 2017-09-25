@@ -8,13 +8,15 @@ package com.cdi.g3.client.ui.swing;
 import com.cdi.g3.common.exception.ObjectNotFoundException;
 import com.cdi.g3.common.logging.Trace;
 import com.cdi.g3.common.utiles.Utility;
+import com.cdi.g3.server.domain.catalog.Book;
 import com.cdi.g3.server.domain.catalog.Occasion;
-import com.cdi.g3.server.domain.company.Employe;
-import com.cdi.g3.server.domain.company.EmployeRight;
-import com.cdi.g3.server.domain.orders.InfoStatus;
+import com.cdi.g3.server.domain.catalog.OccasionBook;
+import com.cdi.g3.server.service.catalog.OccasionBookService;
+
 import java.util.Collection;
 import com.cdi.g3.server.service.catalog.OccasionService;
-import com.cdi.g3.server.service.company.EmployeService;
+import java.util.Iterator;
+
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -199,10 +201,25 @@ DefaultTableModel myModel = new DefaultTableModel();
         jLabelSelectedEvent.setText("Selected Event  :");
 
         jComboBoxSelectedEvent.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Best Sellers", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSelectedEvent.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxSelectedEventMouseClicked(evt);
+            }
+        });
+        jComboBoxSelectedEvent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxSelectedEventActionPerformed(evt);
+            }
+        });
 
         jLabelInsert.setText(" Isbn/Title/Author/Cat  :");
 
         jButtonAdd.setText("Add");
+        jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAddActionPerformed(evt);
+            }
+        });
 
         jButtonUpdate.setText("Update");
 
@@ -298,8 +315,19 @@ DefaultTableModel myModel = new DefaultTableModel();
                 .addComponent(jPanelEvents, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        setLayer(jPanelEvents, javax.swing.JLayeredPane.DEFAULT_LAYER);
     }// </editor-fold>//GEN-END:initComponents
-                                      
+                    
+     private void clearTab() {
+        int lignes = myModel.getRowCount();
+        for (int i = lignes - 1; i >= 0; i--) {
+            myModel.removeRow(i);
+        }
+    }
+    
+
+    
+    
  private DefaultComboBoxModel initSelectedEventModel() {
         return new DefaultComboBoxModel(initEventVector());
     }
@@ -380,7 +408,7 @@ DefaultTableModel myModel = new DefaultTableModel();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Erreur of sql date formatting");
             }           
-            occasion.setDiscountOccasion(jTextDiscount.getText());
+            occasion.setDiscountOccasion(jTextDiscount.getAlignmentX());
            
             occasion = serviceOccasion.createOccasion(occasion); 
          
@@ -395,6 +423,61 @@ DefaultTableModel myModel = new DefaultTableModel();
         }
     }//GEN-LAST:event_jButtonCreateActionPerformed
 
+    private void jComboBoxSelectedEventMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxSelectedEventMouseClicked
+        Vector bookAttributes = null;
+    try {
+        for (Iterator itarator = occasionService.FindBooksByChamp("numIsbnbookOB", jComboBoxSelectedEvent.getSelectedItem().toString()).iterator(); itarator.hasNext();) {
+            Book book = (Book) itarator.next();
+            bookAttributes = new Vector();
+            bookAttributes.add(book.getNumISBNBook());
+            bookAttributes.add(book.getTitleBook());
+            bookAttributes.add(book.getSubTitleBook());
+            bookAttributes.add(book.getEditor());
+            bookAttributes.add(book.getStockBook());
+            bookAttributes.add(book.getUnitCostBook() + " €");
+            myModel.addRow(bookAttributes);
+        }
+    } catch (ObjectNotFoundException ex) {
+        Logger.getLogger(JPanelFormEvents.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }//GEN-LAST:event_jComboBoxSelectedEventMouseClicked
+
+    private void jComboBoxSelectedEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSelectedEventActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxSelectedEventActionPerformed
+
+    private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
+       final String mname = "jButtonAddActionPerformed";
+        
+        OccasionBookService serviceOccasionBook = new OccasionBookService();
+        OccasionBook occasionBook = new OccasionBook();
+        try {
+            // Asks if we want to remove the customer
+            final int anwser = JOptionPane.showConfirmDialog(this, "Do you want to add occasionBook "
+                + occasionBook.getId(), "Delete", JOptionPane.YES_NO_OPTION);
+            if (anwser == JOptionPane.NO_OPTION) {
+                return;
+            }
+              occasionBook.setNumIsbnBook(jTextInsert.getText());
+            try {
+            
+               
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erreur of sql date formatting");
+            }           
+          occasionBook = serviceOccasionBook.createOccasionBook(occasionBook); 
+         
+                     
+            JOptionPane.showMessageDialog(this, "OccasionBook numOccasion " + occasionBook.getId()
+                + " is created", "info message", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Cannot access the occasion service", "Error", JOptionPane.ERROR_MESSAGE);
+            Trace.throwing(_cname, mname, e);
+        }
+    }//GEN-LAST:event_jButtonAddActionPerformed
+ protected final transient String _cname = this.getClass().getName();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAdd;

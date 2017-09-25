@@ -5,6 +5,7 @@
  */
 package com.cdi.g3.server.domain.catalog;
 
+import com.cdi.g3.common.exception.CheckException;
 import com.cdi.g3.server.domain.DomainObject;
 import java.io.Serializable;
 
@@ -23,6 +24,12 @@ public class OccasionBook extends DomainObject implements Serializable {
        public OccasionBook(){
         
     }
+          
+    public void checkData() throws CheckException {
+        if (getIdOccasionBook()== null || "".equals(getIdOccasionBook())) {
+            throw new CheckException("Invalid NameOccasion");
+        }}
+        
 
     public String getIdOccasionBook() {
         return idOccasionBook;
