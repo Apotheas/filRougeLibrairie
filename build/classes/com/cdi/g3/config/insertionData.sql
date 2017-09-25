@@ -205,7 +205,7 @@ INSERT INTO Employe (
 		 passwordEmploye ,
 		 statusEmploye) 
 
-VALUES  ('employe01','Admin','George','michel', 'george.michel@compagny.com','georgePassword','actif') , 
+VALUES  ('Admin','Admin','GOD','michet', 'Satan@hell.com','Admin','actif') , 
         ('employe02','Moderator','Nina','Marie', 'nina.marie@compagny.com','ninaPassword','actif') ,
 		('employe03','Neutral','marion','dupont','marion.dupont@compagny.com','marionPassword','inactif')  
 
@@ -416,7 +416,6 @@ INSERT INTO Orders(
         PaymentSystemOrder,
         ipOrder,
         datePackageShipperOrder
-
         )
         VALUES
         ('1','processing','2','Bob01','2','201','2017-08-09','cb','5.135.158.101',null),
@@ -471,15 +470,15 @@ INSERT INTO Appreciation
                 STATUSAPPRECIATE
 		) 
 
-VALUES ('1','Bob01','1' ,'2330081545','2017-01-11','Moving. . . powerful. . .The kind of book that makes you feel like youve lived several times over.',5,'5.135.158.101','employe02', 1, '2017-01-15',40 ),		 
+VALUES ('1','Bob01','1' ,'2330081545','2017-01-11','Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor ',5,'5.135.158.101','employe02', 1, '2017-01-15',40 ),		 
 	------------------------------------------	
-	 ('2','zidane02','3' ,'2290140961','2017-02-12' ,'Stirring. . . humane and impassioned . . . beautiful and rich.',4,'12.130.206.44','employe02' , 1, '2017-02-15',40 ), 
+	 ('2','zidane02','3' ,'2290140961','2017-02-12' ,' Aenean imperdiet. Etiam ultricies nisi veondimentum rhoncus, sem psum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ',4,'12.130.206.44','employe02' , 1, '2017-02-15',40 ), 
 	-----------------------------------------	
-	 ('3','marc03','11' ,'2290140961','2017-03-13','A fiercely unforgettable novel…a love story with characters so heartbreaking and compelling ',3,'104.13.125.62','employe02' , 1, '2017-03-15' ,40 ), 
-	 ('4','marc03','10' ,'2290147001','2017-03-13',' expected to love this book. I loved God of Small Things and several of my all-time favourite books are by Indian authors. ',3,'168.181.48.54',null , 0, null ,null), 
+	 ('3','marc03','11' ,'2290140961','2017-03-13','Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dolmodi tempora incidunt ut labore et dol ',3,'104.13.125.62','employe02' , 1, '2017-03-15' ,40 ), 
+	 ('4','marc03','10' ,'2290147001','2017-03-13',' nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea ',3,'168.181.48.54',null , 0, null ,null), 
 	------------------------------------------
         ('5','Nicole04','12' ,'2290139998','2017-04-14','FUUUCKKK I WONT BOUGHT ANY MORE BOOKS FROM YOUR FUCKING STORE !! FUCK ALL OF YOU FUCKING ASSHOLES !! ', 2,'173.49.240.22','employe02', 1, '2017-04-15' ,41  ), 
-	 ('6','Nicole04','6' ,'2253092770','2017-04-14','this is the work of a dextrous, truly gifted, truly extraordinary writer. every single scene crackles on the page, coming to life fully.', 2,'188.24.236.80',null, 0, NULL ,null ),
+	 ('6','Nicole04','6' ,'2253092770','2017-04-14','bibendum sed, posuere ac, mattis non, nunc. Vestibulum fringilla pede sit amet augue. In turpis. Pellentesque posuere. Praesent turpis. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus. Donec elit libero, sodal', 2,'188.24.236.80',null, 0, NULL ,null ),
 ------------------------------------------
 	 ('7','Angelina05','4' ,'2811222510','2017-05-15','A rambling wonderful book with imagery and emotions liberally sprinkled throughout.', 1,'93.113.244.206' ,null, 0, null,null  )
 	

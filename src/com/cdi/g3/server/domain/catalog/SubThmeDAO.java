@@ -29,14 +29,18 @@ public class SubThmeDAO extends AbstractDataAccessObject {
     private static final String COLUMNS_PREP = " nameSubTheme, nameThemesB, idSubTheme";
     private static final String COUNTER_NAME = "SubTheme";
 
-    
-    
-    protected String getInsertBookInSub(String ISBN, String sub ){
+    protected String getInsertBookInSub(String ISBN, String sub) {
         final String sql;
         sql = "INSERT INTO " + TABLE_SBB + "(IDSUBTHEMEBOOK, NUMISBNBOOKSB, IDSUBTHEMESB) VALUES(?,?,?)";
         return sql;
     }
-    
+
+    protected String getDeleteBookInSub(String ISBN, String sub) {
+        final String sql;
+        sql = "DELETE FROM  " + TABLE_SBB + " WHERE NUMISBNBOOKSB = '" + ISBN + "'  AND IDSUBTHEMESB = '" + sub + "' ";
+        return sql;
+    }
+
     @Override
     protected String getInsertSqlPreparedStatement() {
         final String sql;
@@ -95,23 +99,24 @@ public class SubThmeDAO extends AbstractDataAccessObject {
                 + " AND NAMETHEMESB = '" + nameTheme + "' ";
         return sql;
     }
-    
-     protected String getSelectSubOFBook(String isbn, String nameTheme) {
+
+    protected String getSelectSubOFBook(String isbn, String nameTheme) {
         final String sql;
-        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " , SUBTHEMEBOOK  " +
-                " WHERE IDSUBTHEME  = IDSUBTHEMESB "
+        sql = "SELECT " + COLUMNS + " FROM " + TABLE + " , SUBTHEMEBOOK  "
+                + " WHERE IDSUBTHEME  = IDSUBTHEMESB "
                 + " AND NAMETHEMESB = '" + nameTheme + "' "
                 + " AND NUMISBNBOOKSB = '" + isbn + "' ";
-       return sql;
+        return sql;
     }
-    
+
     protected String getVerifiedSubBookSqlStatementByChamp(String idSub, String ISBN) {
         final String sql;
         sql = "SELECT IDSUBTHEMEBOOK , NUMISBNBOOKSB , IDSUBTHEMESB  FROM " + TABLE_SBB + " WHERE IDSUBTHEMESB  = '" + idSub + "' "
                 + " AND NUMISBNBOOKSB = '" + ISBN + "' ";
-       
+
         return sql;
     }
+
     public DomainObject selectSubOfBook(String idSub, String ISBN) throws ObjectNotFoundException {
         final String mname = "select";
         Trace.entering(getCname(), mname, ISBN);
@@ -149,6 +154,7 @@ public class SubThmeDAO extends AbstractDataAccessObject {
         Trace.exiting(getCname(), mname, object);
         return object;
     }
+
     public DomainObject VerifiedByChampSubBook(String idSub, String ISBN) throws ObjectNotFoundException {
         final String mname = "select";
         Trace.entering(getCname(), mname, ISBN);
@@ -186,6 +192,7 @@ public class SubThmeDAO extends AbstractDataAccessObject {
         Trace.exiting(getCname(), mname, object);
         return object;
     }
+
     public DomainObject VerifiedByChamp(String column, String champ) throws ObjectNotFoundException {
         final String mname = "select";
         Trace.entering(getCname(), mname, champ);
@@ -223,34 +230,49 @@ public class SubThmeDAO extends AbstractDataAccessObject {
         Trace.exiting(getCname(), mname, object);
         return object;
     }
+
     public final void associateSubBook(String ISBN, String idSub) throws DuplicateKeyException {
 
-       // Gets a database connection
-       try (Connection connection = getConnection();
-               PreparedStatement prstatement = connection.prepareStatement( getInsertBookInSub(ISBN, idSub))) {
-          // Sets the object Id if necessary
+        // Gets a database connection
+        try (Connection connection = getConnection();
+                PreparedStatement prstatement = connection.prepareStatement(getInsertBookInSub(ISBN, idSub))) {
+            // Sets the object Id if necessary
 
-           String idSubthemeBook = this.getUniqueId("SUBTHEMEBOOK");
-           // Inserts a Row      
-           prstatement.setString(1, idSubthemeBook);
-           prstatement.setString(2, ISBN);
-           prstatement.setString(3, idSub);
+            String idSubthemeBook = this.getUniqueId("SUBTHEMEBOOK");
+            // Inserts a Row      
+            prstatement.setString(1, idSubthemeBook);
+            prstatement.setString(2, ISBN);
+            prstatement.setString(3, idSub);
 
-           prstatement.executeUpdate();
+            prstatement.executeUpdate();
 //        executePreparedSt(prstatement, object);
-       } catch (SQLException e) {
-           // The data already exists in the database
-           if (e.getErrorCode() == DATA_ALREADY_EXIST) {
-               throw new DuplicateKeyException();
-           } else {
-               // A Severe SQL Exception is caught
-               displaySqlException(e);
-               throw new DataAccessException("Cannot insert data into the database", e);
-           }
-       } catch (Exception e) {
-           e.printStackTrace();
-       }
-   }
+        } catch (SQLException e) {
+            // The data already exists in the database
+            if (e.getErrorCode() == DATA_ALREADY_EXIST) {
+                throw new DuplicateKeyException();
+            } else {
+                // A Severe SQL Exception is caught
+                displaySqlException(e);
+                throw new DataAccessException("Cannot insert data into the database", e);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public final void DeleteBookFromSub(String ISBN, String idSub) throws DuplicateKeyException {
+
+        try (Connection connection = getConnection();
+                Statement statement = connection.createStatement()) {
+            statement.executeUpdate(getDeleteBookInSub(ISBN, idSub));
+        } catch (SQLException e) {
+            // A Severe SQL Exception is caught
+            displaySqlException(e);
+            throw new DataAccessException("Cannot remove data into the database", e);
+
+        }
+    }
+
     @Override
     protected int executePreparedSt(PreparedStatement prestmt, DomainObject object) {
         int retour = 0;
